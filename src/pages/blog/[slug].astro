@@ -1,0 +1,156 @@
+---
+/**
+ * Individual Blog Post Page
+ * 
+ * Dynamic page for each blog post with full content.
+ * 
+ * @ai_prompt Blog post template with TL;DR, content, and related links
+ * @context_boundary pages
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema, blogPostingSchema } from '../../utils/jsonld';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: post.data.title, url: `/blog/${post.slug}` }
+  ]),
+  blogPostingSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.slug}`,
+    publishedDate: post.data.publishedDate.toISOString(),
+    modifiedDate: post.data.modifiedDate?.toISOString(),
+    author: post.data.author
+  })
+];
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+
+// Get related posts (same tags, different post)
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const relatedPosts = allPosts
+  .filter(p => p.slug !== post.slug)
+  .filter(p => p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  publishedTime={post.data.publishedDate.toISOString()}
+  modifiedTime={post.data.modifiedDate?.toISOString()}
+  author={post.data.author}
+  jsonLd={jsonLd}
+>
+  <!-- Article Header -->
+  <article>
+    <header class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+      <div class="container-narrow section-padding-sm">
+        <div class="max-w-3xl mx-auto">
+          <a href="/blog" class="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-brand-600 transition-colors mb-6">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Blog
+          </a>
+          
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <time class="text-sm text-surface-500" datetime={post.data.publishedDate.toISOString()}>
+              {formatDate(post.data.publishedDate)}
+            </time>
+            <span class="text-surface-300">•</span>
+            <span class="text-sm text-surface-500">{post.data.author}</span>
+          </div>
+          
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-surface-900 mb-6 tracking-tight">
+            {post.data.title}
+          </h1>
+          
+          <p class="text-xl text-surface-600 mb-6">
+            {post.data.description}
+          </p>
+          
+          {post.data.tldr && (
+            <div class="bg-brand-50 border border-brand-200 rounded-xl p-6">
+              <span class="text-sm font-semibold text-brand-700 uppercase tracking-wide">TL;DR</span>
+              <p class="text-surface-800 mt-2">{post.data.tldr}</p>
+            </div>
+          )}
+          
+          <div class="flex flex-wrap gap-2 mt-6">
+            {post.data.tags.map((tag) => (
+              <span class="text-xs px-3 py-1 rounded-full bg-surface-100 text-surface-600">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Content -->
+    <div class="container-narrow section-padding-sm">
+      <div class="max-w-3xl mx-auto prose prose-lg prose-slate prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:bg-surface-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  {relatedPosts.length > 0 && (
+    <section class="bg-surface-50 border-t border-surface-200">
+      <div class="container-narrow section-padding-sm">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-xl font-bold text-surface-900 mb-6">Related Posts</h2>
+          <div class="grid gap-4">
+            {relatedPosts.map((related) => (
+              <a 
+                href={`/blog/${related.slug}`}
+                class="bg-white rounded-xl p-4 border border-surface-200 hover:border-brand-300 transition-colors group"
+              >
+                <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">
+                  {related.data.title}
+                </h3>
+                <p class="text-sm text-surface-600 mt-1">{related.data.description}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="container-narrow section-padding-sm">
+    <div class="max-w-3xl mx-auto bg-brand-600 rounded-2xl p-8 text-center text-white">
+      <h2 class="text-xl font-bold mb-3">Need Help with This?</h2>
+      <p class="text-brand-100 mb-4">
+        We write about what we actually do. If this resonated, let's talk.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center px-5 py-2 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors text-sm">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

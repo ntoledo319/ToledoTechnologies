@@ -1,0 +1,146 @@
+---
+/**
+ * Codebases Catalog Page
+ * 
+ * Lists all available codebases for sale with filtering by category/tags.
+ * 
+ * @ai_prompt Codebases catalog - update when adding new products
+ * @context_boundary pages
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
+
+const codebases = await getCollection('codebases');
+const sortedCodebases = codebases.sort((a, b) => a.data.order - b.data.order);
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Codebases', url: '/codebases' }
+  ]),
+  itemListSchema(
+    sortedCodebases.map(c => ({
+      name: c.data.title,
+      url: `/codebases/${c.slug}`,
+      description: c.data.description
+    })),
+    'Available Codebases'
+  )
+];
+
+const statusLabels: Record<string, { text: string; class: string }> = {
+  'available': { text: 'Available', class: 'bg-green-100 text-green-700' },
+  'limited': { text: 'Limited', class: 'bg-yellow-100 text-yellow-700' },
+  'in-development': { text: 'In Development', class: 'bg-blue-100 text-blue-700' },
+};
+---
+
+<BaseLayout
+  title="Codebases"
+  description="Deploy-ready codebases for security, compliance, and infrastructure. Buy complete, documented repositories with support included."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-brand-50 via-white to-surface-50">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          Codebases for Sale
+        </h1>
+        <p class="text-xl text-surface-600 mb-6">
+          Deploy-ready repositories with documentation, tests, and support. 
+          Skip months of development and get something that works today.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/contact?subject=Codebase%20Inquiry" class="btn-primary">
+            Request Custom Build
+          </a>
+          <a href="/blog/buying-a-codebase" class="btn-ghost">
+            Read: Buying a Codebase →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Codebase Grid -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedCodebases.map((codebase) => {
+        const status = statusLabels[codebase.data.status] || statusLabels['available'];
+        return (
+          <a 
+            href={`/codebases/${codebase.slug}`}
+            class="card-interactive p-6 group flex flex-col"
+          >
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-xs font-medium text-surface-500 uppercase tracking-wide">
+                {codebase.data.category}
+              </span>
+              <span class={`text-xs font-medium px-2 py-1 rounded-full ${status.class}`}>
+                {status.text}
+              </span>
+            </div>
+            <h2 class="text-xl font-bold text-surface-900 group-hover:text-brand-600 transition-colors mb-2">
+              {codebase.data.title}
+            </h2>
+            <p class="text-sm text-surface-600 mb-4 flex-grow">
+              {codebase.data.tagline}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {codebase.data.tags.slice(0, 3).map((tag) => (
+                <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">What You Get</h2>
+        <p class="text-surface-600 mb-8">
+          Every codebase purchase includes everything you need to deploy and maintain.
+        </p>
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
+          <div class="bg-white rounded-xl p-4 border border-surface-200">
+            <h3 class="font-semibold text-surface-900 mb-1">Full Source</h3>
+            <p class="text-sm text-surface-600">Complete, unobfuscated source code</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-surface-200">
+            <h3 class="font-semibold text-surface-900 mb-1">Documentation</h3>
+            <p class="text-sm text-surface-600">Setup guides, API docs, architecture overview</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-surface-200">
+            <h3 class="font-semibold text-surface-900 mb-1">Test Coverage</h3>
+            <p class="text-sm text-surface-600">Automated tests you can run and extend</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-surface-200">
+            <h3 class="font-semibold text-surface-900 mb-1">Support Period</h3>
+            <p class="text-sm text-surface-600">30-90 days of questions answered</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding-sm">
+    <div class="bg-brand-600 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Need Something Custom?</h2>
+      <p class="text-brand-100 mb-6 max-w-xl mx-auto">
+        Don't see exactly what you need? We can build it or adapt an existing codebase to your requirements.
+      </p>
+      <a href="/contact?subject=Custom%20Codebase" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+        Request Custom Build
+      </a>
+    </div>
+  </section>
+</BaseLayout>

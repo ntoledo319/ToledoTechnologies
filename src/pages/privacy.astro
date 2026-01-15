@@ -1,0 +1,140 @@
+---
+/**
+ * Privacy Policy Page
+ * 
+ * Standard privacy policy for a small dev studio website.
+ * 
+ * @ai_prompt Privacy policy - simple, appropriate for small business
+ * @context_boundary pages/legal
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Privacy Policy', url: '/privacy' }
+]);
+
+const lastUpdated = 'January 2024';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy policy for Toledo Technologies website. Learn how we collect, use, and protect your information."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow section-padding">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-bold text-surface-900 mb-4">
+        Privacy Policy
+      </h1>
+      <p class="text-surface-500 mb-8">Last updated: {lastUpdated}</p>
+      
+      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight">
+        <h2>Overview</h2>
+        <p>
+          Toledo Technologies ("we," "us," or "our") respects your privacy. This policy explains 
+          how we collect, use, and protect information when you use our website at 
+          toledotechnologies.com.
+        </p>
+        
+        <h2>Information We Collect</h2>
+        
+        <h3>Information You Provide</h3>
+        <p>When you contact us through our website, we collect:</p>
+        <ul>
+          <li>Name and email address</li>
+          <li>Any information you include in your message</li>
+          <li>Project details you share with us</li>
+        </ul>
+        
+        <h3>Automatic Information</h3>
+        <p>
+          Our website may collect standard web analytics data including:
+        </p>
+        <ul>
+          <li>IP address (anonymized where possible)</li>
+          <li>Browser type and version</li>
+          <li>Pages visited and time spent</li>
+          <li>Referring website</li>
+        </ul>
+        
+        <h2>How We Use Information</h2>
+        <p>We use collected information to:</p>
+        <ul>
+          <li>Respond to your inquiries and requests</li>
+          <li>Provide services you've requested</li>
+          <li>Improve our website and services</li>
+          <li>Send relevant updates if you've opted in</li>
+        </ul>
+        
+        <h2>Information Sharing</h2>
+        <p>
+          We do not sell, rent, or share your personal information with third parties 
+          for their marketing purposes. We may share information:
+        </p>
+        <ul>
+          <li>With service providers who assist our operations (e.g., email delivery)</li>
+          <li>When required by law or to protect our rights</li>
+          <li>With your consent</li>
+        </ul>
+        
+        <h2>Contact Form</h2>
+        <p>
+          Our contact form uses FormSubmit.co to deliver messages to our email. 
+          FormSubmit processes your submission data to deliver the message. 
+          See their privacy policy for details on their data handling.
+        </p>
+        
+        <h2>Data Security</h2>
+        <p>
+          We implement reasonable security measures to protect your information. 
+          However, no internet transmission is completely secure. We cannot guarantee 
+          absolute security of data transmitted to our website.
+        </p>
+        
+        <h2>Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Request access to personal information we hold about you</li>
+          <li>Request correction of inaccurate information</li>
+          <li>Request deletion of your information</li>
+          <li>Opt out of any marketing communications</li>
+        </ul>
+        
+        <h2>Cookies</h2>
+        <p>
+          Our website may use essential cookies for functionality. We do not use 
+          tracking cookies for advertising purposes.
+        </p>
+        
+        <h2>Third-Party Links</h2>
+        <p>
+          Our website may link to external sites. We are not responsible for the 
+          privacy practices of other websites. We encourage you to read their privacy 
+          policies.
+        </p>
+        
+        <h2>Children's Privacy</h2>
+        <p>
+          Our website is not directed at children under 13. We do not knowingly 
+          collect information from children.
+        </p>
+        
+        <h2>Changes to This Policy</h2>
+        <p>
+          We may update this policy periodically. We will post changes on this page 
+          with an updated revision date.
+        </p>
+        
+        <h2>Contact Us</h2>
+        <p>
+          For privacy-related questions or requests, contact us at:
+        </p>
+        <p>
+          <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

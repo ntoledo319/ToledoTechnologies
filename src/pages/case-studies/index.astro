@@ -1,0 +1,124 @@
+---
+/**
+ * Case Studies Index Page
+ * 
+ * Lists all published case studies.
+ * 
+ * @ai_prompt Case studies listing page
+ * @context_boundary pages
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
+
+const caseStudies = await getCollection('case-studies');
+const sortedStudies = caseStudies.sort((a, b) => 
+  new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
+);
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Case Studies', url: '/case-studies' }
+  ]),
+  itemListSchema(
+    sortedStudies.map(s => ({
+      name: s.data.title,
+      url: `/case-studies/${s.slug}`,
+      description: s.data.description
+    })),
+    'Case Studies'
+  )
+];
+---
+
+<BaseLayout
+  title="Case Studies"
+  description="Real projects, real results. See how we've helped clients with MVP development, bug fixes, legacy system rescues, and more."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          Case Studies
+        </h1>
+        <p class="text-xl text-surface-600">
+          Real projects, real results. Here's how we've helped clients ship software, 
+          fix problems, and build systems that work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Grid -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid md:grid-cols-2 gap-8">
+      {sortedStudies.map((study) => (
+        <a 
+          href={`/case-studies/${study.slug}`}
+          class="card-interactive p-8 group"
+        >
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm font-medium px-3 py-1 rounded-full bg-surface-100 text-surface-600">
+              {study.data.industry}
+            </span>
+            {study.data.featured && (
+              <span class="text-sm font-medium px-3 py-1 rounded-full bg-brand-100 text-brand-700">
+                Featured
+              </span>
+            )}
+          </div>
+          
+          <h2 class="text-2xl font-bold text-surface-900 group-hover:text-brand-600 transition-colors mb-3">
+            {study.data.title}
+          </h2>
+          
+          <p class="text-surface-600 mb-6">
+            {study.data.description}
+          </p>
+          
+          {study.data.results.length > 0 && (
+            <div class="mb-6">
+              <h3 class="text-sm font-semibold text-surface-500 uppercase tracking-wide mb-2">
+                Key Results
+              </h3>
+              <ul class="space-y-1">
+                {study.data.results.slice(0, 3).map((result) => (
+                  <li class="flex items-start gap-2 text-sm">
+                    <svg class="w-4 h-4 text-green-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-surface-700">{result}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          <div class="flex flex-wrap gap-2">
+            {study.data.services.map((service) => (
+              <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">
+                {service}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding-sm">
+    <div class="bg-brand-600 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Be Our Next Success Story?</h2>
+      <p class="text-brand-100 mb-6 max-w-xl mx-auto">
+        Every project starts with a conversation. Tell us what you're working on.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

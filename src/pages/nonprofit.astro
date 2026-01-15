@@ -1,0 +1,190 @@
+---
+/**
+ * Nonprofit Page
+ * 
+ * Information about nonprofit-focused work and collaboration approach.
+ * 
+ * @ai_prompt Nonprofit support page - practical, honest, no overclaiming
+ * @context_boundary pages
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Nonprofit', url: '/nonprofit' }
+]);
+
+const whatWeHelp = [
+  {
+    title: 'Website & Digital Presence',
+    description: 'Modern, accessible websites that work on any device and are easy to update without a developer.'
+  },
+  {
+    title: 'Donor & Volunteer Tools',
+    description: 'CRM setup, donation processing, volunteer scheduling—the systems that keep organizations running.'
+  },
+  {
+    title: 'Process Automation',
+    description: 'Stop manually copying data between spreadsheets. We automate the repetitive work.'
+  },
+  {
+    title: 'Data Cleanup & Migration',
+    description: 'Moving from one system to another? Merging databases? We handle the messy parts.'
+  },
+  {
+    title: 'Training & Documentation',
+    description: 'Your team needs to maintain what we build. We make sure they can.'
+  },
+  {
+    title: 'Strategic Consulting',
+    description: 'Sometimes you need help deciding what technology to use before building anything.'
+  }
+];
+
+const principles = [
+  {
+    title: 'Budget Reality',
+    description: 'We understand nonprofit budgets. We scope work to fit constraints, not the other way around.'
+  },
+  {
+    title: 'Long-term Thinking',
+    description: 'We build for sustainability. You shouldn\'t need us forever—that\'s the goal.'
+  },
+  {
+    title: 'Honest Recommendations',
+    description: 'Sometimes the answer is "use this free tool" not "let us build you something custom."'
+  },
+  {
+    title: 'Mission Alignment',
+    description: 'Technology should serve your mission, not complicate it. We keep that in focus.'
+  }
+];
+---
+
+<BaseLayout
+  title="Nonprofit Work"
+  description="We help nonprofit organizations ship technology value on limited budgets. Practical tools, honest recommendations, and solutions that respect constraints."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-warm-50 via-white to-surface-50">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-warm-100 text-warm-700 text-sm font-medium mb-4">
+          Nonprofit Support
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
+          Technology That Serves Your Mission
+        </h1>
+        <p class="text-xl text-surface-600 mb-8">
+          Nonprofits need technology to operate effectively, but enterprise pricing 
+          doesn't fit nonprofit budgets. We help organizations get real value without 
+          overspending or overcomplicating.
+        </p>
+        <a href="/contact?subject=Nonprofit%20Project" class="btn-primary">
+          Let's Talk About Your Needs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Help With -->
+  <section class="container-wide section-padding-sm">
+    <h2 class="text-2xl font-bold text-surface-900 mb-8">How We Help</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {whatWeHelp.map((item) => (
+        <div class="bg-white rounded-xl p-6 border border-surface-200 hover:border-warm-300 transition-colors">
+          <h3 class="font-semibold text-surface-900 mb-2">{item.title}</h3>
+          <p class="text-sm text-surface-600">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-surface-900 mb-4 text-center">Our Approach</h2>
+        <p class="text-center text-surface-600 mb-8">
+          We don't treat nonprofit work as charity. It's real work that deserves real attention. 
+          We just do it with a clear understanding of the constraints.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-6">
+          {principles.map((principle) => (
+            <div class="bg-white rounded-xl p-6 border border-surface-200">
+              <h3 class="font-semibold text-surface-900 mb-2">{principle.title}</h3>
+              <p class="text-sm text-surface-600">{principle.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We're Building -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">What We're Building</h2>
+        <div class="space-y-4 text-surface-600">
+          <p>
+            Beyond client work, we're developing tools specifically designed for nonprofit 
+            use cases. These are the tools we wish existed when working with nonprofit clients.
+          </p>
+          <p>
+            We're focused on:
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-warm-600 mt-1">•</span>
+              <span>Donor management that doesn't cost thousands per year</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-warm-600 mt-1">•</span>
+              <span>Grant tracking that actually helps with reporting</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-warm-600 mt-1">•</span>
+              <span>Volunteer coordination that works on phones</span>
+            </li>
+          </ul>
+          <p>
+            These are in various stages of development. If you're interested in early 
+            access or providing feedback, we'd love to hear from you.
+          </p>
+        </div>
+      </div>
+      <div class="bg-gradient-to-br from-warm-100 to-warm-50 rounded-2xl p-8 border border-warm-200">
+        <h3 class="font-semibold text-surface-900 mb-4">Interested in Early Access?</h3>
+        <p class="text-surface-600 mb-4">
+          We're looking for nonprofit partners who can provide real-world feedback on tools 
+          we're building. In exchange, you get early access and input on features.
+        </p>
+        <a href="/contact?subject=Nonprofit%20Early%20Access" class="btn-primary bg-warm-600 hover:bg-warm-700 focus:ring-warm-500">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding-sm">
+    <div class="bg-surface-900 rounded-2xl p-8 md:p-12 text-white text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Let's Talk</h2>
+      <p class="text-surface-300 mb-6 max-w-xl mx-auto">
+        Every nonprofit's needs are different. Tell us what you're trying to accomplish 
+        and we'll figure out how (or if) we can help.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact?subject=Nonprofit%20Project" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors">
+          Start a Conversation
+        </a>
+        <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-800 text-white font-medium hover:bg-surface-700 transition-colors">
+          See Case Studies
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

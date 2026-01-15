@@ -1,0 +1,173 @@
+---
+/**
+ * About Page
+ * 
+ * Company information, values, and approach.
+ * 
+ * @ai_prompt About page - human, sharp, credible tone
+ * @context_boundary pages
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'About', url: '/about' }
+]);
+
+const values = [
+  {
+    title: 'Ship Clean',
+    description: 'Code should work, be readable, and be maintainable. We don\'t cut corners that create future pain.'
+  },
+  {
+    title: 'Communicate Clearly',
+    description: 'No jargon walls. No disappearing acts. If there\'s a problem, you know immediately.'
+  },
+  {
+    title: 'Respect Constraints',
+    description: 'Budget, timeline, technical debt—we work within reality, not against it.'
+  },
+  {
+    title: 'Stay Curious',
+    description: 'Technology moves fast. We stay current without chasing every shiny thing.'
+  }
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Toledo Technologies is a remote software development studio. We build, fix, and ship code with transparency and precision. Learn about our approach and values."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
+          About Toledo Technologies
+        </h1>
+        <p class="text-xl text-surface-600">
+          We're a remote software development studio. We build, fix, and ship code 
+          for clients who need things done well—without the overhead of a full agency.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">The Short Version</h2>
+        <div class="space-y-4 text-surface-600">
+          <p>
+            Toledo Technologies exists because too many development projects end in frustration. 
+            Scope creep. Poor communication. Code that works once but falls apart at scale.
+          </p>
+          <p>
+            We do things differently. Clear scoping upfront. Regular communication throughout. 
+            Clean code that gets handed off with documentation, not excuses.
+          </p>
+          <p>
+            We work remotely, which means lower overhead and the ability to work with clients 
+            anywhere. It also means we've built the discipline to deliver without needing 
+            someone looking over our shoulder.
+          </p>
+        </div>
+      </div>
+      <div class="bg-surface-50 rounded-2xl p-8 border border-surface-200">
+        <h3 class="font-semibold text-surface-900 mb-4">What We're Good At</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="text-brand-600 mt-1">→</span>
+            <span class="text-surface-700">Fixing things that other developers broke (or that entropy broke)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-600 mt-1">→</span>
+            <span class="text-surface-700">Building features and MVPs quickly without sacrificing quality</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-600 mt-1">→</span>
+            <span class="text-surface-700">Automating the tedious stuff so humans can focus on what matters</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-600 mt-1">→</span>
+            <span class="text-surface-700">Explaining technical decisions in plain language</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-600 mt-1">→</span>
+            <span class="text-surface-700">Handing off code that the next developer won't curse at</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding">
+      <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">How We Work</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {values.map((value) => (
+          <div class="bg-white rounded-xl p-6 border border-surface-200">
+            <h3 class="font-semibold text-surface-900 mb-2">{value.title}</h3>
+            <p class="text-sm text-surface-600">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Remote -->
+  <section class="container-wide section-padding-sm">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold text-surface-900 mb-4">Remote by Design</h2>
+      <p class="text-lg text-surface-600 mb-6">
+        We don't have an office because we don't need one. Remote work lets us hire for 
+        talent (not geography), keep overhead low, and focus on what matters: shipping 
+        good code.
+      </p>
+      <p class="text-surface-600">
+        Our clients span time zones. We're used to async communication, clear documentation, 
+        and working independently while staying connected.
+      </p>
+    </div>
+  </section>
+
+  <!-- Open Source -->
+  <section class="container-wide section-padding-sm">
+    <div class="bg-surface-900 rounded-2xl p-8 md:p-12 text-white">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">See Our Work</h2>
+          <p class="text-surface-300">
+            Check out our public contributions and projects on GitHub.
+          </p>
+        </div>
+        <a 
+          href="https://github.com/ntoledo319"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+          </svg>
+          View GitHub Profile
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding-sm">
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-surface-900 mb-4">Let's Build Something</h2>
+      <p class="text-surface-600 mb-6 max-w-xl mx-auto">
+        Have a project in mind? We'd love to hear about it.
+      </p>
+      <a href="/contact" class="btn-primary">Get in Touch</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,275 @@
+---
+/**
+ * Contact Page
+ * 
+ * Contact form using FormSubmit and mailto fallback.
+ * 
+ * @ai_prompt Contact page with FormSubmit integration - no backend required
+ * @context_boundary pages
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Contact', url: '/contact' }
+]);
+
+const topics = [
+  { value: '', label: 'Select a topic...' },
+  { value: 'quote', label: 'Get a Quote' },
+  { value: 'bug-fix', label: 'Fix Something Broken' },
+  { value: 'feature', label: 'Build a Feature' },
+  { value: 'codebase', label: 'Buy a Codebase' },
+  { value: 'nonprofit', label: 'Nonprofit Project' },
+  { value: 'other', label: 'Something Else' },
+];
+
+const budgets = [
+  { value: '', label: 'Rough budget range...' },
+  { value: 'under-5k', label: 'Under $5,000' },
+  { value: '5k-15k', label: '$5,000 - $15,000' },
+  { value: '15k-50k', label: '$15,000 - $50,000' },
+  { value: 'over-50k', label: 'Over $50,000' },
+  { value: 'not-sure', label: 'Not sure yet' },
+];
+
+const timelines = [
+  { value: '', label: 'When do you need it?' },
+  { value: 'asap', label: 'ASAP (within days)' },
+  { value: '2-weeks', label: 'Within 2 weeks' },
+  { value: '1-month', label: 'Within a month' },
+  { value: '3-months', label: 'Within 3 months' },
+  { value: 'flexible', label: 'Flexible / Planning ahead' },
+];
+
+const whatToInclude = [
+  'What you need built or fixed',
+  'Current tech stack (if applicable)',
+  'Timeline constraints',
+  'Budget range (helps us scope properly)',
+  'Any relevant links or documentation',
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Toledo Technologies. Request a quote for software development, bug fixes, or codebase purchases. We respond within 24 hours."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-brand-50 via-white to-surface-50">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          Let's Talk
+        </h1>
+        <p class="text-xl text-surface-600">
+          Tell us what you need. We'll get back to you within 24 hours with questions 
+          or a scoping proposal.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <!-- Form Column -->
+      <div class="lg:col-span-2">
+        <form 
+          action="https://formsubmit.co/hello@toledotechnologies.com" 
+          method="POST"
+          class="space-y-6"
+        >
+          <!-- FormSubmit configuration -->
+          <input type="hidden" name="_subject" value="New Contact Form Submission" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="text" name="_honey" style="display:none" />
+          <input type="hidden" name="_next" value="https://toledotechnologies.com/contact?submitted=true" />
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <!-- Name -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-surface-700 mb-2">
+                Name *
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors"
+                placeholder="Your name"
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-surface-700 mb-2">
+                Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors"
+                placeholder="you@example.com"
+              />
+            </div>
+          </div>
+
+          <!-- Topic -->
+          <div>
+            <label for="topic" class="block text-sm font-medium text-surface-700 mb-2">
+              What do you need help with?
+            </label>
+            <select
+              id="topic"
+              name="topic"
+              class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors bg-white"
+            >
+              {topics.map((topic) => (
+                <option value={topic.value}>{topic.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <!-- Budget -->
+            <div>
+              <label for="budget" class="block text-sm font-medium text-surface-700 mb-2">
+                Budget Range
+              </label>
+              <select
+                id="budget"
+                name="budget"
+                class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors bg-white"
+              >
+                {budgets.map((budget) => (
+                  <option value={budget.value}>{budget.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Timeline -->
+            <div>
+              <label for="timeline" class="block text-sm font-medium text-surface-700 mb-2">
+                Timeline
+              </label>
+              <select
+                id="timeline"
+                name="timeline"
+                class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors bg-white"
+              >
+                {timelines.map((timeline) => (
+                  <option value={timeline.value}>{timeline.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-sm font-medium text-surface-700 mb-2">
+              Tell us more *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="6"
+              class="w-full px-4 py-3 rounded-lg border border-surface-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors resize-y"
+              placeholder="Describe your project, problem, or question..."
+            ></textarea>
+          </div>
+
+          <!-- Submit -->
+          <div>
+            <button type="submit" class="btn-primary w-full sm:w-auto px-8 py-3 text-base">
+              Send Message
+            </button>
+          </div>
+
+          <!-- Form note -->
+          <p class="text-sm text-surface-500">
+            Form powered by FormSubmit. If the form doesn't work, email us directly at 
+            <a href="mailto:hello@toledotechnologies.com" class="text-brand-600 hover:underline">
+              hello@toledotechnologies.com
+            </a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-8">
+        <!-- Direct Contact -->
+        <div class="bg-surface-50 rounded-2xl p-6 border border-surface-200">
+          <h2 class="font-semibold text-surface-900 mb-4">Prefer Email Directly?</h2>
+          <p class="text-sm text-surface-600 mb-4">
+            Skip the form and email us directly. Same response time.
+          </p>
+          <a 
+            href="mailto:hello@toledotechnologies.com"
+            class="btn-secondary w-full justify-center"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            hello@toledotechnologies.com
+          </a>
+        </div>
+
+        <!-- What to Include -->
+        <div class="bg-white rounded-2xl p-6 border border-surface-200">
+          <h2 class="font-semibold text-surface-900 mb-4">What to Include</h2>
+          <p class="text-sm text-surface-600 mb-4">
+            The more context you provide upfront, the faster we can give you a useful response:
+          </p>
+          <ul class="space-y-2">
+            {whatToInclude.map((item) => (
+              <li class="flex items-start gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-surface-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- GitHub -->
+        <div class="bg-surface-900 rounded-2xl p-6 text-white">
+          <h2 class="font-semibold mb-3">Check Our Work</h2>
+          <p class="text-sm text-surface-300 mb-4">
+            See our public projects and contributions on GitHub.
+          </p>
+          <a 
+            href="https://github.com/ntoledo319"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-medium text-sm transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+            View GitHub Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Check for form submission success
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('submitted') === 'true') {
+      // Could show a toast or update UI here
+      console.log('Form submitted successfully');
+    }
+  }
+</script>

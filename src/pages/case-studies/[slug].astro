@@ -1,0 +1,145 @@
+---
+/**
+ * Individual Case Study Page
+ * 
+ * Dynamic page for each case study.
+ * 
+ * @ai_prompt Case study template with challenge, approach, outcome format
+ * @context_boundary pages
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('case-studies');
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+}
+
+const { study } = Astro.props;
+const { Content } = await study.render();
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Case Studies', url: '/case-studies' },
+  { name: study.data.title, url: `/case-studies/${study.slug}` }
+]);
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long'
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title={study.data.title}
+  description={study.data.description}
+  jsonLd={jsonLd}
+>
+  <!-- Header -->
+  <header class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-4xl">
+        <a href="/case-studies" class="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-brand-600 transition-colors mb-6">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Case Studies
+        </a>
+        
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="text-sm font-medium px-3 py-1 rounded-full bg-surface-100 text-surface-600">
+            {study.data.industry}
+          </span>
+          <time class="text-sm text-surface-500">
+            {formatDate(study.data.publishedDate)}
+          </time>
+        </div>
+        
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-surface-900 mb-6 tracking-tight">
+          {study.data.title}
+        </h1>
+        
+        <p class="text-xl text-surface-600 mb-8">
+          {study.data.description}
+        </p>
+        
+        <div class="flex flex-wrap gap-2">
+          {study.data.services.map((service) => (
+            <span class="text-sm px-3 py-1 rounded-full bg-brand-100 text-brand-700">
+              {service}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Results Banner -->
+  {study.data.results.length > 0 && (
+    <section class="bg-green-50 border-y border-green-200">
+      <div class="container-wide py-8">
+        <h2 class="text-sm font-semibold text-green-800 uppercase tracking-wide mb-4 text-center">
+          Key Results
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {study.data.results.map((result) => (
+            <div class="bg-white rounded-xl p-4 border border-green-200 text-center">
+              <p class="text-surface-800 font-medium">{result}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Content -->
+  <section class="container-narrow section-padding-sm">
+    <div class="max-w-3xl mx-auto prose prose-lg prose-slate prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand-600">
+      <Content />
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  {study.data.testimonial && (
+    <section class="bg-surface-50 border-y border-surface-200">
+      <div class="container-narrow section-padding-sm">
+        <div class="max-w-3xl mx-auto text-center">
+          <svg class="w-12 h-12 mx-auto mb-6 text-brand-300" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+          <blockquote class="text-xl sm:text-2xl text-surface-800 mb-6 italic">
+            "{study.data.testimonial.quote}"
+          </blockquote>
+          <div>
+            <p class="font-semibold text-surface-900">{study.data.testimonial.author}</p>
+            <p class="text-sm text-surface-500">{study.data.testimonial.role}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="container-narrow section-padding-sm">
+    <div class="max-w-3xl mx-auto bg-brand-600 rounded-2xl p-8 text-center text-white">
+      <h2 class="text-2xl font-bold mb-3">Have a Similar Challenge?</h2>
+      <p class="text-brand-100 mb-6">
+        Let's talk about how we can help with your project.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+          Get in Touch
+        </a>
+        <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-brand-500 text-white font-medium hover:bg-brand-400 transition-colors">
+          More Case Studies
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,151 @@
+---
+/**
+ * Terms of Service Page
+ * 
+ * Standard terms of service for a small dev studio website.
+ * 
+ * @ai_prompt Terms of service - simple, appropriate for small business
+ * @context_boundary pages/legal
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Terms of Service', url: '/terms' }
+]);
+
+const lastUpdated = 'January 2024';
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of service for Toledo Technologies website and services. Please read these terms carefully before using our services."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow section-padding">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-bold text-surface-900 mb-4">
+        Terms of Service
+      </h1>
+      <p class="text-surface-500 mb-8">Last updated: {lastUpdated}</p>
+      
+      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight">
+        <h2>Agreement to Terms</h2>
+        <p>
+          By accessing or using the Toledo Technologies website at toledotechnologies.com 
+          ("the Site"), you agree to be bound by these Terms of Service. If you disagree 
+          with any part of these terms, you may not access the Site.
+        </p>
+        
+        <h2>Services</h2>
+        <p>
+          Toledo Technologies provides software development services including but not 
+          limited to bug fixes, feature development, automation, and codebase sales. 
+          Specific terms for any services will be outlined in separate agreements 
+          between Toledo Technologies and the client.
+        </p>
+        
+        <h2>Intellectual Property</h2>
+        
+        <h3>Website Content</h3>
+        <p>
+          The content on this website, including text, graphics, logos, and software, 
+          is the property of Toledo Technologies and is protected by copyright and 
+          other intellectual property laws.
+        </p>
+        
+        <h3>Client Work</h3>
+        <p>
+          For custom development work, intellectual property ownership and licensing 
+          will be defined in the specific project agreement. Generally, clients receive 
+          full ownership of custom work upon payment.
+        </p>
+        
+        <h3>Codebases</h3>
+        <p>
+          Purchased codebases are licensed to the buyer as specified in the purchase 
+          agreement. Standard licenses grant perpetual, non-exclusive rights to use, 
+          modify, and deploy the code.
+        </p>
+        
+        <h2>Use of the Site</h2>
+        <p>You agree not to:</p>
+        <ul>
+          <li>Use the Site for any unlawful purpose</li>
+          <li>Attempt to gain unauthorized access to any part of the Site</li>
+          <li>Interfere with or disrupt the Site or servers</li>
+          <li>Transmit viruses or malicious code</li>
+          <li>Collect user information without consent</li>
+        </ul>
+        
+        <h2>Contact Form and Communications</h2>
+        <p>
+          When you submit information through our contact form, you grant us permission 
+          to contact you regarding your inquiry. We will not add you to marketing lists 
+          without explicit consent.
+        </p>
+        
+        <h2>Disclaimer of Warranties</h2>
+        <p>
+          The Site is provided "as is" without warranties of any kind, either express 
+          or implied. We do not warrant that the Site will be uninterrupted, secure, 
+          or error-free.
+        </p>
+        <p>
+          Information on this Site is for general informational purposes. While we 
+          strive for accuracy, we make no representations about the completeness or 
+          accuracy of information on the Site.
+        </p>
+        
+        <h2>Limitation of Liability</h2>
+        <p>
+          Toledo Technologies shall not be liable for any indirect, incidental, special, 
+          consequential, or punitive damages resulting from your use of or inability 
+          to use the Site.
+        </p>
+        
+        <h2>Third-Party Links</h2>
+        <p>
+          The Site may contain links to third-party websites. We are not responsible 
+          for the content or practices of these external sites. Linking to external 
+          sites does not imply endorsement.
+        </p>
+        
+        <h2>Indemnification</h2>
+        <p>
+          You agree to indemnify and hold harmless Toledo Technologies from any claims, 
+          damages, or expenses arising from your use of the Site or violation of these 
+          Terms.
+        </p>
+        
+        <h2>Changes to Terms</h2>
+        <p>
+          We reserve the right to modify these Terms at any time. Changes will be 
+          effective immediately upon posting to the Site. Your continued use of the 
+          Site after changes constitutes acceptance of the new Terms.
+        </p>
+        
+        <h2>Governing Law</h2>
+        <p>
+          These Terms shall be governed by and construed in accordance with applicable 
+          law, without regard to conflict of law principles.
+        </p>
+        
+        <h2>Severability</h2>
+        <p>
+          If any provision of these Terms is found to be unenforceable, the remaining 
+          provisions will continue in full force and effect.
+        </p>
+        
+        <h2>Contact</h2>
+        <p>
+          For questions about these Terms, contact us at:
+        </p>
+        <p>
+          <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

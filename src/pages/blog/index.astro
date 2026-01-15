@@ -1,0 +1,131 @@
+---
+/**
+ * Blog Index Page
+ * 
+ * Lists all published blog posts sorted by date.
+ * 
+ * @ai_prompt Blog listing page - shows all non-draft posts
+ * @context_boundary pages
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
+);
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' }
+  ]),
+  itemListSchema(
+    sortedPosts.map(p => ({
+      name: p.data.title,
+      url: `/blog/${p.slug}`,
+      description: p.data.description
+    })),
+    'Toledo Technologies Blog'
+  )
+];
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title="Blog"
+  description="Practical insights on software development, performance optimization, bug fixes, compliance automation, and shipping software that works."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          Blog
+        </h1>
+        <p class="text-xl text-surface-600">
+          Practical insights on development, debugging, performance, and shipping software 
+          that actually works. No fluff, no filler.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Grid -->
+  <section class="container-wide section-padding-sm">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedPosts.map((post, index) => (
+        <a 
+          href={`/blog/${post.slug}`}
+          class:list={[
+            "card-interactive p-6 group flex flex-col",
+            index === 0 && "md:col-span-2 lg:col-span-2"
+          ]}
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <time class="text-sm text-surface-500" datetime={post.data.publishedDate.toISOString()}>
+              {formatDate(post.data.publishedDate)}
+            </time>
+            {post.data.featured && (
+              <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">
+                Featured
+              </span>
+            )}
+          </div>
+          <h2 class:list={[
+            "font-bold text-surface-900 group-hover:text-brand-600 transition-colors mb-2",
+            index === 0 ? "text-2xl" : "text-lg"
+          ]}>
+            {post.data.title}
+          </h2>
+          <p class:list={[
+            "text-surface-600 mb-4 flex-grow",
+            index === 0 ? "text-base" : "text-sm"
+          ]}>
+            {post.data.description}
+          </p>
+          {post.data.tldr && index === 0 && (
+            <div class="bg-surface-50 rounded-lg p-4 mb-4 border border-surface-200">
+              <span class="text-xs font-semibold text-surface-500 uppercase tracking-wide">TL;DR</span>
+              <p class="text-sm text-surface-700 mt-1">{post.data.tldr}</p>
+            </div>
+          )}
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.slice(0, 3).map((tag) => (
+              <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding-sm">
+    <div class="bg-surface-900 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Need Help with Your Project?</h2>
+      <p class="text-surface-300 mb-6 max-w-xl mx-auto">
+        We write about what we know from working on real projects. Let us put that experience to work for you.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors">
+          Get in Touch
+        </a>
+        <a href="/services" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-800 text-white font-medium hover:bg-surface-700 transition-colors">
+          View Services
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

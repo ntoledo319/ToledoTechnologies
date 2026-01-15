@@ -1,0 +1,259 @@
+---
+/**
+ * Services Page
+ * 
+ * Comprehensive overview of all service offerings with FAQs.
+ * 
+ * @ai_prompt Main services page - update when adding new service categories
+ * @context_boundary pages
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema, faqSchema } from '../utils/jsonld';
+
+const services = [
+  {
+    name: 'Fix & Improve',
+    description: 'Bug fixes, performance optimization, refactoring, and code cleanup.'
+  },
+  {
+    name: 'Build Features',
+    description: 'New features, integrations, MVPs, and complete applications.'
+  },
+  {
+    name: 'Automation',
+    description: 'Scripts, CI/CD pipelines, AI workflows, and process automation.'
+  },
+  {
+    name: 'Codebase Sales',
+    description: 'Deploy-ready repositories for security, compliance, and operations.'
+  },
+  {
+    name: 'Nonprofit Support',
+    description: 'Technology tools and workflows for nonprofit organizations.'
+  }
+];
+
+const faqs = [
+  {
+    question: 'How do you price your work?',
+    answer: 'We offer both fixed-price projects and hourly rates depending on scope clarity. Fixed-price works best when requirements are well-defined. Hourly is better for exploratory work or ongoing support. We\'ll recommend the best fit during scoping.'
+  },
+  {
+    question: 'What are typical timelines?',
+    answer: 'It varies significantly by scope. Bug fixes can be same-day. Features typically take 1-4 weeks. MVPs run 4-12 weeks. We provide timeline estimates during scoping and communicate proactively if anything changes.'
+  },
+  {
+    question: 'Who owns the code?',
+    answer: 'You do. All custom work becomes your intellectual property upon payment. For codebases, you receive a perpetual license with full rights to modify, deploy, and build upon.'
+  },
+  {
+    question: 'Do you offer maintenance?',
+    answer: 'Yes. We offer ongoing support and maintenance packages for work we\'ve delivered. We can also take over maintenance of existing systems we didn\'t build.'
+  },
+  {
+    question: 'Are you open to NDAs?',
+    answer: 'Absolutely. We\'re comfortable signing NDAs before discussing sensitive projects. Confidentiality is standard practice for us.'
+  },
+  {
+    question: 'What technologies do you work with?',
+    answer: 'We\'re language and framework agnostic. Most commonly: TypeScript, Python, Go, React, Node.js, PostgreSQL, AWS, GCP. But we adapt to your stack—that\'s kind of the point.'
+  }
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' }
+  ]),
+  serviceSchema(services),
+  faqSchema(faqs)
+];
+
+const serviceCategories = [
+  {
+    id: 'fix',
+    title: 'Fix & Improve',
+    tagline: 'Clean up the mess',
+    description: 'Bug fixes, performance optimization, refactoring, and security patches. We diagnose issues properly and fix root causes, not just symptoms.',
+    items: [
+      'Bug diagnosis and fixes',
+      'Performance optimization',
+      'Code refactoring',
+      'Security vulnerability patches',
+      'Database query optimization',
+      'Memory leak resolution',
+      'Dependency updates',
+      'Technical debt reduction'
+    ]
+  },
+  {
+    id: 'build',
+    title: 'Build',
+    tagline: 'From concept to shipped',
+    description: 'New features, complete applications, MVPs, and integrations. We build what you need and hand it off clean.',
+    items: [
+      'Feature implementation',
+      'MVP development',
+      'API development',
+      'Third-party integrations',
+      'Frontend development',
+      'Backend services',
+      'Database design',
+      'Full-stack applications'
+    ]
+  },
+  {
+    id: 'automate',
+    title: 'Automate',
+    tagline: 'Make the tedious disappear',
+    description: 'Scripts, pipelines, and AI workflows. If you\'re doing something manually that a computer could do, we can fix that.',
+    items: [
+      'CI/CD pipeline setup',
+      'Deployment automation',
+      'Data processing scripts',
+      'AI/ML workflow integration',
+      'Report generation',
+      'Notification systems',
+      'Infrastructure as Code',
+      'Scheduled task automation'
+    ]
+  },
+  {
+    id: 'codebases',
+    title: 'Codebase Sales',
+    tagline: 'Deploy-ready repositories',
+    description: 'Pre-built, documented, tested codebases ready for deployment. Security, compliance, and operational tooling you can own outright.',
+    items: [
+      'Security audit tracking',
+      'Compliance evidence collection',
+      'Infrastructure testing tools',
+      'Admin dashboards',
+      'API starter kits',
+      'Authentication systems',
+      'Monitoring solutions',
+      'Internal tools'
+    ],
+    cta: {
+      text: 'Browse Available Codebases',
+      href: '/codebases'
+    }
+  },
+  {
+    id: 'nonprofit',
+    title: 'Nonprofit Support',
+    tagline: 'Value on limited budgets',
+    description: 'We help nonprofit organizations get technology value without enterprise pricing. Practical solutions that respect constraints.',
+    items: [
+      'Donor management systems',
+      'Volunteer coordination tools',
+      'Website development',
+      'Process automation',
+      'Data cleanup and migration',
+      'Training and documentation',
+      'Tool selection consulting',
+      'Grant technology support'
+    ],
+    cta: {
+      text: 'Learn About Nonprofit Work',
+      href: '/nonprofit'
+    }
+  }
+];
+---
+
+<BaseLayout
+  title="Services"
+  description="Software development services including bug fixes, feature implementation, automation, MVP development, and deploy-ready codebases. Remote software developer for hire."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-brand-50 via-white to-surface-50">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
+          Software Development Services
+        </h1>
+        <p class="text-xl text-surface-600 mb-8">
+          Bug fixes, feature builds, automation, and complete codebases. We adapt to what you need, 
+          work remotely, and ship clean code that you own.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/contact" class="btn-primary">Get a Quote</a>
+          <a href="#fix" class="btn-secondary">See Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Categories -->
+  <section class="container-wide section-padding-sm">
+    <div class="space-y-16">
+      {serviceCategories.map((category) => (
+        <div id={category.id} class="scroll-mt-24">
+          <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div>
+              <span class="text-brand-600 font-semibold text-sm uppercase tracking-wide">
+                {category.tagline}
+              </span>
+              <h2 class="text-3xl font-bold text-surface-900 mt-2 mb-4">
+                {category.title}
+              </h2>
+              <p class="text-lg text-surface-600 mb-6">
+                {category.description}
+              </p>
+              {category.cta && (
+                <a href={category.cta.href} class="btn-primary">
+                  {category.cta.text}
+                </a>
+              )}
+            </div>
+            <div class="bg-surface-50 rounded-2xl p-6 border border-surface-200">
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {category.items.map((item) => (
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-brand-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-surface-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-surface-900 mb-8 text-center">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="bg-white rounded-xl p-6 border border-surface-200">
+              <h3 class="font-semibold text-surface-900 mb-2">{faq.question}</h3>
+              <p class="text-surface-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-wide section-padding">
+    <div class="bg-brand-600 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
+      <p class="text-brand-100 mb-6 max-w-xl mx-auto">
+        Tell us what you need. We'll scope it, price it, and get to work.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+        Get a Quote
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,65 @@
+---
+/**
+ * 404 Not Found Page
+ * 
+ * Custom 404 page with helpful navigation.
+ * 
+ * @ai_prompt 404 page - friendly, helpful, on-brand
+ * @context_boundary pages
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Let's get you back on track."
+  noindex={true}
+>
+  <section class="container-wide section-padding">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="mb-8">
+        <span class="text-8xl font-bold text-brand-200">404</span>
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl font-bold text-surface-900 mb-4">
+        Page Not Found
+      </h1>
+      
+      <p class="text-lg text-surface-600 mb-8">
+        The page you're looking for doesn't exist or has been moved. 
+        Let's get you back on track.
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <a href="/" class="btn-primary">
+          Go Home
+        </a>
+        <a href="/contact" class="btn-secondary">
+          Contact Us
+        </a>
+      </div>
+      
+      <div class="bg-surface-50 rounded-2xl p-8 border border-surface-200">
+        <h2 class="font-semibold text-surface-900 mb-4">Looking for something specific?</h2>
+        <div class="grid sm:grid-cols-2 gap-4 text-left">
+          <a href="/services" class="p-4 rounded-xl bg-white border border-surface-200 hover:border-brand-300 transition-colors group">
+            <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">Services</h3>
+            <p class="text-sm text-surface-600">See how we can help</p>
+          </a>
+          <a href="/codebases" class="p-4 rounded-xl bg-white border border-surface-200 hover:border-brand-300 transition-colors group">
+            <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">Codebases</h3>
+            <p class="text-sm text-surface-600">Browse available repos</p>
+          </a>
+          <a href="/blog" class="p-4 rounded-xl bg-white border border-surface-200 hover:border-brand-300 transition-colors group">
+            <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">Blog</h3>
+            <p class="text-sm text-surface-600">Read our latest posts</p>
+          </a>
+          <a href="/about" class="p-4 rounded-xl bg-white border border-surface-200 hover:border-brand-300 transition-colors group">
+            <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">About</h3>
+            <p class="text-sm text-surface-600">Learn about us</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
