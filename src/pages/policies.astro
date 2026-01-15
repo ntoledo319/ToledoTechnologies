@@ -1,0 +1,108 @@
+---
+/**
+ * Policies Page
+ * 
+ * Public policies for refunds, cancellations, fulfillment, and support.
+ * Required for payment processor verification (e.g., Stripe).
+ * 
+ * @ai_prompt Policies page - update when changing support hours or refund terms
+ * @context_boundary pages/legal
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Policies', url: '/policies' }
+]);
+
+const lastUpdated = 'January 2026';
+---
+
+<BaseLayout
+  title="Policies"
+  description="Support, fulfillment, cancellation, and refund policies for Toledo Technologies services and codebase purchases."
+  jsonLd={jsonLd}
+>
+  <section class="container-narrow section-padding">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-bold text-surface-900 mb-4">
+        Policies
+      </h1>
+      <p class="text-surface-500 mb-8">Last updated: {lastUpdated}</p>
+      
+      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight">
+        <h2>Support</h2>
+        <ul>
+          <li><strong>Support hours:</strong> Monday–Friday, 10:00 AM–5:30 PM (ET)</li>
+          <li><strong>Contact:</strong> <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a></li>
+          <li><strong>Typical response time:</strong> within 1 business day (during support hours)</li>
+        </ul>
+        
+        <h2>Fulfillment & Delivery</h2>
+        
+        <h3>Project-based services (custom development)</h3>
+        <p>
+          Fulfillment is delivered per project scope (statement of work / agreed scope), typically via:
+        </p>
+        <ul>
+          <li>GitHub repo access or patch/PR delivery</li>
+          <li>Documentation/notes for handoff</li>
+          <li>Deployment guidance when included in scope</li>
+        </ul>
+        <p>Timelines are project-dependent and confirmed during scoping.</p>
+        
+        <h3>Codebase purchases (digital products)</h3>
+        <ul>
+          <li>Fulfillment is digital delivery (repo access or download link).</li>
+          <li><strong>Delivery timing:</strong> typically within 1 business day after payment is confirmed.</li>
+          <li>Each purchase includes a limited support window for setup/questions (typically 30–90 days depending on product listing).</li>
+        </ul>
+        
+        <h2>Cancellations (Services)</h2>
+        <ul>
+          <li>You can cancel a project at any time by emailing <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a>.</li>
+          <li>If work has not started, any prepaid amount (if applicable) is refunded minus payment processor fees.</li>
+          <li>If work has started, you are billed for work completed up to the cancellation date. Any remaining prepaid balance (if applicable) is refunded minus processor fees.</li>
+          <li>For fixed-price projects with milestones: completed milestones are due; in-progress milestone work is billed proportionally.</li>
+        </ul>
+        
+        <h2>Refunds</h2>
+        
+        <h3>Services</h3>
+        <p>
+          Refunds are handled case-by-case because deliverables are custom and project-based.
+        </p>
+        <p>
+          If we cannot deliver the agreed scope due to our fault, we will either:
+        </p>
+        <ol>
+          <li>Fix the issue, or</li>
+          <li>Refund the unused portion of fees paid (minus processor fees), depending on the situation.</li>
+        </ol>
+        
+        <h3>Codebase purchases</h3>
+        <p>
+          Because codebases are digital goods delivered electronically, refunds are limited.
+        </p>
+        <ul>
+          <li>If you do not receive delivery within 1 business day after payment confirmation, you may request a full refund.</li>
+          <li>If the delivered codebase is materially not as described, contact us within 7 days of delivery. We will either correct the issue or provide a refund if we can't reasonably fix it.</li>
+        </ul>
+        
+        <h2>Chargebacks & Disputes</h2>
+        <p>
+          Please email us first. We respond quickly during support hours and can usually resolve issues without a dispute.
+        </p>
+        
+        <h2>Contact</h2>
+        <p>
+          For questions about these policies, contact us at:
+        </p>
+        <p>
+          <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

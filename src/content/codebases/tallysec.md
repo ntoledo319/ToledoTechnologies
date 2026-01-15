@@ -101,7 +101,7 @@ Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization g
 Labs progress from beginner to intermediate. Basic Python and API knowledge is helpful but not required.
 
 **Is support included?**
-This is a self-serve, no-handover package. Everything needed is included in the repo. Exclusive IP transfer with no ongoing support obligations.
+Yes. Each purchase includes a limited support window (30–90 days) for setup questions and guidance. Everything needed is included in the repo with full documentation.
 
 **What's the acquisition process?**
 Review the materials, run the demos, and contact us for pricing. Exclusive sale agreement and IP assignment documents are included and ready.
