@@ -23,6 +23,10 @@ included:
   - "Comprehensive documentation (16 guides)"
   - "Synthetic test fixtures"
   - "Integration test suite"
+  - "Enterprise security layer (auth, RBAC, encryption)"
+  - "Admin dashboard (React + TypeScript)"
+  - "Compliance documentation (SOC2, HIPAA, GDPR)"
+  - "Complete IP transfer ready"
 targetAudience:
   - "Teams building production AI agents"
   - "Enterprises requiring auditable AI systems"
@@ -142,3 +146,6 @@ Every event is logged with inputs and outputs. Replay loads a trace and re-execu
 
 **Is this production-ready?**
 Yes. Includes Docker Compose for development and Helm charts for Kubernetes production deployment. Observability stack (Prometheus, Grafana, Jaeger) included.
+
+**How do I acquire this codebase?**
+Contact us to inquire about pricing. Includes full IP transfer, all source code, SDKs, documentation, and deployment configurations. Enterprise-ready with compliance documentation for SOC2, HIPAA, and GDPR.

@@ -21,9 +21,10 @@ included:
   - "Docker and Docker Compose configuration"
   - "Static web dashboard"
   - "Documentation: Quickstart, Instructor Guide, Syllabus, Rubric, FAQ"
-  - "Sales materials: One-pager, Press kit"
-  - "Legal: Exclusive Sale Agreement, Do-No-Evil EULA"
+  - "Sales materials: One-pager, Press kit, Listing copy"
+  - "Legal: Exclusive Sale Agreement (No-Support), Do-No-Evil EULA"
   - "Brand assets: Wordmark, icons, palette, brand guide"
+  - "Complete IP transfer ready"
 targetAudience:
   - "Training organizations teaching security"
   - "Enterprises building internal security education programs"
@@ -100,4 +101,7 @@ Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization g
 Labs progress from beginner to intermediate. Basic Python and API knowledge is helpful but not required.
 
 **Is support included?**
-This is a self-serve, no-handover package. Everything needed is included in the repo—no ongoing support required.
+This is a self-serve, no-handover package. Everything needed is included in the repo. Exclusive IP transfer with no ongoing support obligations.
+
+**What's the acquisition process?**
+Review the materials, run the demos, and contact us for pricing. Exclusive sale agreement and IP assignment documents are included and ready.

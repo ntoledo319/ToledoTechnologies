@@ -23,6 +23,7 @@ included:
   - "Railway deployment template"
   - "Demo output and documentation"
   - "Test suite with pytest"
+  - "Complete IP transfer ready"
 targetAudience:
   - "Regulated industries needing compliant web automation"
   - "Marketing agencies monitoring client SEO"
@@ -115,3 +116,6 @@ Yes. The playbook framework is extensible. Documentation includes examples for c
 
 **Is this suitable for enterprise use?**
 Yes. Built with SOC 2 and ISO 27001 controls in mind. Encrypted storage, audit trails, and consent gates satisfy common compliance requirements.
+
+**How do I acquire this codebase?**
+Contact us to inquire about pricing and schedule a demo. Full IP transfer with all source code, documentation, and deployment configurations included.
