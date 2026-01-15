@@ -1,90 +1,144 @@
 ---
 title: "AegisTwin"
-tagline: "Digital twin for infrastructure security testing"
-description: "Create isolated replicas of your infrastructure for security testing, red team exercises, and incident response training without risking production systems."
-status: "in-development"
-category: "Security"
-tags: ["security", "infrastructure", "testing", "digital-twin", "red-team"]
+tagline: "Event-driven agent runtime with governance and replay"
+description: "A productized agent runtime providing event-driven architecture, built-in policy governance, deterministic replay for debugging, and local memory graphs—everything needed to build auditable, controllable AI agents."
+status: "available"
+category: "AI Infrastructure"
+tags: ["ai-agents", "governance", "runtime", "replay", "memory-graph", "event-driven"]
 features:
-  - "Infrastructure-as-code based environment cloning"
-  - "Isolated network environments for safe testing"
-  - "Pre-built attack scenarios for training"
-  - "Snapshot and restore for repeatable exercises"
-  - "Cost controls with automatic teardown"
-  - "Integration with CI/CD for security testing"
-  - "Detailed logging for post-exercise analysis"
-  - "Multi-cloud support"
+  - "Event-driven architecture with typed, traceable events"
+  - "Policy engine with configurable gates and audit logging"
+  - "Deterministic replay for debugging and verification"
+  - "Local memory graph (episodic, semantic, procedural)"
+  - "FastAPI control plane with OpenAPI documentation"
+  - "SDK for embedding in your own applications"
+  - "Docker and Kubernetes deployment ready"
+  - "Observability stack: Grafana, Prometheus, Jaeger"
 included:
-  - "Full source code (Go backend, React frontend)"
-  - "Terraform modules for environment provisioning"
-  - "Sample attack scenarios and playbooks"
-  - "Cost estimation and alerting"
-  - "Documentation and architecture guides"
-  - "90 days of post-purchase support"
+  - "Full source code (Python with FastAPI)"
+  - "TypeScript SDK for frontend integration"
+  - "Docker Compose with observability stack"
+  - "Helm charts for Kubernetes deployment"
+  - "8 example scripts covering all features"
+  - "Comprehensive documentation (16 guides)"
+  - "Synthetic test fixtures"
+  - "Integration test suite"
 targetAudience:
-  - "Security teams running red team exercises"
-  - "DevSecOps teams testing infrastructure changes"
-  - "Training organizations teaching incident response"
-  - "Enterprises with complex infrastructure"
+  - "Teams building production AI agents"
+  - "Enterprises requiring auditable AI systems"
+  - "Developers needing deterministic agent debugging"
+  - "Organizations with AI governance requirements"
 order: 3
 ---
 
 ## What AegisTwin Does
 
-AegisTwin lets you spin up realistic copies of your infrastructure for security testing. Test attacks, practice incident response, and validate defenses—all without touching production.
+AegisTwin is a **productized agent runtime** that provides the infrastructure modern AI agents need: governance, auditability, and reproducibility. Build agents that are controllable, debuggable, and enterprise-ready.
 
 ## The Problem It Solves
 
-Security testing in production is risky. But testing in unrealistic environments gives false confidence. Teams face a choice:
-- Test in production and risk breaking things
-- Test in toy environments that don't reflect reality
-- Don't test at all
+Modern AI agents need more than inference:
+- No audit trail—can't explain what the agent did or why
+- No policy enforcement—agents can take unauthorized actions
+- No replay capability—impossible to debug non-deterministic behavior
+- Cloud memory dependencies—data sovereignty concerns
 
-AegisTwin gives you a third option: realistic testing in isolated environments.
+AegisTwin provides the missing infrastructure layer.
 
 ## Key Capabilities
 
-### Infrastructure Cloning
-Point AegisTwin at your Terraform/CloudFormation and it creates isolated copies. Network topology, security groups, and configurations are preserved.
+### Event-Driven Architecture
+All module communication flows through typed, traceable events. Every action has a parent chain, payload hash, and timestamp for complete provenance.
 
-### Attack Scenarios
-Pre-built scenarios let you practice common attack patterns:
-- Credential compromise and lateral movement
-- Ransomware propagation
-- Data exfiltration detection
-- Cloud misconfiguration exploitation
+### Built-in Governance
+Configurable policy gates deny forbidden actions before they execute. All denials are logged with full context. Define rules like "never execute shell commands" or "block PII export."
 
-### Safe Isolation
-Cloned environments are network-isolated. Nothing can escape to production or the internet (unless you explicitly allow it).
+### Deterministic Replay
+Record any agent run and replay it exactly. Hash verification ensures determinism. Critical for debugging, compliance audits, and regression testing.
 
-### Repeatable Exercises
-Snapshot environments before exercises. Restore them to run the same scenario again for training or validation.
+### Local Memory Graph
+Episodic, semantic, and procedural memory systems—all running locally. No cloud dependency means full data sovereignty and privacy.
 
-### Cost Management
-Automatic teardown after configurable idle time. Cost alerts prevent runaway cloud bills.
+### Production-Ready API
+FastAPI control plane with:
+- `/health` — Health checks
+- `/demo/{name}` — Run demos
+- `/ingest` — Ingest data
+- `/query` — Query the system
+- `/replay` — Replay runs
+- `/policies` — List policies
+
+### Embeddable SDK
+Use AegisTwin as a library in your applications:
+
+```python
+from aegistwin import AegisTwin
+
+twin = AegisTwin()
+run_id = twin.ingest({"records": [...]}, source="my_app")
+result = twin.query("What patterns emerged?")
+```
 
 ## Technical Details
 
-- **Backend**: Go with Gin framework
-- **Frontend**: React with TypeScript
-- **Orchestration**: Terraform with custom providers
-- **Supported Clouds**: AWS, GCP, Azure
-- **Container Support**: EKS, GKE, AKS cloning
+- **Language**: Python 3.10+
+- **API**: FastAPI with Pydantic models
+- **SDK**: Python + TypeScript clients
+- **Deployment**: Docker Compose, Helm/Kubernetes
+- **Observability**: OpenTelemetry, Prometheus, Grafana, Jaeger
+- **Testing**: pytest with async support
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        AegisTwin                             │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────┐  ┌──────────┐  ┌─────────┐  ┌───────────────┐  │
+│  │ Ingest  │→ │ Pipeline │→ │ Analyze │→ │ Graph/Memory  │  │
+│  └─────────┘  └──────────┘  └─────────┘  └───────────────┘  │
+│       ↓            ↓             ↓              ↓           │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │                    Event Bus                          │   │
+│  │    (typed events + payload hashes + parent chains)    │   │
+│  └──────────────────────────────────────────────────────┘   │
+│       ↓            ↓             ↓              ↓           │
+│  ┌─────────┐  ┌──────────┐  ┌─────────┐  ┌───────────────┐  │
+│  │ Policy  │  │  Audit   │  │ Replay  │  │     API       │  │
+│  │ Engine  │  │  Logger  │  │ Service │  │   (FastAPI)   │  │
+│  └─────────┘  └──────────┘  └─────────┘  └───────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## What's in the Box
+
+```
+AegisTwin/
+├── aegistwin/          # Main package
+│   ├── runtime/        # Core runtime engine
+│   ├── governance/     # Policy engine + audit
+│   ├── events/         # Pydantic event schemas
+│   ├── modules/        # Connectors, pipeline, analysis
+│   └── api/            # FastAPI control plane
+├── sdk/typescript/     # TypeScript client SDK
+├── docker/             # Docker Compose + Helm charts
+├── observability/      # Grafana dashboards, Prometheus config
+├── examples/           # 8 usage examples
+├── docs/               # 16 documentation guides
+├── fixtures/           # Synthetic test data
+└── tests/              # Integration test suite
+```
 
 ## FAQ
 
-**How accurate are the cloned environments?**
-Configuration and topology are replicated exactly. Data is synthetic or sanitized based on your settings.
+**What's the difference between this and LangChain/LangGraph?**
+AegisTwin focuses on runtime infrastructure—governance, audit, replay—not prompt chaining. It complements orchestration frameworks by adding the enterprise layer.
 
-**What about licensing for cloned software?**
-You're responsible for ensuring proper licensing. We provide guidance on handling licensed components.
+**Can I add custom policies?**
+Yes. The policy engine accepts Python functions. Define any rule: action type restrictions, content filters, rate limits, etc.
 
-**Can this integrate with our CI/CD pipeline?**
-Yes, there's a CLI and API for automated environment creation during security testing pipelines.
+**How does replay work?**
+Every event is logged with inputs and outputs. Replay loads a trace and re-executes with the same inputs. Hash verification confirms deterministic behavior.
 
-**What's the typical cost of running a twin?**
-Depends on infrastructure size. The cost estimator gives you projections before provisioning.
-
-## Current Status
-
-AegisTwin is in active development. Early access is available for design partners willing to provide feedback.
+**Is this production-ready?**
+Yes. Includes Docker Compose for development and Helm charts for Kubernetes production deployment. Observability stack (Prometheus, Grafana, Jaeger) included.

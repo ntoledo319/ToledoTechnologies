@@ -1,80 +1,103 @@
 ---
 title: "TallySec"
-tagline: "Security audit tracking and vulnerability management"
-description: "A comprehensive security audit tracking system that helps teams manage vulnerability assessments, track remediation progress, and maintain compliance documentation."
+tagline: "Teach security in the language of finance"
+description: "AI-powered security education lab pack that connects threat scoring to quantifiable business impact and ROI. Complete training bundle with deterministic scanner, labs, assessments, and FastAPI microservice."
 status: "available"
-category: "Security"
-tags: ["security", "compliance", "vulnerability-management", "audit"]
+category: "Security Education"
+tags: ["security", "training", "ai-powered", "risk-scoring", "education", "lab-pack"]
 features:
-  - "Centralized vulnerability tracking dashboard"
-  - "Automated severity classification (CVSS integration)"
-  - "Remediation workflow with assignees and deadlines"
-  - "Audit trail and change history"
-  - "Export reports for compliance documentation"
-  - "Integration-ready API for scanner imports"
-  - "Role-based access control"
-  - "Customizable notification rules"
+  - "Deterministic URL risk scoring engine with AI-powered insights"
+  - "Synthetic labeled dataset for training and demos"
+  - "5 complete labs with student guides and instructor keys"
+  - "FastAPI microservice with Docker/Compose deployment"
+  - "Static dashboard for visualization"
+  - "Quiz bank with autograder for assessments"
+  - "ROC curve evaluation and metrics.json output"
+  - "Postman collection for API testing"
 included:
-  - "Full source code (TypeScript/Node.js backend, React frontend)"
-  - "PostgreSQL database schema with migrations"
-  - "Docker configuration for local development"
-  - "Comprehensive API documentation"
-  - "Deployment guides for major cloud providers"
-  - "30 days of post-purchase support"
+  - "Full source code (Python backend with FastAPI)"
+  - "Synthetic dataset (urls_synthetic_labeled.csv)"
+  - "5 labs (student + instructor answer keys)"
+  - "Docker and Docker Compose configuration"
+  - "Static web dashboard"
+  - "Documentation: Quickstart, Instructor Guide, Syllabus, Rubric, FAQ"
+  - "Sales materials: One-pager, Press kit"
+  - "Legal: Exclusive Sale Agreement, Do-No-Evil EULA"
+  - "Brand assets: Wordmark, icons, palette, brand guide"
 targetAudience:
-  - "Security teams managing multiple assessments"
-  - "Compliance officers tracking remediation"
-  - "MSPs handling security for multiple clients"
-  - "Startups building security programs"
+  - "Training organizations teaching security"
+  - "Enterprises building internal security education programs"
+  - "Consultants delivering security workshops"
+  - "Universities and bootcamps with security curricula"
 order: 1
 ---
 
 ## What TallySec Does
 
-TallySec provides a single source of truth for your security vulnerabilities. Import findings from any scanner, track remediation across teams, and generate reports that auditors actually accept.
+TallySec is a **Risk-to-Return Lab Pack** that teaches security teams to communicate findings in executive language. It bridges the gap between technical threat detection and business impact by translating risk scores into ROI metrics.
 
 ## The Problem It Solves
 
-Most teams track vulnerabilities in spreadsheets or scattered across multiple tools. This leads to:
-- Missed vulnerabilities falling through the cracks
-- No clear ownership of remediation tasks
-- Difficulty proving compliance during audits
-- Wasted time reconciling data from different sources
+Security teams struggle to:
+- Communicate technical findings to business stakeholders
+- Quantify the business impact of vulnerabilities
+- Justify security investments with ROI data
+- Train staff on risk prioritization
 
-TallySec centralizes everything so nothing gets lost.
+TallySec provides a complete educational framework that teaches security in the language finance understands.
 
 ## Key Capabilities
 
-### Import from Anywhere
-Upload findings from Nessus, Qualys, Burp Suite, or any scanner that exports CSV/JSON. The system normalizes data into a consistent format.
+### AI-Powered Risk Scoring
+A deterministic, feature-based scoring engine prioritizes threats and translates technical severity into business impact metrics that executives can act on.
 
-### Smart Prioritization
-Automatic CVSS scoring combined with asset criticality helps you focus on what matters most. Custom risk scoring rules let you adapt to your environment.
+### Complete Lab Environment
+Five structured labs take students from basics to advanced concepts. Each includes student materials and instructor answer keys for classroom or self-paced learning.
 
-### Workflow Management
-Assign vulnerabilities to team members, set deadlines, and track progress. Automated reminders ensure nothing gets forgotten.
+### Production-Ready API
+FastAPI microservice runs locally or containerized. Includes OpenAPI documentation, Postman collection, and example integrations.
 
-### Compliance-Ready Reports
-Generate reports formatted for SOC 2, ISO 27001, PCI-DSS, and other frameworks. Export as PDF or integrate with your GRC platform.
+### Assessment Suite
+Quiz bank covers all modules with an autograder for automated evaluation. Generate certificates for course completion.
+
+### Executive-Ready Outputs
+Reports and dashboards present findings in ROI terms—perfect for board presentations and budget justification.
 
 ## Technical Details
 
-- **Backend**: Node.js with Express, TypeScript
-- **Frontend**: React with TypeScript, TailwindCSS
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: JWT-based with refresh tokens
-- **API**: RESTful with OpenAPI documentation
+- **Backend**: Python 3.9+ with FastAPI and Pydantic
+- **API**: RESTful with automatic OpenAPI docs at /docs
+- **Deployment**: Docker and Docker Compose included
+- **Dashboard**: Static HTML at web/dashboard.html
+- **Data**: Synthetic labeled CSV dataset
+- **Dependencies**: fastapi, pydantic, uvicorn, requests
+
+## What's in the Box
+
+```
+TallySec/
+├── tallysec/           # Core Python package (scanner, CLI, reports)
+├── fastapi_service/    # API microservice
+├── labs/               # 5 labs with student + instructor versions
+├── training_kit_v1/    # Quizzes, exam, certificates, rubric
+├── data/               # Synthetic datasets
+├── web/                # Static dashboard
+├── docs/               # Quickstart, Syllabus, FAQ
+├── sales/              # One-pager, listing materials
+├── press_kit/          # Boilerplate, press release
+└── legal/              # EULA, sale agreement
+```
 
 ## FAQ
 
-**Can I customize the vulnerability categories?**
-Yes, categories and severity levels are fully configurable.
+**Is this for production security scanning?**
+No. TallySec is a training/demo bundle with synthetic data. It teaches concepts, not production threat detection.
 
-**Does it integrate with ticketing systems?**
-The API makes integration straightforward. We include example integrations for Jira and Linear.
+**Can I rebrand this for my organization?**
+Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization guides are included.
 
-**What about multi-tenancy?**
-The codebase includes organization-level separation suitable for MSPs.
+**What's the technical skill level required?**
+Labs progress from beginner to intermediate. Basic Python and API knowledge is helpful but not required.
 
-**Is there SSO support?**
-SAML and OIDC integration code is included.
+**Is support included?**
+This is a self-serve, no-handover package. Everything needed is included in the repo—no ongoing support required.

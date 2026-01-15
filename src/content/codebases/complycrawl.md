@@ -1,85 +1,117 @@
 ---
 title: "ComplyCrawl"
-tagline: "Automated compliance evidence collection"
-description: "A continuous compliance monitoring tool that automatically collects evidence from your infrastructure, reducing manual audit preparation from weeks to hours."
-status: "limited"
-category: "Compliance"
-tags: ["compliance", "automation", "audit", "soc2", "evidence-collection"]
+tagline: "Compliance-first web automation toolkit"
+description: "A Python-based web automation toolkit that puts compliance first—automatic robots.txt enforcement, encrypted audit trails, and intelligent throttling for organizations that need powerful crawling without legal risk."
+status: "available"
+category: "Compliance Automation"
+tags: ["compliance", "web-automation", "crawling", "seo", "audit-trail", "robots-txt"]
 features:
-  - "Automated evidence collection from cloud providers"
-  - "Real-time compliance posture dashboard"
-  - "Pre-built control mappings for SOC 2, ISO 27001, HIPAA"
-  - "Scheduled collection with historical snapshots"
-  - "Alert on compliance drift"
-  - "Auditor-friendly evidence exports"
-  - "Custom control framework support"
-  - "Integration with major cloud platforms"
+  - "Automatic robots.txt enforcement before any request"
+  - "Consent-first architecture with explicit consent gates"
+  - "Encrypted audit trails with SHA-256 hash chains"
+  - "Three ready-to-use playbooks: SEO, Catalog, Link Health"
+  - "Intelligent throttling with crawl-delay observation"
+  - "CSV and PDF report exports for stakeholders"
+  - "Domain whitelisting and custom user-agent support"
+  - "SOC 2 / ISO 27001 alignment built-in"
 included:
-  - "Full source code (Python backend, Vue.js frontend)"
-  - "Cloud provider integration modules (AWS, GCP, Azure)"
-  - "Control mapping templates for common frameworks"
-  - "Deployment automation (Terraform)"
-  - "Documentation and runbooks"
-  - "60 days of post-purchase support"
+  - "Full source code (Python with CLI)"
+  - "Three complete playbooks (SEO regression, Catalog monitoring, Link health)"
+  - "YAML configuration profiles"
+  - "Encrypted vault system with Fernet encryption"
+  - "Docker configuration"
+  - "Railway deployment template"
+  - "Demo output and documentation"
+  - "Test suite with pytest"
 targetAudience:
-  - "Companies preparing for SOC 2 audits"
-  - "Compliance teams tired of screenshot collection"
-  - "Startups scaling their security programs"
-  - "Consultants helping clients with compliance"
+  - "Regulated industries needing compliant web automation"
+  - "Marketing agencies monitoring client SEO"
+  - "E-commerce businesses tracking catalog changes"
+  - "Compliance teams requiring audit trails"
 order: 2
 ---
 
 ## What ComplyCrawl Does
 
-ComplyCrawl connects to your cloud infrastructure and automatically collects the evidence auditors need. No more frantic screenshot sessions before audits.
+ComplyCrawl is a **compliance-first web automation toolkit** designed for organizations that need powerful crawling capabilities while respecting robots.txt, terms of service, and data protection regulations. Unlike traditional scrapers, ComplyCrawl puts legal compliance at the center.
 
 ## The Problem It Solves
 
-Compliance evidence collection is painful:
-- Manually gathering screenshots is tedious and error-prone
-- Evidence goes stale between collection and audit
-- Different auditors want different formats
-- Proving continuous compliance requires continuous effort
+Traditional web scraping tools ignore compliance:
+- No robots.txt respect—risking legal action
+- No audit trails—impossible to prove compliant behavior
+- No rate limiting—overloading target servers
+- No consent gates—automation runs without explicit approval
 
-ComplyCrawl automates the tedious parts so you can focus on actual security.
+ComplyCrawl solves this with compliance baked into every layer.
 
 ## Key Capabilities
 
-### Cloud-Native Collection
-Direct API integrations with AWS, GCP, and Azure pull configuration data, access logs, and security settings automatically.
+### Guardrails System
+- **robots.txt Parser**: Automatically fetches and evaluates robots.txt before any request
+- **Consent Gates**: Config requires explicit `consent: true` flag
+- **Domain Whitelisting**: Restrict automation to approved domains only
+- **Custom User-Agent**: Identify your bot with purpose and contact info
 
-### Control Mapping
-Pre-built mappings translate your infrastructure state into evidence for specific controls. SOC 2 Type II, ISO 27001, and HIPAA templates included.
+### Encrypted Audit Vault
+- **Append-Only Logging**: SHA-256 hash chains create tamper-evident audit trails
+- **Encrypted Storage**: Artifacts encrypted with Fernet (AES-128)
+- **Full Reproducibility**: Config snapshots with each run
+- **Retention Controls**: Configurable data retention policies
 
-### Continuous Monitoring
-Scheduled collection runs capture your compliance posture over time. Drift detection alerts you when something changes.
+### Three Production-Ready Playbooks
 
-### Auditor Portal
-Give auditors read-only access to relevant evidence. They can browse, search, and export what they need without bothering your team.
+**1. SEO Regression Monitoring**
+Monitor page titles, meta descriptions, H1 tags, canonical URLs, and robots meta tags. Detect content changes with fingerprinting.
+
+**2. Catalog/Product Monitoring**
+Track product pages for price and availability changes. Configurable thresholds and historical trend analysis.
+
+**3. Link Health Checking**
+Monitor URLs for availability, track redirect chains, measure response times, and generate broken link reports.
+
+### Intelligent Throttling
+- Per-domain delays
+- Crawl-delay directive observation
+- Concurrency limits
+- Random jitter to avoid detection
 
 ## Technical Details
 
-- **Backend**: Python with FastAPI
-- **Frontend**: Vue.js with TypeScript
-- **Database**: PostgreSQL
-- **Task Queue**: Celery with Redis
-- **Infrastructure**: Terraform modules included
-- **Cloud SDKs**: boto3, google-cloud, azure-sdk
+- **Language**: Python 3.10+
+- **CLI**: Click-based command interface
+- **Database**: SQLite vault with Fernet encryption
+- **Export**: CSV and PDF report generation
+- **Config**: YAML-based with profile system
+- **Testing**: pytest suite included
+- **Deployment**: Docker + Railway template
+
+## What's in the Box
+
+```
+ComplyCrawl/
+├── core/               # CLI and orchestration
+├── playbooks/          # SEO, catalog, link health modules
+├── audit/              # Encrypted vault and logging
+├── compliance/         # Guardrails and consent enforcement
+├── export/             # CSV and PDF report generators
+├── config/             # YAML configuration examples
+├── profiles/           # Pre-built profile templates
+├── docs/               # Compliance pack, quick start guides
+├── tests/              # pytest test suite
+└── vault/              # Encrypted audit database (runtime)
+```
 
 ## FAQ
 
-**Which cloud providers are supported?**
-AWS, GCP, and Azure have full integrations. The architecture makes adding others straightforward.
+**Does this respect robots.txt automatically?**
+Yes. The guardrails system fetches and evaluates robots.txt before any request. Disallowed paths are never crawled.
 
-**Can I add custom evidence sources?**
-Yes, the collector framework is extensible. Documentation includes examples for adding new sources.
+**What makes the audit trail tamper-evident?**
+Each log entry includes a SHA-256 hash of the previous entry, creating a cryptographic chain. Any modification breaks the chain and is detectable.
 
-**How often does it collect evidence?**
-Configurable per-source, from hourly to weekly. Daily is typical for most controls.
+**Can I add custom playbooks?**
+Yes. The playbook framework is extensible. Documentation includes examples for creating new automation types.
 
-**What about on-premise systems?**
-The agent-based collector can run in your environment for on-premise systems.
-
-## Current Status
-
-ComplyCrawl is available on a limited basis. We're selective about buyers to ensure good support coverage.
+**Is this suitable for enterprise use?**
+Yes. Built with SOC 2 and ISO 27001 controls in mind. Encrypted storage, audit trails, and consent gates satisfy common compliance requirements.

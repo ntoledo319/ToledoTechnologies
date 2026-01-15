@@ -2,9 +2,9 @@
 /**
  * Nonprofit Page
  * 
- * Information about nonprofit-focused work and collaboration approach.
+ * Information about Daedalus Landed nonprofit initiative and humane AI systems.
  * 
- * @ai_prompt Nonprofit support page - practical, honest, no overclaiming
+ * @ai_prompt Nonprofit page featuring Daedalus Landed - NOUS and ENODIOS projects
  * @context_boundary pages
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -15,56 +15,72 @@ const jsonLd = breadcrumbSchema([
   { name: 'Nonprofit', url: '/nonprofit' }
 ]);
 
-const whatWeHelp = [
+const values = [
   {
-    title: 'Website & Digital Presence',
-    description: 'Modern, accessible websites that work on any device and are easy to update without a developer.'
+    title: 'People > Product',
+    description: 'Users are humans, not "MAUs" to optimize. We build for people, not metrics.'
   },
   {
-    title: 'Donor & Volunteer Tools',
-    description: 'CRM setup, donation processing, volunteer scheduling—the systems that keep organizations running.'
+    title: 'Open > Opaque',
+    description: 'Code, decisions, and failures should be explainable. Transparency by default.'
   },
   {
-    title: 'Process Automation',
-    description: 'Stop manually copying data between spreadsheets. We automate the repetitive work.'
+    title: 'Non-Extractive',
+    description: 'No dark patterns, no casino UX, no secret data resale. Ever.'
   },
   {
-    title: 'Data Cleanup & Migration',
-    description: 'Moving from one system to another? Merging databases? We handle the messy parts.'
+    title: 'Safety First',
+    description: 'Especially around mental health, crisis content, and vulnerable users.'
   },
   {
-    title: 'Training & Documentation',
-    description: 'Your team needs to maintain what we build. We make sure they can.'
+    title: 'Environmentally Conscious',
+    description: 'Model choice, caching, and infra design factor in energy cost, not just latency.'
   },
   {
-    title: 'Strategic Consulting',
-    description: 'Sometimes you need help deciding what technology to use before building anything.'
+    title: 'Free or Radically Affordable',
+    description: 'The basics of being human shouldn\'t be paywalled.'
   }
 ];
 
-const principles = [
+const flagshipProjects = [
   {
-    title: 'Budget Reality',
-    description: 'We understand nonprofit budgets. We scope work to fit constraints, not the other way around.'
+    name: 'NOUS',
+    tagline: '"Not Your Therapist" — But Actually Helpful',
+    description: 'A mental-health-aware AI companion and next-gen personal assistant. NOUS helps users practice real therapeutic tools (CBT, DBT), track patterns over time, and build coping plans—all with clear limits and safety rails.',
+    features: [
+      'Real skills engine, not just "positive vibes"',
+      'Pattern tracking and plain-language reflection',
+      'Calendar, tasks, and habit integration',
+      'Hard edges around what it won\'t do',
+      'Crisis escalation to human professionals'
+    ],
+    notFeatures: [
+      'Not a licensed clinician',
+      'Not a crisis service',
+      'Not a replacement for real therapy'
+    ],
+    status: 'Early pre-beta'
   },
   {
-    title: 'Long-term Thinking',
-    description: 'We build for sustainability. You shouldn\'t need us forever—that\'s the goal.'
-  },
-  {
-    title: 'Honest Recommendations',
-    description: 'Sometimes the answer is "use this free tool" not "let us build you something custom."'
-  },
-  {
-    title: 'Mission Alignment',
-    description: 'Technology should serve your mission, not complicate it. We keep that in focus.'
+    name: 'ENODIOS',
+    tagline: 'The Everything Agent for People Who Can\'t Afford $20/Tool',
+    description: 'AI is becoming "paywall your way to power or get left behind." ENODIOS takes free and low-cost models, orchestrates them smartly, and squeezes every ounce of value so normal people can build anything.',
+    features: [
+      'Code generation and refactoring',
+      'Content, copy, and research',
+      'Creative work: ideas, outlines, drafts',
+      'Multi-model, open-first stack',
+      'Reusable templates and pipelines'
+    ],
+    notFeatures: [],
+    status: 'Pre-beta, expanding from coding to general creation'
   }
 ];
 ---
 
 <BaseLayout
-  title="Nonprofit Work"
-  description="We help nonprofit organizations ship technology value on limited budgets. Practical tools, honest recommendations, and solutions that respect constraints."
+  title="Daedalus Landed"
+  description="A nonprofit-in-progress building free, humane AI systems for mental health, creation, and education. Taking the profit motive out of the basics of being human."
   jsonLd={jsonLd}
 >
   <!-- Hero -->
@@ -72,99 +88,212 @@ const principles = [
     <div class="container-wide section-padding">
       <div class="max-w-3xl">
         <span class="inline-block px-3 py-1 rounded-full bg-warm-100 text-warm-700 text-sm font-medium mb-4">
-          Nonprofit Support
+          Nonprofit Initiative
         </span>
         <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
-          Technology That Serves Your Mission
+          Daedalus Landed
         </h1>
-        <p class="text-xl text-surface-600 mb-8">
-          Nonprofits need technology to operate effectively, but enterprise pricing 
-          doesn't fit nonprofit budgets. We help organizations get real value without 
-          overspending or overcomplicating.
+        <p class="text-xl text-surface-600 mb-4">
+          <strong>Nonprofit-in-progress.</strong>
         </p>
-        <a href="/contact?subject=Nonprofit%20Project" class="btn-primary">
-          Let's Talk About Your Needs
-        </a>
+        <p class="text-xl text-surface-600 mb-8">
+          We're building free (or radically affordable) AI systems that <em>actually</em> help people 
+          and don't treat them as ad inventory, data exhaust, or whales to be monetized.
+        </p>
+        <p class="text-lg text-surface-700 mb-8 font-medium">
+          Mission: Take the profit motive out of the basics of being human—starting with 
+          <span class="text-warm-600">mental health</span>, 
+          <span class="text-warm-600">creation</span>, and 
+          <span class="text-warm-600">education</span>.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="https://github.com/Daedalus-Landed" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            View on GitHub →
+          </a>
+          <a href="/contact?subject=Daedalus%20Landed" class="btn-secondary">
+            Get Involved
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- What We Help With -->
+  <!-- The Problem -->
   <section class="container-wide section-padding-sm">
-    <h2 class="text-2xl font-bold text-surface-900 mb-8">How We Help</h2>
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold text-surface-900 mb-6">Why This Exists</h2>
+      <div class="bg-surface-50 rounded-2xl p-8 border border-surface-200">
+        <p class="text-surface-700 mb-4">
+          Right now, to get serious AI for your life or work, you mostly have to:
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 mt-1">✗</span>
+            <span class="text-surface-600">Pay for premium models every month</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 mt-1">✗</span>
+            <span class="text-surface-600">Hand over your data, behavior, and attention</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 mt-1">✗</span>
+            <span class="text-surface-600">Or settle for weak "free" tools that quietly exploit you</span>
+          </li>
+        </ul>
+        <div class="bg-white rounded-xl p-6 border-l-4 border-warm-500">
+          <p class="text-surface-800 font-medium">
+            Daedalus Landed is trying a different path: Build strong, humane AI systems under a 
+            nonprofit umbrella, keep the core tools free or radically cheap, and refuse to fund 
+            it by selling users out.
+          </p>
+        </div>
+        <p class="text-surface-500 mt-4 text-sm italic">
+          We're early. The code is messy, the dream is not.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flagship Projects -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding">
+      <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Flagship Projects</h2>
+      <div class="grid lg:grid-cols-2 gap-8">
+        {flagshipProjects.map((project) => (
+          <div class="bg-white rounded-2xl p-8 border border-surface-200">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">{project.name === 'NOUS' ? '🌒' : '🛠'}</span>
+              <div>
+                <h3 class="text-xl font-bold text-surface-900">{project.name}</h3>
+                <p class="text-sm text-surface-500">{project.tagline}</p>
+              </div>
+            </div>
+            <p class="text-surface-600 mb-4">{project.description}</p>
+            
+            <h4 class="font-semibold text-surface-800 mb-2 text-sm">What It Does</h4>
+            <ul class="space-y-1 mb-4">
+              {project.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-surface-600">
+                  <span class="text-green-500 mt-0.5">✓</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            
+            {project.notFeatures.length > 0 && (
+              <>
+                <h4 class="font-semibold text-surface-800 mb-2 text-sm">What It's Not</h4>
+                <ul class="space-y-1 mb-4">
+                  {project.notFeatures.map((notFeature) => (
+                    <li class="flex items-start gap-2 text-sm text-surface-500">
+                      <span class="text-red-400 mt-0.5">✗</span>
+                      <span>{notFeature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            
+            <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
+              {project.status}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="container-wide section-padding-sm">
+    <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Values & Ethics</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {whatWeHelp.map((item) => (
+      {values.map((value) => (
         <div class="bg-white rounded-xl p-6 border border-surface-200 hover:border-warm-300 transition-colors">
-          <h3 class="font-semibold text-surface-900 mb-2">{item.title}</h3>
-          <p class="text-sm text-surface-600">{item.description}</p>
+          <h3 class="font-semibold text-surface-900 mb-2">{value.title}</h3>
+          <p class="text-sm text-surface-600">{value.description}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Our Approach -->
-  <section class="bg-surface-50 border-y border-surface-200">
+  <!-- How to Support -->
+  <section class="bg-warm-50 border-y border-warm-200">
     <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-bold text-surface-900 mb-4 text-center">Our Approach</h2>
-        <p class="text-center text-surface-600 mb-8">
-          We don't treat nonprofit work as charity. It's real work that deserves real attention. 
-          We just do it with a clear understanding of the constraints.
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">How to Support</h2>
+        <p class="text-surface-600 mb-8">
+          We're trying to keep these systems free from ad-tech and predatory monetization. 
+          That means we need help with the unsexy parts: infra, hosting, audits, and eventually clinical research.
         </p>
-        <div class="grid sm:grid-cols-2 gap-6">
-          {principles.map((principle) => (
-            <div class="bg-white rounded-xl p-6 border border-surface-200">
-              <h3 class="font-semibold text-surface-900 mb-2">{principle.title}</h3>
-              <p class="text-sm text-surface-600">{principle.description}</p>
-            </div>
-          ))}
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-white rounded-xl p-4 border border-warm-200">
+            <span class="text-2xl mb-2 block">⭐</span>
+            <h3 class="font-semibold text-surface-900 text-sm">Star the Repos</h3>
+            <p class="text-xs text-surface-500">Visibility matters more than you think</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-warm-200">
+            <span class="text-2xl mb-2 block">🐛</span>
+            <h3 class="font-semibold text-surface-900 text-sm">Open Issues</h3>
+            <p class="text-xs text-surface-500">Bug reports, safety concerns, edge cases</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-warm-200">
+            <span class="text-2xl mb-2 block">🧪</span>
+            <h3 class="font-semibold text-surface-900 text-sm">Help Test</h3>
+            <p class="text-xs text-surface-500">Dogfood early builds, tell us what breaks</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-warm-200">
+            <span class="text-2xl mb-2 block">💸</span>
+            <h3 class="font-semibold text-surface-900 text-sm">Fund the Work</h3>
+            <p class="text-xs text-surface-500">Keeps lights on, servers up</p>
+          </div>
         </div>
+        <p class="text-sm text-surface-500 italic">
+          No donation buys you surveillance rights. No donation buys you a data firehose. 
+          It just keeps the lights on.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- What We're Building -->
+  <!-- Contributing -->
   <section class="container-wide section-padding-sm">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div>
-        <h2 class="text-2xl font-bold text-surface-900 mb-4">What We're Building</h2>
-        <div class="space-y-4 text-surface-600">
-          <p>
-            Beyond client work, we're developing tools specifically designed for nonprofit 
-            use cases. These are the tools we wish existed when working with nonprofit clients.
-          </p>
-          <p>
-            We're focused on:
-          </p>
-          <ul class="space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="text-warm-600 mt-1">•</span>
-              <span>Donor management that doesn't cost thousands per year</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-warm-600 mt-1">•</span>
-              <span>Grant tracking that actually helps with reporting</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-warm-600 mt-1">•</span>
-              <span>Volunteer coordination that works on phones</span>
-            </li>
-          </ul>
-          <p>
-            These are in various stages of development. If you're interested in early 
-            access or providing feedback, we'd love to hear from you.
-          </p>
-        </div>
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">Contributing</h2>
+        <p class="text-surface-600 mb-4">We're looking for:</p>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-start gap-3">
+            <span class="text-warm-600 font-bold">→</span>
+            <span class="text-surface-700"><strong>Engineers</strong> — Python, TypeScript, orchestration, infra, security</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-warm-600 font-bold">→</span>
+            <span class="text-surface-700"><strong>UX/Product</strong> — Flows that don't treat people like stats</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-warm-600 font-bold">→</span>
+            <span class="text-surface-700"><strong>Clinicians/Researchers</strong> — To design and evaluate NOUS responsibly</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-warm-600 font-bold">→</span>
+            <span class="text-surface-700"><strong>Writers/Educators</strong> — Accessible skills content and docs</span>
+          </li>
+        </ul>
+        <p class="text-surface-500 text-sm">
+          We're early. Things are chaotic. If you like building in the weird, this is the window.
+        </p>
       </div>
       <div class="bg-gradient-to-br from-warm-100 to-warm-50 rounded-2xl p-8 border border-warm-200">
-        <h3 class="font-semibold text-surface-900 mb-4">Interested in Early Access?</h3>
-        <p class="text-surface-600 mb-4">
-          We're looking for nonprofit partners who can provide real-world feedback on tools 
-          we're building. In exchange, you get early access and input on features.
+        <h3 class="font-semibold text-surface-900 mb-4">Mental Health Disclaimer</h3>
+        <p class="text-surface-600 mb-4 text-sm">
+          NOUS and any related tools do <strong>not</strong> replace professional mental health care, 
+          do <strong>not</strong> provide crisis intervention, and should <strong>never</strong> be your 
+          only support in a life-threatening situation.
         </p>
-        <a href="/contact?subject=Nonprofit%20Early%20Access" class="btn-primary bg-warm-600 hover:bg-warm-700 focus:ring-warm-500">
-          Get in Touch
-        </a>
+        <p class="text-surface-700 font-medium text-sm">
+          If you are in immediate danger or crisis, contact your local emergency number or a 
+          trusted crisis hotline in your region.
+        </p>
       </div>
     </div>
   </section>
@@ -172,17 +301,16 @@ const principles = [
   <!-- CTA -->
   <section class="container-wide section-padding-sm">
     <div class="bg-surface-900 rounded-2xl p-8 md:p-12 text-white text-center">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Let's Talk</h2>
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Daedalus Landed</h2>
       <p class="text-surface-300 mb-6 max-w-xl mx-auto">
-        Every nonprofit's needs are different. Tell us what you're trying to accomplish 
-        and we'll figure out how (or if) we can help.
+        We're here to see if AI can serve people <strong>without selling them first</strong>.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/contact?subject=Nonprofit%20Project" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors">
-          Start a Conversation
+        <a href="https://github.com/Daedalus-Landed" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors">
+          GitHub Organization →
         </a>
-        <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-800 text-white font-medium hover:bg-surface-700 transition-colors">
-          See Case Studies
+        <a href="/contact?subject=Daedalus%20Landed%20Contribution" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-800 text-white font-medium hover:bg-surface-700 transition-colors">
+          Get Involved
         </a>
       </div>
     </div>
