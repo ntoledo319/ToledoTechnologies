@@ -27,13 +27,6 @@ const services = [
   },
 ];
 
-const steps = [
-  { step: '01', title: 'Ask', description: 'Tell us what you need. Bug fix, feature, full build—we hear you out.' },
-  { step: '02', title: 'Scope', description: 'We define the work clearly. No surprises, no scope creep.' },
-  { step: '03', title: 'Build', description: 'We ship fast with regular updates. You see progress, not silence.' },
-  { step: '04', title: 'Deliver', description: 'Clean handoff with documentation. Your code, your control.' },
-  { step: '05', title: 'Support', description: 'Questions after delivery? We stick around to help.' },
-];
 ---
 
 <BaseLayout
@@ -76,29 +69,13 @@ const steps = [
         {services.map((service) => (
           <a href={service.href} class="group py-4 border-b border-surface-100 last:border-0 flex justify-between items-start gap-4">
             <div>
-              <h3 class="font-mono font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">
+              <h3 class="font-mono font-semibold text-surface-900 group-hover:text-warm-500 transition-colors">
                 {service.title}
               </h3>
               <p class="text-sm text-surface-600 mt-1">{service.description}</p>
             </div>
-            <span class="text-surface-400 group-hover:text-brand-600 transition-colors mt-1 shrink-0">→</span>
+            <span class="text-surface-400 group-hover:text-warm-500 transition-colors mt-1 shrink-0">→</span>
           </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works: horizontal flow -->
-  <section class="border-b border-surface-200">
-    <div class="container-wide section-padding-sm">
-      <h2 class="text-2xl font-bold text-surface-900 mb-8">How It Works</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-6">
-        {steps.map((item) => (
-          <div>
-            <span class="text-brand-500 font-mono text-sm font-semibold">{item.step}</span>
-            <h3 class="font-mono font-semibold text-surface-900 mt-1">{item.title}</h3>
-            <p class="text-sm text-surface-500 mt-1">{item.description}</p>
-          </div>
         ))}
       </div>
     </div>
@@ -164,35 +141,4 @@ const steps = [
     </div>
   </section>
 
-  <!-- Navigation: simple links, not card grid -->
-  <section>
-    <div class="container-wide section-padding-sm">
-      <div class="grid md:grid-cols-3 gap-8">
-        <a href="/blog" class="group">
-          <h3 class="font-mono font-semibold text-surface-900 group-hover:text-brand-600 transition-colors mb-1">
-            Blog
-          </h3>
-          <p class="text-sm text-surface-500">
-            Practical writing on development, performance, and shipping software that works.
-          </p>
-        </a>
-        <a href="/codebases" class="group">
-          <h3 class="font-mono font-semibold text-surface-900 group-hover:text-brand-600 transition-colors mb-1">
-            Codebases
-          </h3>
-          <p class="text-sm text-surface-500">
-            Deploy-ready repositories: security, compliance automation, and AI infrastructure.
-          </p>
-        </a>
-        <a href="/services" class="group">
-          <h3 class="font-mono font-semibold text-surface-900 group-hover:text-brand-600 transition-colors mb-1">
-            Services
-          </h3>
-          <p class="text-sm text-surface-500">
-            Bug fixes, feature builds, automation. See the full list.
-          </p>
-        </a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>

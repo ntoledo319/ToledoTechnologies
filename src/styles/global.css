@@ -96,7 +96,7 @@
   }
 
   .card-interactive {
-    @apply bg-white rounded-md border border-surface-200 transition-all duration-150 hover:border-surface-400;
+    @apply bg-white rounded-md border border-surface-200 transition-all duration-150 hover:border-warm-400;
   }
 
   .section-padding {

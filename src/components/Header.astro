@@ -22,7 +22,7 @@ function isActive(href: string): boolean {
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group" aria-label="Toledo Technologies Home">
         <span class="font-mono font-bold text-lg text-surface-900">
-          toledo<span class="text-brand-600">tech</span>
+          toledo<span class="text-warm-500">tech</span>
         </span>
       </a>
 
@@ -35,7 +35,7 @@ function isActive(href: string): boolean {
               'px-3 py-1.5 rounded-md text-sm font-mono font-medium transition-colors',
               isActive(link.href)
                 ? 'text-surface-900 bg-surface-100'
-                : 'text-surface-500 hover:text-surface-900',
+                : 'text-surface-500 hover:text-warm-600',
             ]}
           >
             {link.label}
@@ -75,7 +75,7 @@ function isActive(href: string): boolean {
               'block px-3 py-2 rounded-md text-base font-mono font-medium transition-colors',
               isActive(link.href)
                 ? 'text-surface-900 bg-surface-100'
-                : 'text-surface-500 hover:text-surface-900 hover:bg-surface-50',
+                : 'text-surface-500 hover:text-warm-600 hover:bg-surface-50',
             ]}
           >
             {link.label}
