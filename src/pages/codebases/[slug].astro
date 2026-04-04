@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
-import { breadcrumbSchema, productSchema, faqSchema } from '../../utils/jsonld';
+import { breadcrumbSchema, softwareSchema, faqSchema } from '../../utils/jsonld';
 
 export async function getStaticPaths() {
   const codebases = await getCollection('codebases');
@@ -39,12 +40,13 @@ const jsonLd = [
     { name: 'Codebases', url: '/codebases' },
     { name: codebase.data.title, url: `/codebases/${codebase.slug}` }
   ]),
-  productSchema({
+  softwareSchema({
     name: codebase.data.title,
     description: codebase.data.description,
     url: `/codebases/${codebase.slug}`,
     status: codebase.data.status,
-    category: codebase.data.category
+    category: codebase.data.category,
+    tags: codebase.data.tags,
   }),
   faqSchema(faqs)
 ];
@@ -88,6 +90,11 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
             {status.text}
           </span>
         </div>
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'Codebases', href: '/codebases' },
+          { label: codebase.data.title },
+        ]} />
         <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
           {codebase.data.title}
         </h1>
@@ -120,7 +127,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
       </div>
 
       <!-- Sidebar -->
-      <div class="space-y-6">
+      <aside class="space-y-6" aria-label="Product details">
         <!-- Status -->
         <div class={`rounded-md p-6 border ${status.class}`}>
           <h3 class="font-semibold mb-2">{status.text}</h3>
@@ -178,7 +185,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
             Request Details
           </a>
         </div>
-      </div>
+      </aside>
     </div>
   </section>
 

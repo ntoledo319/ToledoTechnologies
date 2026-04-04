@@ -2,12 +2,13 @@
 title: "Nonprofit Tech: Shipping Value on Tiny Budgets"
 description: "Practical strategies for nonprofits to get real technology value without enterprise budgets. Prioritization, smart tooling, and finding the right help."
 publishedDate: 2024-02-26
+modifiedDate: 2024-02-26
 tags: ["nonprofit", "budget", "technology"]
 featured: false
 tldr: "Focus on one thing at a time, use boring technology, and find developers who understand constraints."
 ---
 
-## The Nonprofit Tech Dilemma
+## What Is the Biggest Technology Challenge for Nonprofits?
 
 Nonprofits need technology to operate effectively, but they're often stuck with:
 - Donated software that doesn't quite fit
@@ -54,7 +55,7 @@ If volunteers will use the system:
 - Training should take minutes, not days
 - It should work on phones (not everyone has laptops)
 
-## Where to Spend Limited Budget
+## Where Should Nonprofits Spend Their Limited Tech Budget?
 
 ### High ROI Areas
 
@@ -70,7 +71,7 @@ If volunteers will use the system:
 - Complete rebuilds when incremental improvements work
 - Bleeding-edge technology
 
-## Finding the Right Help
+## How Do Nonprofits Find the Right Development Partner?
 
 ### What to Look For
 
@@ -102,4 +103,4 @@ Our approach:
 
 ---
 
-**Running a nonprofit and need tech help?** [Let's talk about what would make the biggest impact](/nonprofit).
+**Running a nonprofit and need tech help?** [Learn about our Daedalus Landed initiative](/nonprofit) or [get in touch directly](/contact?subject=Nonprofit%20Project). We also wrote about [how MVP launches work](/case-studies/startup-mvp-launch) for organizations moving fast on tight timelines.

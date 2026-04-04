@@ -190,6 +190,80 @@ export function productSchema(product: {
 }
 
 /**
+ * Article schema for case studies and long-form content.
+ */
+export function articleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  publishedDate: string;
+  modifiedDate?: string;
+  author?: string;
+  image?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    url: article.url.startsWith('http') ? article.url : `${SITE_URL}${article.url}`,
+    datePublished: article.publishedDate,
+    dateModified: article.modifiedDate || article.publishedDate,
+    author: {
+      '@type': 'Organization',
+      name: article.author || SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': article.url.startsWith('http') ? article.url : `${SITE_URL}${article.url}`,
+    },
+    image: article.image ? (article.image.startsWith('http') ? article.image : `${SITE_URL}${article.image}`) : `${SITE_URL}/og-default.png`,
+  };
+}
+
+/**
+ * SoftwareSourceCode schema for codebase product pages.
+ * More accurate than Product for code repositories.
+ */
+export function softwareSchema(software: {
+  name: string;
+  description: string;
+  url: string;
+  status: string;
+  category?: string;
+  tags?: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: software.name,
+    description: software.description,
+    url: software.url.startsWith('http') ? software.url : `${SITE_URL}${software.url}`,
+    codeRepository: software.url.startsWith('http') ? software.url : `${SITE_URL}${software.url}`,
+    creator: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    applicationCategory: software.category || 'Software',
+    keywords: software.tags?.join(', '),
+    offers: {
+      '@type': 'Offer',
+      availability: software.status === 'available'
+        ? 'https://schema.org/InStock'
+        : software.status === 'limited'
+          ? 'https://schema.org/LimitedAvailability'
+          : 'https://schema.org/PreOrder',
+      seller: {
+        '@id': `${SITE_URL}/#organization`,
+      },
+    },
+  };
+}
+
+/**
  * FAQPage schema for FAQ sections.
  */
 export function faqSchema(faqs: { question: string; answer: string }[]) {

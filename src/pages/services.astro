@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '../utils/jsonld';
 
 const services = [
@@ -162,6 +163,10 @@ const serviceCategories = [
   <section class="border-b border-surface-200">
     <div class="container-wide section-padding">
       <div class="max-w-3xl">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services' },
+        ]} />
         <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
           What We Do
         </h1>

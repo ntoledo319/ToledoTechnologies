@@ -2,12 +2,13 @@
 title: "Fast Bug Fixes: How We Triage Like Adults"
 description: "Our systematic approach to triaging and fixing bugs quickly without creating new problems. Real-world strategies for effective debugging."
 publishedDate: 2024-01-22
+modifiedDate: 2024-02-26
 tags: ["bug-fixes", "debugging", "development-process"]
 featured: true
 tldr: "Reproduce first, isolate second, fix third. Never guess. Always verify."
 ---
 
-## The Problem with Panic Debugging
+## Why Does Panic Debugging Make Things Worse?
 
 When something breaks in production, the natural instinct is to jump in and start changing things. This almost always makes things worse.
 
@@ -49,12 +50,14 @@ The fix should be as small as possible while fully addressing the root cause. Th
 - Verify the fix in a staging environment
 - Document what happened and why
 
-## What We Don't Do
+## What Should You Avoid When Debugging?
 
 - **Guess and check**: Throwing code at the wall wastes everyone's time
 - **Blame people**: Bugs happen. Learning from them matters more.
 - **Skip testing**: "It works on my machine" isn't verification
 - **Rush to production**: A careful fix now beats a hotfix-of-a-hotfix later
+
+For more on how careful fixes compound into real [performance improvements](/blog/performance-fixes), see our deep dive on optimization.
 
 ## Why This Matters for You
 
@@ -66,6 +69,8 @@ When you hire us to fix a bug, you get:
 
 No mystery. No drama. Just clean fixes.
 
+See how this approach played out in practice: our [legacy system rescue case study](/case-studies/legacy-system-rescue) took a healthcare app from 94% to 99.9% uptime using exactly this method.
+
 ---
 
-**Need something fixed?** [Tell us what's broken](/contact?subject=Bug%20Fix) and we'll take it from there.
+**Need something fixed?** [Tell us what's broken](/contact?subject=Bug%20Fix) and we'll take it from there. You can also [explore our full service list](/services) to see how we help.

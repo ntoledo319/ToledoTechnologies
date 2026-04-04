@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../../utils/jsonld';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const allTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => post.data.tags.includes(tag))
+        .sort(
+          (a, b) =>
+            new Date(b.data.publishedDate).getTime() -
+            new Date(a.data.publishedDate).getTime()
+        ),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+
+const displayTag = tag
+  .split('-')
+  .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(' ');
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: displayTag, url: `/blog/tag/${tag}` },
+]);
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title={`${displayTag} — Blog`}
+  description={`Articles about ${displayTag.toLowerCase()} from Toledo Technologies. Practical insights on software development, debugging, and shipping code.`}
+  jsonLd={jsonLd}
+>
+  <section class="border-b border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Blog', href: '/blog' },
+            { label: displayTag },
+          ]}
+        />
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          {displayTag}
+        </h1>
+        <p class="text-xl text-surface-600">
+          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with <span class="font-mono text-surface-800">"{tag}"</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-wide section-padding-sm">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((post) => (
+        <a
+          href={`/blog/${post.slug}`}
+          class="card-interactive p-6 group flex flex-col"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <time
+              class="text-sm text-surface-500"
+              datetime={post.data.publishedDate.toISOString()}
+            >
+              {formatDate(post.data.publishedDate)}
+            </time>
+            {post.data.featured && (
+              <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">
+                Featured
+              </span>
+            )}
+          </div>
+          <h2 class="text-lg font-bold text-surface-900 group-hover:text-warm-500 transition-colors mb-2">
+            {post.data.title}
+          </h2>
+          <p class="text-sm text-surface-600 mb-4 flex-grow">
+            {post.data.description}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.slice(0, 3).map((t) => (
+              <span
+                class:list={[
+                  'text-xs px-2 py-1 rounded',
+                  t === tag
+                    ? 'bg-warm-100 text-warm-700'
+                    : 'bg-surface-100 text-surface-600',
+                ]}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container-wide section-padding-sm">
+    <div class="border-t border-surface-200 pt-12 max-w-xl">
+      <h2 class="text-2xl font-bold text-surface-900 mb-3">
+        Explore more topics
+      </h2>
+      <p class="text-surface-600 mb-6">
+        Browse all posts or check out our services.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/blog" class="btn-secondary">All Posts</a>
+        <a href="/services" class="btn-primary">View Services</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

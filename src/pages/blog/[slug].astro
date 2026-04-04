@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, blogPostingSchema } from '../../utils/jsonld';
 
@@ -60,12 +61,11 @@ const relatedPosts = allPosts
     <header class="border-b border-surface-200">
       <div class="container-narrow section-padding-sm">
         <div class="max-w-3xl mx-auto">
-          <a href="/blog" class="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-warm-500 transition-colors mb-6">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Blog
-          </a>
+          <Breadcrumbs items={[
+            { label: 'Home', href: '/' },
+            { label: 'Blog', href: '/blog' },
+            { label: post.data.title },
+          ]} />
           
           <div class="flex flex-wrap items-center gap-3 mb-4">
             <time class="text-sm text-surface-500" datetime={post.data.publishedDate.toISOString()}>
@@ -92,9 +92,9 @@ const relatedPosts = allPosts
           
           <div class="flex flex-wrap gap-2 mt-6">
             {post.data.tags.map((tag) => (
-              <span class="text-xs px-3 py-1 rounded-full bg-surface-100 text-surface-600">
+              <a href={`/blog/tag/${tag}`} class="text-xs px-3 py-1 rounded-full bg-surface-100 text-surface-600 hover:bg-warm-100 hover:text-warm-700 transition-colors">
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
         </div>

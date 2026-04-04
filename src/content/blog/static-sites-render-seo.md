@@ -2,12 +2,13 @@
 title: "Static Sites on Render: SEO Setup Checklist"
 description: "A practical checklist for deploying SEO-optimized static sites to Render. Covers sitemaps, meta tags, performance, and common gotchas."
 publishedDate: 2024-02-12
+modifiedDate: 2024-02-26
 tags: ["seo", "static-sites", "render", "deployment"]
 featured: true
 tldr: "Sitemap, robots.txt, meta tags, canonical URLs, fast hosting. Check each box before launch."
 ---
 
-## Why Static Sites Are Great for SEO
+## Why Are Static Sites Great for SEO?
 
 Static sites have inherent SEO advantages:
 - **Fast load times**: No server-side processing means quick responses
@@ -100,13 +101,15 @@ Add a `_headers` file for Netlify-style static hosting or configure through Rend
 3. **Test Open Graph**: Use Facebook's Sharing Debugger and Twitter's Card Validator
 4. **Monitor Core Web Vitals**: Use Search Console's experience reports
 
-## Common Mistakes to Avoid
+## What Are the Most Common SEO Mistakes with Static Sites?
 
 - **Forgetting trailing slashes**: Be consistent with URL structure
 - **Duplicate content**: Use canonical URLs properly
 - **Missing alt text**: Every image needs descriptive alt text
 - **Blocking JavaScript**: Don't prevent crawlers from accessing your JS
 
+Performance is also a major SEO factor — read our guide on [performance fixes that actually move the needle](/blog/performance-fixes) for more on what to optimize and what to skip.
+
 ---
 
-**Launching a static site?** [We can help with the technical SEO setup](/contact?subject=Static%20Site%20SEO).
+**Launching a static site?** [We can help with the technical SEO setup](/contact?subject=Static%20Site%20SEO). See our [services page](/services) for the full list of what we offer.

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
 const jsonLd = breadcrumbSchema([
@@ -17,6 +18,10 @@ const lastUpdated = 'January 2026';
 >
   <section class="container-narrow section-padding">
     <div class="max-w-3xl mx-auto">
+      <Breadcrumbs items={[
+        { label: 'Home', href: '/' },
+        { label: 'Privacy Policy' },
+      ]} />
       <h1 class="text-3xl sm:text-4xl font-bold text-surface-900 mb-4">
         Privacy Policy
       </h1>

@@ -2,18 +2,19 @@
 title: "Buying a Codebase Without Regretting It"
 description: "What to look for when purchasing a pre-built codebase, common pitfalls to avoid, and how to evaluate if it's actually worth your money."
 publishedDate: 2024-01-15
+modifiedDate: 2024-02-26
 tags: ["codebases", "due-diligence", "software-buying"]
 featured: true
 tldr: "Check the docs, run the tests, verify dependencies are maintained, and always get a demo before you pay."
 ---
 
-## The Appeal of Buying vs. Building
+## Why Buy a Codebase Instead of Building From Scratch?
 
 Building software from scratch is expensive. Time, talent, and trial-and-error add up fast. That's why buying a pre-built codebase can be incredibly appealing—especially when you need to move quickly.
 
 But not all codebases are created equal. Some are polished products ready for deployment. Others are held together with duct tape and prayers.
 
-## What to Look For
+## What Should You Look for When Buying a Codebase?
 
 ### Documentation Quality
 
@@ -45,7 +46,7 @@ Make sure you're getting full rights to the code. Ask explicitly:
 - Can you resell it or build SaaS on top of it?
 - Are there any third-party licenses you inherit?
 
-## Red Flags to Watch For
+## What Are the Red Flags When Buying Code?
 
 - **No demo environment**: If they can't show it running, why not?
 - **"Just needs a few tweaks"**: Usually means "fundamentally broken"
@@ -60,7 +61,7 @@ When we sell a codebase, we include:
 - 30 days of support for questions
 - Clear licensing terms
 
-We want you to succeed with the code, not struggle with it.
+We want you to succeed with the code, not struggle with it. If you're evaluating compliance tools specifically, check out our post on [compliance automation](/blog/compliance-automation) to understand what's real vs. theater.
 
 ## Bottom Line
 
@@ -68,4 +69,4 @@ Buying code can save you months of development time—if you do your homework. A
 
 ---
 
-**Related:** [Check out our available codebases](/codebases) or [get a custom quote](/contact) for your project.
+**Related:** [Check out our available codebases](/codebases) or [get a custom quote](/contact) for your project. And if you're launching something new, read how we helped a startup go [from idea to launch in 6 weeks](/case-studies/startup-mvp-launch).

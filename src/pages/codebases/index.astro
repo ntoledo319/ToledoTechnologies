@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
 
@@ -37,6 +38,10 @@ const statusLabels: Record<string, { text: string; class: string }> = {
   <section class="border-b border-surface-200">
     <div class="container-wide section-padding-sm">
       <div class="max-w-3xl">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'Codebases' },
+        ]} />
         <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
           Codebases for Sale
         </h1>

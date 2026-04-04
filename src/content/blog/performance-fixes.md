@@ -2,12 +2,13 @@
 title: "Performance Fixes That Actually Move the Needle"
 description: "Stop optimizing the wrong things. Learn how to identify real performance bottlenecks and make improvements that users actually notice."
 publishedDate: 2024-02-05
+modifiedDate: 2024-02-26
 tags: ["performance", "optimization", "development"]
 featured: false
 tldr: "Measure first, optimize second. Most performance issues are in 20% of the code—find that 20%."
 ---
 
-## The Optimization Trap
+## Why Do Most Performance Optimizations Not Matter?
 
 Developers love optimizing. It's satisfying to shave milliseconds off a function or reduce bundle sizes by a few kilobytes.
 
@@ -15,7 +16,7 @@ But here's the thing: most optimizations don't matter.
 
 If you're optimizing code that runs once on page load and takes 50ms, cutting it to 25ms won't change user experience. But if you're ignoring a database query that takes 2 seconds on every request... that's the real problem.
 
-## How to Find What Actually Matters
+## How Do You Find the Real Performance Bottlenecks?
 
 ### Profile Before You Optimize
 
@@ -65,15 +66,17 @@ Technical metrics are helpful, but user-perceived performance is what matters:
 - Moving heavy operations to background jobs
 - Database read replicas for read-heavy applications
 
-## When Not to Optimize
+## When Should You Skip Optimization?
 
 Sometimes the answer is "don't." Consider:
 - Is this actually causing problems for users?
 - Will the optimization introduce complexity?
 - Is the current performance "good enough"?
 
-Premature optimization really is the root of a lot of evil.
+Premature optimization really is the root of a lot of evil. The same principle applies to [bug fixing](/blog/fast-bug-fixes) — understand the problem before you touch the code.
+
+We applied this exact methodology in our [legacy system rescue](/case-studies/legacy-system-rescue), where targeted database fixes reduced response times by 70%.
 
 ---
 
-**Is your app slow?** [Let's talk about what's actually slowing it down](/contact?subject=Performance%20Optimization).
+**Is your app slow?** [Let's talk about what's actually slowing it down](/contact?subject=Performance%20Optimization). See the full list of [services we offer](/services) including performance audits and optimization.
