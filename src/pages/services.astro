@@ -1,12 +1,4 @@
 ---
-/**
- * Services Page
- * 
- * Comprehensive overview of all service offerings with FAQs.
- * 
- * @ai_prompt Main services page - update when adding new service categories
- * @context_boundary pages
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '../utils/jsonld';
 
@@ -167,19 +159,19 @@ const serviceCategories = [
   jsonLd={jsonLd}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-brand-50 via-white to-surface-50">
+  <section class="border-b border-surface-200">
     <div class="container-wide section-padding">
       <div class="max-w-3xl">
         <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-6">
-          Software Development Services
+          What We Do
         </h1>
         <p class="text-xl text-surface-600 mb-8">
-          Bug fixes, feature builds, automation, and complete codebases. We adapt to what you need, 
-          work remotely, and ship clean code that you own.
+          You tell us what's broken, missing, or slow. We fix it, build it, or automate it.
+          You own the code. We work remotely.
         </p>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap gap-3">
           <a href="/contact" class="btn-primary">Get a Quote</a>
-          <a href="#fix" class="btn-secondary">See Services</a>
+          <a href="#fix" class="btn-secondary">Jump to Services</a>
         </div>
       </div>
     </div>
@@ -207,7 +199,7 @@ const serviceCategories = [
                 </a>
               )}
             </div>
-            <div class="bg-surface-50 rounded-2xl p-6 border border-surface-200">
+            <div class="bg-surface-50 rounded-md p-6 border border-surface-200">
               <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {category.items.map((item) => (
                   <li class="flex items-start gap-2">
@@ -234,7 +226,7 @@ const serviceCategories = [
         </h2>
         <div class="space-y-6">
           {faqs.map((faq) => (
-            <div class="bg-white rounded-xl p-6 border border-surface-200">
+            <div class="bg-white rounded-md p-6 border border-surface-200">
               <h3 class="font-semibold text-surface-900 mb-2">{faq.question}</h3>
               <p class="text-surface-600">{faq.answer}</p>
             </div>
@@ -246,12 +238,12 @@ const serviceCategories = [
 
   <!-- CTA -->
   <section class="container-wide section-padding">
-    <div class="bg-brand-600 rounded-2xl p-8 md:p-12 text-center text-white">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
-      <p class="text-brand-100 mb-6 max-w-xl mx-auto">
+    <div class="border-t border-surface-200 pt-12 max-w-xl">
+      <h2 class="text-2xl font-bold text-surface-900 mb-3">Have something specific?</h2>
+      <p class="text-surface-600 mb-6">
         Tell us what you need. We'll scope it, price it, and get to work.
       </p>
-      <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+      <a href="/contact" class="btn-primary">
         Get a Quote
       </a>
     </div>

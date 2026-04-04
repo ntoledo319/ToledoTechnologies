@@ -1,13 +1,4 @@
 ---
-/**
- * Header.astro
- * 
- * Main site navigation header with responsive mobile menu.
- * Features text-based logo/wordmark and primary navigation links.
- * 
- * @ai_prompt Modify navigation links here when adding new pages.
- * @context_boundary components/navigation
- */
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
@@ -25,16 +16,13 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-surface-200/50">
+<header class="sticky top-0 z-50 bg-white border-b border-surface-200">
   <nav class="container-wide" aria-label="Main navigation">
-    <div class="flex items-center justify-between h-16 lg:h-20">
+    <div class="flex items-center justify-between h-14 lg:h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group" aria-label="Toledo Technologies Home">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-brand-700 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-          <span class="text-white font-bold text-lg">T</span>
-        </div>
-        <span class="font-display font-semibold text-lg text-surface-900 hidden sm:block">
-          Toledo<span class="text-brand-600">Tech</span>
+        <span class="font-mono font-bold text-lg text-surface-900">
+          toledo<span class="text-brand-600">tech</span>
         </span>
       </a>
 
@@ -44,10 +32,10 @@ function isActive(href: string): boolean {
           <a
             href={link.href}
             class:list={[
-              'px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+              'px-3 py-1.5 rounded-md text-sm font-mono font-medium transition-colors',
               isActive(link.href)
-                ? 'text-brand-600 bg-brand-50'
-                : 'text-surface-600 hover:text-surface-900 hover:bg-surface-100',
+                ? 'text-surface-900 bg-surface-100'
+                : 'text-surface-500 hover:text-surface-900',
             ]}
           >
             {link.label}
@@ -60,11 +48,11 @@ function isActive(href: string): boolean {
         <a href="/contact" class="btn-primary hidden sm:inline-flex">
           Get a Quote
         </a>
-        
+
         <!-- Mobile Menu Button -->
         <button
           type="button"
-          class="lg:hidden p-2 rounded-lg text-surface-600 hover:bg-surface-100 transition-colors"
+          class="lg:hidden p-2 rounded-md text-surface-600 hover:bg-surface-100 transition-colors"
           aria-label="Toggle menu"
           aria-expanded="false"
           id="mobile-menu-button"
@@ -79,15 +67,15 @@ function isActive(href: string): boolean {
 
     <!-- Mobile Navigation -->
     <div class="lg:hidden hidden" id="mobile-menu">
-      <div class="py-4 space-y-1 border-t border-surface-200">
+      <div class="py-3 space-y-1 border-t border-surface-200">
         {navLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'block px-3 py-2.5 rounded-lg text-base font-medium transition-colors',
+              'block px-3 py-2 rounded-md text-base font-mono font-medium transition-colors',
               isActive(link.href)
-                ? 'text-brand-600 bg-brand-50'
-                : 'text-surface-600 hover:text-surface-900 hover:bg-surface-100',
+                ? 'text-surface-900 bg-surface-100'
+                : 'text-surface-500 hover:text-surface-900 hover:bg-surface-50',
             ]}
           >
             {link.label}

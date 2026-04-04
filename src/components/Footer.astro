@@ -1,12 +1,4 @@
 ---
-/**
- * Footer.astro
- * 
- * Site footer with navigation links, contact info, and legal links.
- * 
- * @ai_prompt Update footer links when adding new pages or sections.
- * @context_boundary components/navigation
- */
 const currentYear = new Date().getFullYear();
 
 const footerSections = [
@@ -55,22 +47,19 @@ const footerSections = [
       <!-- Brand Column -->
       <div class="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
         <a href="/" class="flex items-center gap-2 mb-4">
-          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">
-            <span class="text-white font-bold text-lg">T</span>
-          </div>
-          <span class="font-display font-semibold text-lg text-white">
-            Toledo<span class="text-brand-400">Tech</span>
+          <span class="font-mono font-bold text-lg text-white">
+            toledo<span class="text-brand-400">tech</span>
           </span>
         </a>
         <p class="text-sm text-surface-400 mb-4 max-w-xs">
-          Remote software development studio. We build, fix, and ship code—fast.
+          Remote software development studio.
         </p>
         <div class="flex items-center gap-3">
           <a
             href="https://github.com/ntoledo319"
             target="_blank"
             rel="noopener noreferrer"
-            class="p-2 rounded-lg bg-surface-800 hover:bg-surface-700 transition-colors"
+            class="p-2 rounded-md bg-surface-800 hover:bg-surface-700 transition-colors"
             aria-label="GitHub Profile"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -79,7 +68,7 @@ const footerSections = [
           </a>
           <a
             href="mailto:hello@toledotechnologies.com"
-            class="p-2 rounded-lg bg-surface-800 hover:bg-surface-700 transition-colors"
+            class="p-2 rounded-md bg-surface-800 hover:bg-surface-700 transition-colors"
             aria-label="Email Us"
           >
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

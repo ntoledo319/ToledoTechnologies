@@ -1,12 +1,4 @@
 ---
-/**
- * Nonprofit Page
- * 
- * Information about Daedalus Landed nonprofit initiative and humane AI systems.
- * 
- * @ai_prompt Nonprofit page featuring Daedalus Landed - NOUS and ENODIOS projects
- * @context_boundary pages
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
@@ -122,7 +114,7 @@ const flagshipProjects = [
   <section class="container-wide section-padding-sm">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-2xl font-bold text-surface-900 mb-6">Why This Exists</h2>
-      <div class="bg-surface-50 rounded-2xl p-8 border border-surface-200">
+      <div class="bg-surface-50 rounded-md p-8 border border-surface-200">
         <p class="text-surface-700 mb-4">
           Right now, to get serious AI for your life or work, you mostly have to:
         </p>
@@ -140,7 +132,7 @@ const flagshipProjects = [
             <span class="text-surface-600">Or settle for weak "free" tools that quietly exploit you</span>
           </li>
         </ul>
-        <div class="bg-white rounded-xl p-6 border-l-4 border-warm-500">
+        <div class="bg-white rounded-md p-6 border-l-4 border-warm-500">
           <p class="text-surface-800 font-medium">
             Daedalus Landed is trying a different path: Build strong, humane AI systems under a 
             nonprofit umbrella, keep the core tools free or radically cheap, and refuse to fund 
@@ -160,7 +152,7 @@ const flagshipProjects = [
       <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Flagship Projects</h2>
       <div class="grid lg:grid-cols-2 gap-8">
         {flagshipProjects.map((project) => (
-          <div class="bg-white rounded-2xl p-8 border border-surface-200">
+          <div class="bg-white rounded-md p-8 border border-surface-200">
             <div class="flex items-center gap-3 mb-4">
               <span class="text-3xl">{project.name === 'NOUS' ? '🌒' : '🛠'}</span>
               <div>
@@ -208,7 +200,7 @@ const flagshipProjects = [
     <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Values & Ethics</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {values.map((value) => (
-        <div class="bg-white rounded-xl p-6 border border-surface-200 hover:border-warm-300 transition-colors">
+        <div class="bg-white rounded-md p-6 border border-surface-200 hover:border-warm-300 transition-colors">
           <h3 class="font-semibold text-surface-900 mb-2">{value.title}</h3>
           <p class="text-sm text-surface-600">{value.description}</p>
         </div>
@@ -226,22 +218,22 @@ const flagshipProjects = [
           That means we need help with the unsexy parts: infra, hosting, audits, and eventually clinical research.
         </p>
         <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-white rounded-xl p-4 border border-warm-200">
+          <div class="bg-white rounded-md p-4 border border-warm-200">
             <span class="text-2xl mb-2 block">⭐</span>
             <h3 class="font-semibold text-surface-900 text-sm">Star the Repos</h3>
             <p class="text-xs text-surface-500">Visibility matters more than you think</p>
           </div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200">
+          <div class="bg-white rounded-md p-4 border border-warm-200">
             <span class="text-2xl mb-2 block">🐛</span>
             <h3 class="font-semibold text-surface-900 text-sm">Open Issues</h3>
             <p class="text-xs text-surface-500">Bug reports, safety concerns, edge cases</p>
           </div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200">
+          <div class="bg-white rounded-md p-4 border border-warm-200">
             <span class="text-2xl mb-2 block">🧪</span>
             <h3 class="font-semibold text-surface-900 text-sm">Help Test</h3>
             <p class="text-xs text-surface-500">Dogfood early builds, tell us what breaks</p>
           </div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200">
+          <div class="bg-white rounded-md p-4 border border-warm-200">
             <span class="text-2xl mb-2 block">💸</span>
             <h3 class="font-semibold text-surface-900 text-sm">Fund the Work</h3>
             <p class="text-xs text-surface-500">Keeps lights on, servers up</p>
@@ -283,7 +275,7 @@ const flagshipProjects = [
           Early-stage work with room to shape direction. If you like building something meaningful, reach out.
         </p>
       </div>
-      <div class="bg-gradient-to-br from-warm-100 to-warm-50 rounded-2xl p-8 border border-warm-200">
+      <div class="bg-gradient-to-br from-warm-100 to-warm-50 rounded-md p-8 border border-warm-200">
         <h3 class="font-semibold text-surface-900 mb-4">Mental Health Disclaimer</h3>
         <p class="text-surface-600 mb-4 text-sm">
           NOUS and any related tools do <strong>not</strong> replace professional mental health care, 
@@ -300,7 +292,7 @@ const flagshipProjects = [
 
   <!-- CTA -->
   <section class="container-wide section-padding-sm">
-    <div class="bg-surface-900 rounded-2xl p-8 md:p-12 text-white text-center">
+    <div class="bg-surface-900 rounded-md p-8 md:p-12 text-white text-center">
       <h2 class="text-2xl md:text-3xl font-bold mb-4">Daedalus Landed</h2>
       <p class="text-surface-300 mb-6 max-w-xl mx-auto">
         We're here to see if AI can serve people <strong>without selling them first</strong>.

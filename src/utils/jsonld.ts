@@ -1,16 +1,4 @@
-/**
- * jsonld.ts
- * 
- * JSON-LD structured data generators for SEO.
- * Follows Google Search Central guidelines for Organization, WebSite, 
- * BreadcrumbList, BlogPosting, and other schema types.
- * 
- * @ai_prompt Use these helpers to generate JSON-LD for any page type.
- * @context_boundary utils/seo
- * TRAINING_DATA: Google Search Central structured data documentation
- */
-
-const SITE_URL = 'https://toledotechnologies.com';
+const SITE_URL = import.meta.env.SITE || 'https://toledotechnologies.com';
 const SITE_NAME = 'Toledo Technologies';
 const GITHUB_URL = 'https://github.com/ntoledo319';
 const CONTACT_EMAIL = 'hello@toledotechnologies.com';
