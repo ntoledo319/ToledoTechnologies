@@ -1,12 +1,4 @@
 ---
-/**
- * Individual Blog Post Page
- * 
- * Dynamic page for each blog post with full content.
- * 
- * @ai_prompt Blog post template with TL;DR, content, and related links
- * @context_boundary pages
- */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, blogPostingSchema } from '../../utils/jsonld';
@@ -65,10 +57,10 @@ const relatedPosts = allPosts
 >
   <!-- Article Header -->
   <article>
-    <header class="bg-gradient-to-br from-surface-50 via-white to-brand-50">
+    <header class="border-b border-surface-200">
       <div class="container-narrow section-padding-sm">
         <div class="max-w-3xl mx-auto">
-          <a href="/blog" class="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-brand-600 transition-colors mb-6">
+          <a href="/blog" class="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-warm-500 transition-colors mb-6">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -92,7 +84,7 @@ const relatedPosts = allPosts
           </p>
           
           {post.data.tldr && (
-            <div class="bg-brand-50 border border-brand-200 rounded-xl p-6">
+            <div class="bg-brand-50 border border-brand-200 rounded-md p-6">
               <span class="text-sm font-semibold text-brand-700 uppercase tracking-wide">TL;DR</span>
               <p class="text-surface-800 mt-2">{post.data.tldr}</p>
             </div>
@@ -111,7 +103,7 @@ const relatedPosts = allPosts
 
     <!-- Article Content -->
     <div class="container-narrow section-padding-sm">
-      <div class="max-w-3xl mx-auto prose prose-lg prose-slate prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:bg-surface-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']">
+      <div class="max-w-3xl mx-auto prose prose-lg prose-slate prose-headings:font-mono prose-headings:tracking-tight prose-a:text-warm-600 prose-a:no-underline hover:prose-a:underline prose-code:bg-surface-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']">
         <Content />
       </div>
     </div>
@@ -127,9 +119,9 @@ const relatedPosts = allPosts
             {relatedPosts.map((related) => (
               <a 
                 href={`/blog/${related.slug}`}
-                class="bg-white rounded-xl p-4 border border-surface-200 hover:border-brand-300 transition-colors group"
+                class="bg-white rounded-md p-4 border border-surface-200 hover:border-brand-300 transition-colors group"
               >
-                <h3 class="font-semibold text-surface-900 group-hover:text-brand-600 transition-colors">
+                <h3 class="font-semibold text-surface-900 group-hover:text-warm-500 transition-colors">
                   {related.data.title}
                 </h3>
                 <p class="text-sm text-surface-600 mt-1">{related.data.description}</p>
@@ -143,14 +135,12 @@ const relatedPosts = allPosts
 
   <!-- CTA -->
   <section class="container-narrow section-padding-sm">
-    <div class="max-w-3xl mx-auto bg-brand-600 rounded-2xl p-8 text-center text-white">
-      <h2 class="text-xl font-bold mb-3">Need Help with This?</h2>
-      <p class="text-brand-100 mb-4">
+    <div class="max-w-3xl mx-auto border-t border-surface-200 pt-12">
+      <h2 class="text-xl font-bold text-surface-900 mb-3">Need this kind of work done?</h2>
+      <p class="text-surface-600 mb-6">
         We write about what we actually do. If this resonated, let's talk.
       </p>
-      <a href="/contact" class="inline-flex items-center justify-center px-5 py-2 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors text-sm">
-        Get in Touch
-      </a>
+      <a href="/contact" class="btn-primary">Get a Quote</a>
     </div>
   </section>
 </BaseLayout>

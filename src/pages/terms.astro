@@ -1,12 +1,4 @@
 ---
-/**
- * Terms of Service Page
- * 
- * Standard terms of service for a small dev studio website.
- * 
- * @ai_prompt Terms of service - simple, appropriate for small business
- * @context_boundary pages/legal
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
@@ -30,7 +22,7 @@ const lastUpdated = 'January 2026';
       </h1>
       <p class="text-surface-500 mb-8">Last updated: {lastUpdated}</p>
       
-      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight">
+      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-mono prose-headings:tracking-tight">
         <h2>Agreement to Terms</h2>
         <p>
           By accessing or using the Toledo Technologies website at toledotechnologies.com 

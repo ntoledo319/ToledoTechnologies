@@ -1,12 +1,3 @@
-/**
- * Content Collections Configuration
- * 
- * Defines schemas for Blog, Codebases, and Case Studies content collections.
- * Uses Zod for type-safe content validation.
- * 
- * @ai_prompt Modify this file when adding new content types or fields.
- * @context_boundary content
- */
 import { defineCollection, z } from 'astro:content';
 
 /**

@@ -1,13 +1,4 @@
 ---
-/**
- * Policies Page
- * 
- * Public policies for refunds, cancellations, fulfillment, and support.
- * Required for payment processor verification (e.g., Stripe).
- * 
- * @ai_prompt Policies page - update when changing support hours or refund terms
- * @context_boundary pages/legal
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
@@ -31,7 +22,7 @@ const lastUpdated = 'January 2026';
       </h1>
       <p class="text-surface-500 mb-8">Last updated: {lastUpdated}</p>
       
-      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight">
+      <div class="prose prose-lg prose-slate max-w-none prose-headings:font-mono prose-headings:tracking-tight">
         <h2>Support</h2>
         <ul>
           <li><strong>Support hours:</strong> Monday–Friday, 10:00 AM–5:30 PM (ET)</li>

@@ -1,13 +1,4 @@
 ---
-/**
- * BaseLayout.astro
- * 
- * Main layout wrapper for all pages on Toledo Technologies website.
- * Includes SEO meta tags, JSON-LD structured data, and global navigation.
- * 
- * @ai_prompt Use this layout for all pages. Pass title, description, and optional SEO props.
- * @context_boundary layouts
- */
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -39,7 +30,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const siteUrl = 'https://toledotechnologies.com';
+const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString();
 const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Development Studio' : `${title} | Toledo Technologies`;
 ---
@@ -50,7 +41,7 @@ const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Deve
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <SEOHead
       title={fullTitle}
       description={description}
@@ -62,19 +53,19 @@ const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Deve
       author={author}
       noindex={noindex}
     />
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    
+
     <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
-    
-    <!-- Preconnect to external resources -->
+
+    <!-- Fonts: JetBrains Mono for headings (we write code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
     <!-- JSON-LD Structured Data -->
     {jsonLd && (
       Array.isArray(jsonLd) ? (
