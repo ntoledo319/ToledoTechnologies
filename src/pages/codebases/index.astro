@@ -74,7 +74,7 @@ const statusLabels: Record<string, { text: string; class: string }> = {
                 {status.text}
               </span>
             </div>
-            <h2 class="text-xl font-bold text-surface-900 group-hover:text-brand-600 transition-colors mb-2">
+            <h2 class="text-xl font-bold text-surface-900 group-hover:text-warm-500 transition-colors mb-2">
               {codebase.data.title}
             </h2>
             <p class="text-sm text-surface-600 mb-4 flex-grow">
@@ -125,12 +125,12 @@ const statusLabels: Record<string, { text: string; class: string }> = {
 
   <!-- CTA -->
   <section class="container-wide section-padding-sm">
-    <div class="bg-brand-600 rounded-md p-8 md:p-12 text-center text-white">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Need Something Custom?</h2>
-      <p class="text-brand-100 mb-6 max-w-xl mx-auto">
-        Don't see exactly what you need? We can build it or adapt an existing codebase to your requirements.
+    <div class="border-t border-surface-200 pt-12 max-w-xl">
+      <h2 class="text-2xl font-bold text-surface-900 mb-3">Don't see what you need?</h2>
+      <p class="text-surface-600 mb-6">
+        We can build it from scratch or adapt an existing codebase to your requirements.
       </p>
-      <a href="/contact?subject=Custom%20Codebase" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors">
+      <a href="/contact?subject=Custom%20Codebase" class="btn-primary">
         Request Custom Build
       </a>
     </div>

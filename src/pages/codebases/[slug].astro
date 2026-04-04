@@ -114,7 +114,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
     <div class="grid lg:grid-cols-3 gap-12">
       <!-- Content -->
       <div class="lg:col-span-2">
-        <div class="prose prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand-600">
+        <div class="prose prose-lg max-w-none prose-headings:font-mono prose-headings:tracking-tight prose-a:text-warm-600">
           <Content />
         </div>
       </div>
@@ -166,14 +166,14 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
         </div>
 
         <!-- CTA -->
-        <div class="bg-brand-600 rounded-md p-6 text-white">
+        <div class="bg-surface-900 rounded-md p-6 text-white">
           <h3 class="font-semibold mb-2">Interested?</h3>
-          <p class="text-brand-100 text-sm mb-4">
+          <p class="text-surface-400 text-sm mb-4">
             Get in touch for pricing, demo access, or questions.
           </p>
-          <a 
+          <a
             href={`/contact?subject=${contactSubject}`}
-            class="block w-full text-center px-4 py-2 rounded-lg bg-white text-brand-600 font-medium hover:bg-brand-50 transition-colors"
+            class="btn-primary w-full justify-center"
           >
             Request Details
           </a>

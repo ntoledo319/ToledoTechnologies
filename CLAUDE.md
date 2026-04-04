@@ -51,12 +51,12 @@ These patterns are BANNED in this project:
 - Bento grid layouts copied from Vercel/Linear/Stripe marketing pages
 
 ### Project Identity (run /taste-brief to fill)
-- This project believes: [FILL]
-- This project is for: [FILL]
-- This project should feel like: [FILL]
-- This project should NEVER feel like: [FILL]
-- Must-word: [FILL]
-- Never-word: [FILL]
+- This project believes: Directness is the product. Clean code, blunt communication, no wondering what's happening. The basics of being human shouldn't be paywalled.
+- This project is for: People who've been burned by dev shops that delivered excuses instead of code. Skeptical of promises, evaluate by what ships.
+- This project should feel like: A well-maintained CLI tool. A mechanic's shop that's clean but not pretty. The senior dev whose code never breaks.
+- This project should NEVER feel like: A SaaS landing page fishing for signups. An agency that leads with "our process." A startup saying "empower" without knowing what it does.
+- Must-word: DIRECT
+- Never-word: POLISHED
 
 ### Taste Verification
 Before any task is complete, run the Specificity Test:
