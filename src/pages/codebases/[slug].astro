@@ -133,7 +133,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
           <ul class="space-y-2">
             {codebase.data.features.slice(0, 6).map((feature) => (
               <li class="flex items-start gap-2 text-sm">
-                <svg class="w-4 h-4 text-brand-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 text-warm-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 <span class="text-surface-700">{feature}</span>
@@ -148,7 +148,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
           <ul class="space-y-2">
             {codebase.data.included.map((item) => (
               <li class="flex items-start gap-2 text-sm">
-                <span class="text-brand-600">→</span>
+                <span class="text-warm-500">→</span>
                 <span class="text-surface-700">{item}</span>
               </li>
             ))}
@@ -183,16 +183,16 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
   </section>
 
   <!-- FAQ -->
-  <section class="bg-surface-50 border-y border-surface-200">
-    <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">
-          Frequently Asked Questions
+  <section class="border-y border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-surface-900 mb-8">
+          Common Questions
         </h2>
-        <div class="space-y-4">
+        <div class="space-y-6">
           {faqs.map((faq) => (
-            <div class="bg-white rounded-md p-6 border border-surface-200">
-              <h3 class="font-semibold text-surface-900 mb-2">{faq.question}</h3>
+            <div class="border-b border-surface-100 pb-6 last:border-0">
+              <h3 class="font-mono font-semibold text-surface-900 mb-2">{faq.question}</h3>
               <p class="text-surface-600 text-sm">{faq.answer}</p>
             </div>
           ))}
@@ -203,11 +203,11 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 
   <!-- Related -->
   <section class="container-wide section-padding-sm">
-    <div class="text-center">
-      <h2 class="text-xl font-bold text-surface-900 mb-4">Explore More</h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="/codebases" class="btn-secondary">View All Codebases</a>
-        <a href="/services" class="btn-ghost">See Our Services</a>
+    <div class="border-t border-surface-200 pt-12 max-w-xl">
+      <h2 class="text-xl font-bold text-surface-900 mb-4">Need something else?</h2>
+      <div class="flex flex-wrap gap-3">
+        <a href="/codebases" class="btn-secondary">All Codebases</a>
+        <a href="/services" class="btn-ghost">Our Services</a>
       </div>
     </div>
   </section>

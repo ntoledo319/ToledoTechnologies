@@ -65,7 +65,7 @@
   }
 
   ::selection {
-    @apply bg-brand-200 text-brand-900;
+    @apply bg-warm-200 text-surface-900;
   }
 }
 

@@ -149,16 +149,13 @@ const flagshipProjects = [
   <!-- Flagship Projects -->
   <section class="bg-surface-50 border-y border-surface-200">
     <div class="container-wide section-padding">
-      <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Flagship Projects</h2>
+      <h2 class="text-2xl font-bold text-surface-900 mb-8">Flagship Projects</h2>
       <div class="grid lg:grid-cols-2 gap-8">
         {flagshipProjects.map((project) => (
           <div class="bg-white rounded-md p-8 border border-surface-200">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="text-3xl">{project.name === 'NOUS' ? '🌒' : '🛠'}</span>
-              <div>
-                <h3 class="text-xl font-bold text-surface-900">{project.name}</h3>
-                <p class="text-sm text-surface-500">{project.tagline}</p>
-              </div>
+            <div class="mb-4">
+              <h3 class="text-xl font-bold font-mono text-surface-900">{project.name}</h3>
+              <p class="text-sm text-surface-500 mt-1">{project.tagline}</p>
             </div>
             <p class="text-surface-600 mb-4">{project.description}</p>
             
@@ -186,7 +183,7 @@ const flagshipProjects = [
               </>
             )}
             
-            <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
+            <span class="inline-block px-3 py-1 rounded-full bg-surface-100 text-surface-600 text-xs font-medium">
               {project.status}
             </span>
           </div>
@@ -197,12 +194,12 @@ const flagshipProjects = [
 
   <!-- Values -->
   <section class="container-wide section-padding-sm">
-    <h2 class="text-2xl font-bold text-surface-900 mb-8 text-center">Values & Ethics</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <h2 class="text-2xl font-bold text-surface-900 mb-6">Values & Ethics</h2>
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-4 max-w-4xl">
       {values.map((value) => (
-        <div class="bg-white rounded-md p-6 border border-surface-200 hover:border-warm-300 transition-colors">
-          <h3 class="font-semibold text-surface-900 mb-2">{value.title}</h3>
-          <p class="text-sm text-surface-600">{value.description}</p>
+        <div class="py-3 border-b border-surface-100 last:border-0">
+          <h3 class="font-mono font-semibold text-surface-900">{value.title}</h3>
+          <p class="text-sm text-surface-600 mt-1">{value.description}</p>
         </div>
       ))}
     </div>
@@ -211,32 +208,40 @@ const flagshipProjects = [
   <!-- How to Support -->
   <section class="bg-warm-50 border-y border-warm-200">
     <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl font-bold text-surface-900 mb-4">How to Support</h2>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-surface-900 mb-4">How to support</h2>
         <p class="text-surface-600 mb-8">
-          We're trying to keep these systems free from ad-tech and predatory monetization. 
+          We're keeping these systems free from ad-tech and predatory monetization.
           That means we need help with the unsexy parts: infra, hosting, audits, and eventually clinical research.
         </p>
-        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-white rounded-md p-4 border border-warm-200">
-            <span class="text-2xl mb-2 block">⭐</span>
-            <h3 class="font-semibold text-surface-900 text-sm">Star the Repos</h3>
-            <p class="text-xs text-surface-500">Visibility matters more than you think</p>
+        <div class="grid sm:grid-cols-2 gap-3 mb-8 max-w-2xl mx-auto text-left">
+          <div class="flex items-start gap-3 py-3">
+            <span class="text-warm-600 font-mono font-bold shrink-0">01</span>
+            <div>
+              <h3 class="font-mono font-semibold text-surface-900 text-sm">Star the repos</h3>
+              <p class="text-xs text-surface-500">Visibility matters more than you think</p>
+            </div>
           </div>
-          <div class="bg-white rounded-md p-4 border border-warm-200">
-            <span class="text-2xl mb-2 block">🐛</span>
-            <h3 class="font-semibold text-surface-900 text-sm">Open Issues</h3>
-            <p class="text-xs text-surface-500">Bug reports, safety concerns, edge cases</p>
+          <div class="flex items-start gap-3 py-3">
+            <span class="text-warm-600 font-mono font-bold shrink-0">02</span>
+            <div>
+              <h3 class="font-mono font-semibold text-surface-900 text-sm">Open issues</h3>
+              <p class="text-xs text-surface-500">Bug reports, safety concerns, edge cases</p>
+            </div>
           </div>
-          <div class="bg-white rounded-md p-4 border border-warm-200">
-            <span class="text-2xl mb-2 block">🧪</span>
-            <h3 class="font-semibold text-surface-900 text-sm">Help Test</h3>
-            <p class="text-xs text-surface-500">Dogfood early builds, tell us what breaks</p>
+          <div class="flex items-start gap-3 py-3">
+            <span class="text-warm-600 font-mono font-bold shrink-0">03</span>
+            <div>
+              <h3 class="font-mono font-semibold text-surface-900 text-sm">Help test</h3>
+              <p class="text-xs text-surface-500">Dogfood early builds, tell us what breaks</p>
+            </div>
           </div>
-          <div class="bg-white rounded-md p-4 border border-warm-200">
-            <span class="text-2xl mb-2 block">💸</span>
-            <h3 class="font-semibold text-surface-900 text-sm">Fund the Work</h3>
-            <p class="text-xs text-surface-500">Keeps lights on, servers up</p>
+          <div class="flex items-start gap-3 py-3">
+            <span class="text-warm-600 font-mono font-bold shrink-0">04</span>
+            <div>
+              <h3 class="font-mono font-semibold text-surface-900 text-sm">Fund the work</h3>
+              <p class="text-xs text-surface-500">Keeps lights on, servers up</p>
+            </div>
           </div>
         </div>
         <p class="text-sm text-surface-500 italic">
@@ -292,16 +297,16 @@ const flagshipProjects = [
 
   <!-- CTA -->
   <section class="container-wide section-padding-sm">
-    <div class="bg-surface-900 rounded-md p-8 md:p-12 text-white text-center">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Daedalus Landed</h2>
-      <p class="text-surface-300 mb-6 max-w-xl mx-auto">
-        We're here to see if AI can serve people <strong>without selling them first</strong>.
+    <div class="border-t border-surface-200 pt-12 max-w-xl">
+      <h2 class="text-2xl font-bold text-surface-900 mb-3">Want to help?</h2>
+      <p class="text-surface-600 mb-6">
+        AI can serve people without selling them first. We're proving it.
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="https://github.com/Daedalus-Landed" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-surface-900 font-medium hover:bg-surface-100 transition-colors">
+      <div class="flex flex-wrap gap-3">
+        <a href="https://github.com/Daedalus-Landed" target="_blank" rel="noopener noreferrer" class="btn-primary">
           GitHub Organization →
         </a>
-        <a href="/contact?subject=Daedalus%20Landed%20Contribution" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-surface-800 text-white font-medium hover:bg-surface-700 transition-colors">
+        <a href="/contact?subject=Daedalus%20Landed%20Contribution" class="btn-secondary">
           Get Involved
         </a>
       </div>

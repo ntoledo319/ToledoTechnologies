@@ -184,7 +184,7 @@ const serviceCategories = [
         <div id={category.id} class="scroll-mt-24">
           <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div>
-              <span class="text-brand-600 font-semibold text-sm uppercase tracking-wide">
+              <span class="text-warm-600 font-semibold text-sm uppercase tracking-wide">
                 {category.tagline}
               </span>
               <h2 class="text-3xl font-bold text-surface-900 mt-2 mb-4">
@@ -203,7 +203,7 @@ const serviceCategories = [
               <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {category.items.map((item) => (
                   <li class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-brand-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-5 h-5 text-warm-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                     <span class="text-surface-700">{item}</span>
@@ -218,16 +218,16 @@ const serviceCategories = [
   </section>
 
   <!-- FAQ Section -->
-  <section class="bg-surface-50 border-y border-surface-200">
-    <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl font-bold text-surface-900 mb-8 text-center">
-          Frequently Asked Questions
+  <section class="border-y border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl font-bold text-surface-900 mb-8">
+          Common Questions
         </h2>
         <div class="space-y-6">
           {faqs.map((faq) => (
-            <div class="bg-white rounded-md p-6 border border-surface-200">
-              <h3 class="font-semibold text-surface-900 mb-2">{faq.question}</h3>
+            <div class="border-b border-surface-100 pb-6 last:border-0">
+              <h3 class="font-mono font-semibold text-surface-900 mb-2">{faq.question}</h3>
               <p class="text-surface-600">{faq.answer}</p>
             </div>
           ))}
