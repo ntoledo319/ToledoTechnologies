@@ -33,7 +33,7 @@ order: 2
 price: 4500
 originalPrice: 12000
 pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
-stripeLink: "https://buy.stripe.com/YOUR_COMPLYCRAWL_LINK"
+stripeLink: "https://buy.stripe.com/3cI8wPbQq34YcZJffu87K06"
 licensesAvailable: 5
 ---
 

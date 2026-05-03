@@ -34,7 +34,7 @@ order: 1
 price: 5500
 originalPrice: 15000
 pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
-stripeLink: "https://buy.stripe.com/YOUR_TALLYSEC_LINK"
+stripeLink: "https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07"
 licensesAvailable: 5
 ---
 
