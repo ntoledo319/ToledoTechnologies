@@ -33,6 +33,9 @@ targetAudience:
   - "Developers needing deterministic agent debugging"
   - "Organizations with AI governance requirements"
 order: 3
+price: 8500
+originalPrice: 25000
+pricingNote: "One-time purchase. Full IP transfer. Includes 90-day support."
 ---
 
 ## What AegisTwin Does

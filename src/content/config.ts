@@ -36,6 +36,9 @@ const codebases = defineCollection({
     included: z.array(z.string()).default([]),
     targetAudience: z.array(z.string()).default([]),
     order: z.number().default(0),
+    price: z.number().default(0),
+    originalPrice: z.number().optional(),
+    pricingNote: z.string().optional(),
   }),
 });
 

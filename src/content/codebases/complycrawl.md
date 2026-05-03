@@ -30,6 +30,9 @@ targetAudience:
   - "E-commerce businesses tracking catalog changes"
   - "Compliance teams requiring audit trails"
 order: 2
+price: 4500
+originalPrice: 12000
+pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
 ---
 
 ## What ComplyCrawl Does

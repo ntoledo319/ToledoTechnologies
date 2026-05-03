@@ -31,6 +31,9 @@ targetAudience:
   - "Consultants delivering security workshops"
   - "Universities and bootcamps with security curricula"
 order: 1
+price: 5500
+originalPrice: 15000
+pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
 ---
 
 ## What TallySec Does

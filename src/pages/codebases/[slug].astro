@@ -17,6 +17,10 @@ const { Content } = await codebase.render();
 
 const faqs = [
   {
+    question: 'What do I get for the price?',
+    answer: `You get the complete source code, full documentation, test suites, deployment configurations, and all included assets. Price is $${codebase.data.price.toLocaleString()} with full IP transfer — you own it outright.`
+  },
+  {
     question: 'What license do I get?',
     answer: 'You receive a perpetual license with full rights to modify, deploy, and build upon the codebase. You can use it for internal tools, client projects, or SaaS products.'
   },
@@ -30,7 +34,11 @@ const faqs = [
   },
   {
     question: 'What if I need customization?',
-    answer: 'We can customize the codebase to your specific needs for an additional fee. Contact us to discuss your requirements.'
+    answer: 'We can customize the codebase to your specific needs for an additional fee. Custom builds typically start at $5,000 depending on scope.'
+  },
+  {
+    question: 'Is the price negotiable?',
+    answer: 'Prices are firm for individual purchases. The bundle deal offers the best value if you need multiple codebases.'
   }
 ];
 
@@ -71,6 +79,7 @@ const statusLabels: Record<string, { text: string; class: string; description: s
 
 const status = statusLabels[codebase.data.status] || statusLabels['available'];
 const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
+const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
 ---
 
 <BaseLayout
@@ -101,12 +110,27 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
         <p class="text-xl text-surface-600 mb-6">
           {codebase.data.tagline}
         </p>
-        <p class="text-surface-600 mb-8">
+        <p class="text-surface-600 mb-6">
           {codebase.data.description}
         </p>
+        <div class="flex flex-wrap items-baseline gap-4 mb-6">
+          <span class="text-3xl font-bold text-surface-900">
+            ${codebase.data.price.toLocaleString()}
+          </span>
+          {codebase.data.originalPrice && (
+            <span class="text-xl text-surface-400 line-through">
+              ${codebase.data.originalPrice.toLocaleString()}
+            </span>
+          )}
+          {codebase.data.pricingNote && (
+            <span class="text-sm text-surface-500">
+              {codebase.data.pricingNote}
+            </span>
+          )}
+        </div>
         <div class="flex flex-wrap gap-4">
-          <a href={`/contact?subject=${contactSubject}`} class="btn-primary">
-            Request Details
+          <a href={`/contact?subject=${contactSubject}`} class="btn-primary text-base px-6 py-3">
+            Buy Now — Contact Us
           </a>
           <a href="/codebases" class="btn-secondary">
             ← Back to Catalog
@@ -174,15 +198,27 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 
         <!-- CTA -->
         <div class="bg-surface-900 rounded-md p-6 text-white">
-          <h3 class="font-semibold mb-2">Interested?</h3>
+          <h3 class="font-semibold mb-2">Ready to Buy?</h3>
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-2xl font-bold">${codebase.data.price.toLocaleString()}</span>
+            {codebase.data.originalPrice && (
+              <span class="text-sm text-surface-500 line-through">${codebase.data.originalPrice.toLocaleString()}</span>
+            )}
+          </div>
           <p class="text-surface-400 text-sm mb-4">
-            Get in touch for pricing, demo access, or questions.
+            {codebase.data.pricingNote || 'One-time purchase. Full IP transfer. Includes support window.'}
           </p>
           <a
             href={`/contact?subject=${contactSubject}`}
-            class="btn-primary w-full justify-center"
+            class="btn-primary w-full justify-center mb-3"
           >
-            Request Details
+            Buy Now — Contact Us
+          </a>
+          <a
+            href={`/contact?subject=${bundleSubject}`}
+            class="text-warm-400 text-sm hover:text-warm-300 transition-colors text-center block"
+          >
+            Or get all 3 in the bundle →
           </a>
         </div>
       </aside>

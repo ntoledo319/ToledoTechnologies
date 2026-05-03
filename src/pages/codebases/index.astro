@@ -50,7 +50,10 @@ const statusLabels: Record<string, { text: string; class: string }> = {
           Skip months of development and get something that works today.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="/contact?subject=Codebase%20Inquiry" class="btn-primary">
+          <a href="#bundle" class="btn-primary">
+            View Bundle Deal
+          </a>
+          <a href="/contact?subject=Codebase%20Inquiry" class="btn-secondary">
             Request Custom Build
           </a>
           <a href="/blog/buying-a-codebase" class="btn-ghost">
@@ -85,6 +88,16 @@ const statusLabels: Record<string, { text: string; class: string }> = {
             <p class="text-sm text-surface-600 mb-4 flex-grow">
               {codebase.data.tagline}
             </p>
+            <div class="flex items-baseline gap-2 mb-3">
+              <span class="text-lg font-bold text-surface-900">
+                ${codebase.data.price.toLocaleString()}
+              </span>
+              {codebase.data.originalPrice && (
+                <span class="text-sm text-surface-400 line-through">
+                  ${codebase.data.originalPrice.toLocaleString()}
+                </span>
+              )}
+            </div>
             <div class="flex flex-wrap gap-2">
               {codebase.data.tags.slice(0, 3).map((tag) => (
                 <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">
@@ -128,12 +141,49 @@ const statusLabels: Record<string, { text: string; class: string }> = {
     </div>
   </section>
 
+  <!-- Bundle Deal -->
+  <section id="bundle" class="bg-surface-900 text-white">
+    <div class="container-wide section-padding">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Buy the Bundle — Save $3,500</h2>
+        <p class="text-surface-400 text-lg mb-8">
+          Get all three codebases for one price. Perfect if you're building a security and automation practice.
+        </p>
+        <div class="flex items-center justify-center gap-4 mb-8">
+          <span class="text-4xl font-bold text-white">$15,000</span>
+          <span class="text-xl text-surface-500 line-through">$18,500</span>
+          <span class="text-sm bg-green-600 text-white px-3 py-1 rounded-full">Save 19%</span>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4 text-left mb-8">
+          <div class="bg-surface-800 rounded-md p-4">
+            <h3 class="font-semibold mb-1">ComplyCrawl</h3>
+            <p class="text-sm text-surface-400">Compliance-first web automation</p>
+          </div>
+          <div class="bg-surface-800 rounded-md p-4">
+            <h3 class="font-semibold mb-1">TallySec</h3>
+            <p class="text-sm text-surface-400">Security training platform</p>
+          </div>
+          <div class="bg-surface-800 rounded-md p-4">
+            <h3 class="font-semibold mb-1">AegisTwin</h3>
+            <p class="text-sm text-surface-400">Agent runtime + governance</p>
+          </div>
+        </div>
+        <a href="/contact?subject=Bundle%20Purchase" class="btn-primary text-base px-8 py-3">
+          Inquire About Bundle
+        </a>
+        <p class="text-surface-500 text-sm mt-4">
+          Includes all source code, documentation, and 90-day support for all three products.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="container-wide section-padding-sm">
     <div class="border-t border-surface-200 pt-12 max-w-xl">
       <h2 class="text-2xl font-bold text-surface-900 mb-3">Don't see what you need?</h2>
       <p class="text-surface-600 mb-6">
-        We can build it from scratch or adapt an existing codebase to your requirements.
+        We can build it from scratch or adapt an existing codebase to your requirements. Custom builds start at $15,000.
       </p>
       <a href="/contact?subject=Custom%20Codebase" class="btn-primary">
         Request Custom Build
