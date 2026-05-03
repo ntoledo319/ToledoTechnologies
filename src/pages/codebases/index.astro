@@ -88,7 +88,7 @@ const statusLabels: Record<string, { text: string; class: string }> = {
             <p class="text-sm text-surface-600 mb-4 flex-grow">
               {codebase.data.tagline}
             </p>
-            <div class="flex items-baseline gap-2 mb-3">
+            <div class="flex items-baseline gap-2 mb-2">
               <span class="text-lg font-bold text-surface-900">
                 ${codebase.data.price.toLocaleString()}
               </span>
@@ -98,6 +98,11 @@ const statusLabels: Record<string, { text: string; class: string }> = {
                 </span>
               )}
             </div>
+            {codebase.data.licensesAvailable && codebase.data.licensesAvailable <= 5 && (
+              <div class="text-xs text-red-600 font-medium mb-2">
+                ⚡ Only {codebase.data.licensesAvailable} left
+              </div>
+            )}
             <div class="flex flex-wrap gap-2">
               {codebase.data.tags.slice(0, 3).map((tag) => (
                 <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">

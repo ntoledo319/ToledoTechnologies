@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = [];
+---
+
+<BaseLayout
+  title="Thank You for Your Purchase"
+  description="Your codebase purchase is confirmed. Here's what happens next."
+  jsonLd={jsonLd}
+>
+  <section class="container-wide section-padding">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold text-surface-900 mb-4">
+        Purchase Confirmed
+      </h1>
+      <p class="text-xl text-surface-600 mb-8">
+        Thanks for buying. You'll receive an email within 24 hours with repository access and transfer details.
+      </p>
+
+      <div class="bg-surface-50 rounded-md p-6 border border-surface-200 text-left mb-8">
+        <h2 class="font-semibold text-surface-900 mb-4">What happens next:</h2>
+        <ol class="space-y-3 text-surface-600">
+          <li class="flex gap-3">
+            <span class="font-mono text-warm-500 font-bold">1</span>
+            <span>We verify the payment (usually instant).</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-warm-500 font-bold">2</span>
+            <span>You get an email with GitHub repo access and documentation.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-warm-500 font-bold">3</span>
+            <span>We schedule a 30-minute handoff call to answer questions.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-warm-500 font-bold">4</span>
+            <span>IP transfer documents are signed and delivered.</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/codebases" class="btn-primary">
+          Browse More Codebases
+        </a>
+        <a href="/portfolio" class="btn-secondary">
+          See Our Portfolio
+        </a>
+      </div>
+
+      <p class="text-surface-500 text-sm mt-8">
+        Questions? Email <a href="mailto:hello@toledotechnologies.com" class="text-warm-600 hover:underline">hello@toledotechnologies.com</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

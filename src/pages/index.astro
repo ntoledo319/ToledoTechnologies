@@ -47,14 +47,14 @@ const services = [
         </p>
 
         <div class="flex flex-wrap gap-3">
-          <a href="/contact?subject=Bug%20Fix" class="btn-primary text-base px-6 py-3">
-            Fix My Broken Thing
+          <a href="/codebases" class="btn-primary text-base px-6 py-3">
+            Buy a Codebase
           </a>
-          <a href="/contact" class="btn-secondary text-base px-6 py-3">
-            Get a Quote
+          <a href="/portfolio" class="btn-secondary text-base px-6 py-3">
+            View 26+ Projects
           </a>
-          <a href="/codebases" class="btn-ghost text-base px-6 py-3">
-            Browse Codebases →
+          <a href="/contact" class="btn-ghost text-base px-6 py-3">
+            Get a Quote →
           </a>
         </div>
       </div>
@@ -81,6 +81,47 @@ const services = [
     </div>
   </section>
 
+  <!-- Social Proof -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl font-bold text-surface-900">26+</div>
+          <div class="text-sm text-surface-500">Projects Built</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-surface-900">3</div>
+          <div class="text-sm text-surface-500">Codebases For Sale</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-surface-900">10K+</div>
+          <div class="text-sm text-surface-500">Functions Written</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-surface-900">5</div>
+          <div class="text-sm text-surface-500">Languages</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Capture -->
+  <section class="border-b border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-surface-900 mb-3">Not ready to buy?</h2>
+        <p class="text-surface-600 mb-6">
+          Get a weekly email with new codebases, pricing drops, and behind-the-scenes builds. No spam, unsubscribe anytime.
+        </p>
+        <form action="https://buttondown.email/api/emails/embed-subscribe/toledotechnologies" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/toledotechnologies', 'popupwindow')" class="flex flex-col sm:flex-row gap-3">
+          <input type="email" name="email" placeholder="you@company.com" required class="flex-1 px-4 py-3 rounded-md border border-surface-300 text-surface-900 focus:outline-none focus:border-warm-500" />
+          <button type="submit" class="btn-primary px-6 py-3">Subscribe</button>
+        </form>
+        <p class="text-xs text-surface-400 mt-3">Join 0+ builders getting updates. Powered by Buttondown.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Proof + Nonprofit: two-column, asymmetric -->
   <section class="border-b border-surface-200">
     <div class="container-wide section-padding-sm">
@@ -94,7 +135,7 @@ const services = [
             <h2 class="text-xl font-bold">Open Source</h2>
           </div>
           <p class="text-surface-400 mb-4">
-            Check out our public work and contributions.
+            26+ repositories. Production-ready code you can inspect before buying.
           </p>
           <a
             href="https://github.com/ntoledo319"

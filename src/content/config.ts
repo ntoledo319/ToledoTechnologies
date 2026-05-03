@@ -39,6 +39,8 @@ const codebases = defineCollection({
     price: z.number().default(0),
     originalPrice: z.number().optional(),
     pricingNote: z.string().optional(),
+    stripeLink: z.string().optional(),
+    licensesAvailable: z.number().optional(),
   }),
 });
 

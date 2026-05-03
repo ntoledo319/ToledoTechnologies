@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Portfolio', url: '/portfolio' }
+  ])
+];
+
+const forSaleProjects = [
+  {
+    name: "AegisTwin",
+    category: "AI Infrastructure",
+    stack: "Python, FastAPI, TypeScript, Docker, Kubernetes",
+    description: "Event-driven agent runtime with governance, deterministic replay, and local memory graphs.",
+    status: "for-sale",
+    price: 8500,
+    highlights: ["Policy engine", "Deterministic replay", "Observability stack"]
+  },
+  {
+    name: "ComplyCrawl",
+    category: "Compliance Automation",
+    stack: "Python, SQLite, Docker",
+    description: "Compliance-first web automation with encrypted audit trails and robots.txt enforcement.",
+    status: "for-sale",
+    price: 4500,
+    highlights: ["3 playbooks", "SHA-256 audit vault", "SOC 2 aligned"]
+  },
+  {
+    name: "TallySec",
+    category: "Security Education",
+    stack: "Python, FastAPI, Docker",
+    description: "Complete cybersecurity training platform with labs, assessments, and cohort management.",
+    status: "for-sale",
+    price: 5500,
+    highlights: ["5 labs", "Auto-certificates", "FastAPI service"]
+  }
+];
+
+const activeProjects = [
+  { name: "HELLDECK", category: "Systems", stack: "C++, CMake", description: "Systems programming project with full audit and architecture docs." },
+  { name: "Labyrinth", category: "Full-Stack", stack: "Node.js, React, SQLite", description: "Multi-platform application with backend, frontend, and mobile variants." },
+  { name: "Labyrinth-Mobile-Bounty-OS", category: "Mobile", stack: "Kotlin, Android", description: "Android bounty OS with game mechanics and hooded figure branding." },
+  { name: "LoversHold", category: "Web App", stack: "JavaScript, PWA", description: "Progressive web app for relationship questions and offline use." },
+  { name: "NECYBOT", category: "Finance", stack: "Python", description: "Trading bot for automated market analysis and execution." },
+  { name: "Nesting Sandbox", category: "AI/ML", stack: "Python, Android", description: "Concentric multi-agent reasoning engine with asymmetric information flow." },
+  { name: "NousIntelligence", category: "AI/Health", stack: "Python, Docker", description: "Therapeutically-informed AI personal assistant chatbot with deployment pipeline." },
+  { name: "Project Azorian", category: "Mobile/3D", stack: "Kotlin, Android", description: "3D mapping application with research-driven truth engine." },
+  { name: "Project ENODIOS", category: "AI Infrastructure", stack: "Python, Docker", description: "Agent system with clients, benchmarks, and modular architecture." },
+  { name: "SNOOPIE", category: "Mobile/Security", stack: "Kotlin, Android", description: "Android security app with vision, sensors, and brain architecture." },
+  { name: "SNOOPIE-Finder", category: "Security", stack: "Python", description: "Network and device discovery tool with sensor fusion." },
+  { name: "Screwdriver", category: "Productivity", stack: "Multi-platform", description: "Plan-tracker application with full design system and API." },
+  { name: "Screwdriver-IOS", category: "Mobile", stack: "Swift/iOS", description: "iOS version of the Screwdriver plan-tracker." },
+  { name: "Sobriety-Helper", category: "Health", stack: "Python, Flask", description: "Web application for sobriety tracking with Google OAuth integration." },
+  { name: "G.R.A.C.E.", category: "DevOps", stack: "Python, Docker", description: "Auto-healing deployment system with hosting options guide." },
+  { name: "holothing", category: "Full-Stack", stack: "Multi-platform", description: "Full-stack application with apps, libraries, and tools." },
+  { name: "mindful_organizer", category: "Desktop", stack: "Python", description: "Desktop organizer application with cross-platform builds." },
+  { name: "qi", category: "AI/ML", stack: "Python", description: "AI system with core, forge, intel, and learning modules." }
+];
+
+const stats = [
+  { label: "Projects Built", value: "26+" },
+  { label: "Codebases For Sale", value: "3" },
+  { label: "Total Functions", value: "10,000+" },
+  { label: "Languages", value: "Python, Kotlin, C++, TypeScript, Swift" }
+];
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="26+ production-ready projects built by Toledo Technologies. AI infrastructure, compliance automation, security education, mobile apps, and more."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="border-b border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-3xl">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'Portfolio' },
+        ]} />
+        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
+          26+ Projects. One Builder.
+        </h1>
+        <p class="text-xl text-surface-600 mb-6">
+          Every project here is complete, documented, and deployable. 
+          Three are for sale. The rest are proof I can build anything you need.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/codebases" class="btn-primary">
+            Buy a Codebase
+          </a>
+          <a href="/contact?subject=Custom%20Build" class="btn-secondary">
+            Hire for Custom Build
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-surface-50 border-y border-surface-200">
+    <div class="container-wide section-padding-sm">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {stats.map(stat => (
+          <div class="text-center">
+            <div class="text-3xl font-bold text-surface-900">{stat.value}</div>
+            <div class="text-sm text-surface-500">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- For Sale -->
+  <section class="container-wide section-padding-sm">
+    <div class="flex items-center gap-3 mb-8">
+      <span class="bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">For Sale</span>
+      <h2 class="text-2xl font-bold text-surface-900">Available Now</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {forSaleProjects.map(project => (
+        <div class="card-interactive p-6 flex flex-col">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-medium text-surface-500 uppercase tracking-wide">{project.category}</span>
+            <span class="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">Available</span>
+          </div>
+          <h3 class="text-xl font-bold text-surface-900 mb-2">{project.name}</h3>
+          <p class="text-sm text-surface-600 mb-4 flex-grow">{project.description}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {project.highlights.map(h => (
+              <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">{h}</span>
+            ))}
+          </div>
+          <div class="text-xs text-surface-500 mb-4">{project.stack}</div>
+          <div class="flex items-baseline gap-2 mb-4">
+            <span class="text-2xl font-bold text-surface-900">${project.price.toLocaleString()}</span>
+          </div>
+          <a href={`/codebases/${project.name.toLowerCase()}`} class="btn-primary w-full justify-center">
+            View Details →
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Active Projects -->
+  <section class="container-wide section-padding-sm">
+    <div class="flex items-center gap-3 mb-8">
+      <span class="bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1 rounded-full">Portfolio</span>
+      <h2 class="text-2xl font-bold text-surface-900">Other Builds</h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {activeProjects.map(project => (
+        <div class="bg-white rounded-md p-5 border border-surface-200 hover:border-warm-300 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold text-surface-900">{project.name}</h3>
+            <span class="text-xs text-surface-500">{project.category}</span>
+          </div>
+          <p class="text-sm text-surface-600 mb-3">{project.description}</p>
+          <div class="text-xs text-surface-400">{project.stack}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-surface-900 text-white">
+    <div class="container-wide section-padding">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Need something custom?</h2>
+        <p class="text-surface-400 text-lg mb-8">
+          I've built 26 projects across AI, security, mobile, web, and systems. 
+          Whatever you need, I've probably built something similar.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/contact?subject=Custom%20Build" class="btn-primary text-base px-8 py-3">
+            Start a Custom Build — $15K+
+          </a>
+          <a href="/codebases" class="btn-secondary text-base px-8 py-3">
+            Buy Existing Code
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

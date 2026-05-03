@@ -80,6 +80,8 @@ const statusLabels: Record<string, { text: string; class: string; description: s
 const status = statusLabels[codebase.data.status] || statusLabels['available'];
 const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
+const hasStripe = !!codebase.data.stripeLink;
+const licensesLeft = codebase.data.licensesAvailable;
 ---
 
 <BaseLayout
@@ -129,13 +131,25 @@ const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
           )}
         </div>
         <div class="flex flex-wrap gap-4">
-          <a href={`/contact?subject=${contactSubject}`} class="btn-primary text-base px-6 py-3">
-            Buy Now — Contact Us
-          </a>
+          {hasStripe ? (
+            <a href={codebase.data.stripeLink} class="btn-primary text-base px-8 py-3" target="_blank" rel="noopener">
+              Buy Now — ${codebase.data.price.toLocaleString()}
+            </a>
+          ) : (
+            <a href={`/contact?subject=${contactSubject}`} class="btn-primary text-base px-8 py-3">
+              Buy Now — Contact Us
+            </a>
+          )}
           <a href="/codebases" class="btn-secondary">
             ← Back to Catalog
           </a>
         </div>
+        {licensesLeft && licensesLeft <= 5 && (
+          <div class="mt-4 inline-flex items-center gap-2 text-sm text-red-600 font-medium">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            Only {licensesLeft} license{licensesLeft !== 1 ? 's' : ''} remaining at this price
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -205,15 +219,31 @@ const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
               <span class="text-sm text-surface-500 line-through">${codebase.data.originalPrice.toLocaleString()}</span>
             )}
           </div>
+          {licensesLeft && licensesLeft <= 5 && (
+            <div class="text-red-400 text-sm font-medium mb-2">
+              ⚡ Only {licensesLeft} left at this price
+            </div>
+          )}
           <p class="text-surface-400 text-sm mb-4">
             {codebase.data.pricingNote || 'One-time purchase. Full IP transfer. Includes support window.'}
           </p>
-          <a
-            href={`/contact?subject=${contactSubject}`}
-            class="btn-primary w-full justify-center mb-3"
-          >
-            Buy Now — Contact Us
-          </a>
+          {hasStripe ? (
+            <a
+              href={codebase.data.stripeLink}
+              class="btn-primary w-full justify-center mb-3"
+              target="_blank"
+              rel="noopener"
+            >
+              Buy Instantly via Stripe
+            </a>
+          ) : (
+            <a
+              href={`/contact?subject=${contactSubject}`}
+              class="btn-primary w-full justify-center mb-3"
+            >
+              Buy Now — Contact Us
+            </a>
+          )}
           <a
             href={`/contact?subject=${bundleSubject}`}
             class="text-warm-400 text-sm hover:text-warm-300 transition-colors text-center block"

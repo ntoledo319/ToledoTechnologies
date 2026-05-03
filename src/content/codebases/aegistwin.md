@@ -36,6 +36,8 @@ order: 3
 price: 8500
 originalPrice: 25000
 pricingNote: "One-time purchase. Full IP transfer. Includes 90-day support."
+stripeLink: "https://buy.stripe.com/YOUR_AEGISTWIN_LINK"
+licensesAvailable: 3
 ---
 
 ## What AegisTwin Does
