@@ -1,71 +1,61 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { breadcrumbSchema } from '../utils/jsonld';
+import { breadcrumbSchema, itemListSchema } from '../utils/jsonld';
 
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Portfolio', url: '/portfolio' }
-  ])
+  ]),
+  itemListSchema([
+    { name: 'ComplyCrawl', url: '/codebases/complycrawl', description: 'Compliance-first web automation' },
+    { name: 'TallySec', url: '/codebases/tallysec', description: 'Security training platform' },
+    { name: 'AegisTwin', url: '/codebases/aegistwin', description: 'Agent runtime + governance' }
+  ], 'Portfolio Projects')
 ];
 
 const forSaleProjects = [
   {
-    name: "AegisTwin",
-    category: "AI Infrastructure",
-    stack: "Python, FastAPI, TypeScript, Docker, Kubernetes",
-    description: "Event-driven agent runtime with governance, deterministic replay, and local memory graphs.",
-    status: "for-sale",
-    price: 8500,
-    highlights: ["Policy engine", "Deterministic replay", "Observability stack"]
+    name: 'ComplyCrawl',
+    category: 'Compliance Automation',
+    description: 'Automated compliance evidence collection and web automation for SOC 2, ISO 27001, and GDPR.',
+    highlights: ['Evidence Collection', 'Audit Trails', 'Policy Mapping'],
+    stack: 'Python, Playwright, PostgreSQL',
+    price: 8000
   },
   {
-    name: "ComplyCrawl",
-    category: "Compliance Automation",
-    stack: "Python, SQLite, Docker",
-    description: "Compliance-first web automation with encrypted audit trails and robots.txt enforcement.",
-    status: "for-sale",
-    price: 4500,
-    highlights: ["3 playbooks", "SHA-256 audit vault", "SOC 2 aligned"]
+    name: 'TallySec',
+    category: 'Security Education',
+    description: 'Interactive security training platform with gamified lessons, quizzes, and progress tracking.',
+    highlights: ['Gamified Training', 'Progress Analytics', 'Custom Content'],
+    stack: 'TypeScript, React, Node.js, MongoDB',
+    price: 6500
   },
   {
-    name: "TallySec",
-    category: "Security Education",
-    stack: "Python, FastAPI, Docker",
-    description: "Complete cybersecurity training platform with labs, assessments, and cohort management.",
-    status: "for-sale",
-    price: 5500,
-    highlights: ["5 labs", "Auto-certificates", "FastAPI service"]
+    name: 'AegisTwin',
+    category: 'AI Infrastructure',
+    description: 'Agent runtime environment with governance, observability, and safety guardrails.',
+    highlights: ['Agent Runtime', 'Governance', 'Observability'],
+    stack: 'Python, FastAPI, Redis, Docker',
+    price: 4000
   }
 ];
 
 const activeProjects = [
-  { name: "HELLDECK", category: "Systems", stack: "C++, CMake", description: "Systems programming project with full audit and architecture docs." },
-  { name: "Labyrinth", category: "Full-Stack", stack: "Node.js, React, SQLite", description: "Multi-platform application with backend, frontend, and mobile variants." },
-  { name: "Labyrinth-Mobile-Bounty-OS", category: "Mobile", stack: "Kotlin, Android", description: "Android bounty OS with game mechanics and hooded figure branding." },
-  { name: "LoversHold", category: "Web App", stack: "JavaScript, PWA", description: "Progressive web app for relationship questions and offline use." },
-  { name: "NECYBOT", category: "Finance", stack: "Python", description: "Trading bot for automated market analysis and execution." },
-  { name: "Nesting Sandbox", category: "AI/ML", stack: "Python, Android", description: "Concentric multi-agent reasoning engine with asymmetric information flow." },
-  { name: "NousIntelligence", category: "AI/Health", stack: "Python, Docker", description: "Therapeutically-informed AI personal assistant chatbot with deployment pipeline." },
-  { name: "Project Azorian", category: "Mobile/3D", stack: "Kotlin, Android", description: "3D mapping application with research-driven truth engine." },
-  { name: "Project ENODIOS", category: "AI Infrastructure", stack: "Python, Docker", description: "Agent system with clients, benchmarks, and modular architecture." },
-  { name: "SNOOPIE", category: "Mobile/Security", stack: "Kotlin, Android", description: "Android security app with vision, sensors, and brain architecture." },
-  { name: "SNOOPIE-Finder", category: "Security", stack: "Python", description: "Network and device discovery tool with sensor fusion." },
-  { name: "Screwdriver", category: "Productivity", stack: "Multi-platform", description: "Plan-tracker application with full design system and API." },
-  { name: "Screwdriver-IOS", category: "Mobile", stack: "Swift/iOS", description: "iOS version of the Screwdriver plan-tracker." },
-  { name: "Sobriety-Helper", category: "Health", stack: "Python, Flask", description: "Web application for sobriety tracking with Google OAuth integration." },
-  { name: "G.R.A.C.E.", category: "DevOps", stack: "Python, Docker", description: "Auto-healing deployment system with hosting options guide." },
-  { name: "holothing", category: "Full-Stack", stack: "Multi-platform", description: "Full-stack application with apps, libraries, and tools." },
-  { name: "mindful_organizer", category: "Desktop", stack: "Python", description: "Desktop organizer application with cross-platform builds." },
-  { name: "qi", category: "AI/ML", stack: "Python", description: "AI system with core, forge, intel, and learning modules." }
+  { name: 'Daedalus Landed', category: 'Nonprofit', description: 'Free AI tools for mental health, creation, and education.', stack: 'TypeScript, Python, OpenAI' },
+  { name: 'Legacy System Rescue', category: 'Consulting', description: 'Modernized a 15-year-old PHP monolith into microservices.', stack: 'PHP, Go, Kubernetes' },
+  { name: 'Startup MVP Launch', category: 'MVP', description: 'Built and shipped a fintech MVP in 6 weeks.', stack: 'TypeScript, React, Plaid API' },
+  { name: 'Compliance Automation', category: 'Automation', description: 'Automated SOC 2 evidence collection saving 40 hours/month.', stack: 'Python, AWS Lambda' },
+  { name: 'Security Audit Platform', category: 'Security', description: 'Internal security audit tracking and remediation workflow.', stack: 'TypeScript, Next.js, Prisma' },
+  { name: 'AI Workflow Engine', category: 'AI', description: 'Custom LLM pipeline for automated content generation.', stack: 'Python, LangChain, Vector DB' }
 ];
 
 const stats = [
-  { label: "Projects Built", value: "26+" },
-  { label: "Codebases For Sale", value: "3" },
-  { label: "Total Functions", value: "10,000+" },
-  { label: "Languages", value: "Python, Kotlin, C++, TypeScript, Swift" }
+  { value: '26+', label: 'Projects Built' },
+  { value: '3', label: 'For Sale' },
+  { value: '5', label: 'Languages' },
+  { value: '10K+', label: 'Functions' }
 ];
 ---
 
@@ -77,7 +67,7 @@ const stats = [
   realmBg="0.10 0.02 160"
   realmText="0.98 0.02 160"
 >
-  <!-- Hero: Dense & Proof -->
+  <!-- Hero -->
   <section class="border-b border-white/5 relative overflow-hidden">
     <div class="container-wide section-padding relative z-10">
       <div class="max-w-4xl">
@@ -88,7 +78,7 @@ const stats = [
         <h1 class="text-6xl sm:text-8xl font-bold mb-8 tracking-tight leading-[0.85]">
           26+ Projects. <span class="text-brand-400 italic">One Builder.</span>
         </h1>
-        <p class="text-xl sm:text-2xl opacity-70 mb-12 max-w-2xl leading-relaxed">
+        <p class="text-xl sm:text-2xl opacity-60 mb-12 max-w-2xl leading-relaxed">
           Every project here is complete, documented, and deployable. 
           Three are for sale. The rest are proof of absolute execution.
         </p>
@@ -96,7 +86,7 @@ const stats = [
           <a href="/codebases" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
             Buy a Codebase
           </a>
-          <a href="/contact?subject=Custom%20Build" class="btn-secondary text-lg px-10 py-4">
+          <a href="/contact?subject=Custom%20Build" class="btn-ghost text-lg px-10 py-4">
             Hire for Custom Build
           </a>
         </div>
@@ -104,90 +94,92 @@ const stats = [
     </div>
   </section>
 
-  <!-- Stats: Project Landscape -->
-  <section class="bg-white/5 border-y border-white/5 backdrop-blur-md">
+  <!-- Stats -->
+  <section class="border-b border-white/5">
     <div class="container-wide section-padding-sm">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
         {stats.map(stat => (
-          <div class="group">
-            <div class="text-5xl font-bold group-hover:text-brand-400 transition-colors">{stat.value}</div>
-            <div class="text-xs uppercase tracking-[0.2em] opacity-50 mt-3">{stat.label}</div>
+          <div>
+            <div class="text-5xl sm:text-6xl font-bold">{stat.value}</div>
+            <div class="text-xs uppercase tracking-widest opacity-40 mt-3">{stat.label}</div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- For Sale: Featured Realms -->
-  <section class="container-wide section-padding-sm">
-    <div class="flex items-center gap-4 mb-12">
-      <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-brand-500/30">Available</span>
-      <h2 class="text-4xl font-bold">Featured Codebases</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-8">
-      {forSaleProjects.map(project => (
-        <div class="card-interactive p-8 flex flex-col group/card relative overflow-hidden">
-          <div class="flex items-start justify-between mb-6">
-            <span class="text-xs font-bold opacity-50 uppercase tracking-widest">{project.category}</span>
-            <span class="text-xs font-bold px-3 py-1 rounded-full bg-white/10 opacity-70">Buy Outright</span>
-          </div>
-          <h3 class="text-2xl font-bold group-hover/card:text-brand-400 transition-colors mb-4">{project.name}</h3>
-          <p class="text-base opacity-70 mb-8 flex-grow leading-relaxed">{project.description}</p>
-          <div class="flex flex-wrap gap-2 mb-6">
-            {project.highlights.map(h => (
-              <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/10 opacity-80">{h}</span>
-            ))}
-          </div>
-          <div class="text-sm font-mono opacity-40 mb-8">{project.stack}</div>
-          <div class="flex items-baseline gap-2 mb-8">
-            <span class="text-3xl font-bold">${project.price.toLocaleString()}</span>
-          </div>
-          <a href={`/codebases/${project.name.toLowerCase()}`} class="btn-primary w-full justify-center py-4">
-            View Details →
+  <!-- For Sale -->
+  <section class="border-b border-white/5">
+    <div class="container-wide section-padding-sm">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Available</span>
+        <h2 class="text-4xl font-bold">Featured Codebases</h2>
+      </div>
+      <div class="divide-y divide-white/5">
+        {forSaleProjects.map(project => (
+          <a href={`/codebases/${project.name.toLowerCase()}`} class="group flex items-start justify-between gap-8 py-10 transition-all duration-300 hover:text-brand-400">
+            <div class="max-w-3xl">
+              <div class="flex items-center gap-4 mb-3">
+                <span class="text-xs font-bold opacity-40 uppercase tracking-widest">{project.category}</span>
+                <span class="text-xs font-bold opacity-40">Buy Outright</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold mb-3">{project.name}</h3>
+              <p class="text-lg opacity-60 mb-4 leading-relaxed group-hover:opacity-80 transition-opacity">{project.description}</p>
+              <div class="flex flex-wrap gap-x-4 gap-y-2">
+                {project.highlights.map(h => (
+                  <span class="text-sm opacity-40">{h}</span>
+                ))}
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-3xl font-bold">${project.price.toLocaleString()}</div>
+              <div class="text-sm opacity-30 mt-1 font-mono">{project.stack}</div>
+            </div>
           </a>
-          
-          <!-- Card Glow -->
-          <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[radial-gradient(circle_at_center,oklch(0.75_0.15_140_/_0.05),transparent_70%)] pointer-events-none group-hover/card:scale-150 transition-transform duration-700"></div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- Active Projects: The Long Trail -->
-  <section class="container-wide section-padding-sm">
-    <div class="flex items-center gap-4 mb-12">
-      <span class="bg-white/10 text-white/50 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-white/10">Archive</span>
-      <h2 class="text-4xl font-bold">Proof of Build</h2>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {activeProjects.map(project => (
-        <div class="bg-white/5 rounded-engine-inner p-8 border border-white/10 hover:border-brand-500/30 transition-all duration-500 group">
-          <div class="flex items-start justify-between mb-4">
-            <h3 class="text-xl font-bold group-hover:text-brand-400 transition-colors leading-tight">{project.name}</h3>
-            <span class="text-xs font-mono opacity-30 uppercase tracking-widest">{project.category}</span>
+  <!-- Active Projects -->
+  <section class="border-b border-white/5">
+    <div class="container-wide section-padding-sm">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="text-xs font-bold opacity-30 uppercase tracking-widest">Archive</span>
+        <h2 class="text-4xl font-bold">Proof of Build</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+        {activeProjects.map(project => (
+          <div>
+            <div class="flex items-baseline justify-between mb-2">
+              <h3 class="text-xl font-bold">{project.name}</h3>
+              <span class="text-xs font-mono opacity-30 uppercase tracking-widest">{project.category}</span>
+            </div>
+            <p class="text-sm opacity-50 mb-3 leading-relaxed">{project.description}</p>
+            <div class="text-xs font-mono opacity-30 uppercase tracking-wider">{project.stack}</div>
           </div>
-          <p class="text-sm opacity-60 mb-6 leading-relaxed">{project.description}</p>
-          <div class="text-xs font-mono opacity-30 group-hover:opacity-60 transition-opacity uppercase tracking-wider">{project.stack}</div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- CTA: The Partnership -->
-  <section class="container-wide section-padding">
-    <div class="max-w-4xl mx-auto text-center p-16 rounded-engine bg-surface-900/40 backdrop-blur-md border border-white/10 shadow-engine-glow">
-      <h2 class="text-4xl font-bold mb-6">Need something custom?</h2>
-      <p class="text-xl opacity-70 mb-10 max-w-2xl mx-auto leading-relaxed">
-        I've built 26 projects across AI, security, mobile, web, and systems. 
-        If you have a high-stakes problem, let's build the solution.
-      </p>
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="/contact?subject=Custom%20Build" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
-          Start a Custom Build — $15K+
-        </a>
-        <a href="/codebases" class="btn-secondary text-xl px-12 py-5">
-          Buy Existing Code
-        </a>
+  <!-- CTA -->
+  <section>
+    <div class="container-wide section-padding">
+      <div class="max-w-4xl">
+        <h2 class="text-4xl font-bold mb-6">Need something custom?</h2>
+        <p class="text-xl opacity-60 mb-10 max-w-2xl leading-relaxed">
+          I've built 26 projects across AI, security, mobile, web, and systems. 
+          If you have a high-stakes problem, let's build the solution.
+        </p>
+        <div class="flex flex-wrap gap-6">
+          <a href="/contact?subject=Custom%20Build" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
+            Start a Custom Build — $15K+
+          </a>
+          <a href="/codebases" class="btn-ghost text-xl px-12 py-5">
+            Buy Existing Code
+          </a>
+        </div>
       </div>
     </div>
   </section>

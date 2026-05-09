@@ -162,7 +162,7 @@ const serviceCategories = [
   realmBg="0.10 0.01 240"
   realmText="0.98 0.01 240"
 >
-  <!-- Hero: Precise & Professional -->
+  <!-- Hero -->
   <section class="border-b border-white/5 relative overflow-hidden">
     <div class="container-wide section-padding relative z-10">
       <div class="max-w-4xl">
@@ -171,9 +171,9 @@ const serviceCategories = [
           { label: 'Services' },
         ]} />
         <h1 class="text-5xl sm:text-7xl font-bold mb-8 tracking-tight">
-          High-Craft <span class="text-brand-400">Engineering.</span>
+          High-Craft <span class="text-brand-400 italic">Engineering.</span>
         </h1>
-        <p class="text-xl sm:text-2xl opacity-70 mb-12 max-w-2xl leading-relaxed">
+        <p class="text-xl sm:text-2xl opacity-60 mb-12 max-w-2xl leading-relaxed">
           You tell us what's broken, missing, or slow. We fix it, build it, or automate it. 
           Professional grade work, every single time.
         </p>
@@ -181,7 +181,7 @@ const serviceCategories = [
           <a href="/contact" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
             Get a Quote
           </a>
-          <a href="#fix" class="btn-secondary text-lg px-10 py-4">
+          <a href="#fix" class="btn-ghost text-lg px-10 py-4">
             Jump to Services
           </a>
         </div>
@@ -189,39 +189,34 @@ const serviceCategories = [
     </div>
   </section>
 
-  <!-- Service Categories: Tactical Grid -->
+  <!-- Service Categories -->
   <section class="container-wide section-padding-sm">
     <div class="space-y-24">
       {serviceCategories.map((category) => (
-        <div id={category.id} class="scroll-mt-32 group">
-          <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div class="relative">
+        <div id={category.id} class="scroll-mt-32">
+          <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div>
               <span class="text-brand-400 font-mono font-bold text-sm uppercase tracking-[0.2em] mb-4 block">
                 {category.tagline}
               </span>
               <h2 class="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">
                 {category.title}
               </h2>
-              <p class="text-xl opacity-70 mb-8 leading-relaxed max-w-xl">
+              <p class="text-xl opacity-60 mb-8 leading-relaxed max-w-xl">
                 {category.description}
               </p>
               {category.cta && (
-                <a href={category.cta.href} class="btn-primary text-base px-8 py-3">
+                <a href={category.cta.href} class="btn-secondary text-base px-8 py-3">
                   {category.cta.text}
                 </a>
               )}
-              
-              <!-- Subtle Background Light for Category -->
-              <div class="absolute -top-20 -left-20 w-64 h-64 bg-[radial-gradient(circle_at_center,oklch(0.66_0.20_280_/_0.03),transparent_70%)] pointer-events-none group-hover:scale-150 transition-transform duration-1000"></div>
             </div>
-            <div class="bg-white/5 backdrop-blur-md rounded-engine p-10 border border-white/10 shadow-engine-soft group-hover:border-brand-500/30 transition-all duration-700">
-              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="lg:pt-16">
+              <ul class="space-y-4">
                 {category.items.map((item) => (
-                  <li class="flex items-start gap-4">
-                    <svg class="w-6 h-6 text-brand-500 mt-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span class="text-lg opacity-80 group-hover:opacity-100 transition-opacity">{item}</span>
+                  <li class="flex items-start gap-4 text-lg opacity-70">
+                    <span class="text-brand-400 mt-1.5 shrink-0">→</span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -232,36 +227,38 @@ const serviceCategories = [
     </div>
   </section>
 
-  <!-- FAQ Section: Immersive List -->
-  <section class="bg-white/5 border-y border-white/5 backdrop-blur-md">
+  <!-- FAQ Section -->
+  <section class="border-t border-white/5">
     <div class="container-wide section-padding">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold mb-16 text-center">
+      <div class="max-w-4xl">
+        <h2 class="text-4xl font-bold mb-16">
           Frequently Asked Questions
         </h2>
-        <div class="grid md:grid-cols-2 gap-8">
+        <dl class="grid md:grid-cols-2 gap-x-16 gap-y-14">
           {faqs.map((faq) => (
-            <div class="bg-white/5 rounded-engine-inner p-8 border border-white/10 hover:border-brand-500/30 transition-all duration-500">
-              <h3 class="text-xl font-bold mb-4">{faq.question}</h3>
-              <p class="opacity-70 leading-relaxed text-base">{faq.answer}</p>
+            <div>
+              <dt class="text-xl font-bold mb-4">{faq.question}</dt>
+              <dd class="opacity-60 leading-relaxed text-base">{faq.answer}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- CTA: Final Push -->
-  <section class="container-wide section-padding">
-    <div class="max-w-4xl mx-auto text-center p-16 rounded-engine bg-surface-900/40 backdrop-blur-md border border-white/10 shadow-engine-glow">
-      <h2 class="text-4xl font-bold mb-6">Have something specific?</h2>
-      <p class="text-xl opacity-70 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Tell us what you need. We'll scope it, price it, and get to work. 
-        High-performance partnership starts with a conversation.
-      </p>
-      <a href="/contact" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
-        Start a Conversation
-      </a>
+  <!-- CTA -->
+  <section class="border-t border-white/5">
+    <div class="container-wide section-padding">
+      <div class="max-w-4xl">
+        <h2 class="text-4xl font-bold mb-6">Have something specific?</h2>
+        <p class="text-xl opacity-60 mb-10 max-w-2xl leading-relaxed">
+          Tell us what you need. We'll scope it, price it, and get to work. 
+          High-performance partnership starts with a conversation.
+        </p>
+        <a href="/contact" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
+          Start a Conversation
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -39,7 +39,6 @@ function formatDate(date: Date): string {
   }).format(date);
 }
 
-// Get related posts (same tags, different post)
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const relatedPosts = allPosts
   .filter(p => p.slug !== post.slug)
@@ -71,31 +70,31 @@ const relatedPosts = allPosts
           ]} />
           
           <div class="flex flex-wrap items-center gap-4 mb-6">
-            <time class="text-sm opacity-50" datetime={post.data.publishedDate.toISOString()}>
+            <time class="text-sm opacity-30" datetime={post.data.publishedDate.toISOString()}>
               {formatDate(post.data.publishedDate)}
             </time>
-            <span class="opacity-20">•</span>
-            <span class="text-sm opacity-50">{post.data.author}</span>
+            <span class="opacity-10">•</span>
+            <span class="text-sm opacity-30">{post.data.author}</span>
           </div>
           
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 tracking-tight leading-tight">
             {post.data.title}
           </h1>
           
-          <p class="text-xl sm:text-2xl opacity-70 mb-8 leading-relaxed">
+          <p class="text-xl sm:text-2xl opacity-50 mb-8 leading-relaxed">
             {post.data.description}
           </p>
           
           {post.data.tldr && (
-            <div class="bg-white/5 border border-white/10 rounded-engine-inner p-8">
-              <span class="text-xs font-bold text-warm-400 uppercase tracking-widest">TL;DR</span>
-              <p class="opacity-90 mt-3 text-lg leading-relaxed">{post.data.tldr}</p>
-            </div>
+            <p class="text-base opacity-40 max-w-2xl mb-8">
+              <span class="font-bold text-warm-400 uppercase tracking-widest text-xs mr-2">TL;DR</span>
+              {post.data.tldr}
+            </p>
           )}
           
-          <div class="flex flex-wrap gap-3 mt-8">
+          <div class="flex flex-wrap gap-3">
             {post.data.tags.map((tag) => (
-              <a href={`/blog/tag/${tag}`} class="text-xs px-4 py-1.5 rounded-full bg-white/10 opacity-60 hover:bg-warm-500/20 hover:text-warm-400 transition-colors border border-white/10">
+              <a href={`/blog/tag/${tag}`} class="text-xs opacity-30 hover:opacity-70 hover:text-warm-400 transition-colors">
                 {tag}
               </a>
             ))}
@@ -114,20 +113,20 @@ const relatedPosts = allPosts
 
   <!-- Related Posts -->
   {relatedPosts.length > 0 && (
-    <section class="bg-white/5 border-t border-white/5 backdrop-blur-sm">
+    <section class="border-t border-white/5">
       <div class="container-narrow section-padding-sm">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
-          <div class="grid gap-6">
+          <h2 class="text-xl font-bold mb-8 opacity-40 uppercase tracking-widest">Related Posts</h2>
+          <div class="space-y-8">
             {relatedPosts.map((related) => (
               <a 
                 href={`/blog/${related.slug}`}
-                class="bg-white/5 rounded-engine-inner p-6 border border-white/10 hover:border-warm-500/30 transition-all group"
+                class="group block transition-all duration-300 hover:text-warm-400"
               >
-                <h3 class="text-lg font-bold group-hover:text-warm-400 transition-colors">
+                <h3 class="text-lg font-bold group-hover:text-warm-400 transition-colors mb-2">
                   {related.data.title}
                 </h3>
-                <p class="text-sm opacity-60 mt-2 leading-relaxed">{related.data.description}</p>
+                <p class="text-sm opacity-40 group-hover:opacity-60 transition-opacity leading-relaxed">{related.data.description}</p>
               </a>
             ))}
           </div>
@@ -137,13 +136,15 @@ const relatedPosts = allPosts
   )}
 
   <!-- CTA -->
-  <section class="container-narrow section-padding-sm">
-    <div class="max-w-3xl mx-auto border-t border-white/10 pt-12">
-      <h2 class="text-2xl font-bold mb-3">Need this kind of work done?</h2>
-      <p class="opacity-70 mb-6">
-        We write about what we actually do. If this resonated, let's talk.
-      </p>
-      <a href="/contact" class="btn-primary">Get a Quote</a>
+  <section class="border-t border-white/5">
+    <div class="container-narrow section-padding-sm">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold mb-3">Need this kind of work done?</h2>
+        <p class="opacity-50 mb-6">
+          We write about what we actually do. If this resonated, let's talk.
+        </p>
+        <a href="/contact" class="btn-primary">Get a Quote</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

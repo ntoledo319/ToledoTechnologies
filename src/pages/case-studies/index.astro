@@ -44,7 +44,7 @@ const jsonLd = [
         <h1 class="text-5xl sm:text-7xl font-bold mb-6 tracking-tight leading-[0.9]">
           Case <span class="text-brand-400 italic">Studies</span>
         </h1>
-        <p class="text-xl sm:text-2xl opacity-70 max-w-2xl leading-relaxed">
+        <p class="text-xl sm:text-2xl opacity-50 max-w-2xl leading-relaxed">
           Real projects, real results. Here's how we've helped clients ship software, 
           fix problems, and build systems that work.
         </p>
@@ -52,54 +52,52 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Case Studies Grid -->
+  <!-- Case Studies -->
   <section class="container-wide section-padding-sm">
-    <div class="grid md:grid-cols-2 gap-8">
-      {sortedStudies.map((study) => (
+    <div class="divide-y divide-white/5">
+      {sortedStudies.map((study, index) => (
         <a 
           href={`/case-studies/${study.slug}`}
-          class="card-interactive p-8 group"
+          class:list={[
+            "group block py-12 transition-all duration-300 hover:text-brand-400",
+            index === 0 && "pt-0"
+          ]}
         >
-          <div class="flex items-center gap-4 mb-6">
-            <span class="text-sm font-bold px-3 py-1 rounded-full bg-white/10 opacity-60 border border-white/10">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-sm font-medium opacity-30 uppercase tracking-widest">
               {study.data.industry}
             </span>
             {study.data.featured && (
-              <span class="text-sm font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">
                 Featured
               </span>
             )}
           </div>
           
-          <h2 class="text-2xl font-bold group-hover:text-brand-400 transition-colors mb-4 leading-tight">
+          <h2 class="text-2xl sm:text-3xl font-bold group-hover:text-brand-400 transition-colors mb-4 leading-tight">
             {study.data.title}
           </h2>
           
-          <p class="text-lg opacity-70 mb-8 leading-relaxed">
+          <p class="text-lg opacity-50 mb-6 max-w-2xl leading-relaxed group-hover:opacity-70 transition-opacity">
             {study.data.description}
           </p>
           
           {study.data.results.length > 0 && (
-            <div class="mb-8">
-              <h3 class="text-xs font-bold opacity-40 uppercase tracking-widest mb-4">
-                Key Results
-              </h3>
-              <ul class="space-y-2">
+            <div class="mb-6">
+              <ul class="flex flex-wrap gap-x-6 gap-y-2">
                 {study.data.results.slice(0, 3).map((result) => (
-                  <li class="flex items-start gap-3 text-sm">
-                    <svg class="w-4 h-4 text-brand-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span class="opacity-80">{result}</span>
+                  <li class="flex items-center gap-2 text-sm opacity-40">
+                    <span class="text-brand-400">→</span>
+                    <span>{result}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
           
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-3">
             {study.data.services.map((service) => (
-              <span class="text-xs px-3 py-1 rounded-full bg-white/10 opacity-50 border border-white/10">
+              <span class="text-xs opacity-15">
                 {service}
               </span>
             ))}
@@ -110,13 +108,15 @@ const jsonLd = [
   </section>
 
   <!-- CTA -->
-  <section class="container-wide section-padding-sm">
-    <div class="max-w-4xl mx-auto text-center p-16 rounded-engine bg-surface-900/40 backdrop-blur-md border border-white/10 shadow-engine-glow">
-      <h2 class="text-4xl font-bold mb-6">Have a similar problem?</h2>
-      <p class="text-xl opacity-70 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Every project starts with a conversation. Tell us what you're working on.
-      </p>
-      <a href="/contact" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">Get a Quote</a>
+  <section class="border-t border-white/5">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-4xl">
+        <h2 class="text-3xl font-bold mb-4">Have a similar problem?</h2>
+        <p class="text-lg opacity-50 mb-8">
+          Every project starts with a conversation. Tell us what you're working on.
+        </p>
+        <a href="/contact" class="btn-primary shadow-engine-glow">Get a Quote</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

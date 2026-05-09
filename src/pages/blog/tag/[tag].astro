@@ -66,29 +66,32 @@ function formatDate(date: Date): string {
         <h1 class="text-5xl sm:text-7xl font-bold mb-6 tracking-tight leading-[0.9]">
           {displayTag}
         </h1>
-        <p class="text-xl sm:text-2xl opacity-70 max-w-2xl leading-relaxed">
-          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with <span class="font-mono opacity-60">"{tag}"</span>
+        <p class="text-xl sm:text-2xl opacity-50 max-w-2xl leading-relaxed">
+          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with <span class="font-mono opacity-30">"{tag}"</span>
         </p>
       </div>
     </div>
   </section>
 
   <section class="container-wide section-padding-sm">
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => (
+    <div class="divide-y divide-white/5">
+      {posts.map((post, index) => (
         <a
           href={`/blog/${post.slug}`}
-          class="card-interactive p-8 group flex flex-col"
+          class:list={[
+            "group block py-10 transition-all duration-300 hover:text-warm-400",
+            index === 0 && "pt-0"
+          ]}
         >
-          <div class="flex items-center gap-4 mb-4">
+          <div class="flex items-center gap-4 mb-3">
             <time
-              class="text-sm opacity-50"
+              class="text-sm opacity-30"
               datetime={post.data.publishedDate.toISOString()}
             >
               {formatDate(post.data.publishedDate)}
             </time>
             {post.data.featured && (
-              <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
+              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">
                 Featured
               </span>
             )}
@@ -96,19 +99,15 @@ function formatDate(date: Date): string {
           <h2 class="text-xl font-bold group-hover:text-warm-400 transition-colors mb-3 leading-tight">
             {post.data.title}
           </h2>
-          <p class="text-base opacity-70 mb-6 flex-grow leading-relaxed">
+          <p class="text-base opacity-50 max-w-2xl leading-relaxed group-hover:opacity-70 transition-opacity">
             {post.data.description}
           </p>
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-3 mt-4">
             {post.data.tags.slice(0, 3).map((t) => (
-              <span
-                class:list={[
-                  'text-xs px-3 py-1 rounded-full border',
-                  t === tag
-                    ? 'bg-warm-500/20 text-warm-400 border-warm-500/30'
-                    : 'bg-white/10 opacity-60 border-white/10',
-                ]}
-              >
+              <span class:list={[
+                'text-xs',
+                t === tag ? 'text-warm-400' : 'opacity-20'
+              ]}>
                 {t}
               </span>
             ))}
@@ -118,15 +117,17 @@ function formatDate(date: Date): string {
     </div>
   </section>
 
-  <section class="container-wide section-padding-sm">
-    <div class="max-w-4xl mx-auto text-center p-16 rounded-engine bg-surface-900/40 backdrop-blur-md border border-white/10 shadow-engine-glow">
-      <h2 class="text-4xl font-bold mb-6">Explore more topics</h2>
-      <p class="text-xl opacity-70 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Browse all posts or check out our services.
-      </p>
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="/blog" class="btn-secondary text-lg px-10 py-4">All Posts</a>
-        <a href="/services" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">View Services</a>
+  <section class="border-t border-white/5">
+    <div class="container-wide section-padding-sm">
+      <div class="max-w-4xl">
+        <h2 class="text-3xl font-bold mb-4">Explore more topics</h2>
+        <p class="text-lg opacity-50 mb-8">
+          Browse all posts or check out our services.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/blog" class="btn-secondary">All Posts</a>
+          <a href="/services" class="btn-primary shadow-engine-glow">View Services</a>
+        </div>
       </div>
     </div>
   </section>
