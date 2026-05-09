@@ -77,6 +77,22 @@ const serviceCategories = [
       'Memory leak resolution',
       'Dependency updates',
       'Technical debt reduction'
+    ],
+    portals: [
+      {
+        title: 'Performance Audit',
+        description: 'High-fidelity diagnostics for mission-critical apps. Baseline, diagnose, execute, polish.',
+        href: '/services/performance-audit',
+        glow: '0.60 0.25 300',
+        cta: 'Book an Audit'
+      },
+      {
+        title: 'Security Review',
+        description: 'Vulnerability assessment, patch strategy, and hardening roadmap.',
+        href: '/contact?subject=Security%20Review',
+        glow: '0.58 0.22 260',
+        cta: 'Request Review'
+      }
     ]
   },
   {
@@ -93,6 +109,15 @@ const serviceCategories = [
       'Backend services',
       'Database design',
       'Full-stack applications'
+    ],
+    portals: [
+      {
+        title: 'MVP Sprint',
+        description: 'Zero to shipped in 4–12 weeks. Scoping, architecture, build, and handoff.',
+        href: '/contact?subject=MVP%20Sprint',
+        glow: '0.65 0.20 220',
+        cta: 'Start a Sprint'
+      }
     ]
   },
   {
@@ -109,6 +134,15 @@ const serviceCategories = [
       'Notification systems',
       'Infrastructure as Code',
       'Scheduled task automation'
+    ],
+    portals: [
+      {
+        title: 'AI Workflow Integration',
+        description: 'Connect LLMs, agents, and automation into your existing stack.',
+        href: '/contact?subject=AI%20Workflow',
+        glow: '0.58 0.24 140',
+        cta: 'Explore AI Workflows'
+      }
     ]
   },
   {
@@ -129,7 +163,8 @@ const serviceCategories = [
     cta: {
       text: 'Browse Available Codebases',
       href: '/codebases'
-    }
+    },
+    portals: []
   },
   {
     id: 'nonprofit',
@@ -149,7 +184,8 @@ const serviceCategories = [
     cta: {
       text: 'Learn About Nonprofit Work',
       href: '/nonprofit'
-    }
+    },
+    portals: []
   }
 ];
 ---
@@ -227,6 +263,37 @@ const serviceCategories = [
               </ul>
             </div>
           </div>
+
+          <!-- Mini-Site Portals -->
+          {category.portals && category.portals.length > 0 && (
+            <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {category.portals.map((portal) => (
+                <a
+                  href={portal.href}
+                  class="group/portal relative p-8 rounded-engine bg-white/5 backdrop-blur-sm border border-white/10 shadow-engine-soft hover:shadow-engine-glow hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+                  style={`--portal-glow: ${portal.glow};`}
+                >
+                  <!-- Subtle Glow Orb -->
+                  <div 
+                    class="absolute -bottom-8 -right-8 w-32 h-32 bg-[radial-gradient(circle_at_center,oklch(var(--portal-glow)_/_0.08),transparent_70%)] pointer-events-none group-hover/portal:scale-150 transition-transform duration-700"
+                  />
+                  
+                  <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-2 group-hover/portal:text-brand-400 transition-colors">
+                      {portal.title}
+                    </h3>
+                    <p class="text-sm opacity-60 mb-6 leading-relaxed">
+                      {portal.description}
+                    </p>
+                    <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-brand-400 group-hover/portal:gap-3 transition-all">
+                      {portal.cta}
+                      <span class="opacity-50 group-hover/portal:opacity-100 transition-opacity">→</span>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>
