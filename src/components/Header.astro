@@ -17,12 +17,12 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-white border-b border-surface-200">
+<header class="sticky top-0 z-50 bg-transparent backdrop-blur-md border-b border-surface-200/20">
   <nav class="container-wide" aria-label="Main navigation">
     <div class="flex items-center justify-between h-14 lg:h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group" aria-label="Toledo Technologies Home">
-        <span class="font-mono font-bold text-lg text-surface-900">
+        <span class="font-mono font-bold text-lg text-current">
           toledo<span class="text-warm-500">tech</span>
         </span>
       </a>
@@ -33,10 +33,10 @@ function isActive(href: string): boolean {
           <a
             href={link.href}
             class:list={[
-              'px-3 py-1.5 rounded-md text-sm font-mono font-medium transition-colors',
+              'px-4 py-2 rounded-engine-pill text-sm font-mono font-medium transition-all duration-300',
               isActive(link.href)
-                ? 'text-surface-900 bg-surface-100'
-                : 'text-surface-500 hover:text-warm-600',
+                ? 'text-current bg-surface-500/10 shadow-sm'
+                : 'opacity-70 hover:opacity-100 hover:text-warm-500 hover:bg-surface-500/5',
             ]}
           >
             {link.label}

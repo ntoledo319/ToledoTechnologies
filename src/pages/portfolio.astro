@@ -73,27 +73,30 @@ const stats = [
   title="Portfolio"
   description="26+ production-ready projects built by Toledo Technologies. AI infrastructure, compliance automation, security education, mobile apps, and more."
   jsonLd={jsonLd}
+  realmGlow="0.75 0.15 140"
+  realmBg="0.10 0.02 160"
+  realmText="0.98 0.02 160"
 >
-  <!-- Hero -->
-  <section class="border-b border-surface-200">
-    <div class="container-wide section-padding-sm">
-      <div class="max-w-3xl">
+  <!-- Hero: Dense & Proof -->
+  <section class="border-b border-white/5 relative overflow-hidden">
+    <div class="container-wide section-padding relative z-10">
+      <div class="max-w-4xl">
         <Breadcrumbs items={[
           { label: 'Home', href: '/' },
           { label: 'Portfolio' },
         ]} />
-        <h1 class="text-4xl sm:text-5xl font-bold text-surface-900 mb-4">
-          26+ Projects. One Builder.
+        <h1 class="text-6xl sm:text-8xl font-bold mb-8 tracking-tight leading-[0.85]">
+          26+ Projects. <span class="text-brand-400 italic">One Builder.</span>
         </h1>
-        <p class="text-xl text-surface-600 mb-6">
+        <p class="text-xl sm:text-2xl opacity-70 mb-12 max-w-2xl leading-relaxed">
           Every project here is complete, documented, and deployable. 
-          Three are for sale. The rest are proof I can build anything you need.
+          Three are for sale. The rest are proof of absolute execution.
         </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="/codebases" class="btn-primary">
+        <div class="flex flex-wrap gap-6">
+          <a href="/codebases" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
             Buy a Codebase
           </a>
-          <a href="/contact?subject=Custom%20Build" class="btn-secondary">
+          <a href="/contact?subject=Custom%20Build" class="btn-secondary text-lg px-10 py-4">
             Hire for Custom Build
           </a>
         </div>
@@ -101,89 +104,90 @@ const stats = [
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="bg-surface-50 border-y border-surface-200">
+  <!-- Stats: Project Landscape -->
+  <section class="bg-white/5 border-y border-white/5 backdrop-blur-md">
     <div class="container-wide section-padding-sm">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
         {stats.map(stat => (
-          <div class="text-center">
-            <div class="text-3xl font-bold text-surface-900">{stat.value}</div>
-            <div class="text-sm text-surface-500">{stat.label}</div>
+          <div class="group">
+            <div class="text-5xl font-bold group-hover:text-brand-400 transition-colors">{stat.value}</div>
+            <div class="text-xs uppercase tracking-[0.2em] opacity-50 mt-3">{stat.label}</div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- For Sale -->
+  <!-- For Sale: Featured Realms -->
   <section class="container-wide section-padding-sm">
-    <div class="flex items-center gap-3 mb-8">
-      <span class="bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">For Sale</span>
-      <h2 class="text-2xl font-bold text-surface-900">Available Now</h2>
+    <div class="flex items-center gap-4 mb-12">
+      <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-brand-500/30">Available</span>
+      <h2 class="text-4xl font-bold">Featured Codebases</h2>
     </div>
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-8">
       {forSaleProjects.map(project => (
-        <div class="card-interactive p-6 flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="text-xs font-medium text-surface-500 uppercase tracking-wide">{project.category}</span>
-            <span class="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">Available</span>
+        <div class="card-interactive p-8 flex flex-col group/card relative overflow-hidden">
+          <div class="flex items-start justify-between mb-6">
+            <span class="text-xs font-bold opacity-50 uppercase tracking-widest">{project.category}</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-white/10 opacity-70">Buy Outright</span>
           </div>
-          <h3 class="text-xl font-bold text-surface-900 mb-2">{project.name}</h3>
-          <p class="text-sm text-surface-600 mb-4 flex-grow">{project.description}</p>
-          <div class="flex flex-wrap gap-2 mb-4">
+          <h3 class="text-2xl font-bold group-hover/card:text-brand-400 transition-colors mb-4">{project.name}</h3>
+          <p class="text-base opacity-70 mb-8 flex-grow leading-relaxed">{project.description}</p>
+          <div class="flex flex-wrap gap-2 mb-6">
             {project.highlights.map(h => (
-              <span class="text-xs px-2 py-1 rounded bg-surface-100 text-surface-600">{h}</span>
+              <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/10 opacity-80">{h}</span>
             ))}
           </div>
-          <div class="text-xs text-surface-500 mb-4">{project.stack}</div>
-          <div class="flex items-baseline gap-2 mb-4">
-            <span class="text-2xl font-bold text-surface-900">${project.price.toLocaleString()}</span>
+          <div class="text-sm font-mono opacity-40 mb-8">{project.stack}</div>
+          <div class="flex items-baseline gap-2 mb-8">
+            <span class="text-3xl font-bold">${project.price.toLocaleString()}</span>
           </div>
-          <a href={`/codebases/${project.name.toLowerCase()}`} class="btn-primary w-full justify-center">
+          <a href={`/codebases/${project.name.toLowerCase()}`} class="btn-primary w-full justify-center py-4">
             View Details →
           </a>
+          
+          <!-- Card Glow -->
+          <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[radial-gradient(circle_at_center,oklch(0.75_0.15_140_/_0.05),transparent_70%)] pointer-events-none group-hover/card:scale-150 transition-transform duration-700"></div>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Active Projects -->
+  <!-- Active Projects: The Long Trail -->
   <section class="container-wide section-padding-sm">
-    <div class="flex items-center gap-3 mb-8">
-      <span class="bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1 rounded-full">Portfolio</span>
-      <h2 class="text-2xl font-bold text-surface-900">Other Builds</h2>
+    <div class="flex items-center gap-4 mb-12">
+      <span class="bg-white/10 text-white/50 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-white/10">Archive</span>
+      <h2 class="text-4xl font-bold">Proof of Build</h2>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {activeProjects.map(project => (
-        <div class="bg-white rounded-md p-5 border border-surface-200 hover:border-warm-300 transition-colors">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="font-semibold text-surface-900">{project.name}</h3>
-            <span class="text-xs text-surface-500">{project.category}</span>
+        <div class="bg-white/5 rounded-engine-inner p-8 border border-white/10 hover:border-brand-500/30 transition-all duration-500 group">
+          <div class="flex items-start justify-between mb-4">
+            <h3 class="text-xl font-bold group-hover:text-brand-400 transition-colors leading-tight">{project.name}</h3>
+            <span class="text-xs font-mono opacity-30 uppercase tracking-widest">{project.category}</span>
           </div>
-          <p class="text-sm text-surface-600 mb-3">{project.description}</p>
-          <div class="text-xs text-surface-400">{project.stack}</div>
+          <p class="text-sm opacity-60 mb-6 leading-relaxed">{project.description}</p>
+          <div class="text-xs font-mono opacity-30 group-hover:opacity-60 transition-opacity uppercase tracking-wider">{project.stack}</div>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-surface-900 text-white">
-    <div class="container-wide section-padding">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Need something custom?</h2>
-        <p class="text-surface-400 text-lg mb-8">
-          I've built 26 projects across AI, security, mobile, web, and systems. 
-          Whatever you need, I've probably built something similar.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="/contact?subject=Custom%20Build" class="btn-primary text-base px-8 py-3">
-            Start a Custom Build — $15K+
-          </a>
-          <a href="/codebases" class="btn-secondary text-base px-8 py-3">
-            Buy Existing Code
-          </a>
-        </div>
+  <!-- CTA: The Partnership -->
+  <section class="container-wide section-padding">
+    <div class="max-w-4xl mx-auto text-center p-16 rounded-engine bg-surface-900/40 backdrop-blur-md border border-white/10 shadow-engine-glow">
+      <h2 class="text-4xl font-bold mb-6">Need something custom?</h2>
+      <p class="text-xl opacity-70 mb-10 max-w-2xl mx-auto leading-relaxed">
+        I've built 26 projects across AI, security, mobile, web, and systems. 
+        If you have a high-stakes problem, let's build the solution.
+      </p>
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="/contact?subject=Custom%20Build" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
+          Start a Custom Build — $15K+
+        </a>
+        <a href="/codebases" class="btn-secondary text-xl px-12 py-5">
+          Buy Existing Code
+        </a>
       </div>
     </div>
   </section>

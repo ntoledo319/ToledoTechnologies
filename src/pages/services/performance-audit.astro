@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const pricingTiers = [
+  {
+    name: "Rapid Pulse",
+    price: 1500,
+    time: "24 Hours",
+    features: ["Core Web Vitals Check", "Lighthouse Audit", "Quick Fix List", "Bundle Optimization"],
+    tagline: "The instant fix"
+  },
+  {
+    name: "Deep Dive",
+    price: 4500,
+    time: "5 Days",
+    features: ["Database Query Profiling", "Memory Leak Analysis", "Hydration Bottlenecks", "CI/CD Perf Integration"],
+    tagline: "Total optimization",
+    featured: true
+  },
+  {
+    name: "Continuous Edge",
+    price: "Custom",
+    time: "Ongoing",
+    features: ["Monthly Retainer", "Priority Fixes", "New Feature Profiling", "Real User Monitoring"],
+    tagline: "Scale with confidence"
+  }
+];
+
+const auditSteps = [
+  { step: "01", label: "Baseline", value: "34ms", description: "Measuring current TTFB and LCP." },
+  { step: "02", label: "Diagnosis", value: "90%", description: "Identifying unoptimized assets." },
+  { step: "03", label: "Execution", value: "Lighthouse 100", description: "Applying tactical fixes." },
+  { step: "04", label: "Final Polish", value: "Verified", description: "Benchmarking against targets." }
+];
+---
+
+<BaseLayout
+  title="Performance Audit"
+  description="High-performance software optimization. We diagnose bottlenecks and ship fixes that make your application fly."
+  realmGlow="0.60 0.25 300"
+  realmBg="0.08 0.02 280"
+  realmText="0.98 0.02 280"
+>
+  <!-- Hero: High Speed -->
+  <section class="border-b border-white/5 relative overflow-hidden">
+    <div class="container-wide section-padding relative z-10">
+      <div class="max-w-4xl">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Performance Audit' },
+        ]} />
+        <h1 class="text-6xl sm:text-8xl font-bold mb-8 tracking-tighter leading-none">
+          Speed is <span class="text-brand-400 italic">Security.</span>
+        </h1>
+        <p class="text-xl sm:text-2xl opacity-70 mb-12 max-w-2xl leading-relaxed">
+          We don't just find bottlenecks; we eliminate them. High-fidelity performance audits for 
+          mission-critical applications.
+        </p>
+        <div class="flex flex-wrap gap-6">
+          <a href="/contact?subject=Performance%20Audit" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
+            Book an Audit
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Movement Lines Background -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div class="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent"></div>
+      <div class="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent translate-x-20"></div>
+      <div class="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent -translate-x-20"></div>
+    </div>
+  </section>
+
+  <!-- Performance Visualization: Immersive Chart -->
+  <section class="container-wide section-padding-sm">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center opacity-50 uppercase tracking-[0.3em]">The Audit Flow</h2>
+      <div class="grid md:grid-cols-4 gap-4">
+        {auditSteps.map((step) => (
+          <div class="relative group p-8 rounded-engine-inner bg-white/5 border border-white/10 shadow-engine-soft hover:shadow-engine-glow transition-all duration-700">
+            <div class="text-xs font-mono opacity-30 mb-4 tracking-widest">{step.step}</div>
+            <div class="text-sm opacity-50 mb-1 uppercase font-bold">{step.label}</div>
+            <div class="text-2xl font-bold mb-4 text-brand-400">{step.value}</div>
+            <p class="text-sm opacity-70 leading-relaxed">{step.description}</p>
+            
+            <!-- 3D Bar Visual -->
+            <div class="absolute bottom-0 left-8 right-8 h-1 bg-brand-500/20 rounded-full overflow-hidden">
+               <div class="h-full bg-brand-500 w-0 group-hover:w-full transition-all duration-1000 ease-out"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Guide: Immersive Tiers -->
+  <section class="bg-white/5 border-y border-white/5 backdrop-blur-sm">
+    <div class="container-wide section-padding">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-6">Price Guide</h2>
+        <p class="text-xl opacity-60 max-w-2xl mx-auto">
+          Fixed-price results. No hidden fees. Just sheer performance.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {pricingTiers.map((tier) => (
+          <div class:list={[
+            "relative p-10 rounded-engine flex flex-col transition-all duration-500 border group",
+            tier.featured 
+              ? "bg-brand-500/10 border-brand-500/30 scale-105 z-10 shadow-engine-glow" 
+              : "bg-white/5 border-white/10 hover:border-white/20"
+          ]}>
+            {tier.featured && (
+              <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
+                Recommended
+              </span>
+            )}
+            <div class="mb-8">
+              <div class="text-xs font-bold opacity-40 uppercase tracking-widest mb-2">{tier.tagline}</div>
+              <h3 class="text-3xl font-bold mb-4">{tier.name}</h3>
+              <div class="flex items-baseline gap-2">
+                <span class="text-5xl font-bold text-brand-400">
+                  {typeof tier.price === 'number' ? `$${tier.price.toLocaleString()}` : tier.price}
+                </span>
+                {typeof tier.price === 'number' && <span class="opacity-30 text-lg">/ once</span>}
+              </div>
+            </div>
+            
+            <div class="flex-grow mb-10">
+              <ul class="space-y-4">
+                {tier.features.map((feature) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-brand-400 mt-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="opacity-80">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5">
+              <div class="text-sm opacity-40 mb-6 flex justify-between">
+                <span>Typical Delivery</span>
+                <span class="font-bold text-white/60">{tier.time}</span>
+              </div>
+              <a 
+                href={`/contact?subject=Performance%20Audit%20-%20${tier.name}`} 
+                class:list={[
+                  "w-full justify-center py-4 text-lg font-bold transition-all duration-300",
+                  tier.featured ? "btn-primary shadow-engine-glow" : "btn-secondary"
+                ]}
+              >
+                Select {tier.name}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Statement -->
+  <section class="container-wide section-padding-sm">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-8 italic">"We clean up the mess so you can run the business."</h2>
+      <p class="text-xl opacity-60 mb-12">
+        Don't let a slow site kill your conversion rate. Let's make it fly.
+      </p>
+      <a href="/contact" class="btn-ghost text-lg px-12 py-4">
+        Ask a Question
+      </a>
+    </div>
+  </section>
+</BaseLayout>

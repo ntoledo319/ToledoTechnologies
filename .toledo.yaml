@@ -1,0 +1,14 @@
+name: ToledoTechnologies
+status: active
+type: personal
+oauth:
+  needed: false
+  google_scopes: []
+  redirect_uris: []
+deployment:
+  platform: none
+  url: null
+github: ntoledo319/ToledoTechnologies
+last_touched: 2026-05-03
+original_path: /Users/nicholastoledo/Development/web/ToledoTechnologies
+notes: ""

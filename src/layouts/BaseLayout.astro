@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 export interface Props {
   title: string;
@@ -16,6 +17,9 @@ export interface Props {
   author?: string;
   noindex?: boolean;
   jsonLd?: object | object[];
+  realmGlow?: string;
+  realmBg?: string;
+  realmText?: string;
 }
 
 const {
@@ -29,11 +33,20 @@ const {
   author,
   noindex = false,
   jsonLd,
+  realmGlow,
+  realmBg,
+  realmText,
 } = Astro.props;
 
 const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString();
 const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Development Studio' : `${title} | Toledo Technologies`;
+
+const realmStyle = {
+  '--realm-glow': realmGlow || '0.62 0.16 35',
+  'background-color': realmBg ? `oklch(${realmBg})` : 'var(--color-surface-50)',
+  'color': realmText ? `oklch(${realmText})` : 'inherit',
+};
 ---
 
 <!DOCTYPE html>
@@ -59,6 +72,8 @@ const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Deve
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+    <ViewTransitions />
+
     <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
@@ -76,14 +91,48 @@ const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Deve
       )
     )}
   </head>
-  <body class="min-h-screen flex flex-col">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-surface-900 focus:text-white focus:rounded-md focus:text-sm focus:font-mono">
+  <body class="min-h-screen flex flex-col transition-colors duration-1000" style={realmStyle}>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-surface-900 focus:text-white focus:rounded-engine-inner focus:text-sm focus:font-mono">
       Skip to content
     </a>
+
+    <!-- Ethereal Engine: Lighting Layer -->
+    <div id="engine-light" class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-0 transition-opacity duration-1000" aria-hidden="true">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),oklch(var(--realm-glow,0.62_0.16_35)_/_0.08),transparent_50%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),oklch(var(--realm-glow,0.62_0.16_35)_/_0.03),transparent_80%)]"></div>
+    </div>
+
     <Header />
-    <main id="main-content" class="flex-1">
-      <slot />
-    </main>
+    <div id="realm-wrapper" class="flex-1 flex flex-col transition-all duration-1000 relative z-10">
+      <main id="main-content" class="flex-1">
+        <slot />
+      </main>
+    </div>
     <Footer />
+
+    <script>
+      function initEngine() {
+        const light = document.getElementById('engine-light');
+        if (!light) return;
+
+        // Show light after a brief delay for "entrance" effect
+        setTimeout(() => {
+          light.style.opacity = '1';
+        }, 100);
+
+        const updateMousePos = (e: MouseEvent) => {
+          const x = (e.clientX / window.innerWidth) * 100;
+          const y = (e.clientY / window.innerHeight) * 100;
+          document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+          document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+        };
+
+        window.addEventListener('mousemove', updateMousePos);
+      }
+
+      // Initialize on load and after view transitions
+      initEngine();
+      document.addEventListener('astro:after-swap', initEngine);
+    </script>
   </body>
 </html>

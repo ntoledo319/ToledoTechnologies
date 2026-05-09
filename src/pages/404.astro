@@ -6,42 +6,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="404"
   description="Page not found."
   noindex={true}
+  realmGlow="0.60 0.15 25"
+  realmBg="0.08 0.01 25"
+  realmText="0.98 0.01 25"
 >
   <section class="container-wide section-padding">
     <div class="max-w-2xl mx-auto">
       <!-- Terminal-style error -->
-      <div class="bg-surface-900 text-surface-300 rounded-md p-6 sm:p-8 font-mono text-sm mb-8">
-        <div class="text-surface-500 mb-4">$ curl -I toledotech.com{Astro.url.pathname}</div>
-        <div class="text-white">HTTP/1.1 <span class="text-warm-400">404 Not Found</span></div>
+      <div class="bg-surface-900/80 backdrop-blur-md text-surface-300 rounded-engine p-8 sm:p-10 font-mono text-sm mb-10 border border-white/10 shadow-engine-soft">
+        <div class="opacity-40 mb-4">$ curl -I toledotech.com{Astro.url.pathname}</div>
+        <div class="text-white text-lg">HTTP/1.1 <span class="text-warm-400">404 Not Found</span></div>
         <div>content-type: text/html</div>
         <div>x-powered-by: coffee, deadlines</div>
-        <div class="mt-4 text-surface-500">// This page doesn't exist. We checked.</div>
+        <div class="mt-4 opacity-40">// This page doesn't exist. We checked.</div>
       </div>
 
-      <h1 class="text-2xl font-bold text-surface-900 mb-3">
+      <h1 class="text-4xl font-bold mb-4">
         Nothing here.
       </h1>
-      <p class="text-surface-600 mb-8">
+      <p class="text-xl opacity-70 mb-10 leading-relaxed">
         The page you're looking for was either moved, deleted, or never existed.
         Here's where you probably meant to go:
       </p>
 
-      <div class="space-y-3">
-        <a href="/" class="flex items-center justify-between py-3 border-b border-surface-200 text-surface-700 hover:text-surface-900 transition-colors group">
-          <span class="font-mono font-medium">Home</span>
-          <span class="text-surface-400 group-hover:text-surface-700 transition-colors">→</span>
+      <div class="space-y-4">
+        <a href="/" class="flex items-center justify-between py-4 border-b border-white/10 opacity-70 hover:opacity-100 transition-all group">
+          <span class="font-mono font-medium text-lg">Home</span>
+          <span class="opacity-40 group-hover:opacity-100 transition-all transform group-hover:translate-x-2">→</span>
         </a>
-        <a href="/services" class="flex items-center justify-between py-3 border-b border-surface-200 text-surface-700 hover:text-surface-900 transition-colors group">
-          <span class="font-mono font-medium">Services</span>
-          <span class="text-surface-400 group-hover:text-surface-700 transition-colors">→</span>
+        <a href="/services" class="flex items-center justify-between py-4 border-b border-white/10 opacity-70 hover:opacity-100 transition-all group">
+          <span class="font-mono font-medium text-lg">Services</span>
+          <span class="opacity-40 group-hover:opacity-100 transition-all transform group-hover:translate-x-2">→</span>
         </a>
-        <a href="/codebases" class="flex items-center justify-between py-3 border-b border-surface-200 text-surface-700 hover:text-surface-900 transition-colors group">
-          <span class="font-mono font-medium">Codebases</span>
-          <span class="text-surface-400 group-hover:text-surface-700 transition-colors">→</span>
+        <a href="/codebases" class="flex items-center justify-between py-4 border-b border-white/10 opacity-70 hover:opacity-100 transition-all group">
+          <span class="font-mono font-medium text-lg">Codebases</span>
+          <span class="opacity-40 group-hover:opacity-100 transition-all transform group-hover:translate-x-2">→</span>
         </a>
-        <a href="/contact" class="flex items-center justify-between py-3 border-b border-surface-200 text-surface-700 hover:text-surface-900 transition-colors group">
-          <span class="font-mono font-medium">Contact</span>
-          <span class="text-surface-400 group-hover:text-surface-700 transition-colors">→</span>
+        <a href="/contact" class="flex items-center justify-between py-4 border-b border-white/10 opacity-70 hover:opacity-100 transition-all group">
+          <span class="font-mono font-medium text-lg">Contact</span>
+          <span class="opacity-40 group-hover:opacity-100 transition-all transform group-hover:translate-x-2">→</span>
         </a>
       </div>
     </div>

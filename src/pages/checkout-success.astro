@@ -8,54 +8,57 @@ const jsonLd = [];
   title="Thank You for Your Purchase"
   description="Your codebase purchase is confirmed. Here's what happens next."
   jsonLd={jsonLd}
+  realmGlow="0.65 0.18 140"
+  realmBg="0.10 0.02 150"
+  realmText="0.98 0.02 150"
 >
   <section class="container-wide section-padding">
     <div class="max-w-2xl mx-auto text-center">
-      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 shadow-engine-glow">
+        <svg class="w-10 h-10 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="text-4xl font-bold text-surface-900 mb-4">
+      <h1 class="text-5xl sm:text-6xl font-bold mb-6 tracking-tight">
         Purchase Confirmed
       </h1>
-      <p class="text-xl text-surface-600 mb-8">
+      <p class="text-xl opacity-70 mb-12 leading-relaxed">
         Thanks for buying. You'll receive an email within 24 hours with repository access and transfer details.
       </p>
 
-      <div class="bg-surface-50 rounded-md p-6 border border-surface-200 text-left mb-8">
-        <h2 class="font-semibold text-surface-900 mb-4">What happens next:</h2>
-        <ol class="space-y-3 text-surface-600">
-          <li class="flex gap-3">
-            <span class="font-mono text-warm-500 font-bold">1</span>
+      <div class="bg-white/5 rounded-engine p-8 border border-white/10 text-left mb-12 shadow-engine-soft">
+        <h2 class="text-xl font-bold mb-6">What happens next:</h2>
+        <ol class="space-y-5 opacity-80">
+          <li class="flex gap-4">
+            <span class="font-mono text-warm-500 font-bold text-lg">1</span>
             <span>We verify the payment (usually instant).</span>
           </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-warm-500 font-bold">2</span>
+          <li class="flex gap-4">
+            <span class="font-mono text-warm-500 font-bold text-lg">2</span>
             <span>You get an email with GitHub repo access and documentation.</span>
           </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-warm-500 font-bold">3</span>
+          <li class="flex gap-4">
+            <span class="font-mono text-warm-500 font-bold text-lg">3</span>
             <span>We schedule a 30-minute handoff call to answer questions.</span>
           </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-warm-500 font-bold">4</span>
+          <li class="flex gap-4">
+            <span class="font-mono text-warm-500 font-bold text-lg">4</span>
             <span>IP transfer documents are signed and delivered.</span>
           </li>
         </ol>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="/codebases" class="btn-primary">
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="/codebases" class="btn-primary text-lg px-10 py-4">
           Browse More Codebases
         </a>
-        <a href="/portfolio" class="btn-secondary">
+        <a href="/portfolio" class="btn-secondary text-lg px-10 py-4">
           See Our Portfolio
         </a>
       </div>
 
-      <p class="text-surface-500 text-sm mt-8">
-        Questions? Email <a href="mailto:hello@toledotechnologies.com" class="text-warm-600 hover:underline">hello@toledotechnologies.com</a>
+      <p class="opacity-40 text-sm mt-10">
+        Questions? Email <a href="mailto:hello@toledotechnologies.com" class="text-warm-400 hover:underline">hello@toledotechnologies.com</a>
       </p>
     </div>
   </section>

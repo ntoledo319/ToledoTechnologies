@@ -1,0 +1,8 @@
+# Robots.txt for Toledo Technologies
+# https://toledotechnologies.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://toledotechnologies.com/sitemap-index.xml
