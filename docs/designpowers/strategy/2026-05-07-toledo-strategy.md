@@ -2,6 +2,11 @@
 
 ## Design Principles
 
+### 0. No Boxes. No Panels. (The Void Principle)
+**The principle:** If it looks like a container with a background and a border, it doesn't ship. Structure comes from space, not from boxes.
+**In practice:** Use `divide-y` horizontal rules, generous section padding, and typography hierarchy to group content. Lists are vertical stacks separated by hairlines. Grids are plain text with gap spacing. CTAs are just a headline + button on the bare background.
+**What this means we will NOT do:** Use cards, panels, modal boxes, sidebar containers, stat boxes, or any `bg-white/5 backdrop-blur-sm rounded-engine border` pattern. Ever.
+
 ### 1. Real over Digital (The Tactile Principle)
 **The principle:** Surfaces should have weight, light should have volume, and interactions should feel physical.
 **In practice:** Use soft skeuomorphism, volumetric shadows, and light-blooms that react to user input. Every element should feel like it has a physical presence.

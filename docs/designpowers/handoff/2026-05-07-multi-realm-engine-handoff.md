@@ -21,22 +21,25 @@ The engine relies on a mouse-tracking volumetric light source injected into the 
 - The background light is strictly decorative (`aria-hidden="true"`).
 - Contrast ratios for all foreground text must exceed 4.5:1 *against the brightest point of the light bloom*.
 
-### 2. Tactile Surfaces (Cards & Containers)
-Cards are no longer flat. They are physical objects floating in the engine's light.
+### 2. Content Structure (The Boxless Rule)
+There are no cards, panels, or bordered containers. Content grouping is achieved through whitespace, typography, and horizontal rules.
 
 **Visual Specification:**
-- **Base State:** `bg-white/5` (or `bg-white/80` in light realms), `backdrop-blur-sm`, `rounded-engine` (2rem), `shadow-engine-soft`.
-- **Borders:** Subtle translucent borders (e.g., `border-white/10`).
+- **Vertical Lists:** Use `divide-y divide-white/5` to separate items. Each item is a plain block with generous `py-10` padding.
+- **Grids:** Use plain CSS Grid or Flexbox with `gap-12` spacing. No backgrounds, borders, or shadows on grid cells.
+- **CTAs:** A headline, a sentence of body copy, and a button. No background box, no border, no `backdrop-blur` wrapper.
+- **Stats:** Large number + small label. No container. The number IS the visual anchor.
+- **Feature Lists:** Icon or arrow + text. Inline or stacked. No card wrapper.
+- **Sidebar:** Stack sections vertically with `border-t border-white/5` separators between them.
 
 **Interaction Specification (Hover):**
-- **Physical Lift:** `-translate-y-1` on hover.
-- **Shadow Focus:** Transitions to `shadow-engine-focus` (deeper, more concentrated).
-- **Glow Reaction:** If interactive, borders react to the realm's accent color (e.g., `hover:border-warm-500/50`).
-- **Duration:** All card transitions use `duration-500` to feel "weighted" and physical, not snappy.
+- **Link Rows:** Text color shifts to the realm accent (e.g., `hover:text-warm-400`). A trailing arrow (`→`) translates right by `0.5rem`.
+- **Opacity Shift:** `opacity-50` → `opacity-100` on hover for list items.
+- **Duration:** `duration-300` for text and arrow transitions. Snappy, not weighted.
 
 **Accessibility Requirements:**
-- Lift effects must be disabled or significantly reduced if `@media (prefers-reduced-motion: reduce)` is active.
-- Click targets must remain large and distinct regardless of the hover state.
+- Without background boxes, ensure text contrast against the realm background is 4.5:1 at all times.
+- Hover effects that rely solely on color must have a secondary indicator (e.g., the arrow shift).
 
 ---
 

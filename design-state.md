@@ -17,6 +17,7 @@
 | 2026-05-07 | Ethereal Engine | Light-driven depth feels "inside the site." | Approved |
 | 2026-05-07 | Radical Realms | Huge shifts between site sections. | Approved |
 | 2026-05-07 | Move to Vercel | Better performance and image optimization for "stunning" graphics. | Approved |
+| 2026-05-09 | Boxless UI | User explicitly rejects cards, panels, and bordered containers. Structure must come from type and space. | Approved |
 
 ## Open Questions
 - What are the specific "real" sites the user has fallen in love with? (Ongoing)
