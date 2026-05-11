@@ -1,11 +1,11 @@
 ---
-title: "Performance Fixes That Actually Move the Needle"
-description: "Stop optimizing the wrong things. Learn how to identify real performance bottlenecks and make improvements that users actually notice."
+title: 'Performance Fixes That Actually Move the Needle'
+description: 'Stop optimizing the wrong things. Learn how to identify real performance bottlenecks and make improvements that users actually notice.'
 publishedDate: 2024-02-05
 modifiedDate: 2024-02-26
-tags: ["performance", "optimization", "development"]
+tags: ['performance', 'optimization', 'development']
 featured: false
-tldr: "Measure first, optimize second. Most performance issues are in 20% of the code—find that 20%."
+tldr: 'Measure first, optimize second. Most performance issues are in 20% of the code—find that 20%.'
 ---
 
 ## Why Do Most Performance Optimizations Not Matter?
@@ -31,6 +31,7 @@ Never guess where the bottleneck is. Use profiling tools:
 In most codebases, 80% of performance problems come from 20% of the code. Find that 20%.
 
 Common culprits:
+
 - N+1 database queries
 - Unindexed database columns
 - Blocking the main thread with heavy computations
@@ -49,18 +50,21 @@ Technical metrics are helpful, but user-perceived performance is what matters:
 ## High-Impact Fixes We Commonly Make
 
 ### Database Optimization
+
 - Adding missing indexes
 - Rewriting inefficient queries
 - Implementing connection pooling
 - Adding query result caching
 
 ### Frontend Performance
+
 - Code splitting and lazy loading
 - Image optimization and lazy loading
 - Reducing bundle sizes
 - Caching static assets properly
 
 ### Architecture Changes
+
 - Adding CDN for static assets
 - Implementing proper caching layers
 - Moving heavy operations to background jobs
@@ -69,6 +73,7 @@ Technical metrics are helpful, but user-perceived performance is what matters:
 ## When Should You Skip Optimization?
 
 Sometimes the answer is "don't." Consider:
+
 - Is this actually causing problems for users?
 - Will the optimization introduce complexity?
 - Is the current performance "good enough"?

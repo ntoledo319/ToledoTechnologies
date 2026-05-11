@@ -31,6 +31,7 @@ every element you encounter on this scale:
    generic — and write a one-paragraph demolition of each.
 
 ## Rules
+
 - Never soften your assessment. A 40% taste score IS a 40%.
 - Name the frameworks, templates, and starter kits you see echoed.
 - Reference the project's Taste Standards from CLAUDE.md when scoring.

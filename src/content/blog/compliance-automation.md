@@ -1,11 +1,11 @@
 ---
 title: "Compliance Automation: What's Real vs. Theater"
-description: "Separating genuine compliance automation from checkbox theater. What actually helps vs. what just looks good on paper."
+description: 'Separating genuine compliance automation from checkbox theater. What actually helps vs. what just looks good on paper.'
 publishedDate: 2024-02-19
 modifiedDate: 2024-02-26
-tags: ["compliance", "automation", "security"]
+tags: ['compliance', 'automation', 'security']
 featured: false
-tldr: "Real compliance automation catches problems before audits. Theater just generates reports that nobody reads."
+tldr: 'Real compliance automation catches problems before audits. Theater just generates reports that nobody reads.'
 ---
 
 ## What Is Compliance Theater and Why Is It Dangerous?
@@ -13,6 +13,7 @@ tldr: "Real compliance automation catches problems before audits. Theater just g
 Every organization wants to be "compliant." SOC 2, HIPAA, GDPR, PCI-DSS—the acronyms pile up.
 
 But there's a difference between:
+
 - **Being compliant**: Actually following security practices that protect data
 - **Looking compliant**: Generating documentation that satisfies auditors
 
@@ -32,6 +33,7 @@ Real compliance isn't a point-in-time audit. It's continuous:
 ### Evidence Collection That Matters
 
 Good automation collects evidence that:
+
 - Is generated automatically (not manually compiled)
 - Is timestamped and tamper-evident
 - Shows actual system state (not self-reported surveys)
@@ -40,6 +42,7 @@ Good automation collects evidence that:
 ### Actionable Alerts
 
 The goal is catching problems before they become audit findings:
+
 - Alert on policy violations as they happen
 - Provide clear remediation steps
 - Track resolution to completion
@@ -54,6 +57,7 @@ If someone has to fill out a spreadsheet every quarter to "prove" controls are w
 ### Reports Nobody Reads
 
 Generating a 500-page PDF every month doesn't help if:
+
 - Nobody reviews it
 - It's too dense to understand
 - It only shows "green" because metrics are cherry-picked
@@ -67,6 +71,7 @@ A penetration test from 18 months ago doesn't mean you're secure today. Complian
 ### Start with What Matters
 
 Not all controls are equal. Focus automation on:
+
 - High-risk areas first
 - Controls that frequently fail
 - Things that change often
@@ -74,6 +79,7 @@ Not all controls are equal. Focus automation on:
 ### Integrate with Existing Tools
 
 Good compliance automation pulls from:
+
 - Cloud provider APIs (AWS, GCP, Azure)
 - Identity providers
 - CI/CD pipelines
@@ -85,6 +91,7 @@ Don't create a separate system that requires manual data entry.
 ### Make It Useful Beyond Audits
 
 The best compliance automation is also useful for:
+
 - Security incident investigation
 - Onboarding new team members
 - Understanding system architecture

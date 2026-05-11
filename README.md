@@ -45,11 +45,11 @@ npm run preview
 
 When deploying to Render as a Static Site:
 
-| Setting           | Value                    |
-| :---------------- | :----------------------- |
-| **Build Command** | `npm ci && npm run build` |
-| **Publish Directory** | `dist`               |
-| **Node Version**  | 18 or higher             |
+| Setting               | Value                     |
+| :-------------------- | :------------------------ |
+| **Build Command**     | `npm ci && npm run build` |
+| **Publish Directory** | `dist`                    |
+| **Node Version**      | 18 or higher              |
 
 ### Environment Variables
 
@@ -60,17 +60,20 @@ No environment variables are required. The site builds with zero configuration.
 After deploying to production:
 
 ### Google Search Console
+
 - [ ] Add property for `toledotechnologies.com`
 - [ ] Verify ownership (DNS or HTML file)
 - [ ] Submit sitemap: `https://toledotechnologies.com/sitemap-index.xml`
 - [ ] Request indexing for key pages
 
 ### Social Preview Testing
+
 - [ ] Test Open Graph with [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
 - [ ] Test Twitter Cards with [Card Validator](https://cards-dev.twitter.com/validator)
 - [ ] Verify OG images render correctly
 
 ### Performance & SEO Audit
+
 - [ ] Run [PageSpeed Insights](https://pagespeed.web.dev/) on homepage
 - [ ] Check [Core Web Vitals](https://web.dev/vitals/) in Search Console
 - [ ] Verify all pages return 200 status
@@ -78,57 +81,61 @@ After deploying to production:
 - [ ] Confirm sitemap is accessible and valid
 
 ### Analytics (Optional)
+
 - [ ] Set up Google Analytics 4 or Plausible
 - [ ] Configure goal tracking for contact form submissions
 
 ## Content Collections
 
 ### Blog Posts
+
 Add new posts to `src/content/blog/` as Markdown files with frontmatter:
 
 ```yaml
 ---
-title: "Post Title"
-description: "Brief description for SEO"
+title: 'Post Title'
+description: 'Brief description for SEO'
 publishedDate: 2024-01-15
-tags: ["tag1", "tag2"]
-tldr: "One-sentence summary"
+tags: ['tag1', 'tag2']
+tldr: 'One-sentence summary'
 ---
 ```
 
 ### Codebases
+
 Add products to `src/content/codebases/`:
 
 ```yaml
 ---
-title: "Product Name"
-tagline: "Short tagline"
-description: "Full description"
-status: "available" # or "limited" or "in-development"
-category: "Security"
-tags: ["tag1", "tag2"]
-features: ["Feature 1", "Feature 2"]
-included: ["Item 1", "Item 2"]
-targetAudience: ["Audience 1", "Audience 2"]
+title: 'Product Name'
+tagline: 'Short tagline'
+description: 'Full description'
+status: 'available' # or "limited" or "in-development"
+category: 'Security'
+tags: ['tag1', 'tag2']
+features: ['Feature 1', 'Feature 2']
+included: ['Item 1', 'Item 2']
+targetAudience: ['Audience 1', 'Audience 2']
 order: 1
 ---
 ```
 
 ### Case Studies
+
 Add case studies to `src/content/case-studies/`:
 
 ```yaml
 ---
-title: "Case Study Title"
-description: "Brief description"
-industry: "Industry Name"
-services: ["Service 1", "Service 2"]
+title: 'Case Study Title'
+description: 'Brief description'
+industry: 'Industry Name'
+services: ['Service 1', 'Service 2']
 publishedDate: 2024-01-15
-results: ["Result 1", "Result 2"]
+results: ['Result 1', 'Result 2']
 testimonial:
-  quote: "Testimonial text"
-  author: "Person Name"
-  role: "Their Role"
+  quote: 'Testimonial text'
+  author: 'Person Name'
+  role: 'Their Role'
 ---
 ```
 

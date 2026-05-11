@@ -1,196 +1,43 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import GatefoldLayout from '../layouts/GatefoldLayout.astro';
 import { organizationSchema, websiteSchema } from '../utils/jsonld';
+import LinerNotes from '../components/home/LinerNotes.astro';
+import HomeCTA from '../components/home/HomeCTA.astro';
+import SideAFooter from '../components/home/SideAFooter.astro';
 
 const jsonLd = [organizationSchema(), websiteSchema()];
-
-const services = [
-  {
-    title: 'Fix & Improve',
-    description: 'Bug fixes, performance optimization, and refactoring. We clean up the mess.',
-    href: '/services#fix',
-  },
-  {
-    title: 'Build Features',
-    description: 'New features, integrations, and MVPs. From concept to shipped.',
-    href: '/services#build',
-  },
-  {
-    title: 'Automate',
-    description: 'Scripts, pipelines, and AI workflows. Make the tedious disappear.',
-    href: '/services#automate',
-  },
-  {
-    title: 'Buy Codebases',
-    description: 'Deploy-ready repositories for security, compliance, and ops.',
-    href: '/codebases',
-  },
-];
-
 ---
 
-<BaseLayout
+<GatefoldLayout
   title="Home"
-  description="Toledo Technologies is a remote software development studio. We build, fix, and ship code—fast. Bug fixes, feature implementation, automation, and deploy-ready codebases."
+  description="Toledo Technologies is a remote software development studio. We build, fix, and ship code with the care of a printed record sleeve. Bug fixes, feature implementation, automation, and deploy-ready codebases."
   jsonLd={jsonLd}
-  realmGlow="0.62 0.16 35"
-  realmBg="0.15 0.01 220"
-  realmText="0.98 0.01 220"
 >
-  <!-- Hero -->
-  <section class="border-b border-white/5 overflow-hidden relative">
-    <div class="container-wide section-padding relative z-10">
-      <div class="max-w-5xl">
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[0.9] text-balance">
-          We build, <span class="text-warm-500 italic">fix</span>, and ship code—fast.
-        </h1>
-        <p class="text-xl sm:text-2xl opacity-70 mb-12 max-w-2xl leading-relaxed">
-          The remote software development studio for builders who value directness. 
-          No fluff, just production-ready code you can own outright.
-        </p>
+  <article
+    id="insert-side-a"
+    class="insert active"
+    data-label="Side A — Liner Notes"
+  >
+    <LinerNotes />
+    <HomeCTA />
+    <SideAFooter />
+  </article>
+</GatefoldLayout>
 
-        <div class="flex flex-wrap gap-4">
-          <a href="/codebases" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
-            Buy a Codebase
-          </a>
-          <a href="/portfolio" class="btn-secondary text-lg px-10 py-4">
-            View 26+ Projects
-          </a>
-          <a href="/contact" class="btn-ghost text-lg px-10 py-4">
-            Get a Quote →
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="absolute top-1/2 right-0 -translate-y-1/2 w-1/3 h-full bg-[radial-gradient(circle_at_center,oklch(0.62_0.16_35_/_0.05),transparent_70%)] pointer-events-none"></div>
-  </section>
+<style>
+  /* On the home page the .endsleeve at the bottom of the Side A insert
+     serves as the printed footer of the record. Hide the global site
+     <Footer /> here to avoid the duplication; the sticky Header stays
+     because it carries the cross-side navigation. */
+  :global(.paper-stage > footer) {
+    display: none;
+  }
+  :global(.paper-stage #main-content) {
+    padding-top: 32px;
+  }
 
-  <!-- What We Do -->
-  <section class="border-b border-white/5">
-    <div class="container-wide section-padding-sm">
-      <h2 class="text-4xl font-bold mb-4">What We Do</h2>
-      <p class="text-xl opacity-50 mb-16 max-w-2xl">Four ways we help teams ship better software.</p>
-      
-      <div class="divide-y divide-white/5">
-        {services.map((service) => (
-          <a href={service.href} class="group flex items-start justify-between gap-8 py-10 transition-all duration-300 hover:text-warm-400">
-            <div class="max-w-2xl">
-              <h3 class="text-2xl sm:text-3xl font-mono font-semibold mb-3">
-                {service.title}
-              </h3>
-              <p class="text-lg opacity-60 leading-relaxed group-hover:opacity-80 transition-opacity">
-                {service.description}
-              </p>
-            </div>
-            <span class="text-3xl opacity-20 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300 shrink-0 mt-1">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Proof -->
-  <section class="border-b border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
-        <div>
-          <div class="text-5xl sm:text-6xl font-bold">26+</div>
-          <div class="text-sm uppercase tracking-widest opacity-40 mt-3">Projects Built</div>
-        </div>
-        <div>
-          <div class="text-5xl sm:text-6xl font-bold">3</div>
-          <div class="text-sm uppercase tracking-widest opacity-40 mt-3">Codebases For Sale</div>
-        </div>
-        <div>
-          <div class="text-5xl sm:text-6xl font-bold">10K+</div>
-          <div class="text-sm uppercase tracking-widest opacity-40 mt-3">Functions Written</div>
-        </div>
-        <div>
-          <div class="text-5xl sm:text-6xl font-bold">5</div>
-          <div class="text-sm uppercase tracking-widest opacity-40 mt-3">Languages</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Email Capture -->
-  <section class="border-b border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Not ready to buy?</h2>
-        <p class="text-xl opacity-50 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Get a weekly email with new codebases, pricing drops, and behind-the-scenes builds. 
-          The honest take on modern development.
-        </p>
-        <form action="https://buttondown.email/api/emails/embed-subscribe/toledotechnologies" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/toledotechnologies', 'popupwindow')" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-          <input type="email" name="email" placeholder="you@company.com" required class="flex-1 px-8 py-4 rounded-engine-pill bg-white/5 border border-white/10 text-white focus:outline-none focus:border-warm-500 transition-all placeholder:text-white/30" />
-          <button type="submit" class="btn-primary px-10">Subscribe</button>
-        </form>
-        <p class="text-xs opacity-30 mt-8 tracking-widest uppercase">Powered by Buttondown. No spam.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proof + Nonprofit -->
-  <section class="border-b border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="grid lg:grid-cols-3 gap-16 lg:gap-20">
-        <!-- GitHub -->
-        <div class="lg:col-span-2">
-          <div class="flex items-center gap-4 mb-6">
-            <svg class="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-            </svg>
-            <h2 class="text-2xl font-bold">Open Source</h2>
-          </div>
-          <p class="text-xl sm:text-2xl opacity-60 mb-6 max-w-2xl leading-relaxed">
-            Production-ready code you can inspect before buying. 26+ repositories of sheer engineering.
-          </p>
-          <a
-            href="https://github.com/ntoledo319"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 font-mono text-sm hover:text-warm-500 transition-colors"
-          >
-            github.com/ntoledo319 →
-          </a>
-        </div>
-
-        <!-- Daedalus -->
-        <div>
-          <h2 class="text-2xl font-bold mb-4">Daedalus Landed</h2>
-          <p class="text-xl opacity-60 mb-6 leading-relaxed">
-            Free, humane AI for mental health and education.
-          </p>
-          <a href="/nonprofit" class="font-mono font-bold text-sm hover:text-warm-500 transition-colors inline-flex items-center gap-2 group">
-            Step into the Realm 
-            <span class="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Promise -->
-  <section>
-    <div class="container-wide section-padding">
-      <div class="max-w-4xl">
-        <h2 class="text-4xl font-bold mb-6">What We Actually Promise</h2>
-        <p class="text-2xl opacity-60 mb-12 leading-relaxed">
-          Transparent communication, clean code, and work that ships on time. 
-          If something's going sideways, you'll know immediately—not after the deadline passes.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="/case-studies" class="btn-secondary text-lg px-10 py-4">
-            See Our Work
-          </a>
-          <a href="/contact" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
-            Start a Conversation
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</BaseLayout>
+  .insert {
+    position: relative;
+    padding: 0;
+  }
+</style>

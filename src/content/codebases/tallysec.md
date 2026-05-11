@@ -1,40 +1,48 @@
 ---
-title: "TallySec"
-tagline: "Teach security in the language of finance"
-description: "AI-powered security education lab pack that connects threat scoring to quantifiable business impact and ROI. Complete training bundle with deterministic scanner, labs, assessments, and FastAPI microservice."
-status: "available"
-category: "Security Education"
-tags: ["security", "training", "ai-powered", "risk-scoring", "education", "lab-pack"]
+title: 'TallySec'
+tagline: 'Teach security in the language of finance'
+description: 'AI-powered security education lab pack that connects threat scoring to quantifiable business impact and ROI. Complete training bundle with deterministic scanner, labs, assessments, and FastAPI microservice.'
+status: 'available'
+category: 'Security Education'
+tags:
+  [
+    'security',
+    'training',
+    'ai-powered',
+    'risk-scoring',
+    'education',
+    'lab-pack'
+  ]
 features:
-  - "Deterministic URL risk scoring engine with AI-powered insights"
-  - "Synthetic labeled dataset for training and demos"
-  - "5 complete labs with student guides and instructor keys"
-  - "FastAPI microservice with Docker/Compose deployment"
-  - "Static dashboard for visualization"
-  - "Quiz bank with autograder for assessments"
-  - "ROC curve evaluation and metrics.json output"
-  - "Postman collection for API testing"
+  - 'Deterministic URL risk scoring engine with AI-powered insights'
+  - 'Synthetic labeled dataset for training and demos'
+  - '5 complete labs with student guides and instructor keys'
+  - 'FastAPI microservice with Docker/Compose deployment'
+  - 'Static dashboard for visualization'
+  - 'Quiz bank with autograder for assessments'
+  - 'ROC curve evaluation and metrics.json output'
+  - 'Postman collection for API testing'
 included:
-  - "Full source code (Python backend with FastAPI)"
-  - "Synthetic dataset (urls_synthetic_labeled.csv)"
-  - "5 labs (student + instructor answer keys)"
-  - "Docker and Docker Compose configuration"
-  - "Static web dashboard"
-  - "Documentation: Quickstart, Instructor Guide, Syllabus, Rubric, FAQ"
-  - "Sales materials: One-pager, Press kit, Listing copy"
-  - "Legal: Exclusive Sale Agreement (No-Support), Do-No-Evil EULA"
-  - "Brand assets: Wordmark, icons, palette, brand guide"
-  - "Complete IP transfer ready"
+  - 'Full source code (Python backend with FastAPI)'
+  - 'Synthetic dataset (urls_synthetic_labeled.csv)'
+  - '5 labs (student + instructor answer keys)'
+  - 'Docker and Docker Compose configuration'
+  - 'Static web dashboard'
+  - 'Documentation: Quickstart, Instructor Guide, Syllabus, Rubric, FAQ'
+  - 'Sales materials: One-pager, Press kit, Listing copy'
+  - 'Legal: Exclusive Sale Agreement (No-Support), Do-No-Evil EULA'
+  - 'Brand assets: Wordmark, icons, palette, brand guide'
+  - 'Complete IP transfer ready'
 targetAudience:
-  - "Training organizations teaching security"
-  - "Enterprises building internal security education programs"
-  - "Consultants delivering security workshops"
-  - "Universities and bootcamps with security curricula"
+  - 'Training organizations teaching security'
+  - 'Enterprises building internal security education programs'
+  - 'Consultants delivering security workshops'
+  - 'Universities and bootcamps with security curricula'
 order: 1
 price: 5500
 originalPrice: 15000
-pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
-stripeLink: "https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07"
+pricingNote: 'One-time purchase. Full IP transfer. Includes 30-day support.'
+stripeLink: 'https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07'
 licensesAvailable: 5
 ---
 
@@ -45,6 +53,7 @@ TallySec is a **Risk-to-Return Lab Pack** that teaches security teams to communi
 ## The Problem It Solves
 
 Security teams struggle to:
+
 - Communicate technical findings to business stakeholders
 - Quantify the business impact of vulnerabilities
 - Justify security investments with ROI data
@@ -55,18 +64,23 @@ TallySec provides a complete educational framework that teaches security in the 
 ## Key Capabilities
 
 ### AI-Powered Risk Scoring
+
 A deterministic, feature-based scoring engine prioritizes threats and translates technical severity into business impact metrics that executives can act on.
 
 ### Complete Lab Environment
+
 Five structured labs take students from basics to advanced concepts. Each includes student materials and instructor answer keys for classroom or self-paced learning.
 
 ### Production-Ready API
+
 FastAPI microservice runs locally or containerized. Includes OpenAPI documentation, Postman collection, and example integrations.
 
 ### Assessment Suite
+
 Quiz bank covers all modules with an autograder for automated evaluation. Generate certificates for course completion.
 
 ### Executive-Ready Outputs
+
 Reports and dashboards present findings in ROI terms—perfect for board presentations and budget justification.
 
 ## Technical Details

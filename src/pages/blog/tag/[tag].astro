@@ -18,8 +18,8 @@ export async function getStaticPaths() {
           (a, b) =>
             new Date(b.data.publishedDate).getTime() -
             new Date(a.data.publishedDate).getTime()
-        ),
-    },
+        )
+    }
   }));
 }
 
@@ -33,14 +33,14 @@ const displayTag = tag
 const jsonLd = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog' },
-  { name: displayTag, url: `/blog/tag/${tag}` },
+  { name: displayTag, url: `/blog/tag/${tag}` }
 ]);
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   }).format(date);
 }
 ---
@@ -50,83 +50,94 @@ function formatDate(date: Date): string {
   description={`Articles about ${tag.toLowerCase()} from Toledo Technologies. Practical insights on software development, debugging, and shipping code.`}
   jsonLd={jsonLd}
   realmGlow="0.58 0.12 210"
-  realmBg="0.12 0.01 220"
-  realmText="0.98 0.01 220"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
-  <section class="border-b border-white/5 relative overflow-hidden">
+  <section class="relative overflow-hidden border-b border-black/5">
     <div class="container-wide section-padding-sm relative z-10">
       <div class="max-w-4xl">
         <Breadcrumbs
           items={[
             { label: 'Home', href: '/' },
             { label: 'Blog', href: '/blog' },
-            { label: displayTag },
+            { label: displayTag }
           ]}
         />
-        <h1 class="text-5xl sm:text-7xl font-bold mb-6 tracking-tight leading-[0.9]">
+        <h1
+          class="mb-6 text-5xl leading-[0.9] font-bold tracking-tight sm:text-7xl"
+        >
           {displayTag}
         </h1>
-        <p class="text-xl sm:text-2xl opacity-50 max-w-2xl leading-relaxed">
-          {posts.length} {posts.length === 1 ? 'article' : 'articles'} tagged with <span class="font-mono opacity-30">"{tag}"</span>
+        <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
+          {posts.length}
+          {posts.length === 1 ? 'article' : 'articles'} tagged with <span
+            class="opacity-30">"{tag}"</span
+          >
         </p>
       </div>
     </div>
   </section>
 
   <section class="container-wide section-padding-sm">
-    <div class="divide-y divide-white/5">
-      {posts.map((post, index) => (
-        <a
-          href={`/blog/${post.slug}`}
-          class:list={[
-            "group block py-10 transition-all duration-300 hover:text-warm-400",
-            index === 0 && "pt-0"
-          ]}
-        >
-          <div class="flex items-center gap-4 mb-3">
-            <time
-              class="text-sm opacity-30"
-              datetime={post.data.publishedDate.toISOString()}
-            >
-              {formatDate(post.data.publishedDate)}
-            </time>
-            {post.data.featured && (
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">
-                Featured
-              </span>
-            )}
-          </div>
-          <h2 class="text-xl font-bold group-hover:text-warm-400 transition-colors mb-3 leading-tight">
-            {post.data.title}
-          </h2>
-          <p class="text-base opacity-50 max-w-2xl leading-relaxed group-hover:opacity-70 transition-opacity">
-            {post.data.description}
-          </p>
-          <div class="flex flex-wrap gap-3 mt-4">
-            {post.data.tags.slice(0, 3).map((t) => (
-              <span class:list={[
-                'text-xs',
-                t === tag ? 'text-warm-400' : 'opacity-20'
-              ]}>
-                {t}
-              </span>
-            ))}
-          </div>
-        </a>
-      ))}
+    <div class="divide-y divide-black/5">
+      {
+        posts.map((post, index) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class:list={[
+              'group hover:text-warm-400 block py-10 transition-all duration-300',
+              index === 0 && 'pt-0'
+            ]}
+          >
+            <div class="mb-3 flex items-center gap-4">
+              <time
+                class="text-sm opacity-30"
+                datetime={post.data.publishedDate.toISOString()}
+              >
+                {formatDate(post.data.publishedDate)}
+              </time>
+              {post.data.featured && (
+                <span class="text-brand-400 text-xs font-bold tracking-widest uppercase">
+                  Featured
+                </span>
+              )}
+            </div>
+            <h2 class="group-hover:text-warm-400 mb-3 text-xl leading-tight font-bold transition-colors">
+              {post.data.title}
+            </h2>
+            <p class="max-w-2xl text-base leading-relaxed opacity-50 transition-opacity group-hover:opacity-70">
+              {post.data.description}
+            </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              {post.data.tags.slice(0, 3).map((t) => (
+                <span
+                  class:list={[
+                    'text-xs',
+                    t === tag ? 'text-warm-400' : 'opacity-20'
+                  ]}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
     </div>
   </section>
 
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
-        <h2 class="text-3xl font-bold mb-4">Explore more topics</h2>
-        <p class="text-lg opacity-50 mb-8">
+        <h2 class="mb-4 text-3xl font-bold">Explore more topics</h2>
+        <p class="mb-8 text-lg opacity-50">
           Browse all posts or check out our services.
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="/blog" class="btn-secondary">All Posts</a>
-          <a href="/services" class="btn-primary shadow-engine-glow">View Services</a>
+          <a href="/services" class="btn-primary shadow-engine-glow"
+            >View Services</a
+          >
         </div>
       </div>
     </div>

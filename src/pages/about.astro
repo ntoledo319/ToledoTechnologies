@@ -1,177 +1,115 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import InsertLayout from '../layouts/InsertLayout.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
 const jsonLd = breadcrumbSchema([
   { name: 'Home', url: '/' },
   { name: 'About', url: '/about' }
 ]);
-
-const values = [
-  {
-    title: 'Ship Clean',
-    description: 'Code should work, be readable, and be maintainable. We don\'t cut corners that create future pain.'
-  },
-  {
-    title: 'Communicate Clearly',
-    description: 'No jargon walls. No disappearing acts. If there\'s a problem, you know immediately.'
-  },
-  {
-    title: 'Respect Constraints',
-    description: 'Budget, timeline, technical debt—we work within reality, not against it.'
-  },
-  {
-    title: 'Stay Curious',
-    description: 'Technology moves fast. We stay current without chasing every shiny thing.'
-  }
-];
 ---
 
-<BaseLayout
+<InsertLayout
   title="About"
   description="Toledo Technologies is a remote software development studio. We build, fix, and ship code with transparency and precision. Learn about our approach and values."
   jsonLd={jsonLd}
-  realmGlow="0.62 0.14 30"
-  realmBg="0.14 0.01 220"
-  realmText="0.98 0.01 220"
+  heading="About Toledo Technologies"
+  subheading="A remote software development studio for builders who value craft over noise."
 >
-  <!-- Hero -->
-  <section class="border-b border-white/5 relative overflow-hidden">
-    <div class="container-wide section-padding relative z-10">
-      <div class="max-w-4xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'About' },
-        ]} />
-        <h1 class="text-5xl sm:text-7xl font-bold mb-8 tracking-tight leading-[0.9]">
-          About <span class="text-warm-500 italic">Toledo</span> Technologies
-        </h1>
-        <p class="text-xl sm:text-2xl opacity-60 max-w-2xl leading-relaxed">
-          A remote software development studio. We build, fix, and ship code
-          for clients who need things done well—without the overhead of a full agency.
-        </p>
-      </div>
-    </div>
-  </section>
+  <p>
+    Toledo Technologies exists because too many development projects end in
+    frustration. Scope creep. Poor communication. Code that works once but falls
+    apart at scale. We built this studio to be the antidote.
+  </p>
 
-  <!-- Story -->
-  <section class="container-wide section-padding-sm">
-    <div class="grid lg:grid-cols-2 gap-16 items-start">
-      <div>
-        <h2 class="text-3xl font-bold mb-6">The Short Version</h2>
-        <div class="space-y-6 text-lg opacity-70 leading-relaxed">
-          <p>
-            Toledo Technologies exists because too many development projects end in frustration. 
-            Scope creep. Poor communication. Code that works once but falls apart at scale.
-          </p>
-          <p>
-            We do things differently. Clear scoping upfront. Regular communication throughout. 
-            Clean code that gets handed off with documentation, not excuses.
-          </p>
-          <p>
-            We work remotely, which means lower overhead and the ability to work with clients 
-            anywhere. It also means we've built the discipline to deliver without needing 
-            someone looking over our shoulder.
-          </p>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-3xl font-bold mb-6">What We're Good At</h3>
-        <ul class="space-y-5 divide-y divide-white/5">
-          <li class="flex items-start gap-4 pt-5 first:pt-0">
-            <span class="text-warm-500 mt-1 font-bold">→</span>
-            <span class="opacity-80">Fixing things that other developers broke (or that entropy broke)</span>
-          </li>
-          <li class="flex items-start gap-4 pt-5">
-            <span class="text-warm-500 mt-1 font-bold">→</span>
-            <span class="opacity-80">Building features and MVPs quickly without sacrificing quality</span>
-          </li>
-          <li class="flex items-start gap-4 pt-5">
-            <span class="text-warm-500 mt-1 font-bold">→</span>
-            <span class="opacity-80">Automating the tedious stuff so humans can focus on what matters</span>
-          </li>
-          <li class="flex items-start gap-4 pt-5">
-            <span class="text-warm-500 mt-1 font-bold">→</span>
-            <span class="opacity-80">Explaining technical decisions in plain language</span>
-          </li>
-          <li class="flex items-start gap-4 pt-5">
-            <span class="text-warm-500 mt-1 font-bold">→</span>
-            <span class="opacity-80">Handing off code that the next developer won't curse at</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <h2>The Short Version</h2>
 
-  <!-- Values -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding">
-      <h2 class="text-4xl font-bold mb-16">How We Work</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-        {values.map((value) => (
-          <div>
-            <h3 class="text-xl font-bold mb-3">{value.title}</h3>
-            <p class="text-sm opacity-50 leading-relaxed">{value.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <p>
+    We are a remote software development studio. We build, fix, and ship code
+    for clients who need things done well—without the overhead of a full agency.
+    Clear scoping upfront. Regular communication throughout. Clean code that
+    gets handed off with documentation, not excuses.
+  </p>
 
-  <!-- Remote -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-6">Remote by Design</h2>
-        <p class="text-xl opacity-50 mb-6 leading-relaxed">
-          We don't have an office because we don't need one. Remote work lets us hire for 
-          talent (not geography), keep overhead low, and focus on what matters: shipping 
-          good code.
-        </p>
-        <p class="text-lg opacity-40 leading-relaxed">
-          Our clients span time zones. We're used to async communication, clear documentation, 
-          and working independently while staying connected.
-        </p>
-      </div>
-    </div>
-  </section>
+  <p>
+    We work remotely, which means lower overhead and the ability to work with
+    clients anywhere. It also means we've built the discipline to deliver
+    without needing someone looking over our shoulder.
+  </p>
 
-  <!-- Open Source -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
-        <div>
-          <h2 class="text-3xl font-bold mb-2">See Our Work</h2>
-          <p class="opacity-50 text-lg">
-            Check out our public contributions and projects on GitHub.
-          </p>
-        </div>
-        <a 
-          href="https://github.com/ntoledo319"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-3 px-8 py-4 rounded-engine-pill bg-white text-surface-900 font-mono font-medium hover:bg-surface-100 transition-colors shrink-0"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-          </svg>
-          View GitHub Profile
-        </a>
-      </div>
-    </div>
-  </section>
+  <h2>What We're Good At</h2>
 
-  <!-- CTA -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding">
-      <div class="max-w-4xl">
-        <h2 class="text-4xl font-bold mb-6">Something broken? Something to build?</h2>
-        <p class="text-xl opacity-50 mb-10 max-w-2xl leading-relaxed">
-          Tell us what you need. We'll tell you what it takes.
-        </p>
-        <a href="/contact" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">Get a Quote</a>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+  <ul>
+    <li>Fixing things that other developers broke (or that entropy broke)</li>
+    <li>Building features and MVPs quickly without sacrificing quality</li>
+    <li>Automating the tedious stuff so humans can focus on what matters</li>
+    <li>Explaining technical decisions in plain language</li>
+    <li>Handing off code that the next developer won't curse at</li>
+  </ul>
+
+  <h2>How We Work</h2>
+
+  <h3>Ship Clean</h3>
+  <p>
+    Code should work, be readable, and be maintainable. We don't cut corners
+    that create future pain. Every line we write is written with the next
+    developer in mind—even if that next developer is us, six months from now.
+  </p>
+
+  <h3>Communicate Clearly</h3>
+  <p>
+    No jargon walls. No disappearing acts. If there's a problem, you know
+    immediately. We believe the most valuable thing we can give you is peace of
+    mind, and that comes from knowing exactly where things stand.
+  </p>
+
+  <h3>Respect Constraints</h3>
+  <p>
+    Budget, timeline, technical debt—we work within reality, not against it. We
+    won't promise what we can't deliver, and we won't pretend a two-week job can
+    be done in two days.
+  </p>
+
+  <h3>Stay Curious</h3>
+  <p>
+    Technology moves fast. We stay current without chasing every shiny thing.
+    The tools we recommend are the ones we've actually used, not the ones
+    getting the most hype on social media.
+  </p>
+
+  <h2>Remote by Design</h2>
+
+  <p>
+    We don't have an office because we don't need one. Remote work lets us hire
+    for talent (not geography), keep overhead low, and focus on what matters:
+    shipping good code. Our clients span time zones. We're used to async
+    communication, clear documentation, and working independently while staying
+    connected.
+  </p>
+
+  <h2>See Our Work</h2>
+
+  <p>
+    Check out our public contributions and projects on GitHub. Production-ready
+    code you can inspect before buying. 26+ repositories of sheer engineering.
+  </p>
+
+  <p>
+    <a
+      href="https://github.com/ntoledo319"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      github.com/ntoledo319 →
+    </a>
+  </p>
+
+  <hr />
+
+  <h2>Something broken? Something to build?</h2>
+
+  <p>Tell us what you need. We'll tell you what it takes.</p>
+
+  <p>
+    <a href="/contact">Get a Quote →</a>
+  </p>
+</InsertLayout>

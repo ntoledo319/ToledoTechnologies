@@ -1,56 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { breadcrumbSchema, serviceSchema, faqSchema } from '../utils/jsonld';
+import InsertLayout from '../layouts/InsertLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../utils/jsonld';
 
 const services = [
   {
-    name: 'Fix & Improve',
-    description: 'Bug fixes, performance optimization, refactoring, and code cleanup.'
+    name: 'ToledoWeb',
+    description: 'Custom websites, editorial design, and bespoke builds.'
   },
   {
-    name: 'Build Features',
-    description: 'New features, integrations, MVPs, and complete applications.'
+    name: 'SiteLift',
+    description: 'Productized migrations off WordPress, Squarespace, and Wix.'
   },
   {
-    name: 'Automation',
-    description: 'Scripts, CI/CD pipelines, AI workflows, and process automation.'
+    name: 'Toledo Apps',
+    description: 'Custom software, web apps, and enterprise SaaS.'
   },
-  {
-    name: 'Codebase Sales',
-    description: 'Deploy-ready repositories for security, compliance, and operations.'
-  },
-  {
-    name: 'Nonprofit Support',
-    description: 'Technology tools and workflows for nonprofit organizations.'
-  }
-];
-
-const faqs = [
-  {
-    question: 'How do you price your work?',
-    answer: 'We offer both fixed-price projects and hourly rates depending on scope clarity. Fixed-price works best when requirements are well-defined. Hourly is better for exploratory work or ongoing support. We\'ll recommend the best fit during scoping.'
-  },
-  {
-    question: 'What are typical timelines?',
-    answer: 'It varies significantly by scope. Bug fixes can be same-day. Features typically take 1-4 weeks. MVPs run 4-12 weeks. We provide timeline estimates during scoping and communicate proactively if anything changes.'
-  },
-  {
-    question: 'Who owns the code?',
-    answer: 'You do. All custom work becomes your intellectual property upon payment. For codebases, you receive a perpetual license with full rights to modify, deploy, and build upon.'
-  },
-  {
-    question: 'Do you offer maintenance?',
-    answer: 'Yes. We offer ongoing support and maintenance packages for work we\'ve delivered. We can also take over maintenance of existing systems we didn\'t build.'
-  },
-  {
-    question: 'Are you open to NDAs?',
-    answer: 'Absolutely. We\'re comfortable signing NDAs before discussing sensitive projects. Confidentiality is standard practice for us.'
-  },
-  {
-    question: 'What technologies do you work with?',
-    answer: 'We\'re language and framework agnostic. Most commonly: TypeScript, Python, Go, React, Node.js, PostgreSQL, AWS, GCP. But we adapt to your stack—that\'s kind of the point.'
-  }
+  { name: 'Toledo Mobile', description: 'Native iOS and Android apps.' },
+  { name: 'Toledo AI', description: 'AI agents and workflow automation.' }
 ];
 
 const jsonLd = [
@@ -58,207 +24,243 @@ const jsonLd = [
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/services' }
   ]),
-  serviceSchema(services),
-  faqSchema(faqs)
-];
-
-const serviceCategories = [
-  {
-    id: 'fix',
-    title: 'Fix & Improve',
-    tagline: 'Clean up the mess',
-    description: 'Bug fixes, performance optimization, refactoring, and security patches. We diagnose issues properly and fix root causes, not just symptoms.',
-    items: [
-      'Bug diagnosis and fixes',
-      'Performance optimization',
-      'Code refactoring',
-      'Security vulnerability patches',
-      'Database query optimization',
-      'Memory leak resolution',
-      'Dependency updates',
-      'Technical debt reduction'
-    ]
-  },
-  {
-    id: 'build',
-    title: 'Build',
-    tagline: 'From concept to shipped',
-    description: 'New features, complete applications, MVPs, and integrations. We build what you need and hand it off clean.',
-    items: [
-      'Feature implementation',
-      'MVP development',
-      'API development',
-      'Third-party integrations',
-      'Frontend development',
-      'Backend services',
-      'Database design',
-      'Full-stack applications'
-    ]
-  },
-  {
-    id: 'automate',
-    title: 'Automate',
-    tagline: 'Make the tedious disappear',
-    description: 'Scripts, pipelines, and AI workflows. If you\'re doing something manually that a computer could do, we can fix that.',
-    items: [
-      'CI/CD pipeline setup',
-      'Deployment automation',
-      'Data processing scripts',
-      'AI/ML workflow integration',
-      'Report generation',
-      'Notification systems',
-      'Infrastructure as Code',
-      'Scheduled task automation'
-    ]
-  },
-  {
-    id: 'codebases',
-    title: 'Codebase Sales',
-    tagline: 'Deploy-ready repositories',
-    description: 'Pre-built, documented, tested codebases ready for deployment. Security, compliance, and operational tooling you can own outright.',
-    items: [
-      'Security audit tracking',
-      'Compliance evidence collection',
-      'Infrastructure testing tools',
-      'Admin dashboards',
-      'API starter kits',
-      'Authentication systems',
-      'Monitoring solutions',
-      'Internal tools'
-    ],
-    cta: {
-      text: 'Browse Available Codebases',
-      href: '/codebases'
-    }
-  },
-  {
-    id: 'nonprofit',
-    title: 'Nonprofit Support',
-    tagline: 'Value on limited budgets',
-    description: 'We help nonprofit organizations get technology value without enterprise pricing. Practical solutions that respect constraints.',
-    items: [
-      'Donor management systems',
-      'Volunteer coordination tools',
-      'Website development',
-      'Process automation',
-      'Data cleanup and migration',
-      'Training and documentation',
-      'Tool selection consulting',
-      'Grant technology support'
-    ],
-    cta: {
-      text: 'Learn About Nonprofit Work',
-      href: '/nonprofit'
-    }
-  }
+  serviceSchema(services)
 ];
 ---
 
-<BaseLayout
+<InsertLayout
   title="Services"
-  description="Software development services including bug fixes, feature implementation, automation, MVP development, and deploy-ready codebases. Remote software developer for hire."
+  description="The Catalog of Toledo Technologies. Five sides of the studio: Custom Websites, WordPress Exits, Web Apps & SaaS, Native Mobile, and AI Agents."
   jsonLd={jsonLd}
-  realmGlow="0.66 0.20 280"
-  realmBg="0.10 0.01 240"
-  realmText="0.98 0.01 240"
+  heading="Five sides of the catalog. One studio behind all of them."
+  subheading="The work splits five ways. Each side has its own microsite — its own identity, its own pricing, its own discovery product, its own front door. Pick the one that fits. If you're not sure, the Discovery hub sorts that out."
 >
-  <!-- Hero -->
-  <section class="border-b border-white/5 relative overflow-hidden">
-    <div class="container-wide section-padding relative z-10">
-      <div class="max-w-4xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Services' },
-        ]} />
-        <h1 class="text-5xl sm:text-7xl font-bold mb-8 tracking-tight">
-          High-Craft <span class="text-brand-400 italic">Engineering.</span>
-        </h1>
-        <p class="text-xl sm:text-2xl opacity-60 mb-12 max-w-2xl leading-relaxed">
-          You tell us what's broken, missing, or slow. We fix it, build it, or automate it. 
-          Professional grade work, every single time.
-        </p>
-        <div class="flex flex-wrap gap-6">
-          <a href="/contact" class="btn-primary text-lg px-10 py-4 shadow-engine-glow">
-            Get a Quote
-          </a>
-          <a href="#fix" class="btn-ghost text-lg px-10 py-4">
-            Jump to Services
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <p class="eyebrow" style="margin-bottom: 24px;">
+    <span class="num">A2</span><span class="bar"></span><span>The Catalog</span>
+  </p>
 
-  <!-- Service Categories -->
-  <section class="container-wide section-padding-sm">
-    <div class="space-y-24">
-      {serviceCategories.map((category) => (
-        <div id={category.id} class="scroll-mt-32">
-          <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            <div>
-              <span class="text-brand-400 font-mono font-bold text-sm uppercase tracking-[0.2em] mb-4 block">
-                {category.tagline}
-              </span>
-              <h2 class="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">
-                {category.title}
-              </h2>
-              <p class="text-xl opacity-60 mb-8 leading-relaxed max-w-xl">
-                {category.description}
-              </p>
-              {category.cta && (
-                <a href={category.cta.href} class="btn-secondary text-base px-8 py-3">
-                  {category.cta.text}
-                </a>
-              )}
-            </div>
-            <div class="lg:pt-16">
-              <ul class="space-y-4">
-                {category.items.map((item) => (
-                  <li class="flex items-start gap-4 text-lg opacity-70">
-                    <span class="text-brand-400 mt-1.5 shrink-0">→</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      ))}
+  <div
+    class="catalog-grid"
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-bottom: 64px;"
+  >
+    <div
+      class="catalog-card"
+      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
+    >
+      <h3>ToledoWeb — Custom websites</h3>
+      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
+        The work that gets screenshotted and shared.
+      </p>
+      <ul
+        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+      >
+        <li><strong>Range:</strong> $5,500 – $250,000+</li>
+        <li>
+          <strong>Discovery:</strong>
+          <a href="/discovery#website-audit"
+            >Website Migration Audit ($1,500)</a>
+        </li>
+        <li><strong>Best for:</strong> Founders, design-led brands</li>
+      </ul>
+      <a
+        href="https://web.toledotechnologies.com"
+        style="margin-top: auto; font-weight: bold;"
+        >→ web.toledotechnologies.com</a
+      >
     </div>
-  </section>
 
-  <!-- FAQ Section -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding">
-      <div class="max-w-4xl">
-        <h2 class="text-4xl font-bold mb-16">
-          Frequently Asked Questions
-        </h2>
-        <dl class="grid md:grid-cols-2 gap-x-16 gap-y-14">
-          {faqs.map((faq) => (
-            <div>
-              <dt class="text-xl font-bold mb-4">{faq.question}</dt>
-              <dd class="opacity-60 leading-relaxed text-base">{faq.answer}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+    <div
+      class="catalog-card"
+      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
+    >
+      <h3>SiteLift — WordPress exits</h3>
+      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
+        Productized migrations off WP, Squarespace, Wix.
+      </p>
+      <ul
+        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+      >
+        <li><strong>Range:</strong> $3,500 – $65,000+</li>
+        <li>
+          <strong>Discovery:</strong>
+          <a href="/discovery#sitelift-fit-check">SiteLift Fit Check ($750)</a>
+        </li>
+        <li>
+          <strong>Best for:</strong> Businesses bleeding money on WP maintenance
+        </li>
+      </ul>
+      <a
+        href="https://sitelift.toledotechnologies.com"
+        style="margin-top: auto; font-weight: bold;"
+        >→ sitelift.toledotechnologies.com</a
+      >
     </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="border-t border-white/5">
-    <div class="container-wide section-padding">
-      <div class="max-w-4xl">
-        <h2 class="text-4xl font-bold mb-6">Have something specific?</h2>
-        <p class="text-xl opacity-60 mb-10 max-w-2xl leading-relaxed">
-          Tell us what you need. We'll scope it, price it, and get to work. 
-          High-performance partnership starts with a conversation.
-        </p>
-        <a href="/contact" class="btn-primary text-xl px-12 py-5 shadow-engine-glow">
-          Start a Conversation
-        </a>
-      </div>
+    <div
+      class="catalog-card"
+      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
+    >
+      <h3>Toledo Apps — Web apps + SaaS</h3>
+      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
+        Custom software that replaces spreadsheets.
+      </p>
+      <ul
+        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+      >
+        <li><strong>Range:</strong> $15,000 – $750,000+</li>
+        <li>
+          <strong>Discovery:</strong>
+          <a href="/discovery#web-app-discovery"
+            >Web App Discovery ($3,500–$5,000)</a>
+        </li>
+        <li>
+          <strong>Best for:</strong> Operations leaders, ops-heavy businesses
+        </li>
+      </ul>
+      <a
+        href="https://apps.toledotechnologies.com"
+        style="margin-top: auto; font-weight: bold;"
+        >→ apps.toledotechnologies.com</a
+      >
     </div>
-  </section>
-</BaseLayout>
+
+    <div
+      class="catalog-card"
+      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
+    >
+      <h3>Toledo Mobile — Native + cross-platform</h3>
+      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
+        iOS/Android apps that pass the App Store test.
+      </p>
+      <ul
+        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+      >
+        <li><strong>Range:</strong> $50,000 – $700,000+</li>
+        <li>
+          <strong>Discovery:</strong>
+          <a href="/discovery#mobile-discovery"
+            >Mobile App Discovery ($5,000–$7,500)</a>
+        </li>
+        <li><strong>Best for:</strong> Product owners, consumer brands</li>
+      </ul>
+      <a
+        href="https://mobile.toledotechnologies.com"
+        style="margin-top: auto; font-weight: bold;"
+        >→ mobile.toledotechnologies.com</a
+      >
+    </div>
+
+    <div
+      class="catalog-card"
+      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
+    >
+      <h3>Toledo AI — Agents + automation</h3>
+      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
+        Production AI with governance and cost caps.
+      </p>
+      <ul
+        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+      >
+        <li><strong>Range:</strong> $10,000 – $300,000+</li>
+        <li>
+          <strong>Discovery:</strong>
+          <a href="/discovery#ai-blueprint"
+            >AI Automation Blueprint ($3,500–$10,000)</a>
+        </li>
+        <li>
+          <strong>Best for:</strong> Anyone who needs autonomous systems that respect
+          data
+        </li>
+      </ul>
+      <a
+        href="https://ai.toledotechnologies.com"
+        style="margin-top: auto; font-weight: bold;"
+        >→ ai.toledotechnologies.com</a
+      >
+    </div>
+  </div>
+
+  <hr />
+
+  <h2>What sits across the catalog</h2>
+  <p>
+    Three things don't belong to a single microsite because they cut across all
+    five.
+  </p>
+
+  <h3>Care plans — <em>one maintenance ladder</em></h3>
+  <p>
+    Whatever we ship, we maintain. Basic Care at $750/mo for static sites
+    through Strategic Growth at $10,000+/mo for fractional engineering on
+    production systems. Plus pure-dev Starter / Growth / Scale buckets if you'd
+    rather buy hours than service.
+  </p>
+  <p><a href="/care">→ See the full ladder</a></p>
+
+  <h3>Discovery products — <em>six paid front doors</em></h3>
+  <p>
+    Two are productized fixed-price — SiteLift Fit Check ($750) and Website
+    Migration Audit ($1,500). Four are quote-based within published bands — Web
+    App Discovery, AI Automation Blueprint, Mobile App Discovery, and SaaS /
+    Product Strategy. The hub sorts you onto the right one.
+  </p>
+  <p><a href="/discovery">→ See all six discoveries</a></p>
+
+  <h3>Toledo Partner — <em>white-label for agencies</em></h3>
+  <p>
+    $125/hr floor, $150–$175/hr for complex work, retainer buckets from
+    $1,500/mo. Non-compete, full IP assignment, your-name-on-the-PR-not-ours. We
+    can join your Slack or stay invisible.
+  </p>
+  <p><a href="/partner">→ Inquire as a partner</a></p>
+
+  <hr />
+
+  <h2>Other shelves on Side B</h2>
+
+  <p>
+    <strong>Codebases for sale.</strong> Pre-built, documented, tested repositories
+    you own outright. Buy and deploy.<br /><a href="/codebases"
+      >→ Browse the shelf</a>
+  </p>
+  <p>
+    <strong>The Rescue — case studies.</strong> Systems we pulled out of the fire.
+    Numbers, timelines, and what changed.<br /><a href="/case-studies"
+      >→ /case-studies</a>
+  </p>
+  <p>
+    <strong>Nonprofit pricing.</strong> 501(c)(3) and mission-driven organizations
+    get hard-floor pricing on Signal through Studio, plus reduced-rate Care plans.
+    The trade is a written case study and a 2-minute testimonial.<br /><a
+      href="/nonprofit">→ /nonprofit</a>
+  </p>
+
+  <hr />
+
+  <h2>How a project starts</h2>
+
+  <p>
+    The first call is fifteen to thirty minutes. We talk about what you need,
+    what you've tried, and what good looks like. By the end you'll know which
+    microsite or discovery you belong in, what the band is, and when we could
+    start.
+  </p>
+
+  <p>
+    Most projects then move into a paid discovery — that's where we map the
+    actual scope and produce a fixed-price quote. Discovery isn't a sales pitch
+    dressed up; it's real work that produces a document you can use whether or
+    not you hire us. Half the discovery fee credits toward the project deposit
+    if you proceed within thirty days.
+  </p>
+
+  <p>
+    If you want to skip the call, every microsite has its own inquiry form. They
+    take five minutes and you get a real reply within a business day.
+  </p>
+
+  <p>
+    <a href="/contact">Write us a letter →</a> · <a
+      href="#section-1-the-catalog">Skip to a microsite →</a>
+  </p>
+</InsertLayout>

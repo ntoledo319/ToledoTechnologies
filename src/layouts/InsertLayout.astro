@@ -1,0 +1,142 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+import '../styles/gatefold.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { ClientRouter } from 'astro:transitions';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  noindex?: boolean;
+  jsonLd?: object | object[];
+  heading?: string;
+  subheading?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.png',
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  author,
+  noindex = false,
+  jsonLd,
+  heading,
+  subheading
+} = Astro.props;
+
+const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
+const canonicalUrl =
+  canonical || new URL(Astro.url.pathname, siteUrl).toString();
+const fullTitle = `${title} | Toledo Technologies`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEOHead
+      title={fullTitle}
+      description={description}
+      canonical={canonicalUrl}
+      ogImage={ogImage}
+      ogType={ogType}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      noindex={noindex}
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <ClientRouter />
+
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {
+      jsonLd &&
+        (Array.isArray(jsonLd) ? (
+          jsonLd.map((data) => (
+            <script
+              type="application/ld+json"
+              set:html={JSON.stringify(data)}
+            />
+          ))
+        ) : (
+          <script
+            type="application/ld+json"
+            set:html={JSON.stringify(jsonLd)}
+          />
+        ))
+    }
+  </head>
+  <body class="bg-paper-50 text-novel-body min-h-screen font-sans">
+    <a
+      href="#main-content"
+      class="focus:bg-paper-900 focus:rounded-engine-inner sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+    >
+      Skip to content
+    </a>
+
+    <!-- Paper Texture Overlay -->
+    <div
+      class="pointer-events-none fixed inset-0 z-[99] opacity-[0.03] mix-blend-multiply"
+      aria-hidden="true"
+      style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');"
+    >
+    </div>
+
+    <div class="insert-layout flex flex-col">
+      <Header />
+
+      <main id="main-content" class="flex-1 pt-16 pb-24 md:pt-24 md:pb-32">
+        <article class="novel-container">
+          {
+            heading && (
+              <header class="mb-16 border-b border-black/5 pb-8 md:mb-24">
+                <h1 class="text-novel-heading">{heading}</h1>
+                {subheading && (
+                  <p
+                    class="mt-4 text-xl leading-relaxed opacity-60 md:text-2xl"
+                    style="font-family: var(--font-novel);"
+                  >
+                    {subheading}
+                  </p>
+                )}
+              </header>
+            )
+          }
+          <slot />
+        </article>
+      </main>
+
+      <Footer />
+    </div>
+  </body>
+</html>

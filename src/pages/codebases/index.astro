@@ -13,7 +13,7 @@ const jsonLd = [
     { name: 'Codebases', url: '/codebases' }
   ]),
   itemListSchema(
-    sortedCodebases.map(c => ({
+    sortedCodebases.map((c) => ({
       name: c.data.title,
       url: `/codebases/${c.slug}`,
       description: c.data.description
@@ -23,9 +23,9 @@ const jsonLd = [
 ];
 
 const statusLabels: Record<string, { text: string; class: string }> = {
-  'available': { text: 'Available', class: 'text-green-400' },
-  'limited': { text: 'Limited', class: 'text-yellow-400' },
-  'in-development': { text: 'In Development', class: 'text-blue-400' },
+  available: { text: 'Available', class: 'text-green-400' },
+  limited: { text: 'Limited', class: 'text-yellow-400' },
+  'in-development': { text: 'In Development', class: 'text-blue-400' }
 };
 ---
 
@@ -34,28 +34,23 @@ const statusLabels: Record<string, { text: string; class: string }> = {
   description="Deploy-ready codebases for security, compliance, and infrastructure. Buy complete, documented repositories with support included."
   jsonLd={jsonLd}
   realmGlow="0.64 0.17 190"
-  realmBg="0.12 0.01 220"
-  realmText="0.98 0.01 220"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
   <!-- Hero -->
-  <section class="border-b border-white/5">
+  <section class="border-b border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-3xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Codebases' },
-        ]} />
-        <h1 class="text-4xl sm:text-5xl font-bold mb-4">
-          Codebases for Sale
-        </h1>
-        <p class="text-xl opacity-50 mb-6">
-          Deploy-ready repositories with documentation, tests, and support. 
-          Skip months of development and get something that works today.
+        <Breadcrumbs
+          items={[{ label: 'Home', href: '/' }, { label: 'Codebases' }]}
+        />
+        <h1 class="mb-4 text-4xl font-bold sm:text-5xl">Codebases for Sale</h1>
+        <p class="mb-6 text-xl opacity-50">
+          Deploy-ready repositories with documentation, tests, and support. Skip
+          months of development and get something that works today.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#bundle" class="btn-primary">
-            View Bundle Deal
-          </a>
+          <a href="#bundle" class="btn-primary"> View Bundle Deal </a>
           <a href="/contact?subject=Codebase%20Inquiry" class="btn-secondary">
             Request Custom Build
           </a>
@@ -69,78 +64,89 @@ const statusLabels: Record<string, { text: string; class: string }> = {
 
   <!-- Codebase List -->
   <section class="container-wide section-padding-sm">
-    <div class="divide-y divide-white/5">
-      {sortedCodebases.map((codebase) => {
-        const status = statusLabels[codebase.data.status] || statusLabels['available'];
-        return (
-          <a 
-            href={`/codebases/${codebase.slug}`}
-            class="group flex items-start justify-between gap-8 py-10 transition-all duration-300 hover:text-warm-400"
-          >
-            <div class="max-w-3xl">
-              <div class="flex items-center gap-4 mb-3">
-                <span class="text-xs font-medium opacity-30 uppercase tracking-widest">
-                  {codebase.data.category}
-                </span>
-                <span class={`text-xs font-medium ${status.class}`}>
-                  {status.text}
-                </span>
-              </div>
-              <h2 class="text-2xl sm:text-3xl font-bold mb-3">
-                {codebase.data.title}
-              </h2>
-              <p class="text-lg opacity-50 mb-4 leading-relaxed group-hover:opacity-70 transition-opacity">
-                {codebase.data.tagline}
-              </p>
-              <div class="flex flex-wrap gap-3">
-                {codebase.data.tags.slice(0, 3).map((tag) => (
-                  <span class="text-xs opacity-30">{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div class="text-right shrink-0">
-              <div class="text-3xl font-bold">${codebase.data.price.toLocaleString()}</div>
-              {codebase.data.originalPrice && (
-                <div class="text-sm opacity-30 line-through">
-                  ${codebase.data.originalPrice.toLocaleString()}
+    <div class="divide-y divide-black/5">
+      {
+        sortedCodebases.map((codebase) => {
+          const status =
+            statusLabels[codebase.data.status] || statusLabels['available'];
+          return (
+            <a
+              href={`/codebases/${codebase.slug}`}
+              class="group hover:text-warm-400 flex items-start justify-between gap-8 py-10 transition-all duration-300"
+            >
+              <div class="max-w-3xl">
+                <div class="mb-3 flex items-center gap-4">
+                  <span class="text-xs font-medium tracking-widest uppercase opacity-30">
+                    {codebase.data.category}
+                  </span>
+                  <span class={`text-xs font-medium ${status.class}`}>
+                    {status.text}
+                  </span>
                 </div>
-              )}
-              {codebase.data.licensesAvailable && codebase.data.licensesAvailable <= 5 && (
-                <div class="text-xs text-red-400 font-medium mt-1">
-                  ⚡ Only {codebase.data.licensesAvailable} left
+                <h2 class="mb-3 text-2xl font-bold sm:text-3xl">
+                  {codebase.data.title}
+                </h2>
+                <p class="mb-4 text-lg leading-relaxed opacity-50 transition-opacity group-hover:opacity-70">
+                  {codebase.data.tagline}
+                </p>
+                <div class="flex flex-wrap gap-3">
+                  {codebase.data.tags.slice(0, 3).map((tag) => (
+                    <span class="text-xs opacity-30">{tag}</span>
+                  ))}
                 </div>
-              )}
-            </div>
-          </a>
-        );
-      })}
+              </div>
+              <div class="shrink-0 text-right">
+                <div class="text-3xl font-bold">
+                  ${codebase.data.price.toLocaleString()}
+                </div>
+                {codebase.data.originalPrice && (
+                  <div class="text-sm line-through opacity-30">
+                    ${codebase.data.originalPrice.toLocaleString()}
+                  </div>
+                )}
+                {codebase.data.licensesAvailable &&
+                  codebase.data.licensesAvailable <= 5 && (
+                    <div class="mt-1 text-xs font-medium text-red-400">
+                      ⚡ Only {codebase.data.licensesAvailable} left
+                    </div>
+                  )}
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
   </section>
 
   <!-- What's Included -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4">What You Get</h2>
+      <div class="mx-auto mb-16 max-w-3xl text-center">
+        <h2 class="mb-4 text-3xl font-bold">What You Get</h2>
         <p class="text-xl opacity-50">
-          Every codebase purchase includes everything you need to deploy and maintain.
+          Every codebase purchase includes everything you need to deploy and
+          maintain.
         </p>
       </div>
-      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-12 text-left">
+      <div class="grid gap-12 text-left sm:grid-cols-2 md:grid-cols-4">
         <div>
-          <h3 class="font-bold mb-2">Full Source</h3>
+          <h3 class="mb-2 font-bold">Full Source</h3>
           <p class="text-sm opacity-40">Complete, unobfuscated source code</p>
         </div>
         <div>
-          <h3 class="font-bold mb-2">Documentation</h3>
-          <p class="text-sm opacity-40">Setup guides, API docs, architecture overview</p>
+          <h3 class="mb-2 font-bold">Documentation</h3>
+          <p class="text-sm opacity-40">
+            Setup guides, API docs, architecture overview
+          </p>
         </div>
         <div>
-          <h3 class="font-bold mb-2">Test Coverage</h3>
-          <p class="text-sm opacity-40">Automated tests you can run and extend</p>
+          <h3 class="mb-2 font-bold">Test Coverage</h3>
+          <p class="text-sm opacity-40">
+            Automated tests you can run and extend
+          </p>
         </div>
         <div>
-          <h3 class="font-bold mb-2">Support Window</h3>
+          <h3 class="mb-2 font-bold">Support Window</h3>
           <p class="text-sm opacity-40">30–90 days for setup/questions</p>
         </div>
       </div>
@@ -148,49 +154,57 @@ const statusLabels: Record<string, { text: string; class: string }> = {
   </section>
 
   <!-- Bundle Deal -->
-  <section id="bundle" class="border-t border-white/5">
+  <section id="bundle" class="border-t border-black/5">
     <div class="container-wide section-padding">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Buy the Bundle — Save $3,500</h2>
-        <p class="text-xl opacity-50 mb-10">
-          Get all three codebases for one price. Perfect if you're building a security and automation practice.
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="mb-4 text-4xl font-bold">Buy the Bundle — Save $3,500</h2>
+        <p class="mb-10 text-xl opacity-50">
+          Get all three codebases for one price. Perfect if you're building a
+          security and automation practice.
         </p>
-        <div class="flex items-center justify-center gap-6 mb-12">
+        <div class="mb-12 flex items-center justify-center gap-6">
           <span class="text-5xl font-bold">$15,000</span>
-          <span class="text-2xl opacity-30 line-through">$18,500</span>
-          <span class="text-sm text-green-400 font-bold">Save 19%</span>
+          <span class="text-2xl line-through opacity-30">$18,500</span>
+          <span class="text-sm font-bold text-green-400">Save 19%</span>
         </div>
-        <div class="grid sm:grid-cols-3 gap-8 text-left mb-12">
+        <div class="mb-12 grid gap-8 text-left sm:grid-cols-3">
           <div>
-            <h3 class="font-bold mb-2">ComplyCrawl</h3>
+            <h3 class="mb-2 font-bold">ComplyCrawl</h3>
             <p class="text-sm opacity-40">Compliance-first web automation</p>
           </div>
           <div>
-            <h3 class="font-bold mb-2">TallySec</h3>
+            <h3 class="mb-2 font-bold">TallySec</h3>
             <p class="text-sm opacity-40">Security training platform</p>
           </div>
           <div>
-            <h3 class="font-bold mb-2">AegisTwin</h3>
+            <h3 class="mb-2 font-bold">AegisTwin</h3>
             <p class="text-sm opacity-40">Agent runtime + governance</p>
           </div>
         </div>
-        <a href="https://buy.stripe.com/28E6oHf2C6ha7Fp6IY87K09" class="btn-primary text-base px-10 py-4" target="_blank" rel="noopener">
+        <a
+          href="https://buy.stripe.com/28E6oHf2C6ha7Fp6IY87K09"
+          class="btn-primary px-10 py-4 text-base"
+          target="_blank"
+          rel="noopener"
+        >
           Buy Bundle — $15,000
         </a>
-        <p class="opacity-30 text-sm mt-6">
-          Includes all source code, documentation, and 90-day support for all three products.
+        <p class="mt-6 text-sm opacity-30">
+          Includes all source code, documentation, and 90-day support for all
+          three products.
         </p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-xl">
-        <h2 class="text-3xl font-bold mb-4">Don't see what you need?</h2>
-        <p class="text-lg opacity-50 mb-8">
-          We can build it from scratch or adapt an existing codebase to your requirements. Custom builds start at $15,000.
+        <h2 class="mb-4 text-3xl font-bold">Don't see what you need?</h2>
+        <p class="mb-8 text-lg opacity-50">
+          We can build it from scratch or adapt an existing codebase to your
+          requirements. Custom builds start at $15,000.
         </p>
         <a href="/contact?subject=Custom%20Codebase" class="btn-primary">
           Request Custom Build

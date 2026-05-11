@@ -1,65 +1,152 @@
 ---
 const currentYear = new Date().getFullYear();
 
-const navLinks = [
-  { href: '/services', label: 'Services' },
-  { href: '/codebases', label: 'Codebases' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/nonprofit', label: 'Nonprofit' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+const sideA = [
+  { href: '/', label: 'Liner Notes' },
+  { href: '/about', label: 'The Studio' },
+  { href: '/services', label: 'Catalog of Work' },
+  { href: '/case-studies', label: 'The Rescue' },
+  { href: '/contact', label: 'Letter to the Reader' }
 ];
 
-const legalLinks = [
+const sideB = [
+  { href: 'https://web.toledotechnologies.com', label: 'ToledoWeb' },
+  { href: 'https://sitelift.toledotechnologies.com', label: 'SiteLift' },
+  { href: 'https://apps.toledotechnologies.com', label: 'Toledo Apps' },
+  { href: 'https://mobile.toledotechnologies.com', label: 'Toledo Mobile' },
+  { href: 'https://ai.toledotechnologies.com', label: 'Toledo AI' }
+];
+
+const innerSleeve = [
+  { href: '/care', label: 'Care plans' },
+  { href: '/discovery', label: 'Discovery products' },
+  { href: '/partner', label: 'Toledo Partner' },
+  { href: '/codebases', label: 'Codebases for Sale' },
+  { href: '/portfolio', label: 'Portfolio' }
+];
+
+const liner = [
   { href: '/privacy', label: 'Privacy' },
   { href: '/terms', label: 'Terms' },
   { href: '/policies', label: 'Policies' },
+  { href: '/nonprofit', label: 'Nonprofit' },
+  { href: '/blog', label: 'Blog' }
 ];
 ---
 
-<footer class="bg-surface-900 text-surface-400">
+<footer class="bg-surface-900 text-surface-400 border-surface-900 border-t">
   <div class="container-wide py-12 lg:py-16">
-    <!-- Top: monospace identity block -->
-    <div class="font-mono text-sm mb-10">
-      <a href="/" class="text-white font-bold text-base hover:text-warm-400 transition-colors">
-        toledo<span class="text-warm-400">tech</span>
-      </a>
-      <div class="mt-2 space-y-0.5">
-        <p>Remote software development studio</p>
-        <p>
-          <a href="mailto:hello@toledotechnologies.com" class="hover:text-white transition-colors">
-            hello@toledotechnologies.com
-          </a>
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <!-- Liner Notes Column -->
+      <div>
+        <h4 class="mb-6 font-mono text-sm tracking-widest text-white uppercase">
+          Liner Notes
+        </h4>
+        <p class="max-w-xs text-xs leading-relaxed">
+          Toledo Technologies is a remote software development studio.
+          Engineering, design, and the long-form writing on this site are
+          produced in-studio. All code we ship is yours to keep, modify, and
+          resell.
         </p>
-        <p>
-          <a href="https://github.com/ntoledo319" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
-            github.com/ntoledo319
-          </a>
-        </p>
+        <div class="mt-6 space-y-1 font-mono text-xs">
+          <p>
+            <a
+              href="mailto:hello@toledotechnologies.com"
+              class="transition-colors hover:text-white"
+              >hello@toledotechnologies.com</a>
+          </p>
+          <p>
+            <a
+              href="https://github.com/ntoledo319"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors hover:text-white"
+              >github.com/ntoledo319</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Side A Column -->
+      <div>
+        <h4 class="mb-6 font-mono text-sm tracking-widest text-white uppercase">
+          Side A — The Studio
+        </h4>
+        <ul class="space-y-3 text-sm">
+          {
+            sideA.map((link) => (
+              <li>
+                <a href={link.href} class="transition-colors hover:text-white">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Side B Column -->
+      <div>
+        <h4 class="mb-6 font-mono text-sm tracking-widest text-white uppercase">
+          Side B — The Catalog
+        </h4>
+        <ul class="space-y-3 text-sm">
+          {
+            sideB.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="transition-colors hover:text-white"
+                  rel="noopener"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Inner Sleeve Column -->
+      <div>
+        <h4 class="mb-6 font-mono text-sm tracking-widest text-white uppercase">
+          Inner Sleeve
+        </h4>
+        <ul class="space-y-3 text-sm">
+          {
+            innerSleeve.map((link) => (
+              <li>
+                <a href={link.href} class="transition-colors hover:text-white">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm mb-10">
-      {navLinks.map((link) => (
-        <a href={link.href} class="hover:text-white transition-colors">
-          {link.label}
-        </a>
-      ))}
-    </div>
-
-    <!-- Bottom -->
-    <div class="pt-6 border-t border-surface-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-surface-500">
-      <p>&copy; {currentYear} Toledo Technologies</p>
-      <div class="flex gap-4">
-        {legalLinks.map((link) => (
-          <a href={link.href} class="hover:text-surface-300 transition-colors">
-            {link.label}
-          </a>
-        ))}
+    <!-- Bottom Row -->
+    <div
+      class="border-surface-800 text-surface-500 mt-16 flex flex-col items-start justify-between gap-6 border-t pt-8 text-[10px] tracking-widest uppercase sm:flex-row sm:items-center"
+    >
+      <div class="flex flex-wrap gap-x-6 gap-y-2">
+        <p>&copy; {currentYear} Toledo Technologies</p>
+        {
+          liner.map((link) => (
+            <a
+              href={link.href}
+              class="hover:text-surface-300 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </div>
+      <p>
+        Pressed Remotely · Side A <span
+          class="bg-surface-700 mx-1 inline-block h-2 w-2 rounded-full"></span> End
+        of Programme
+      </p>
     </div>
   </div>
 </footer>

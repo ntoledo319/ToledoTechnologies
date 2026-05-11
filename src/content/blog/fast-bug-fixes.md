@@ -1,11 +1,11 @@
 ---
-title: "Fast Bug Fixes: How We Triage Like Adults"
-description: "Our systematic approach to triaging and fixing bugs quickly without creating new problems. Real-world strategies for effective debugging."
+title: 'Fast Bug Fixes: How We Triage Like Adults'
+description: 'Our systematic approach to triaging and fixing bugs quickly without creating new problems. Real-world strategies for effective debugging.'
 publishedDate: 2024-01-22
 modifiedDate: 2024-02-26
-tags: ["bug-fixes", "debugging", "development-process"]
+tags: ['bug-fixes', 'debugging', 'development-process']
 featured: true
-tldr: "Reproduce first, isolate second, fix third. Never guess. Always verify."
+tldr: 'Reproduce first, isolate second, fix third. Never guess. Always verify.'
 ---
 
 ## Why Does Panic Debugging Make Things Worse?
@@ -23,6 +23,7 @@ Before writing a single line of code, we reproduce the issue. Every time. No exc
 If we can't reproduce it, we can't verify we've fixed it. Simple as that.
 
 **We ask:**
+
 - What are the exact steps to trigger this?
 - What environment is it happening in?
 - Is it consistent or intermittent?
@@ -39,6 +40,7 @@ Once we can reproduce it, we narrow down where the problem lives. This usually i
 ### Step 3: Understand Before Fixing
 
 We don't just patch symptoms. Before writing a fix, we understand:
+
 - Why is this happening?
 - What else might be affected?
 - Is this a symptom of a larger problem?
@@ -46,6 +48,7 @@ We don't just patch symptoms. Before writing a fix, we understand:
 ### Step 4: Fix and Verify
 
 The fix should be as small as possible while fully addressing the root cause. Then we:
+
 - Write a test that would have caught this bug
 - Verify the fix in a staging environment
 - Document what happened and why
@@ -62,6 +65,7 @@ For more on how careful fixes compound into real [performance improvements](/blo
 ## Why This Matters for You
 
 When you hire us to fix a bug, you get:
+
 - A clear explanation of what went wrong
 - A minimal, targeted fix
 - Tests to prevent regression

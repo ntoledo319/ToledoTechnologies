@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /*
  * Toledo Technologies — The Ethereal Engine
@@ -17,57 +17,56 @@
   --color-brand-500: oklch(0.53 0.08 220);
   --color-brand-600: oklch(0.44 0.07 220);
   --color-brand-700: oklch(0.37 0.06 220);
-  --color-brand-800: oklch(0.30 0.04 220);
+  --color-brand-800: oklch(0.3 0.04 220);
   --color-brand-900: oklch(0.24 0.03 220);
   --color-brand-950: oklch(0.17 0.02 220);
 
   /* Warm accent: forge orange — the heat that shapes steel */
   --color-warm-50: oklch(0.98 0.01 45);
   --color-warm-100: oklch(0.95 0.03 45);
-  --color-warm-200: oklch(0.90 0.06 45);
-  --color-warm-300: oklch(0.82 0.10 45);
+  --color-warm-200: oklch(0.9 0.06 45);
+  --color-warm-300: oklch(0.82 0.1 45);
   --color-warm-400: oklch(0.72 0.14 40);
   --color-warm-500: oklch(0.62 0.16 35);
   --color-warm-600: oklch(0.52 0.14 30);
 
-  /* Surface: neutral graphite, near-zero chroma */
-  --color-surface-50: oklch(0.985 0.001 220);
-  --color-surface-100: oklch(0.965 0.002 220);
-  --color-surface-200: oklch(0.935 0.003 220);
-  --color-surface-300: oklch(0.895 0.004 220);
-  --color-surface-400: oklch(0.70 0.006 220);
-  --color-surface-500: oklch(0.50 0.008 220);
-  --color-surface-600: oklch(0.40 0.01 220);
-  --color-surface-700: oklch(0.30 0.01 220);
-  --color-surface-800: oklch(0.22 0.01 220);
-  --color-surface-900: oklch(0.15 0.01 220);
-  --color-surface-950: oklch(0.11 0.008 220);
+  /* Surface: warm tactile paper — move from void to material */
+  --color-surface-50: oklch(0.985 0.008 45); /* Warm Paper White */
+  --color-surface-100: oklch(0.97 0.01 45); /* Soft Parchment */
+  --color-surface-200: oklch(0.95 0.015 45); /* Clay / Limestone */
+  --color-surface-300: oklch(0.92 0.02 45); /* Muted Sand */
+  --color-surface-400: oklch(0.7 0.03 45); /* Mid-tone Shadow */
+  --color-surface-500: oklch(0.5 0.03 45); /* Deep Stone */
+  --color-surface-600: oklch(0.4 0.04 45); /* Dark Earth */
+  --color-surface-700: oklch(0.3 0.04 45); /* Iron / Ink */
+  --color-surface-800: oklch(0.22 0.04 45); /* Deep Ink */
+  --color-surface-900: oklch(0.15 0.03 45); /* Rich Charcoal */
+  --color-surface-950: oklch(0.11 0.03 45); /* Near Black Ink */
 
   /* Engine Tokens */
   --radius-engine: 2rem;
   --radius-engine-inner: 1.5rem;
   --radius-engine-pill: 9999px;
 
-  /* Volumetric Shadows: Light that feels real */
-  --shadow-engine-soft: 
-    0 2px 4px oklch(0 0 0 / 0.02),
-    0 4px 8px oklch(0 0 0 / 0.02),
-    0 8px 16px oklch(0 0 0 / 0.02),
-    0 16px 32px oklch(0 0 0 / 0.02);
-  
-  --shadow-engine-focus: 
-    0 4px 6px oklch(0 0 0 / 0.04),
-    0 12px 24px oklch(0 0 0 / 0.08),
-    0 24px 48px oklch(0 0 0 / 0.12);
+  /* Volumetric Shadows: Light that feels real — using warm charcoal for depth */
+  --shadow-engine-soft:
+    0 2px 4px oklch(0.15 0.03 45 / 0.01), 0 4px 8px oklch(0.15 0.03 45 / 0.01),
+    0 8px 16px oklch(0.15 0.03 45 / 0.01),
+    0 16px 32px oklch(0.15 0.03 45 / 0.01);
 
-  --shadow-engine-glow: 0 0 40px -10px oklch(var(--realm-glow, 0.62 0.16 35) / 0.2);
+  --shadow-engine-focus:
+    0 4px 6px oklch(0.15 0.03 45 / 0.04),
+    0 12px 24px oklch(0.15 0.03 45 / 0.08),
+    0 24px 48px oklch(0.15 0.03 45 / 0.12);
+
+  --shadow-engine-glow: 0 0 40px -10px
+    oklch(var(--realm-glow, 0.72 0.14 40) / 0.15);
 
   /* Default Realm Glow (Toledo Orange) */
   --realm-glow: 0.62 0.16 35;
 
   /* Font families */
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
-  --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
 }
 
 /* Base layer styles */
@@ -79,11 +78,19 @@
   }
 
   body {
-    @apply bg-surface-50 text-surface-900 font-sans;
+    @apply bg-surface-50 text-surface-900 font-sans leading-relaxed;
+    transition:
+      background-color 1000ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 1000ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-mono font-semibold tracking-tight leading-tight;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans leading-tight font-bold tracking-normal;
   }
 
   ::selection {
@@ -94,33 +101,33 @@
 /* Component layer — NO BOXES. Structure through space and type. */
 @layer components {
   .container-narrow {
-    @apply max-w-5xl mx-auto px-6 sm:px-8;
+    @apply mx-auto max-w-5xl px-6 sm:px-8;
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto px-6 sm:px-8;
+    @apply mx-auto max-w-7xl px-6 sm:px-8;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-engine-pill font-mono font-medium text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-surface-900 text-white hover:bg-surface-800 hover:shadow-engine-soft focus:ring-surface-500;
+    @apply rounded-engine-pill bg-surface-900 hover:bg-surface-800 hover:shadow-engine-soft focus:ring-surface-500 inline-flex items-center justify-center gap-2 px-6 py-3 font-sans text-sm font-semibold text-white transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-engine-pill font-mono font-medium text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-white hover:bg-white/5 focus:ring-surface-400;
+    @apply rounded-engine-pill text-surface-900 border-surface-900/10 focus:ring-surface-400 inline-flex items-center justify-center gap-2 border px-6 py-3 font-sans text-sm font-semibold transition-all duration-300 hover:bg-black/5 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-engine-pill font-mono font-medium text-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed opacity-70 hover:opacity-100 hover:text-warm-500 focus:ring-surface-400;
+    @apply rounded-engine-pill hover:text-warm-600 focus:ring-surface-400 inline-flex items-center justify-center gap-2 px-6 py-3 font-sans text-sm font-semibold opacity-70 transition-all duration-300 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   /* RULE: A thin hairline divider. Use instead of borders on boxes. */
   .rule {
-    @apply h-px bg-white/5;
+    @apply h-px bg-black/5;
   }
 
   /* LINK-ROW: A list item separated by rules. No background, no border, no shadow. */
   .link-row {
-    @apply block py-8 border-b border-white/5 transition-all duration-300;
+    @apply block border-b border-black/5 py-8 transition-all duration-300;
   }
   .link-row:hover {
     @apply text-warm-400;
@@ -150,7 +157,11 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }

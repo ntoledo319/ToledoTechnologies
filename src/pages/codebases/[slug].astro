@@ -1,14 +1,19 @@
+const showLowStock = licensesLeft && licensesLeft <= 5;
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
-import { breadcrumbSchema, softwareSchema, faqSchema } from '../../utils/jsonld';
+import {
+  breadcrumbSchema,
+  softwareSchema,
+  faqSchema
+} from '../../utils/jsonld';
 
 export async function getStaticPaths() {
   const codebases = await getCollection('codebases');
   return codebases.map((codebase) => ({
     params: { slug: codebase.slug },
-    props: { codebase },
+    props: { codebase }
   }));
 }
 
@@ -22,23 +27,28 @@ const faqs = [
   },
   {
     question: 'What license do I get?',
-    answer: 'You receive a perpetual license with full rights to modify, deploy, and build upon the codebase. You can use it for internal tools, client projects, or SaaS products.'
+    answer:
+      'You receive a perpetual license with full rights to modify, deploy, and build upon the codebase. You can use it for internal tools, client projects, or SaaS products.'
   },
   {
     question: 'Is support included?',
-    answer: 'Yes, each purchase includes a support period (30-90 days depending on the product) where we answer questions and help with initial setup.'
+    answer:
+      'Yes, each purchase includes a support period (30-90 days depending on the product) where we answer questions and help with initial setup.'
   },
   {
     question: 'Can I see a demo first?',
-    answer: 'Absolutely. Contact us to schedule a demo and see the codebase in action before purchasing.'
+    answer:
+      'Absolutely. Contact us to schedule a demo and see the codebase in action before purchasing.'
   },
   {
     question: 'What if I need customization?',
-    answer: 'We can customize the codebase to your specific needs for an additional fee. Custom builds typically start at $5,000 depending on scope.'
+    answer:
+      'We can customize the codebase to your specific needs for an additional fee. Custom builds typically start at $5,000 depending on scope.'
   },
   {
     question: 'Is the price negotiable?',
-    answer: 'Prices are firm for individual purchases. The bundle deal offers the best value if you need multiple codebases.'
+    answer:
+      'Prices are firm for individual purchases. The bundle deal offers the best value if you need multiple codebases.'
   }
 ];
 
@@ -54,24 +64,24 @@ const jsonLd = [
     url: `/codebases/${codebase.slug}`,
     status: codebase.data.status,
     category: codebase.data.category,
-    tags: codebase.data.tags,
+    tags: codebase.data.tags
   }),
   faqSchema(faqs)
 ];
 
 const statusLabels: Record<string, { text: string; description: string }> = {
-  'available': { 
-    text: 'Available Now', 
+  available: {
+    text: 'Available Now',
     description: 'Ready to purchase and deploy'
   },
-  'limited': { 
-    text: 'Limited Availability', 
+  limited: {
+    text: 'Limited Availability',
     description: 'Available to select buyers'
   },
-  'in-development': { 
-    text: 'In Development', 
+  'in-development': {
+    text: 'In Development',
     description: 'Early access available for design partners'
-  },
+  }
 };
 
 const status = statusLabels[codebase.data.status] || statusLabels['available'];
@@ -79,6 +89,7 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
 const hasStripe = !!codebase.data.stripeLink;
 const licensesLeft = codebase.data.licensesAvailable;
+const showLowStock = licensesLeft && licensesLeft <= 5;
 ---
 
 <BaseLayout
@@ -86,75 +97,100 @@ const licensesLeft = codebase.data.licensesAvailable;
   description={codebase.data.description}
   jsonLd={jsonLd}
   realmGlow="0.64 0.17 190"
-  realmBg="0.12 0.01 220"
-  realmText="0.98 0.01 220"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
   <!-- Hero -->
-  <section class="border-b border-white/5">
+  <section class="border-b border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
-        <div class="flex flex-wrap items-center gap-4 mb-6">
-          <span class="text-sm font-medium opacity-30 uppercase tracking-widest">
+        <div class="mb-6 flex flex-wrap items-center gap-4">
+          <span
+            class="text-sm font-medium tracking-widest uppercase opacity-30"
+          >
             {codebase.data.category}
           </span>
           <span class="text-sm font-medium text-green-400">
             {status.text}
           </span>
         </div>
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Codebases', href: '/codebases' },
-          { label: codebase.data.title },
-        ]} />
-        <h1 class="text-4xl sm:text-6xl font-bold mb-6">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Codebases', href: '/codebases' },
+            { label: codebase.data.title }
+          ]}
+        />
+        <h1 class="mb-6 text-4xl font-bold sm:text-6xl">
           {codebase.data.title}
         </h1>
-        <p class="text-2xl font-medium opacity-80 mb-6 leading-relaxed">
+        <p class="mb-6 text-2xl leading-relaxed font-medium opacity-80">
           {codebase.data.tagline}
         </p>
-        <p class="text-xl opacity-50 mb-10 max-w-3xl">
+        <p class="mb-10 max-w-3xl text-xl opacity-50">
           {codebase.data.description}
         </p>
-        <div class="flex flex-wrap items-baseline gap-6 mb-10">
+        <div class="mb-10 flex flex-wrap items-baseline gap-6">
           <span class="text-4xl font-bold">
             ${codebase.data.price.toLocaleString()}
           </span>
-          {codebase.data.originalPrice && (
-            <span class="text-2xl opacity-30 line-through">
-              ${codebase.data.originalPrice.toLocaleString()}
-            </span>
-          )}
+          {
+            codebase.data.originalPrice && (
+              <span class="text-2xl line-through opacity-30">
+                ${codebase.data.originalPrice.toLocaleString()}
+              </span>
+            )
+          }
         </div>
         <div class="flex flex-wrap gap-4">
-          {hasStripe ? (
-            <a href={codebase.data.stripeLink} class="btn-primary text-base px-10 py-4 shadow-engine-glow" target="_blank" rel="noopener">
-              Buy Now — ${codebase.data.price.toLocaleString()}
-            </a>
-          ) : (
-            <a href={`/contact?subject=${contactSubject}`} class="btn-primary text-base px-10 py-4 shadow-engine-glow">
-              Buy Now — Contact Us
-            </a>
-          )}
-          <a href="/codebases" class="btn-ghost">
-            ← Back to Catalog
-          </a>
+          {
+            hasStripe ? (
+              <a
+                href={codebase.data.stripeLink}
+                class="btn-primary shadow-engine-glow px-10 py-4 text-base"
+                target="_blank"
+                rel="noopener"
+              >
+                Buy Now — ${codebase.data.price.toLocaleString()}
+              </a>
+            ) : (
+              <a
+                href={`/contact?subject=${contactSubject}`}
+                class="btn-primary shadow-engine-glow px-10 py-4 text-base"
+              >
+                Buy Now — Contact Us
+              </a>
+            )
+          }
+          <a href="/codebases" class="btn-ghost"> ← Back to Catalog </a>
         </div>
-        {licensesLeft && licensesLeft <= 5 && (
-          <div class="mt-4 inline-flex items-center gap-2 text-sm text-red-400 font-medium">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
-            Only {licensesLeft} license{licensesLeft !== 1 ? 's' : ''} remaining at this price
-          </div>
-        )}
+        {
+          showLowStock && (
+            <div class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-red-400">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Only {licensesLeft} license{licensesLeft !== 1 ? 's' : ''}{' '}
+              remaining at this price
+            </div>
+          )
+        }
       </div>
     </div>
   </section>
 
   <!-- Main Content -->
   <section class="container-wide section-padding-sm">
-    <div class="grid lg:grid-cols-3 gap-16">
+    <div class="grid gap-16 lg:grid-cols-3">
       <!-- Content -->
       <div class="lg:col-span-2">
-        <div class="prose prose-invert prose-lg max-w-none prose-headings:font-mono prose-headings:tracking-tight prose-a:text-warm-400 prose-strong:text-white">
+        <div
+          class="prose prose-invert prose-lg prose-headings: prose-headings:tracking-tight prose-a:text-warm-400 prose-strong:text-white max-w-none"
+        >
           <Content />
         </div>
       </div>
@@ -162,83 +198,118 @@ const licensesLeft = codebase.data.licensesAvailable;
       <!-- Sidebar -->
       <aside class="space-y-12" aria-label="Product details">
         <div>
-          <h3 class="text-xs font-bold opacity-30 uppercase tracking-widest mb-4">Status</h3>
-          <p class="text-lg font-bold text-green-400 mb-1">{status.text}</p>
+          <h3
+            class="mb-4 text-xs font-bold tracking-widest uppercase opacity-30"
+          >
+            Status
+          </h3>
+          <p class="mb-1 text-lg font-bold text-green-400">{status.text}</p>
           <p class="text-sm opacity-50">{status.description}</p>
         </div>
 
-        <div class="border-t border-white/5 pt-12">
-          <h3 class="text-xs font-bold opacity-30 uppercase tracking-widest mb-4">Key Capabilities</h3>
+        <div class="border-t border-black/5 pt-12">
+          <h3
+            class="mb-4 text-xs font-bold tracking-widest uppercase opacity-30"
+          >
+            Key Capabilities
+          </h3>
           <ul class="space-y-3">
-            {codebase.data.features.slice(0, 6).map((feature) => (
-              <li class="flex items-start gap-3 text-sm">
-                <span class="text-warm-500 mt-0.5 shrink-0">→</span>
-                <span class="opacity-70">{feature}</span>
-              </li>
-            ))}
+            {
+              codebase.data.features.slice(0, 6).map((feature) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <span class="text-warm-500 mt-0.5 shrink-0">→</span>
+                  <span class="opacity-70">{feature}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
-        <div class="border-t border-white/5 pt-12">
-          <h3 class="text-xs font-bold opacity-30 uppercase tracking-widest mb-4">What's Included</h3>
+        <div class="border-t border-black/5 pt-12">
+          <h3
+            class="mb-4 text-xs font-bold tracking-widest uppercase opacity-30"
+          >
+            What's Included
+          </h3>
           <ul class="space-y-3">
-            {codebase.data.included.map((item) => (
-              <li class="flex items-start gap-3 text-sm">
-                <span class="text-warm-500 shrink-0">→</span>
-                <span class="opacity-70">{item}</span>
-              </li>
-            ))}
+            {
+              codebase.data.included.map((item) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <span class="text-warm-500 shrink-0">→</span>
+                  <span class="opacity-70">{item}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
-        <div class="border-t border-white/5 pt-12">
-          <h3 class="text-xs font-bold opacity-30 uppercase tracking-widest mb-4">Who It's For</h3>
+        <div class="border-t border-black/5 pt-12">
+          <h3
+            class="mb-4 text-xs font-bold tracking-widest uppercase opacity-30"
+          >
+            Who It's For
+          </h3>
           <ul class="space-y-3">
-            {codebase.data.targetAudience.map((audience) => (
-              <li class="text-sm opacity-60 flex items-center gap-3">
-                <span class="w-1 h-1 rounded-full bg-white/20"></span>
-                {audience}
-              </li>
-            ))}
+            {
+              codebase.data.targetAudience.map((audience) => (
+                <li class="flex items-center gap-3 text-sm opacity-60">
+                  <span class="h-1 w-1 rounded-full bg-white/20" />
+                  {audience}
+                </li>
+              ))
+            }
           </ul>
         </div>
 
-        <div class="border-t border-white/5 pt-12">
-          <h3 class="text-xl font-bold mb-4">Ready to Buy?</h3>
-          <div class="flex items-baseline gap-2 mb-4">
-            <span class="text-3xl font-bold">${codebase.data.price.toLocaleString()}</span>
-            {codebase.data.originalPrice && (
-              <span class="text-sm opacity-30 line-through">${codebase.data.originalPrice.toLocaleString()}</span>
-            )}
+        <div class="border-t border-black/5 pt-12">
+          <h3 class="mb-4 text-xl font-bold">Ready to Buy?</h3>
+          <div class="mb-4 flex items-baseline gap-2">
+            <span class="text-3xl font-bold"
+              >${codebase.data.price.toLocaleString()}</span
+            >
+            {
+              codebase.data.originalPrice && (
+                <span class="text-sm line-through opacity-30">
+                  ${codebase.data.originalPrice.toLocaleString()}
+                </span>
+              )
+            }
           </div>
-          {licensesLeft && licensesLeft <= 5 && (
-            <div class="text-red-400 text-sm font-medium mb-4">
-              ⚡ Only {licensesLeft} left at this price
-            </div>
-          )}
-          <p class="opacity-40 text-sm mb-6">
-            {codebase.data.pricingNote || 'One-time purchase. Full IP transfer. Includes support window.'}
+          {
+            showLowStock && (
+              <div class="mb-4 text-sm font-medium text-red-400">
+                ⚡ Only {licensesLeft} left at this price
+              </div>
+            )
+          }
+          <p class="mb-6 text-sm opacity-40">
+            {
+              codebase.data.pricingNote ||
+                'One-time purchase. Full IP transfer. Includes support window.'
+            }
           </p>
-          {hasStripe ? (
-            <a
-              href={codebase.data.stripeLink}
-              class="btn-primary w-full justify-center mb-4 py-4"
-              target="_blank"
-              rel="noopener"
-            >
-              Buy Instantly via Stripe
-            </a>
-          ) : (
-            <a
-              href={`/contact?subject=${contactSubject}`}
-              class="btn-primary w-full justify-center mb-4 py-4"
-            >
-              Buy Now — Contact Us
-            </a>
-          )}
+          {
+            hasStripe ? (
+              <a
+                href={codebase.data.stripeLink}
+                class="btn-primary mb-4 w-full justify-center py-4"
+                target="_blank"
+                rel="noopener"
+              >
+                Buy Instantly via Stripe
+              </a>
+            ) : (
+              <a
+                href={`/contact?subject=${contactSubject}`}
+                class="btn-primary mb-4 w-full justify-center py-4"
+              >
+                Buy Now — Contact Us
+              </a>
+            )
+          }
           <a
             href={`/contact?subject=${bundleSubject}`}
-            class="text-warm-400 text-sm hover:text-warm-300 transition-colors text-center block font-medium"
+            class="text-warm-400 hover:text-warm-300 block text-center text-sm font-medium transition-colors"
           >
             Or get all 3 in the bundle →
           </a>
@@ -248,26 +319,26 @@ const licensesLeft = codebase.data.licensesAvailable;
   </section>
 
   <!-- FAQ -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding">
       <div class="max-w-4xl">
-        <h2 class="text-3xl font-bold mb-12">
-          Frequently Asked Questions
-        </h2>
-        <dl class="grid md:grid-cols-2 gap-x-16 gap-y-14">
-          {faqs.map((faq) => (
-            <div>
-              <dt class="text-lg font-bold mb-3">{faq.question}</dt>
-              <dd class="opacity-50 text-sm leading-relaxed">{faq.answer}</dd>
-            </div>
-          ))}
+        <h2 class="mb-12 text-3xl font-bold">Frequently Asked Questions</h2>
+        <dl class="grid gap-x-16 gap-y-14 md:grid-cols-2">
+          {
+            faqs.map((faq) => (
+              <div>
+                <dt class="mb-3 text-lg font-bold">{faq.question}</dt>
+                <dd class="text-sm leading-relaxed opacity-50">{faq.answer}</dd>
+              </div>
+            ))
+          }
         </dl>
       </div>
     </div>
   </section>
 
   <!-- Related -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="flex flex-wrap gap-6">
         <a href="/codebases" class="btn-secondary px-8">View All Codebases</a>

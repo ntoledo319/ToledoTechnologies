@@ -18,19 +18,20 @@ export function organizationSchema() {
       '@type': 'ImageObject',
       url: `${SITE_URL}/logo.png`,
       width: 512,
-      height: 512,
+      height: 512
     },
     email: CONTACT_EMAIL,
     sameAs: [GITHUB_URL],
-    description: 'Remote software development studio specializing in bug fixes, feature implementation, automation, and deploy-ready codebases.',
+    description:
+      'Remote software development studio specializing in bug fixes, feature implementation, automation, and deploy-ready codebases.',
     knowsAbout: [
       'Software Development',
       'Bug Fixes',
       'Feature Implementation',
       'Custom Automation',
       'MVP Development',
-      'Security and Compliance Tooling',
-    ],
+      'Security and Compliance Tooling'
+    ]
   };
 }
 
@@ -45,10 +46,11 @@ export function websiteSchema() {
     '@id': `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
-    description: 'Remote software development studio. We build, fix, and ship code—fast.',
+    description:
+      'Remote software development studio. We build, fix, and ship code—fast.',
     publisher: {
-      '@id': `${SITE_URL}/#organization`,
-    },
+      '@id': `${SITE_URL}/#organization`
+    }
   };
 }
 
@@ -64,8 +66,8 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
-    })),
+      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`
+    }))
   };
 }
 
@@ -73,17 +75,19 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
  * Service schema for the services page.
  * Lists offered services with descriptions.
  */
-export function serviceSchema(services: { name: string; description: string }[]) {
+export function serviceSchema(
+  services: { name: string; description: string }[]
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
     serviceType: 'Software Development Services',
     provider: {
-      '@id': `${SITE_URL}/#organization`,
+      '@id': `${SITE_URL}/#organization`
     },
     areaServed: {
       '@type': 'Place',
-      name: 'Worldwide',
+      name: 'Worldwide'
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -93,10 +97,10 @@ export function serviceSchema(services: { name: string; description: string }[])
         itemOffered: {
           '@type': 'Service',
           name: service.name,
-          description: service.description,
-        },
-      })),
-    },
+          description: service.description
+        }
+      }))
+    }
   };
 }
 
@@ -123,23 +127,30 @@ export function blogPostingSchema(post: {
     author: {
       '@type': 'Organization',
       name: post.author || SITE_NAME,
-      url: SITE_URL,
+      url: SITE_URL
     },
     publisher: {
-      '@id': `${SITE_URL}/#organization`,
+      '@id': `${SITE_URL}/#organization`
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': post.url.startsWith('http') ? post.url : `${SITE_URL}${post.url}`,
+      '@id': post.url.startsWith('http') ? post.url : `${SITE_URL}${post.url}`
     },
-    image: post.image ? (post.image.startsWith('http') ? post.image : `${SITE_URL}${post.image}`) : `${SITE_URL}/og-default.png`,
+    image: post.image
+      ? post.image.startsWith('http')
+        ? post.image
+        : `${SITE_URL}${post.image}`
+      : `${SITE_URL}/og-default.png`
   };
 }
 
 /**
  * ItemList schema for catalog pages (codebases, blog index).
  */
-export function itemListSchema(items: { name: string; url: string; description?: string }[], listName: string) {
+export function itemListSchema(
+  items: { name: string; url: string; description?: string }[],
+  listName: string
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -150,8 +161,8 @@ export function itemListSchema(items: { name: string; url: string; description?:
       position: index + 1,
       name: item.name,
       url: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
-      description: item.description,
-    })),
+      description: item.description
+    }))
   };
 }
 
@@ -170,22 +181,25 @@ export function productSchema(product: {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    url: product.url.startsWith('http') ? product.url : `${SITE_URL}${product.url}`,
+    url: product.url.startsWith('http')
+      ? product.url
+      : `${SITE_URL}${product.url}`,
     brand: {
-      '@id': `${SITE_URL}/#organization`,
+      '@id': `${SITE_URL}/#organization`
     },
     category: product.category || 'Software',
     offers: {
       '@type': 'Offer',
-      availability: product.status === 'available' 
-        ? 'https://schema.org/InStock' 
-        : product.status === 'limited' 
-          ? 'https://schema.org/LimitedAvailability' 
-          : 'https://schema.org/PreOrder',
+      availability:
+        product.status === 'available'
+          ? 'https://schema.org/InStock'
+          : product.status === 'limited'
+            ? 'https://schema.org/LimitedAvailability'
+            : 'https://schema.org/PreOrder',
       seller: {
-        '@id': `${SITE_URL}/#organization`,
-      },
-    },
+        '@id': `${SITE_URL}/#organization`
+      }
+    }
   };
 }
 
@@ -206,22 +220,30 @@ export function articleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    url: article.url.startsWith('http') ? article.url : `${SITE_URL}${article.url}`,
+    url: article.url.startsWith('http')
+      ? article.url
+      : `${SITE_URL}${article.url}`,
     datePublished: article.publishedDate,
     dateModified: article.modifiedDate || article.publishedDate,
     author: {
       '@type': 'Organization',
       name: article.author || SITE_NAME,
-      url: SITE_URL,
+      url: SITE_URL
     },
     publisher: {
-      '@id': `${SITE_URL}/#organization`,
+      '@id': `${SITE_URL}/#organization`
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': article.url.startsWith('http') ? article.url : `${SITE_URL}${article.url}`,
+      '@id': article.url.startsWith('http')
+        ? article.url
+        : `${SITE_URL}${article.url}`
     },
-    image: article.image ? (article.image.startsWith('http') ? article.image : `${SITE_URL}${article.image}`) : `${SITE_URL}/og-default.png`,
+    image: article.image
+      ? article.image.startsWith('http')
+        ? article.image
+        : `${SITE_URL}${article.image}`
+      : `${SITE_URL}/og-default.png`
   };
 }
 
@@ -242,24 +264,29 @@ export function softwareSchema(software: {
     '@type': 'SoftwareSourceCode',
     name: software.name,
     description: software.description,
-    url: software.url.startsWith('http') ? software.url : `${SITE_URL}${software.url}`,
-    codeRepository: software.url.startsWith('http') ? software.url : `${SITE_URL}${software.url}`,
+    url: software.url.startsWith('http')
+      ? software.url
+      : `${SITE_URL}${software.url}`,
+    codeRepository: software.url.startsWith('http')
+      ? software.url
+      : `${SITE_URL}${software.url}`,
     creator: {
-      '@id': `${SITE_URL}/#organization`,
+      '@id': `${SITE_URL}/#organization`
     },
     applicationCategory: software.category || 'Software',
     keywords: software.tags?.join(', '),
     offers: {
       '@type': 'Offer',
-      availability: software.status === 'available'
-        ? 'https://schema.org/InStock'
-        : software.status === 'limited'
-          ? 'https://schema.org/LimitedAvailability'
-          : 'https://schema.org/PreOrder',
+      availability:
+        software.status === 'available'
+          ? 'https://schema.org/InStock'
+          : software.status === 'limited'
+            ? 'https://schema.org/LimitedAvailability'
+            : 'https://schema.org/PreOrder',
       seller: {
-        '@id': `${SITE_URL}/#organization`,
-      },
-    },
+        '@id': `${SITE_URL}/#organization`
+      }
+    }
   };
 }
 
@@ -275,8 +302,8 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
       name: faq.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
+        text: faq.answer
+      }
+    }))
   };
 }

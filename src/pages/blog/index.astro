@@ -5,8 +5,10 @@ import { getCollection } from 'astro:content';
 import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const sortedPosts = posts.sort((a, b) => 
-  new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
+const sortedPosts = posts.sort(
+  (a, b) =>
+    new Date(b.data.publishedDate).getTime() -
+    new Date(a.data.publishedDate).getTime()
 );
 
 const jsonLd = [
@@ -15,7 +17,7 @@ const jsonLd = [
     { name: 'Blog', url: '/blog' }
   ]),
   itemListSchema(
-    sortedPosts.map(p => ({
+    sortedPosts.map((p) => ({
       name: p.data.title,
       url: `/blog/${p.slug}`,
       description: p.data.description
@@ -38,23 +40,25 @@ function formatDate(date: Date): string {
   description="Practical insights on software development, performance optimization, bug fixes, compliance automation, and shipping software that works."
   jsonLd={jsonLd}
   realmGlow="0.58 0.12 210"
-  realmBg="0.12 0.01 220"
-  realmText="0.98 0.01 220"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
   <!-- Hero -->
-  <section class="border-b border-white/5 relative overflow-hidden">
+  <section class="relative overflow-hidden border-b border-black/5">
     <div class="container-wide section-padding-sm relative z-10">
       <div class="max-w-4xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Blog' },
-        ]} />
-        <h1 class="text-5xl sm:text-7xl font-bold mb-6 tracking-tight leading-[0.9]">
+        <Breadcrumbs
+          items={[{ label: 'Home', href: '/' }, { label: 'Blog' }]}
+        />
+        <h1
+          class="mb-6 text-5xl leading-[0.9] font-bold tracking-tight sm:text-7xl"
+        >
           The <span class="text-brand-400 italic">Blog</span>
         </h1>
-        <p class="text-xl sm:text-2xl opacity-50 max-w-2xl leading-relaxed">
-          What we've learned from fixing other people's code, shipping under pressure,
-          and automating things that should have been automated years ago.
+        <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
+          What we've learned from fixing other people's code, shipping under
+          pressure, and automating things that should have been automated years
+          ago.
         </p>
       </div>
     </div>
@@ -62,61 +66,72 @@ function formatDate(date: Date): string {
 
   <!-- Posts -->
   <section class="container-wide section-padding-sm">
-    <div class="divide-y divide-white/5">
-      {sortedPosts.map((post, index) => (
-        <a 
-          href={`/blog/${post.slug}`}
-          class:list={[
-            "group block py-12 transition-all duration-300 hover:text-warm-400",
-            index === 0 && "pt-0"
-          ]}
-        >
-          <div class="flex flex-wrap items-center gap-4 mb-4">
-            <time class="text-sm opacity-30" datetime={post.data.publishedDate.toISOString()}>
-              {formatDate(post.data.publishedDate)}
-            </time>
-            {post.data.featured && (
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">
-                Featured
-              </span>
-            )}
-          </div>
-          <h2 class:list={[
-            "font-bold group-hover:text-warm-400 transition-colors mb-4 leading-tight",
-            index === 0 ? "text-3xl sm:text-4xl" : "text-2xl"
-          ]}>
-            {post.data.title}
-          </h2>
-          <p class:list={[
-            "opacity-50 mb-6 max-w-3xl leading-relaxed group-hover:opacity-70 transition-opacity",
-            index === 0 ? "text-lg" : "text-base"
-          ]}>
-            {post.data.description}
-          </p>
-          {post.data.tldr && index === 0 && (
-            <p class="text-sm opacity-40 max-w-2xl">
-              <span class="font-bold opacity-60 uppercase tracking-widest text-xs mr-2">TL;DR</span>
-              {post.data.tldr}
+    <div class="divide-y divide-black/5">
+      {
+        sortedPosts.map((post, index) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class:list={[
+              'group hover:text-warm-400 block py-12 transition-all duration-300',
+              index === 0 && 'pt-0'
+            ]}
+          >
+            <div class="mb-4 flex flex-wrap items-center gap-4">
+              <time
+                class="text-sm opacity-30"
+                datetime={post.data.publishedDate.toISOString()}
+              >
+                {formatDate(post.data.publishedDate)}
+              </time>
+              {post.data.featured && (
+                <span class="text-brand-400 text-xs font-bold tracking-widest uppercase">
+                  Featured
+                </span>
+              )}
+            </div>
+            <h2
+              class:list={[
+                'group-hover:text-warm-400 mb-4 leading-tight font-bold transition-colors',
+                index === 0 ? 'text-3xl sm:text-4xl' : 'text-2xl'
+              ]}
+            >
+              {post.data.title}
+            </h2>
+            <p
+              class:list={[
+                'mb-6 max-w-3xl leading-relaxed opacity-50 transition-opacity group-hover:opacity-70',
+                index === 0 ? 'text-lg' : 'text-base'
+              ]}
+            >
+              {post.data.description}
             </p>
-          )}
-          <div class="flex flex-wrap gap-3 mt-6">
-            {post.data.tags.slice(0, 3).map((tag) => (
-              <span class="text-xs opacity-20 group-hover:opacity-50 transition-opacity">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </a>
-      ))}
+            {post.data.tldr && index === 0 && (
+              <p class="max-w-2xl text-sm opacity-40">
+                <span class="mr-2 text-xs font-bold tracking-widest uppercase opacity-60">
+                  TL;DR
+                </span>
+                {post.data.tldr}
+              </p>
+            )}
+            <div class="mt-6 flex flex-wrap gap-3">
+              {post.data.tags.slice(0, 3).map((tag) => (
+                <span class="text-xs opacity-20 transition-opacity group-hover:opacity-50">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
-        <h2 class="text-3xl font-bold mb-4">Need this kind of work done?</h2>
-        <p class="text-lg opacity-50 mb-8">
+        <h2 class="mb-4 text-3xl font-bold">Need this kind of work done?</h2>
+        <p class="mb-8 text-lg opacity-50">
           Everything we write about, we do for clients. Tell us what's broken.
         </p>
         <div class="flex flex-wrap gap-4">

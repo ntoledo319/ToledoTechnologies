@@ -1,10 +1,11 @@
 ---
 import '../styles/fonts.css';
 import '../styles/global.css';
+import '../styles/gatefold.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
   title: string;
@@ -17,9 +18,15 @@ export interface Props {
   author?: string;
   noindex?: boolean;
   jsonLd?: object | object[];
+  // Legacy "realm" props from the previous Ethereal Engine theme.
+  // Kept on the interface so existing pages don't error; intentionally
+  // ignored at render so every base page renders in the gatefold paper world.
   realmGlow?: string;
   realmBg?: string;
   realmText?: string;
+  realmWeight?: string;
+  realmWidth?: string;
+  realmTracking?: string;
 }
 
 const {
@@ -32,24 +39,19 @@ const {
   modifiedTime,
   author,
   noindex = false,
-  jsonLd,
-  realmGlow,
-  realmBg,
-  realmText,
+  jsonLd
 } = Astro.props;
 
 const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
-const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString();
-const fullTitle = title === 'Home' ? 'Toledo Technologies | Remote Software Development Studio' : `${title} | Toledo Technologies`;
-
-const realmStyle = {
-  '--realm-glow': realmGlow || '0.62 0.16 35',
-  'background-color': realmBg ? `oklch(${realmBg})` : 'var(--color-surface-50)',
-  'color': realmText ? `oklch(${realmText})` : 'inherit',
-};
+const canonicalUrl =
+  canonical || new URL(Astro.url.pathname, siteUrl).toString();
+const fullTitle =
+  title === 'Home'
+    ? 'Toledo Technologies | Remote Software Development Studio'
+    : `${title} | Toledo Technologies`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -74,67 +76,58 @@ const realmStyle = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <!-- Fonts: JetBrains Mono for headings (self-hosted, no render-blocking external request) -->
-    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- JSON-LD Structured Data -->
-    {jsonLd && (
-      Array.isArray(jsonLd) ? (
-        jsonLd.map((data) => (
-          <script type="application/ld+json" set:html={JSON.stringify(data)} />
+    {
+      jsonLd &&
+        (Array.isArray(jsonLd) ? (
+          jsonLd.map((data) => (
+            <script
+              type="application/ld+json"
+              set:html={JSON.stringify(data)}
+            />
+          ))
+        ) : (
+          <script
+            type="application/ld+json"
+            set:html={JSON.stringify(jsonLd)}
+          />
         ))
-      ) : (
-        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-      )
-    )}
+    }
   </head>
-  <body class="min-h-screen flex flex-col transition-colors duration-1000" style={realmStyle}>
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-surface-900 focus:text-white focus:rounded-engine-inner focus:text-sm focus:font-mono">
+  <body class="bg-paper-50 text-novel-body flex min-h-screen flex-col">
+    <a
+      href="#main-content"
+      class="focus:bg-surface-900 focus:rounded-engine-inner sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+    >
       Skip to content
     </a>
 
-    <!-- Ethereal Engine: Lighting Layer -->
-    <div id="engine-light" class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-0 transition-opacity duration-1000" aria-hidden="true">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),oklch(var(--realm-glow,0.62_0.16_35)_/_0.08),transparent_50%)]"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),oklch(var(--realm-glow,0.62_0.16_35)_/_0.03),transparent_80%)]"></div>
+    <!-- Paper grain — same noise the gatefold paper-stage uses -->
+    <div
+      class="pointer-events-none fixed inset-0 z-[99] opacity-[0.04] mix-blend-multiply"
+      aria-hidden="true"
+      style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'240\' height=\'240\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'2\' stitchTiles=\'stitch\'/><feColorMatrix values=\'0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0\'/></filter><rect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/></svg>');"
+    >
     </div>
 
     <Header />
-    <div id="realm-wrapper" class="flex-1 flex flex-col transition-all duration-1000 relative z-10">
-      <main id="main-content" class="flex-1">
-        <slot />
-      </main>
-    </div>
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
     <Footer />
-
-    <script>
-      function initEngine() {
-        const light = document.getElementById('engine-light');
-        if (!light) return;
-
-        // Show light after a brief delay for "entrance" effect
-        setTimeout(() => {
-          light.style.opacity = '1';
-        }, 100);
-
-        const updateMousePos = (e: MouseEvent) => {
-          const x = (e.clientX / window.innerWidth) * 100;
-          const y = (e.clientY / window.innerHeight) * 100;
-          document.documentElement.style.setProperty('--mouse-x', `${x}%`);
-          document.documentElement.style.setProperty('--mouse-y', `${y}%`);
-        };
-
-        window.addEventListener('mousemove', updateMousePos);
-      }
-
-      // Initialize on load and after view transitions
-      initEngine();
-      document.addEventListener('astro:after-swap', initEngine);
-    </script>
   </body>
 </html>

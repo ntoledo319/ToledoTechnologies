@@ -1,11 +1,11 @@
 ---
-title: "Buying a Codebase Without Regretting It"
+title: 'Buying a Codebase Without Regretting It'
 description: "What to look for when purchasing a pre-built codebase, common pitfalls to avoid, and how to evaluate if it's actually worth your money."
 publishedDate: 2024-01-15
 modifiedDate: 2024-02-26
-tags: ["codebases", "due-diligence", "software-buying"]
+tags: ['codebases', 'due-diligence', 'software-buying']
 featured: true
-tldr: "Check the docs, run the tests, verify dependencies are maintained, and always get a demo before you pay."
+tldr: 'Check the docs, run the tests, verify dependencies are maintained, and always get a demo before you pay.'
 ---
 
 ## Why Buy a Codebase Instead of Building From Scratch?
@@ -21,6 +21,7 @@ But not all codebases are created equal. Some are polished products ready for de
 If the README is sparse or nonexistent, that's a red flag. Good documentation signals that the developer cared about maintainability—not just getting it to work once.
 
 **Check for:**
+
 - Setup instructions that actually work
 - Architecture overview
 - API documentation (if applicable)
@@ -35,6 +36,7 @@ No tests means every change you make is a gamble.
 ### Dependency Health
 
 Old, unmaintained dependencies are a liability. Check:
+
 - When were dependencies last updated?
 - Are there known vulnerabilities? (`npm audit` or similar)
 - Are critical dependencies still actively maintained?
@@ -42,6 +44,7 @@ Old, unmaintained dependencies are a liability. Check:
 ### License Clarity
 
 Make sure you're getting full rights to the code. Ask explicitly:
+
 - Can you modify it?
 - Can you resell it or build SaaS on top of it?
 - Are there any third-party licenses you inherit?
@@ -56,6 +59,7 @@ Make sure you're getting full rights to the code. Ask explicitly:
 ## Our Approach at Toledo Technologies
 
 When we sell a codebase, we include:
+
 - Full documentation
 - A working demo
 - 30 days of support for questions

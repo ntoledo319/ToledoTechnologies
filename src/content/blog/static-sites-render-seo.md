@@ -1,16 +1,17 @@
 ---
-title: "Static Sites on Render: SEO Setup Checklist"
-description: "A practical checklist for deploying SEO-optimized static sites to Render. Covers sitemaps, meta tags, performance, and common gotchas."
+title: 'Static Sites on Render: SEO Setup Checklist'
+description: 'A practical checklist for deploying SEO-optimized static sites to Render. Covers sitemaps, meta tags, performance, and common gotchas.'
 publishedDate: 2024-02-12
 modifiedDate: 2024-02-26
-tags: ["seo", "static-sites", "render", "deployment"]
+tags: ['seo', 'static-sites', 'render', 'deployment']
 featured: true
-tldr: "Sitemap, robots.txt, meta tags, canonical URLs, fast hosting. Check each box before launch."
+tldr: 'Sitemap, robots.txt, meta tags, canonical URLs, fast hosting. Check each box before launch.'
 ---
 
 ## Why Are Static Sites Great for SEO?
 
 Static sites have inherent SEO advantages:
+
 - **Fast load times**: No server-side processing means quick responses
 - **Predictable HTML**: Search engines see exactly what you build
 - **Easy caching**: CDN distribution is straightforward
@@ -25,6 +26,7 @@ But you still need to do the fundamentals right.
 Your sitemap tells search engines what pages exist and how to find them.
 
 **Requirements:**
+
 - Generate `sitemap.xml` or `sitemap-index.xml` automatically
 - Include all canonical URLs
 - Update it when content changes
@@ -48,6 +50,7 @@ Don't overcomplicate it unless you have specific pages to exclude.
 ### 3. Meta Tags Per Page
 
 Every page needs unique:
+
 - `<title>` tag (50-60 characters ideal)
 - Meta description (150-160 characters)
 - Canonical URL
@@ -57,6 +60,7 @@ Every page needs unique:
 ### 4. Structured Data (JSON-LD)
 
 Help search engines understand your content:
+
 - **Organization schema** on homepage
 - **BreadcrumbList** on interior pages
 - **BlogPosting** for blog posts
@@ -75,6 +79,7 @@ For static sites on Render, you're already ahead—but still optimize images and
 ## Render-Specific Setup
 
 ### Build Configuration
+
 ```
 Build Command: npm ci && npm run build
 Publish Directory: dist

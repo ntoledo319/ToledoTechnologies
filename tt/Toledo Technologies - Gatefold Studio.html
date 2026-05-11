@@ -1,0 +1,1670 @@
+<!doctype html>
+<html lang="en" data-motion="auto" data-typeset="lyric">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toledo Technologies — Gatefold Studio</title>
+    <meta
+      name="description"
+      content="A remote software development studio. We build, fix, and ship code with the care of a printed record sleeve."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="gatefold/styles.css" />
+
+    <!-- defaults the Tweaks panel reads on load -->
+    <script id="editmode-defaults" type="application/json">
+      /*EDITMODE-BEGIN*/ {
+        "grain": 7,
+        "hingeMs": 1400,
+        "heroWarmth": 1.0,
+        "typeset": "lyric",
+        "motion": "auto"
+      } /*EDITMODE-END*/
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="sr-only">Skip to content</a>
+    <div
+      id="sr-announcer"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- =========================================================
+     COVER (closed gatefold)
+     ========================================================= -->
+    <div
+      id="cover"
+      class="cover"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Gatefold cover. Press Enter or click Unfold to reveal the studio."
+    >
+      <!-- ICONIC HERO — one continuous composition spanning both panels.
+       Each panel renders the full SVG at 200vw and clips to its own half. -->
+
+      <!-- LEFT PANEL — front cover -->
+      <div class="cover-panel left" aria-hidden="false">
+        <div class="hero-art" aria-hidden="true">
+          <!-- painterly base gradient -->
+          <div class="hero-sky"></div>
+          <!-- iconic SVG composition -->
+          <svg
+            class="hero-svg"
+            viewBox="0 0 2000 1000"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+          >
+            <defs>
+              <radialGradient id="lp-sun" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fff5cf" />
+                <stop offset="22%" stop-color="#ffd370" />
+                <stop offset="55%" stop-color="#ec7a1d" />
+                <stop offset="85%" stop-color="#a93808" stop-opacity="0.55" />
+                <stop offset="100%" stop-color="#3d1404" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="lp-haze" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0c0820" stop-opacity="0.85" />
+                <stop offset="55%" stop-color="#0c0820" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="lp-water" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3a1410" stop-opacity="0.0" />
+                <stop offset="100%" stop-color="#1b0805" stop-opacity="0.78" />
+              </linearGradient>
+              <pattern
+                id="lp-halftone"
+                width="11"
+                height="11"
+                patternUnits="userSpaceOnUse"
+              >
+                <circle cx="5.5" cy="5.5" r="2.0" fill="#1d0a04" />
+              </pattern>
+              <radialGradient id="lp-halftoneFade" cx="50%" cy="62%" r="55%">
+                <stop offset="0%" stop-color="white" stop-opacity="0" />
+                <stop offset="62%" stop-color="white" stop-opacity="0.6" />
+                <stop offset="100%" stop-color="white" stop-opacity="1" />
+              </radialGradient>
+              <mask id="lp-halftoneMask">
+                <rect width="2000" height="1000" fill="white" />
+                <circle
+                  cx="1000"
+                  cy="560"
+                  r="360"
+                  fill="url(#lp-halftoneFade)"
+                />
+              </mask>
+              <filter id="lp-blur" x="-5%" y="-5%" width="110%" height="110%">
+                <feGaussianBlur stdDeviation="2.2" />
+              </filter>
+            </defs>
+
+            <!-- Top haze (deep sky) -->
+            <rect width="2000" height="640" fill="url(#lp-haze)" />
+
+            <!-- Sun rays (silkscreen, faded) -->
+            <g
+              stroke="#3a1304"
+              stroke-width="3"
+              opacity="0.18"
+              stroke-linecap="round"
+            >
+              <line x1="1000" y1="100" x2="1000" y2="20" />
+              <line x1="1000" y1="1000" x2="1000" y2="1080" />
+              <line x1="560" y1="560" x2="470" y2="560" />
+              <line x1="1440" y1="560" x2="1530" y2="560" />
+              <line x1="690" y1="250" x2="630" y2="190" />
+              <line x1="1310" y1="250" x2="1370" y2="190" />
+              <line x1="690" y1="870" x2="630" y2="930" />
+              <line x1="1310" y1="870" x2="1370" y2="930" />
+              <line x1="820" y1="160" x2="800" y2="100" />
+              <line x1="1180" y1="160" x2="1200" y2="100" />
+            </g>
+
+            <!-- Sun disc -->
+            <circle cx="1000" cy="560" r="380" fill="url(#lp-sun)" />
+            <!-- Halftone overlay across the lower hemisphere of the sun (rasterized print look) -->
+            <g mask="url(#lp-halftoneMask)" opacity="0.62">
+              <circle cx="1000" cy="560" r="350" fill="url(#lp-halftone)" />
+            </g>
+
+            <!-- CMYK misregistration ghost of the sun (cyan + magenta off by a few px) -->
+            <circle cx="994" cy="556" r="380" fill="#1ab7c8" opacity="0.07" />
+            <circle cx="1006" cy="564" r="380" fill="#d63a82" opacity="0.06" />
+
+            <!-- HORIZON — burnt ochre line -->
+            <line
+              x1="0"
+              y1="660"
+              x2="2000"
+              y2="660"
+              stroke="#3a1606"
+              stroke-width="2"
+              opacity="0.45"
+            />
+            <line
+              x1="0"
+              y1="664"
+              x2="2000"
+              y2="664"
+              stroke="#fff5cf"
+              stroke-width="0.8"
+              opacity="0.18"
+            />
+
+            <!-- Water — dark foreground gradient + ripples -->
+            <rect
+              x="0"
+              y="660"
+              width="2000"
+              height="340"
+              fill="url(#lp-water)"
+            />
+            <g stroke="#fff2c8" stroke-width="0.9" opacity="0.18" fill="none">
+              <path d="M0,720 Q260,712 520,720 T1040,720 T1560,720 T2000,720" />
+              <path d="M0,758 Q260,750 520,758 T1040,758 T1560,758 T2000,758" />
+              <path d="M0,800 Q260,790 520,800 T1040,800 T1560,800 T2000,800" />
+              <path d="M0,852 Q260,842 520,852 T1040,852 T1560,852 T2000,852" />
+              <path d="M0,910 Q260,898 520,910 T1040,910 T1560,910 T2000,910" />
+            </g>
+            <!-- Sun reflection on water -->
+            <g opacity="0.52">
+              <ellipse cx="1000" cy="720" rx="280" ry="6" fill="#ffd370" />
+              <ellipse cx="1000" cy="760" rx="220" ry="5" fill="#ffb84a" />
+              <ellipse cx="1000" cy="804" rx="180" ry="4" fill="#f08a26" />
+              <ellipse cx="1000" cy="850" rx="140" ry="3" fill="#c95818" />
+              <ellipse cx="1000" cy="896" rx="100" ry="3" fill="#8a3308" />
+            </g>
+
+            <!-- LEFT PALM — large, off-center -->
+            <g fill="#070504" opacity="0.94" filter="url(#lp-blur)">
+              <!-- trunk -->
+              <path
+                d="M286,1000 C292,860 300,720 310,520 C312,500 318,492 326,492 C330,540 322,720 320,860 L332,1000 Z"
+              />
+              <!-- crown nut cluster -->
+              <circle cx="324" cy="486" r="7" />
+              <circle cx="312" cy="492" r="6" />
+              <circle cx="334" cy="498" r="5" />
+              <!-- fronds — heavy, asymmetric -->
+              <path
+                d="M322,490 C260,470 200,440 150,392 C220,440 280,478 320,500 Z"
+              />
+              <path
+                d="M322,490 C260,498 188,510 124,540 C200,498 282,492 322,500 Z"
+              />
+              <path
+                d="M322,490 C300,420 268,344 230,280 C282,360 314,440 326,492 Z"
+              />
+              <path
+                d="M322,490 C346,418 384,346 432,290 C396,372 350,448 326,494 Z"
+              />
+              <path
+                d="M322,490 C376,478 444,470 510,464 C440,490 372,506 326,502 Z"
+              />
+              <path
+                d="M322,490 C342,540 372,600 404,654 C354,612 326,548 322,500 Z"
+              />
+            </g>
+
+            <!-- RIGHT PALM — smaller, leaning -->
+            <g fill="#070504" opacity="0.88" filter="url(#lp-blur)">
+              <path
+                d="M1738,1000 C1746,880 1754,760 1762,602 C1764,586 1770,580 1776,580 C1780,620 1774,760 1774,880 L1786,1000 Z"
+              />
+              <circle cx="1772" cy="576" r="5" />
+              <circle cx="1782" cy="582" r="5" />
+              <path
+                d="M1770,580 C1722,564 1670,548 1620,520 C1690,560 1740,576 1772,588 Z"
+              />
+              <path
+                d="M1770,580 C1814,564 1862,544 1908,512 C1850,564 1798,584 1772,592 Z"
+              />
+              <path
+                d="M1770,580 C1750,520 1722,448 1696,388 C1742,460 1770,540 1776,584 Z"
+              />
+              <path
+                d="M1770,580 C1796,520 1820,452 1842,392 C1820,470 1788,556 1776,584 Z"
+              />
+            </g>
+
+            <!-- DISTANT BIRDS — silhouette, hand-drawn -->
+            <g
+              stroke="#0a0606"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              fill="none"
+              opacity="0.7"
+            >
+              <path d="M620,300 q10,-10 20,0 q10,-10 20,0" />
+              <path d="M700,260 q8,-8 16,0 q8,-8 16,0" />
+              <path d="M1320,290 q9,-9 18,0 q9,-9 18,0" />
+              <path d="M1410,330 q7,-7 14,0 q7,-7 14,0" />
+            </g>
+
+            <!-- Registration marks (CMYK printer's crosshair, corners) -->
+            <g stroke="rgba(255,236,200,0.58)" stroke-width="1.1" fill="none">
+              <g transform="translate(48,48)">
+                <circle r="9" />
+                <line x1="-13" x2="13" y1="0" y2="0" />
+                <line x1="0" x2="0" y1="-13" y2="13" />
+              </g>
+              <g transform="translate(1952,48)">
+                <circle r="9" />
+                <line x1="-13" x2="13" y1="0" y2="0" />
+                <line x1="0" x2="0" y1="-13" y2="13" />
+              </g>
+              <g transform="translate(48,952)">
+                <circle r="9" />
+                <line x1="-13" x2="13" y1="0" y2="0" />
+                <line x1="0" x2="0" y1="-13" y2="13" />
+              </g>
+              <g transform="translate(1952,952)">
+                <circle r="9" />
+                <line x1="-13" x2="13" y1="0" y2="0" />
+                <line x1="0" x2="0" y1="-13" y2="13" />
+              </g>
+            </g>
+
+            <!-- CMYK colour bars (printer's strip, top-right) -->
+            <g transform="translate(1750,32)">
+              <rect width="14" height="14" fill="#1ab7c8" />
+              <rect x="16" width="14" height="14" fill="#d63a82" />
+              <rect x="32" width="14" height="14" fill="#f6d13a" />
+              <rect x="48" width="14" height="14" fill="#0a0606" />
+            </g>
+
+            <!-- Subtle ink-flecks scattered (analog grit) -->
+            <g fill="#0a0606" opacity="0.6">
+              <circle cx="170" cy="120" r="1" />
+              <circle cx="340" cy="220" r="0.8" />
+              <circle cx="780" cy="180" r="1.2" />
+              <circle cx="1180" cy="140" r="0.9" />
+              <circle cx="1620" cy="240" r="1" />
+              <circle cx="1840" cy="160" r="0.7" />
+              <circle cx="240" cy="780" r="1" />
+              <circle cx="1480" cy="820" r="0.9" />
+            </g>
+          </svg>
+          <div class="hero-paint"></div>
+        </div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+        <div class="cover-frame"></div>
+        <div class="cover-spine">Toledo Technologies — Side A • B</div>
+
+        <div class="cover-front">
+          <p class="meta">
+            <span>Long Play</span>
+            <span class="dot"></span>
+            <span>33⅓ RPM</span>
+            <span class="dot"></span>
+            <span>Remote Software Studio</span>
+          </p>
+
+          <h1 class="cover-title">
+            We build, <em>fix</em>,<br />and ship code—<br />slowly enough<br />to
+            do it right.
+          </h1>
+
+          <p class="cover-subtitle">
+            A high-fidelity record of working software. Side A is the studio.
+            Side B is the catalog. Both sides are meant to be played in full.
+          </p>
+
+          <div class="cover-foot">
+            <p class="cover-catno">
+              Cat. No. TT—[XX·XX] / Pressed [YYYY] / Made for builders
+            </p>
+            <!-- Wax seal, "Side A" -->
+            <span class="seal" aria-hidden="true">
+              <span class="seal-inner">
+                <span class="seal-side">Side</span>
+                <span class="seal-letter">A</span>
+                <span class="seal-rpm">33⅓</span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spine crease (visible across both panels) -->
+      <div class="spine-crease" aria-hidden="true">
+        <span class="spine-light"></span>
+        <span class="spine-shadow"></span>
+        <span class="spine-text">TT · LP · 001</span>
+      </div>
+
+      <!-- Drag seam -->
+      <div id="seam" class="seam" aria-hidden="true"></div>
+
+      <!-- RIGHT PANEL — back cover, tracklist + vinyl -->
+      <div class="cover-panel right" aria-hidden="false">
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-sky"></div>
+          <svg
+            class="hero-svg"
+            viewBox="0 0 2000 1000"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+          >
+            <defs>
+              <radialGradient id="lp-sun-r" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fff5cf" />
+                <stop offset="22%" stop-color="#ffd370" />
+                <stop offset="55%" stop-color="#ec7a1d" />
+                <stop offset="85%" stop-color="#a93808" stop-opacity="0.55" />
+                <stop offset="100%" stop-color="#3d1404" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="lp-haze-r" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0c0820" stop-opacity="0.85" />
+                <stop offset="55%" stop-color="#0c0820" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="lp-water-r" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3a1410" stop-opacity="0.0" />
+                <stop offset="100%" stop-color="#1b0805" stop-opacity="0.78" />
+              </linearGradient>
+            </defs>
+            <rect width="2000" height="640" fill="url(#lp-haze-r)" />
+            <circle cx="1000" cy="560" r="380" fill="url(#lp-sun-r)" />
+            <line
+              x1="0"
+              y1="660"
+              x2="2000"
+              y2="660"
+              stroke="#3a1606"
+              stroke-width="2"
+              opacity="0.45"
+            />
+            <rect
+              x="0"
+              y="660"
+              width="2000"
+              height="340"
+              fill="url(#lp-water-r)"
+            />
+            <g opacity="0.52">
+              <ellipse cx="1000" cy="720" rx="280" ry="6" fill="#ffd370" />
+              <ellipse cx="1000" cy="760" rx="220" ry="5" fill="#ffb84a" />
+              <ellipse cx="1000" cy="804" rx="180" ry="4" fill="#f08a26" />
+              <ellipse cx="1000" cy="850" rx="140" ry="3" fill="#c95818" />
+            </g>
+          </svg>
+          <div class="hero-paint"></div>
+        </div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+        <div class="cover-frame"></div>
+        <div class="cover-spine">[Catalog Number] • Pressed on demand</div>
+
+        <div class="cover-back">
+          <div class="cover-back-head">
+            <p class="catno-stamp">
+              <span>TT—LP—001</span>
+              <span class="bar"></span>
+              <span>Stereo</span>
+              <span class="bar"></span>
+              <span>33⅓</span>
+            </p>
+            <!-- Barcode -->
+            <div class="barcode" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span> <span></span><span></span><span></span><span></span
+              ><span></span><span></span> <span></span><span></span><span></span
+              ><span></span><span></span><span></span> <span></span><span></span
+              ><span></span><span></span><span></span><span></span> <span></span
+              ><span></span><span></span><span></span><span></span>
+              <em>0 12345 67890 1</em>
+            </div>
+          </div>
+
+          <div class="cover-back-body">
+            <div class="cover-back-list">
+              <p class="label">
+                <span>Side A — The Studio</span><span class="bar"></span
+                ><span>[XX:XX]</span>
+              </p>
+              <ol class="tracklist">
+                <li>
+                  <span class="num">A1</span
+                  ><span class="name">Liner Notes (Intro)</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+                <li>
+                  <span class="num">A2</span><span class="name">The Studio</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+                <li>
+                  <span class="num">A3</span
+                  ><span class="name">The Catalog of Work</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+                <li>
+                  <span class="num">A4</span
+                  ><span class="name">The Art of the Rescue</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+              </ol>
+              <p class="label" style="margin-top: 18px">
+                <span>Side B — Sundries</span><span class="bar"></span
+                ><span>[XX:XX]</span>
+              </p>
+              <ol class="tracklist">
+                <li>
+                  <span class="num">B1</span
+                  ><span class="name">Codebases for Sale</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+                <li>
+                  <span class="num">B2</span
+                  ><span class="name">Letter to the Reader</span
+                  ><span class="dur">[X:XX]</span>
+                </li>
+              </ol>
+            </div>
+
+            <!-- VINYL RECORD — half slipped from the sleeve -->
+            <div class="vinyl" aria-hidden="true">
+              <div class="vinyl-disc">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-shine"></div>
+                <div class="vinyl-label">
+                  <span class="vinyl-label-top">Toledo Technologies</span>
+                  <span class="vinyl-label-mid">Long Play</span>
+                  <span class="vinyl-label-bot">Side A · 33⅓</span>
+                  <span class="vinyl-spindle"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="cover-credits">
+            Engineered, designed and printed in-studio. All material original.
+            No service mark, no licensing trickery. © [Year] Toledo
+            Technologies.
+          </p>
+        </div>
+      </div>
+
+      <!-- Unfold -->
+      <div class="unfold-wrap">
+        <button
+          id="unfold-btn"
+          class="unfold"
+          aria-label="Unfold the gatefold to reveal the studio"
+        >
+          <span class="pulse" aria-hidden="true"></span>
+          <span>Unfold the Sleeve</span>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            aria-hidden="true"
+          >
+            <path d="M3 12h18M14 5l7 7-7 7" />
+          </svg>
+        </button>
+        <span class="unfold-hint">Or grab the seam and pull</span>
+      </div>
+    </div>
+
+    <!-- =========================================================
+     STAGE — interior of the sleeve (revealed after unfold)
+     ========================================================= -->
+    <div class="stage paper">
+      <div class="grain"></div>
+      <div class="stage-shell">
+        <!-- HEADER -->
+        <header class="sleeve-header" aria-label="Studio header">
+          <a
+            class="wordmark"
+            href="#/side-a"
+            data-route="side-a"
+            aria-label="Toledo Technologies, side A"
+          >
+            <span class="glyph" aria-hidden="true"></span>
+            <span
+              >Toledo Technologies <small>— Cat. No. TT—[XX·XX]</small></span
+            >
+          </a>
+          <nav class="tracknav" aria-label="Tracks">
+            <a href="#/side-a" data-route="side-a">Side A</a>
+            <a href="#/studio" data-route="studio">The Studio</a>
+            <a href="#/catalog" data-route="catalog">Catalog</a>
+            <a href="#/rescue" data-route="rescue">The Rescue</a>
+            <a href="#/codebases" data-route="codebases">Codebases</a>
+            <a href="#/contact" data-route="contact">Letter</a>
+          </nav>
+          <button class="refold" data-refold aria-label="Re-fold the sleeve">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              aria-hidden="true"
+            >
+              <path d="M21 12H3M10 19l-7-7 7-7" />
+            </svg>
+            Re-fold
+          </button>
+        </header>
+
+        <span class="side-ribbon" aria-hidden="true"
+          >Side A — Toledo Technologies — Long Play</span
+        >
+
+        <!-- INSERTS -->
+        <main id="main" class="inserts" role="main">
+          <!-- ============ INSERT: SIDE A (HOME) ============ -->
+          <article
+            id="insert-side-a"
+            class="insert"
+            data-label="Side A — Liner Notes"
+            data-screen-label="01 Side A — Liner Notes"
+          >
+            <div class="spread">
+              <section class="novel">
+                <p class="eyebrow">
+                  <span class="num">A1</span><span class="bar"></span
+                  ><span>Liner Notes</span>
+                </p>
+                <h1>
+                  A studio for the<br /><em>slow,</em> careful kind<br />of
+                  software.
+                </h1>
+                <p class="deck">
+                  We build, fix, and ship the code that runs underneath the rest
+                  of your business. No agency theatre. No quarterly roadmaps
+                  written in passive voice.
+                </p>
+
+                <hr />
+
+                <p class="drop">
+                  Most technical work today moves at the speed of a tweet. A bug
+                  ticket gets routed through five tools and three time zones. A
+                  feature request comes back as a Notion doc. Months later,
+                  somebody finally ships something nobody wants to maintain. We
+                  started Toledo Technologies because we wanted to do the
+                  opposite of all of that.
+                </p>
+
+                <p>
+                  The studio is small on purpose. Senior people only. The same
+                  person who scopes your work writes the code, opens the pull
+                  request, and stays on the phone when the deploy goes sideways
+                  at [11:47 PM]. There is no junior tier here, because the
+                  junior tier is where most projects go to die.
+                </p>
+
+                <h2>What you'll find on this record</h2>
+
+                <p>
+                  Side A — the side you're reading — is the studio itself.
+                  <a href="#/studio" data-route="studio">Who we are</a>, how we
+                  work, and the four kinds of jobs we take. Side B is the
+                  catalog:
+                  <a href="#/codebases" data-route="codebases"
+                    >deploy-ready repositories</a
+                  >
+                  you can buy outright, plus a small shelf of
+                  <a href="#/rescue" data-route="rescue">case studies</a> for
+                  the systems we've pulled out of the fire.
+                </p>
+
+                <p>
+                  The whole thing is meant to be read like a printed liner.
+                  There are no sidebars trying to capture your email. No popups.
+                  No "schedule a 15-minute discovery call" floating buttons. If
+                  you want to talk, the
+                  <a href="#/contact" data-route="contact"
+                    >letter to the reader</a
+                  >
+                  on the inner sleeve has every way to reach us.
+                </p>
+
+                <blockquote>
+                  <p>"High-fidelity is a feeling, not just a resolution."</p>
+                  <cite>— Studio principle, [draft]</cite>
+                </blockquote>
+
+                <h2>Four sides to the studio</h2>
+
+                <p>
+                  <strong>The Art of the Rescue.</strong> We step into systems
+                  that are already on fire — slow queries, cascading outages,
+                  ten-year-old PHP — and make them stable. We don't replace what
+                  we don't have to. We diagnose root causes, not symptoms.
+                </p>
+
+                <p>
+                  <strong>From concept to shipped.</strong> Greenfield features,
+                  integrations, MVPs, full applications. Code that's documented,
+                  tested, and handed back to you clean. The kind your next
+                  engineer will not curse us for.
+                </p>
+
+                <p>
+                  <strong>Make the tedious disappear.</strong> Scripts,
+                  pipelines, AI workflows, internal tools. If a human is
+                  currently doing it on a spreadsheet at [02:00 AM] on the [last
+                  day of the month], we can probably make that not happen.
+                </p>
+
+                <p>
+                  <strong>Deploy-ready codebases.</strong> Pre-built,
+                  documented, tested repositories you own outright. Browse
+                  <a href="#/codebases" data-route="codebases"
+                    >what's available</a
+                  >
+                  or commission a custom build.
+                </p>
+
+                <hr />
+
+                <p class="pull">
+                  You'll know whether we're a fit by the end of the first call.
+                  If we're not, we'll tell you so, and recommend someone who is.
+                </p>
+
+                <p>
+                  That's everything that needs to be on the front of the sleeve.
+                  The rest of the record is below.
+                  <a href="#/studio" data-route="studio">Read on →</a>
+                </p>
+              </section>
+
+              <aside class="col-side">
+                <h4>Liner Index</h4>
+                <dl class="liner">
+                  <div class="liner-row">
+                    <dt>Pressed</dt>
+                    <dd>[YYYY], remote</dd>
+                  </div>
+                  <div class="liner-row">
+                    <dt>Engineers</dt>
+                    <dd>[N] senior, no agencies</dd>
+                  </div>
+                  <div class="liner-row">
+                    <dt>Side A</dt>
+                    <dd>The studio</dd>
+                  </div>
+                  <div class="liner-row">
+                    <dt>Side B</dt>
+                    <dd>The catalog</dd>
+                  </div>
+                  <div class="liner-row">
+                    <dt>Runtime</dt>
+                    <dd>[XX] minutes, read in full</dd>
+                  </div>
+                  <div class="liner-row">
+                    <dt>Format</dt>
+                    <dd>Long Play, 33⅓</dd>
+                  </div>
+                </dl>
+
+                <h4 style="margin-top: 48px">Now Playing</h4>
+                <p
+                  style="
+                    font-family: var(--font-novel);
+                    font-style: italic;
+                    color: var(--ink-700);
+                    margin: 0;
+                  "
+                >
+                  A1 — "Liner Notes (Intro)"<br />
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 11px;
+                      letter-spacing: 0.2em;
+                      color: var(--ink-500);
+                      text-transform: uppercase;
+                    "
+                    >[X:XX] / [X:XX]</span
+                  >
+                </p>
+              </aside>
+            </div>
+
+            <section class="cta-banner">
+              <p class="meta">A1 / Outro</p>
+              <h2>
+                Got something <em>broken</em>?<br />Got something to build?
+              </h2>
+              <p
+                style="
+                  font-family: var(--font-novel);
+                  font-size: 18px;
+                  max-width: 48ch;
+                  color: rgba(255, 255, 255, 0.78);
+                  margin: 0;
+                "
+              >
+                Tell us what you need. We'll tell you what it takes, in plain
+                English, with a number on the bottom.
+              </p>
+              <div class="row">
+                <a class="btn" href="#/contact" data-route="contact"
+                  >Write us a letter <span class="arrow">→</span></a
+                >
+                <a class="btn ghost" href="#/catalog" data-route="catalog"
+                  >Read the catalog</a
+                >
+              </div>
+            </section>
+
+            <footer class="endsleeve">
+              <div class="endsleeve-grid">
+                <div>
+                  <h4>Liner Notes</h4>
+                  <p class="credits">
+                    Toledo Technologies is a remote software development studio.
+                    Engineering, design, and the long-form writing on this site
+                    are produced in-studio. Cover art is original. All code we
+                    ship is yours to keep, modify, and resell. No service mark,
+                    no licensing trickery.
+                  </p>
+                </div>
+                <div>
+                  <h4>Side A</h4>
+                  <ul>
+                    <li>
+                      <a href="#/side-a" data-route="side-a">Liner Notes</a>
+                    </li>
+                    <li>
+                      <a href="#/studio" data-route="studio">The Studio</a>
+                    </li>
+                    <li>
+                      <a href="#/catalog" data-route="catalog"
+                        >Catalog of Work</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#/rescue" data-route="rescue">The Rescue</a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Side B</h4>
+                  <ul>
+                    <li>
+                      <a href="#/codebases" data-route="codebases"
+                        >Codebases for Sale</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#/contact" data-route="contact"
+                        >Letter to the Reader</a
+                      >
+                    </li>
+                    <li>
+                      <a href="https://github.com/" rel="noopener">GitHub →</a>
+                    </li>
+                    <li>
+                      <a href="#/contact" data-route="contact">Studio Hours</a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Liner</h4>
+                  <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Policies</a></li>
+                    <li><a href="#">Press</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="end-row">
+                <span>© [Year] Toledo Technologies. Pressed remotely.</span>
+                <span
+                  >Side A <span class="endmark"></span> End of Programme</span
+                >
+              </div>
+            </footer>
+          </article>
+
+          <!-- ============ INSERT: STUDIO (ABOUT) ============ -->
+          <article
+            id="insert-studio"
+            class="insert"
+            data-label="The Studio"
+            data-screen-label="02 The Studio"
+          >
+            <section class="novel">
+              <p class="eyebrow">
+                <span class="num">A2</span><span class="bar"></span
+                ><span>The Studio</span><span class="bar"></span
+                ><span>[X:XX]</span>
+              </p>
+              <h1>
+                Senior people,<br /><em>fewer</em> meetings,<br />code you'll
+                keep.
+              </h1>
+              <p class="deck">
+                We are a small remote studio of [N] senior engineers. The roster
+                is intentionally small. The work is intentionally not.
+              </p>
+
+              <hr />
+
+              <h2>Who we are</h2>
+
+              <p>
+                Toledo Technologies was founded in [Year] by [Name], after a
+                decade of watching good engineers get pulled into bad processes.
+                The pitch is straightforward: hire one studio, get one studio.
+                No bench engineers we've never met getting routed onto your
+                project. No subcontracting chain. The person you scope with is
+                the person who pushes the commit.
+              </p>
+
+              <p>
+                We're remote. We've been remote since the studio opened. That
+                isn't a perk we offer — it's a constraint we've built around. It
+                means lower overhead, longer focus blocks, and the discipline to
+                deliver without anyone leaning over our shoulder.
+              </p>
+
+              <h2>How we work</h2>
+
+              <div class="process">
+                <div class="step">
+                  <span class="n">[01]</span>
+                  <h3>Scope</h3>
+                  <p>
+                    One call. We listen, take notes, ask the questions that get
+                    the budget right. You leave with a written estimate, not a
+                    "follow-up email."
+                  </p>
+                </div>
+                <div class="step">
+                  <span class="n">[02]</span>
+                  <h3>Diagnose</h3>
+                  <p>
+                    We read the code before we write any. For rescues this is
+                    half the work. We name the actual problem, in writing,
+                    before we touch a thing.
+                  </p>
+                </div>
+                <div class="step">
+                  <span class="n">[03]</span>
+                  <h3>Build</h3>
+                  <p>
+                    We work in short, visible cycles. Pull requests are small.
+                    Commits are honest. You get a [weekly] note that fits on one
+                    screen.
+                  </p>
+                </div>
+                <div class="step">
+                  <span class="n">[04]</span>
+                  <h3>Hand off</h3>
+                  <p>
+                    Documentation, tests, runbooks. The next engineer — yours,
+                    ours, anyone — should be able to read the repo and
+                    understand it cold.
+                  </p>
+                </div>
+              </div>
+
+              <hr />
+
+              <h2>What we will not do</h2>
+
+              <p>
+                We will not pad invoices with junior labor. We will not run a
+                "discovery phase" priced like the build. We will not accept a
+                project we can't ship. We will not stay quiet when something is
+                going wrong; you will hear about it the same day we do.
+              </p>
+
+              <p>
+                We will also not pretend to do things we don't do. We don't run
+                paid ads. We don't write your marketing copy. We don't run your
+                data team. If your project needs that, we'll point you to people
+                who do it well and step out of the way.
+              </p>
+
+              <p class="pull">
+                The simplest description: we are the studio you call when you
+                have stopped trusting the last [three] you called.
+              </p>
+
+              <h2>Studio facts</h2>
+
+              <dl class="liner">
+                <div class="liner-row">
+                  <dt>Founded</dt>
+                  <dd>[YYYY], by [Name]</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Roster</dt>
+                  <dd>[N] senior engineers, [M] long-term collaborators</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Where</dt>
+                  <dd>Remote, working hours overlap [time zones]</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Day rate</dt>
+                  <dd>From $[XXX] / hour. Fixed-bid for scoped work.</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Stack</dt>
+                  <dd>
+                    TypeScript, Python, Go, React, Node, PostgreSQL, AWS / GCP —
+                    agnostic
+                  </dd>
+                </div>
+                <div class="liner-row">
+                  <dt>NDA</dt>
+                  <dd>
+                    Standard. We sign before the first call if you'd like.
+                  </dd>
+                </div>
+              </dl>
+
+              <hr />
+
+              <p>
+                Continue to
+                <a href="#/catalog" data-route="catalog"
+                  >the catalog of work →</a
+                >
+              </p>
+            </section>
+          </article>
+
+          <!-- ============ INSERT: CATALOG (SERVICES) ============ -->
+          <article
+            id="insert-catalog"
+            class="insert"
+            data-label="The Catalog of Work"
+            data-screen-label="03 Catalog"
+          >
+            <section class="novel wide">
+              <p class="eyebrow">
+                <span class="num">A3</span><span class="bar"></span
+                ><span>The Catalog of Work</span><span class="bar"></span
+                ><span>[X:XX]</span>
+              </p>
+              <h1>
+                Four kinds of work.<br />Each one done <em>cleanly</em>,<br />or
+                not at all.
+              </h1>
+              <p class="deck">
+                We sell engineering, not engagements. Fixed price where the
+                scope is clear. Hourly where it isn't. Either way, you own the
+                code at the end.
+              </p>
+
+              <hr />
+            </section>
+
+            <section class="cat-grid">
+              <div class="tracks">
+                <a class="track" href="#/rescue" data-route="rescue">
+                  <span class="n">A3·01</span>
+                  <span class="t">
+                    <span class="name">The Art of the Rescue</span>
+                    <span class="desc"
+                      >Stabilizing a system that's currently on fire. Bugs,
+                      performance, security, technical debt.</span
+                    >
+                  </span>
+                  <span class="tag">Fix &amp; Improve</span>
+                  <span class="dur">From [$X·X]k</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">A3·02</span>
+                  <span class="t">
+                    <span class="name">From Concept to Shipped</span>
+                    <span class="desc"
+                      >New features, MVPs, integrations, full applications.
+                      Documented and tested before handoff.</span
+                    >
+                  </span>
+                  <span class="tag">Build</span>
+                  <span class="dur">From [$X·X]k</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">A3·03</span>
+                  <span class="t">
+                    <span class="name">Make the Tedious Disappear</span>
+                    <span class="desc"
+                      >Scripts, CI/CD, AI workflows, internal tools, scheduled
+                      jobs. Replace humans-on-spreadsheets.</span
+                    >
+                  </span>
+                  <span class="tag">Automate</span>
+                  <span class="dur">From [$X·X]k</span>
+                </a>
+                <a class="track" href="#/codebases" data-route="codebases">
+                  <span class="n">A3·04</span>
+                  <span class="t">
+                    <span class="name">Deploy-Ready Codebases</span>
+                    <span class="desc"
+                      >Pre-built, documented repositories you can own outright.
+                      Security, compliance, ops tooling.</span
+                    >
+                  </span>
+                  <span class="tag">Catalog</span>
+                  <span class="dur">From [$X·X]k</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">A3·05</span>
+                  <span class="t">
+                    <span class="name">Nonprofit Support</span>
+                    <span class="desc"
+                      >Practical tooling without enterprise pricing. Donor
+                      systems, volunteer tools, cleanup, training.</span
+                    >
+                  </span>
+                  <span class="tag">Mission</span>
+                  <span class="dur">By case</span>
+                </a>
+              </div>
+            </section>
+
+            <section class="novel" style="margin-top: 64px">
+              <h2>Frequently asked</h2>
+
+              <h3>How do you price?</h3>
+              <p>
+                Fixed price when the scope is clear and we both can see the
+                edges. Hourly when it's exploratory or open-ended. We will tell
+                you which fits in the first call. We will not surprise-invoice.
+                <strong>Day rate from $[XXX].</strong>
+              </p>
+
+              <h3>What are typical timelines?</h3>
+              <p>
+                Bug fixes can be same-day. Features generally land in [1–4]
+                weeks. MVPs run [4–12] weeks. Anything longer than that, we
+                break into shippable pieces — there is no [six]-month silent
+                project here.
+              </p>
+
+              <h3>Who owns the code?</h3>
+              <p>
+                You do. All custom work becomes your IP on payment. For
+                codebases on the shelf, you get a perpetual license with full
+                rights to modify, deploy, and resell.
+              </p>
+
+              <h3>Do you offer ongoing maintenance?</h3>
+              <p>
+                Yes — for work we shipped, and for work we didn't. Retainers
+                start at [N] hours / month. We can also be the
+                &quot;break-glass&quot; engineer your team calls at [02:00 AM]
+                when the deploy goes sideways.
+              </p>
+
+              <h3>What stack do you work in?</h3>
+              <p>
+                Most often TypeScript, Python, Go, React, Node.js, PostgreSQL,
+                AWS, GCP. But we're stack-agnostic — that's kind of the point.
+                Tell us yours; we'll tell you whether we can hold the rope.
+              </p>
+
+              <hr />
+
+              <p>
+                Have something specific?
+                <a href="#/contact" data-route="contact">Write us a letter →</a>
+              </p>
+            </section>
+          </article>
+
+          <!-- ============ INSERT: RESCUE (case study novel) ============ -->
+          <article
+            id="insert-rescue"
+            class="insert"
+            data-label="The Art of the Rescue"
+            data-screen-label="04 The Rescue"
+          >
+            <section class="novel">
+              <p class="eyebrow">
+                <span class="num">A4</span><span class="bar"></span
+                ><span>Case Study</span><span class="bar"></span
+                ><span>[X:XX]</span>
+              </p>
+              <h1>
+                The art of the<br /><em>rescue:</em> how we<br />stabilized a
+                system<br />falling in real time.
+              </h1>
+              <p class="deck">
+                A [series-B] startup. A core service melting under [3×] expected
+                load. A team of [four] engineers who hadn't slept in [a week].
+                We came in on a Tuesday.
+              </p>
+
+              <div style="margin: 36px 0">
+                <div class="placeholder-img" style="aspect-ratio: 21/9">
+                  <span class="corner"
+                    >FIG·01 — system architecture (before)</span
+                  >
+                  [ HIGH-RES ARCHITECTURE DIAGRAM — 21:9 ]
+                </div>
+              </div>
+
+              <hr />
+
+              <p class="drop">
+                By the time the first email reached us, the user-facing product
+                had been intermittently down for [eleven] days. Not the dramatic
+                kind of down — the slow kind. Pages took [sixteen] seconds to
+                load. Half of API calls timed out. The status page said
+                <em>"all systems operational"</em> because the status page was
+                wired to a healthcheck nobody had updated since [the 2022
+                migration].
+              </p>
+
+              <p>
+                The CTO had run out of ideas, and more importantly, had run out
+                of sleep. Their last [three] consultants had each filed a long
+                Notion document and disappeared. We were the [fourth] phone
+                call. The brief, in full: "Make it stop happening. We can't keep
+                doing this."
+              </p>
+
+              <h2>Diagnosis before treatment</h2>
+
+              <p>
+                The instinct, when called into a fire, is to start spraying
+                water. We do the opposite. The first day on a rescue is reading.
+                We pull the codebase, we sit with it, we read. We trace the
+                request path. We diff the deploys. We look at the database
+                before we look at the application, because in [eight out of ten]
+                cases the database is the answer.
+              </p>
+
+              <p>
+                In this case, it was. A migration [eighteen months earlier] had
+                introduced a join across two tables that had since each grown by
+                [40×]. The query had run in [80 ms] then; it ran in [12 seconds]
+                now. Every page that called it stalled out at the same point.
+                The application had been working around it with retries — which
+                doubled the load, which made the next retries longer, which
+                doubled the load again.
+              </p>
+
+              <blockquote>
+                <p>
+                  "They didn't have a performance problem. They had a join that
+                  had aged badly, and an architecture that punished the symptom
+                  instead of the cause."
+                </p>
+                <cite>— [Engineer], internal note, day [03]</cite>
+              </blockquote>
+
+              <h2>What we changed, in order</h2>
+
+              <ol>
+                <li>
+                  Replaced the offending join with a denormalized read-side
+                  cache, refreshed on write. Page load dropped from [16s] to
+                  [340ms] within [six hours].
+                </li>
+                <li>
+                  Removed the silent retry layer. Failures became loud, which
+                  made them fixable.
+                </li>
+                <li>
+                  Wired the status page to actual user-facing latency, not the
+                  [/health] endpoint.
+                </li>
+                <li>
+                  Wrote a runbook so the team could do all of the above next
+                  time, without us.
+                </li>
+              </ol>
+
+              <p class="pull">
+                By the end of the second week, [98.6%] of requests resolved
+                under [500ms]. The CTO went home. The [3 AM] pages stopped.
+              </p>
+
+              <h2>What we didn't do</h2>
+
+              <p>
+                We did not rewrite the service. We did not introduce a new
+                framework. We did not propose a [six-month] migration to a
+                different language. The temptation, on a rescue, is always to
+                use the moment to pitch a bigger engagement. We don't. The job
+                is to make it stop. Bigger conversations come later, if at all.
+              </p>
+
+              <hr />
+
+              <h2>By the numbers</h2>
+              <dl class="liner">
+                <div class="liner-row">
+                  <dt>Brief</dt>
+                  <dd>
+                    "Make it stop happening." Stabilize a degraded production
+                    system.
+                  </dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Engagement</dt>
+                  <dd>[14] days, [2] engineers, fixed bid</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>P95 latency</dt>
+                  <dd>[16,000 ms] → [340 ms]</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Error rate</dt>
+                  <dd>[14.2%] → [0.4%]</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Lines changed</dt>
+                  <dd>[~620] of [~180,000]</dd>
+                </div>
+                <div class="liner-row">
+                  <dt>Outcome</dt>
+                  <dd>
+                    System stable. Team sleeping. Internal runbook in place.
+                  </dd>
+                </div>
+              </dl>
+
+              <hr />
+
+              <p>
+                More cases like this one — and the codebases we've packaged from
+                them — are on Side B.<br />
+                <a href="#/codebases" data-route="codebases"
+                  >Continue to the catalog →</a
+                >
+              </p>
+            </section>
+          </article>
+
+          <!-- ============ INSERT: CODEBASES ============ -->
+          <article
+            id="insert-codebases"
+            class="insert"
+            data-label="Codebases for Sale"
+            data-screen-label="05 Codebases"
+          >
+            <section class="novel wide">
+              <p class="eyebrow">
+                <span class="num">B1</span><span class="bar"></span
+                ><span>Codebases for Sale</span><span class="bar"></span
+                ><span>[X:XX]</span>
+              </p>
+              <h1>
+                The shelf:<br />pre-built, documented,<br />tested.
+                <em>Yours</em> outright.
+              </h1>
+              <p class="deck">
+                Repositories we use ourselves, packaged for sale. You get the
+                source, the tests, the docs, and a perpetual license with no
+                royalties.
+              </p>
+
+              <hr />
+            </section>
+
+            <section class="cat-grid">
+              <div class="tracks">
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">B1·01</span>
+                  <span class="t">
+                    <span class="name">[Codebase Name One]</span>
+                    <span class="desc"
+                      >[One-line description — what it does, who it's for, what
+                      it replaces].</span
+                    >
+                    <span class="tag-row"
+                      ><span class="pill">TypeScript</span
+                      ><span class="pill">Postgres</span
+                      ><span class="pill">Tests included</span></span
+                    >
+                  </span>
+                  <span class="tag">Security</span>
+                  <span class="dur">$[X·XXX]</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">B1·02</span>
+                  <span class="t">
+                    <span class="name">[Codebase Name Two]</span>
+                    <span class="desc"
+                      >[One-line description — what it does, who it's for, what
+                      it replaces].</span
+                    >
+                    <span class="tag-row"
+                      ><span class="pill">Go</span><span class="pill">CLI</span
+                      ><span class="pill">Self-hosted</span></span
+                    >
+                  </span>
+                  <span class="tag">Compliance</span>
+                  <span class="dur">$[X·XXX]</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">B1·03</span>
+                  <span class="t">
+                    <span class="name">[Codebase Name Three]</span>
+                    <span class="desc"
+                      >[One-line description — what it does, who it's for, what
+                      it replaces].</span
+                    >
+                    <span class="tag-row"
+                      ><span class="pill">Python</span
+                      ><span class="pill">Workers</span
+                      ><span class="pill">Cloud-agnostic</span></span
+                    >
+                  </span>
+                  <span class="tag">Operations</span>
+                  <span class="dur">$[X·XXX]</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">B1·04</span>
+                  <span class="t">
+                    <span class="name">[Codebase Name Four]</span>
+                    <span class="desc"
+                      >[One-line description — what it does, who it's for, what
+                      it replaces].</span
+                    >
+                    <span class="tag-row"
+                      ><span class="pill">React</span
+                      ><span class="pill">Auth</span
+                      ><span class="pill">Multi-tenant</span></span
+                    >
+                  </span>
+                  <span class="tag">Starter</span>
+                  <span class="dur">$[X·XXX]</span>
+                </a>
+                <a class="track" href="#/contact" data-route="contact">
+                  <span class="n">B1·05</span>
+                  <span class="t">
+                    <span class="name">[Codebase Name Five]</span>
+                    <span class="desc"
+                      >[One-line description — what it does, who it's for, what
+                      it replaces].</span
+                    >
+                    <span class="tag-row"
+                      ><span class="pill">Node</span
+                      ><span class="pill">Webhooks</span
+                      ><span class="pill">Integrations</span></span
+                    >
+                  </span>
+                  <span class="tag">Internal</span>
+                  <span class="dur">$[X·XXX]</span>
+                </a>
+              </div>
+            </section>
+
+            <section class="novel" style="margin-top: 72px">
+              <h2>How a sale works</h2>
+
+              <p>
+                <strong>You read the README first.</strong> Every codebase ships
+                with a written tour — what it is, what it isn't, what you'd use
+                it for, and a frank section on what it doesn't do. We'd rather
+                lose a sale than ship a repository to someone who needed
+                something else.
+              </p>
+
+              <p>
+                <strong>Pricing is one number.</strong> No tiers. No "starter /
+                pro / enterprise." You pay it; you get the source. We do not run
+                a SaaS underneath. We do not collect telemetry from your
+                deployment. We do not have a button labeled "upgrade" hidden in
+                the admin UI.
+              </p>
+
+              <p>
+                <strong>Support is optional.</strong> The repository is yours.
+                If you want us in your Slack for [N] hours / month while you
+                spin it up, that's a retainer. If not, you have the tests and
+                the docs, and we wish you well.
+              </p>
+
+              <hr />
+
+              <p>
+                Want a codebase that isn't on this shelf?
+                <a href="#/contact" data-route="contact"
+                  >Tell us what you'd buy →</a
+                >
+              </p>
+            </section>
+          </article>
+
+          <!-- ============ INSERT: CONTACT (LETTER) ============ -->
+          <article
+            id="insert-contact"
+            class="insert"
+            data-label="Letter to the Reader"
+            data-screen-label="06 Letter"
+          >
+            <section class="novel">
+              <p class="eyebrow">
+                <span class="num">B2</span><span class="bar"></span
+                ><span>Letter to the Reader</span><span class="bar"></span
+                ><span>[X:XX]</span>
+              </p>
+              <h1>
+                Write us<br />a <em>letter.</em><br />We will write<br />one
+                back.
+              </h1>
+              <p class="deck">
+                The short note in the inner sleeve, with every way to reach the
+                studio. We read everything. We reply within [one business day],
+                usually faster.
+              </p>
+
+              <hr />
+
+              <div class="contact-grid">
+                <form
+                  onsubmit="event.preventDefault();this.querySelector('button').textContent='Sent — we\\'ll be in touch';"
+                  novalidate
+                >
+                  <div class="field">
+                    <label for="c-name">Your name</label>
+                    <input
+                      id="c-name"
+                      type="text"
+                      placeholder="[ Jane Field ]"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="c-email">Your email</label>
+                    <input
+                      id="c-email"
+                      type="email"
+                      placeholder="[ jane@field.co ]"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="c-kind">What this is about</label>
+                    <select id="c-kind">
+                      <option>A rescue — something is on fire</option>
+                      <option>A build — concept to shipped</option>
+                      <option>Automation</option>
+                      <option>A codebase from the shelf</option>
+                      <option>Nonprofit support</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="c-budget">Rough budget</label>
+                    <select id="c-budget">
+                      <option>Under $[X·X]k</option>
+                      <option>$[X·X]k — $[XX·X]k</option>
+                      <option>$[XX·X]k — $[XXX·X]k</option>
+                      <option>Over $[XXX·X]k</option>
+                      <option>Don't know yet</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="c-msg">Tell us what's happening</label>
+                    <textarea
+                      id="c-msg"
+                      placeholder="[ The longer, the better. We read every word. ]"
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    class="refold"
+                    style="
+                      border: 1px solid var(--ink-900);
+                      background: var(--ink-900);
+                      color: var(--paper-50);
+                      padding: 14px 22px;
+                      letter-spacing: 0.32em;
+                    "
+                  >
+                    Send the letter
+                  </button>
+                </form>
+
+                <aside>
+                  <h2 style="margin-top: 0">Other ways</h2>
+                  <dl class="liner">
+                    <div class="liner-row">
+                      <dt>Email</dt>
+                      <dd>hello@[domain].com</dd>
+                    </div>
+                    <div class="liner-row">
+                      <dt>Hours</dt>
+                      <dd>[Mon–Fri], [09:00 — 18:00] [time zone]</dd>
+                    </div>
+                    <div class="liner-row">
+                      <dt>NDA</dt>
+                      <dd>Standard. We sign before the first call.</dd>
+                    </div>
+                    <div class="liner-row">
+                      <dt>RFP</dt>
+                      <dd>Forward it. We will respond inline.</dd>
+                    </div>
+                    <div class="liner-row">
+                      <dt>Press</dt>
+                      <dd>press@[domain].com</dd>
+                    </div>
+                    <div class="liner-row">
+                      <dt>GitHub</dt>
+                      <dd>github.com/[org]</dd>
+                    </div>
+                  </dl>
+
+                  <p
+                    style="
+                      font-family: var(--font-novel);
+                      font-style: italic;
+                      color: var(--ink-700);
+                      margin-top: 32px;
+                      border-left: 2px solid var(--accent);
+                      padding-left: 18px;
+                    "
+                  >
+                    "The first call is free, and we'll tell you in it whether
+                    we're a fit. If we're not, we'll point you to someone who
+                    is."
+                  </p>
+                </aside>
+              </div>
+
+              <hr />
+
+              <p>
+                Thank you for reading. Side B ends here.<br />
+                <a href="#/side-a" data-route="side-a">Flip back to Side A →</a>
+              </p>
+            </section>
+          </article>
+        </main>
+      </div>
+    </div>
+
+    <!-- =========================================================
+     TWEAKS PANEL
+     ========================================================= -->
+    <button
+      id="tweaks-launcher"
+      class="tweaks-launcher"
+      aria-label="Open tweaks"
+    >
+      ⚙
+    </button>
+    <aside id="tweaks-panel" class="tweaks-panel" aria-label="Tweaks">
+      <header>
+        <h5>Tweaks</h5>
+        <button id="tweaks-close" aria-label="Close tweaks">Close ✕</button>
+      </header>
+      <div class="body">
+        <div class="tweak">
+          <label
+            >Hinge stiffness
+            <span class="v"
+              ><span data-tweak-out="hingeMs">1400ms</span></span
+            ></label
+          >
+          <input
+            type="range"
+            data-tweak="hingeMs"
+            min="600"
+            max="2400"
+            step="50"
+          />
+        </div>
+        <div class="tweak">
+          <label
+            >Paper grain
+            <span class="v"><span data-tweak-out="grain">7%</span></span></label
+          >
+          <input type="range" data-tweak="grain" min="0" max="20" step="1" />
+        </div>
+        <div class="tweak">
+          <label
+            >Hero warmth
+            <span class="v"
+              ><span data-tweak-out="heroWarmth">1.00</span></span
+            ></label
+          >
+          <input
+            type="range"
+            data-tweak="heroWarmth"
+            min="0"
+            max="2"
+            step="0.05"
+          />
+        </div>
+        <div class="tweak">
+          <label>Type pairing</label>
+          <div class="seg" data-tweak-seg="typeset">
+            <button data-value="lyric">Lora / Outfit</button>
+            <button data-value="mono">JetBrains Mono</button>
+          </div>
+        </div>
+        <div class="tweak">
+          <label>Motion</label>
+          <div class="seg" data-tweak-seg="motion">
+            <button data-value="auto">Auto</button>
+            <button data-value="reduced">Reduced</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <script src="gatefold/app.js"></script>
+    <script src="gatefold/tweaks.js"></script>
+  </body>
+</html>

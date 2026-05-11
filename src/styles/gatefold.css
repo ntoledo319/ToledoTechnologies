@@ -1,0 +1,1619 @@
+/* =========================================================
+   TOLEDO TECHNOLOGIES — GATEFOLD STUDIO
+   Paper, hinges, lyric-sheet typography, abstract sleeve.
+   Ported from /tt — the iconic Contra-style hero,
+   the spinning vinyl, the spine crease, the wax seal.
+   ========================================================= */
+
+@theme {
+  /* Gatefold Paper System (Tailwind v4 tokens — keep) */
+  --color-paper-50: oklch(0.985 0.008 60);
+  --color-paper-100: oklch(0.97 0.012 60);
+  --color-paper-200: oklch(0.93 0.014 55);
+  --color-paper-300: oklch(0.9 0.015 45);
+  --color-paper-900: oklch(0.15 0.03 45);
+
+  /* Gatefold Typography Tokens */
+  --font-novel: 'Lora', 'Georgia', 'Times New Roman', serif;
+  --font-lyric: 'Outfit', 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* =========================================================
+   GATEFOLD VARIABLES (the standalone's design system)
+   ========================================================= */
+:root {
+  --gf-paper-50: oklch(0.985 0.008 60);
+  --gf-paper-100: oklch(0.97 0.012 60);
+  --gf-paper-200: oklch(0.93 0.014 55);
+
+  --gf-ink-900: oklch(0.16 0.02 45);
+  --gf-ink-800: oklch(0.22 0.022 45);
+  --gf-ink-700: oklch(0.3 0.022 45);
+  --gf-ink-500: oklch(0.45 0.02 45);
+  --gf-ink-300: oklch(0.62 0.018 45);
+
+  --gf-accent: oklch(0.58 0.14 42);
+  --gf-accent-deep: oklch(0.45 0.14 38);
+  --gf-accent-soft: oklch(0.78 0.08 50);
+
+  --gf-void: #0a0908;
+
+  --gf-grain: 0.06;
+  --gf-hero-warmth: 1;
+  --gf-hinge-duration: 1.4s;
+  --gf-hinge-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --gf-font-display: 'Outfit', system-ui, sans-serif;
+  --gf-font-novel: 'Lora', Georgia, 'Times New Roman', serif;
+  --gf-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/* =========================================================
+   COVER (the closed gatefold) — fixed full-viewport overlay
+   ========================================================= */
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  perspective: 2200px;
+  background: var(--gf-void);
+}
+.cover-panel {
+  position: relative;
+  flex: 1;
+  height: 100vh;
+  background: var(--gf-paper-100);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform var(--gf-hinge-duration) var(--gf-hinge-ease);
+  will-change: transform;
+  overflow: hidden;
+}
+.cover-panel.left {
+  transform-origin: right center;
+}
+.cover-panel.right {
+  transform-origin: left center;
+}
+
+/* hinge shadow at the meeting edge */
+.cover-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.9s ease;
+}
+.cover-panel.left::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.32), transparent);
+}
+.cover-panel.right::after {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.32), transparent);
+}
+
+/* Outer edge soft fall-off */
+.cover-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.7;
+}
+.cover-panel.left::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.18), transparent);
+}
+.cover-panel.right::before {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.18), transparent);
+}
+
+/* Photographic hero — a single high-res image (the CRT-on-desk
+   found-Polaroid) renders at 200vw spanning both panels, so the
+   gatefold splits a continuous image when it opens. Each panel
+   clips to its half. Type-legibility is handled by a per-panel
+   gradient tint, NOT a global vignette, so the photo stays itself. */
+.cover .hero-art {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 200vw;
+  overflow: hidden;
+  filter: contrast(1.02) saturate(0.92);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cover-panel.left .hero-art {
+  left: 0;
+}
+.cover-panel.right .hero-art {
+  right: 0;
+  left: auto;
+}
+
+.cover .hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  display: block;
+}
+
+/* Per-panel readability tint. Light touch — the photo carries
+   itself. Localized darkening for the headline + tracklist zones
+   happens via text-shadow + box-shadows on the actual elements,
+   not by blacking out the whole panel. */
+.cover .hero-photo-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* Subtle bottom-to-top fall-off for cover-foot legibility */
+    linear-gradient(180deg, rgba(8, 6, 4, 0) 40%, rgba(8, 6, 4, 0.55) 100%),
+    /* Faint left edge darkening so headline has a tonal floor */
+    linear-gradient(90deg, rgba(8, 6, 4, 0.35) 0%, rgba(8, 6, 4, 0) 35%);
+}
+.cover .hero-photo-tint.right {
+  background:
+    /* Mirror the left's faint right-edge floor for tracklist legibility */
+    linear-gradient(90deg, rgba(8, 6, 4, 0) 30%, rgba(8, 6, 4, 0.42) 100%),
+    linear-gradient(
+      180deg,
+      rgba(8, 6, 4, 0.18) 0%,
+      rgba(8, 6, 4, 0) 24%,
+      rgba(8, 6, 4, 0) 70%,
+      rgba(8, 6, 4, 0.55) 100%
+    );
+}
+
+/* Film grain on the cover hero — kept light so the photo's own
+   texture stays primary. */
+.cover .grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Scanlines killed on the photographic cover — they fight the
+   actual scanlines visible in the CRT screen. */
+.cover .scanlines {
+  display: none;
+}
+
+/* Inner border frame of the printed cover */
+.cover-frame {
+  position: absolute;
+  inset: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+    inset 0 0 60px rgba(0, 0, 0, 0.18);
+}
+@media (max-width: 720px) {
+  .cover-frame {
+    inset: 18px;
+  }
+}
+
+/* =========================================================
+   SPINE CREASE — the gatefold seam, catches light
+   ========================================================= */
+.spine-crease {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 60px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+.spine-crease .spine-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 35%,
+    rgba(0, 0, 0, 0.85) 50%,
+    rgba(0, 0, 0, 0.55) 65%,
+    transparent 100%
+  );
+  filter: blur(0.6px);
+}
+.spine-crease .spine-light {
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    rgba(255, 235, 200, 0.42) 14%,
+    rgba(255, 235, 200, 0.18) 50%,
+    rgba(255, 235, 200, 0.42) 86%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+}
+.spine-crease .spine-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  font-family: var(--gf-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+.cover.open .spine-crease,
+.cover.dragging .spine-crease {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Spine label, rotated 90deg */
+.cover-spine {
+  position: absolute;
+  top: 50%;
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  z-index: 3;
+}
+.cover-panel.left .cover-spine {
+  left: 22px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+}
+.cover-panel.right .cover-spine {
+  right: 22px;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+}
+
+/* =========================================================
+   FRONT COVER COMPOSITION (left panel)
+   ========================================================= */
+.cover-front {
+  position: absolute;
+  left: 8%;
+  right: 6%;
+  top: 14vh;
+  bottom: 14vh;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+}
+.cover-front .meta {
+  font-family: var(--gf-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+}
+.cover-front .meta .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gf-accent);
+  align-self: center;
+}
+
+.cover-title {
+  font-family: var(--gf-font-display);
+  font-weight: 800;
+  font-size: clamp(48px, 7.4vw, 124px);
+  line-height: 0.93;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+  color: #fff;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 24px rgba(0, 0, 0, 0.55),
+    0 4px 48px rgba(0, 0, 0, 0.35);
+}
+.cover-title em {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gf-accent-soft);
+}
+.cover-subtitle {
+  margin: 28px 0 0 0;
+  max-width: 38ch;
+  font-family: var(--gf-font-novel);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7);
+}
+.cover-catno {
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+}
+.cover-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* WAX SEAL — the album side stamp on the front cover */
+.seal {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    oklch(0.78 0.16 38),
+    oklch(0.42 0.16 30) 70%,
+    oklch(0.28 0.14 26) 100%
+  );
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 235, 200, 0.35),
+    inset 0 -8px 18px rgba(0, 0, 0, 0.5),
+    inset 0 8px 18px rgba(255, 220, 170, 0.18),
+    0 4px 14px rgba(0, 0, 0, 0.45);
+  transform: rotate(-8deg);
+  flex-shrink: 0;
+}
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 235, 200, 0.55);
+}
+.seal-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-family: var(--gf-font-mono);
+  text-transform: uppercase;
+  color: rgba(255, 235, 200, 0.92);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+.seal-side {
+  font-size: 8.5px;
+  letter-spacing: 0.32em;
+  opacity: 0.85;
+}
+.seal-letter {
+  font-family: var(--gf-font-display);
+  font-weight: 800;
+  font-size: 38px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.seal-rpm {
+  font-size: 7.5px;
+  letter-spacing: 0.28em;
+  opacity: 0.75;
+}
+
+/* =========================================================
+   BACK COVER — tracklist + vinyl
+   ========================================================= */
+.cover-back {
+  position: absolute;
+  right: 6%;
+  left: 6%;
+  top: 9vh;
+  bottom: 9vh;
+  z-index: 3;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.cover-back-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+.catno-stamp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--gf-font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+}
+.catno-stamp .bar {
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Barcode — printed on the back of the sleeve */
+.barcode {
+  display: flex;
+  align-items: flex-end;
+  height: 38px;
+  padding: 6px 8px 4px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 2px;
+  position: relative;
+}
+.barcode span {
+  display: inline-block;
+  width: 2px;
+  height: 24px;
+  background: #0a0606;
+  margin-right: 1px;
+}
+.barcode span:nth-child(2) {
+  height: 18px;
+}
+.barcode span:nth-child(3) {
+  width: 1px;
+}
+.barcode span:nth-child(4) {
+  height: 22px;
+  width: 3px;
+}
+.barcode span:nth-child(5) {
+  height: 16px;
+}
+.barcode span:nth-child(6) {
+  width: 1px;
+  height: 24px;
+}
+.barcode span:nth-child(7) {
+  height: 22px;
+  width: 2px;
+}
+.barcode span:nth-child(8) {
+  height: 17px;
+  width: 3px;
+}
+.barcode span:nth-child(9) {
+  height: 24px;
+  width: 1px;
+}
+.barcode span:nth-child(10) {
+  height: 19px;
+}
+.barcode span:nth-child(11) {
+  width: 3px;
+}
+.barcode span:nth-child(12) {
+  height: 16px;
+  width: 1px;
+}
+.barcode span:nth-child(13) {
+  height: 24px;
+}
+.barcode span:nth-child(14) {
+  width: 2px;
+  height: 18px;
+}
+.barcode span:nth-child(15) {
+  width: 1px;
+}
+.barcode span:nth-child(16) {
+  height: 22px;
+  width: 3px;
+}
+.barcode span:nth-child(17) {
+  height: 16px;
+}
+.barcode span:nth-child(18) {
+  width: 1px;
+  height: 24px;
+}
+.barcode span:nth-child(19) {
+  height: 20px;
+  width: 2px;
+}
+.barcode span:nth-child(20) {
+  height: 17px;
+  width: 3px;
+}
+.barcode span:nth-child(21) {
+  height: 24px;
+  width: 1px;
+}
+.barcode span:nth-child(22) {
+  height: 19px;
+}
+.barcode span:nth-child(23) {
+  width: 1px;
+}
+.barcode span:nth-child(24) {
+  width: 3px;
+  height: 22px;
+}
+.barcode span:nth-child(25) {
+  height: 16px;
+}
+.barcode span:nth-child(26) {
+  width: 1px;
+  height: 24px;
+}
+.barcode span:nth-child(27) {
+  height: 18px;
+  width: 2px;
+}
+.barcode em {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-style: normal;
+  font-family: var(--gf-font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.28em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cover-back-body {
+  flex: 1;
+  display: block;
+  min-height: 0;
+}
+.cover-back-list {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cover-back .label {
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 6px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+}
+.cover-back .label:first-child {
+  margin-top: 0;
+}
+.cover-back .label .bar {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.tracklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tracklist li {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: var(--gf-font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.95);
+  align-items: baseline;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+.tracklist li .num {
+  color: var(--gf-accent-soft);
+}
+.tracklist li .name {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0;
+}
+.tracklist li .dur {
+  color: rgba(255, 255, 255, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   VINYL RECORD — half slipped from the sleeve
+   ========================================================= */
+.vinyl {
+  position: relative;
+  width: clamp(220px, 28vw, 360px);
+  align-self: center;
+  aspect-ratio: 1;
+  perspective: 600px;
+}
+.vinyl-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #0a0807 0%,
+    #0a0807 14%,
+    #1a1311 14%,
+    #110b09 100%
+  );
+  box-shadow:
+    0 24px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: vinyl-spin 28s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-disc {
+    animation: none;
+  }
+}
+@keyframes vinyl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vinyl-grooves {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.04) 0 1px,
+      transparent 1px 4px
+    ),
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 0, 0, 0.4) 0 0.5px,
+      transparent 0.5px 3px
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.vinyl-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse 60% 30% at 35% 20%,
+      rgba(255, 235, 200, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 20% at 70% 78%,
+      rgba(255, 180, 90, 0.1),
+      transparent 60%
+    );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.vinyl-label {
+  position: absolute;
+  inset: 32%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 30%,
+    oklch(0.78 0.14 42),
+    oklch(0.45 0.16 32) 70%,
+    oklch(0.28 0.12 28) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 235, 200, 0.32),
+    inset 0 -6px 14px rgba(0, 0, 0, 0.5);
+  font-family: var(--gf-font-mono);
+  text-transform: uppercase;
+  color: rgba(255, 235, 200, 0.95);
+}
+.vinyl-label-top {
+  font-family: var(--gf-font-display);
+  font-weight: 700;
+  font-size: clamp(8px, 1.05vw, 12px);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  max-width: 80%;
+}
+.vinyl-label-mid {
+  font-style: italic;
+  font-family: var(--gf-font-novel);
+  font-size: clamp(7px, 0.85vw, 10px);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  opacity: 0.86;
+}
+.vinyl-label-bot {
+  font-size: clamp(6px, 0.7vw, 8.5px);
+  letter-spacing: 0.32em;
+  opacity: 0.78;
+}
+.vinyl-spindle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0a0807;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 1px rgba(255, 235, 200, 0.4);
+}
+.cover-credits {
+  margin: 0;
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 56ch;
+}
+
+/* =========================================================
+   UNFOLD TRIGGER
+   ========================================================= */
+.unfold-wrap {
+  position: absolute;
+  bottom: 6vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  z-index: 6;
+  pointer-events: none;
+}
+.unfold {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 30px;
+  font-family: var(--gf-font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s var(--gf-hinge-ease),
+    border-color 0.25s ease;
+  min-height: 48px;
+}
+.unfold:hover {
+  background: rgba(0, 0, 0, 0.78);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-3px);
+}
+.unfold:focus-visible {
+  outline: 3px solid var(--gf-accent);
+  outline-offset: 4px;
+}
+.unfold .pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gf-accent);
+  box-shadow: 0 0 0 0 var(--gf-accent);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 oklch(0.58 0.14 42 / 0.6);
+  }
+  50% {
+    transform: scale(0.7);
+    box-shadow: 0 0 0 14px oklch(0.58 0.14 42 / 0);
+  }
+}
+.unfold-hint {
+  font-family: var(--gf-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+}
+
+/* Seam — drag handle. Stops short of the bottom so the unfold button
+   underneath stays clickable. */
+.seam {
+  position: absolute;
+  top: 12vh;
+  bottom: 18vh;
+  left: 50%;
+  width: 32px;
+  transform: translateX(-50%);
+  z-index: 7;
+  cursor: ew-resize;
+  pointer-events: auto;
+}
+.seam::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+}
+
+/* Open state — panels swing away */
+.cover.open .cover-panel.left {
+  transform: rotateY(-115deg);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+.cover.open .cover-panel.right {
+  transform: rotateY(115deg);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+.cover.open .cover-panel::after {
+  opacity: 0;
+}
+.cover.open .unfold-wrap {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.cover.open .seam {
+  opacity: 0;
+  pointer-events: none;
+}
+.cover.gone {
+  display: none;
+}
+
+/* During drag */
+.cover.dragging .cover-panel {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-panel {
+    transition:
+      transform 0.55s ease-out,
+      opacity 0.55s ease-out;
+  }
+  .cover.open .cover-panel.left {
+    transform: translateX(-100%);
+  }
+  .cover.open .cover-panel.right {
+    transform: translateX(100%);
+  }
+}
+
+/* =========================================================
+   STAGE — the inside of the sleeve (revealed after unfold)
+   ========================================================= */
+.paper-stage {
+  position: relative;
+  background-color: var(--gf-paper-50);
+  background-image:
+    radial-gradient(
+      ellipse 70% 50% at 30% 20%,
+      oklch(0.99 0.01 60 / 0.6),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 90%,
+      oklch(0.94 0.02 55 / 0.5),
+      transparent 60%
+    );
+}
+.paper-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: var(--gf-grain);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Side ribbon — fixed vertical text on the left margin */
+.side-ribbon {
+  position: fixed;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+  z-index: 20;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.side-ribbon::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--gf-ink-300);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+@media (max-width: 900px) {
+  .side-ribbon {
+    display: none;
+  }
+}
+
+/* =========================================================
+   NOVEL TYPOGRAPHY — Lyric Sheet
+   ========================================================= */
+.novel {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 0 28px;
+  color: var(--gf-ink-800);
+}
+.novel.wide {
+  max-width: 92ch;
+}
+
+.novel .eyebrow {
+  font-family: var(--gf-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+  margin: 0 0 28px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.novel .eyebrow .num {
+  color: var(--gf-accent);
+}
+.novel .eyebrow .bar {
+  flex: 0 0 32px;
+  height: 1px;
+  background: var(--gf-ink-300);
+}
+
+.novel h1 {
+  font-family: var(--gf-font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 6.2vw, 92px);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  color: var(--gf-ink-900);
+  margin: 0 0 28px 0;
+  text-wrap: balance;
+}
+.novel h1 em {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gf-accent);
+}
+.novel .deck {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-size: clamp(20px, 2.1vw, 28px);
+  line-height: 1.45;
+  color: var(--gf-ink-700);
+  max-width: 30ch;
+  margin: 0 0 20px 0;
+}
+
+.novel h2 {
+  font-family: var(--gf-font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--gf-ink-900);
+  margin: 64px 0 20px;
+}
+.novel h3 {
+  font-family: var(--gf-font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.25;
+  margin: 40px 0 12px;
+  color: var(--gf-ink-900);
+}
+.novel p {
+  font-family: var(--gf-font-novel);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.78;
+  margin: 0 0 1.4em 0;
+  color: var(--gf-ink-800);
+  text-wrap: pretty;
+}
+.novel p strong {
+  color: var(--gf-ink-900);
+  font-weight: 600;
+}
+.novel p em {
+  color: var(--gf-ink-700);
+}
+
+.novel a {
+  color: var(--gf-accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: oklch(0.45 0.14 38 / 0.45);
+  transition:
+    color 0.2s,
+    text-decoration-color 0.2s;
+}
+.novel a:hover {
+  color: var(--gf-ink-900);
+  text-decoration-color: var(--gf-accent);
+}
+
+.novel hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.18),
+    transparent
+  );
+  margin: 56px 0;
+}
+
+.novel blockquote {
+  border: 0;
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  position: relative;
+}
+.novel blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--gf-accent);
+}
+.novel blockquote p {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.55;
+  color: var(--gf-ink-900);
+  margin-bottom: 0.8em;
+}
+.novel blockquote cite {
+  font-family: var(--gf-font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+}
+
+.novel ul,
+.novel ol {
+  padding-left: 1.5em;
+  margin: 0 0 1.6em;
+}
+.novel li {
+  font-family: var(--gf-font-novel);
+  font-size: 18px;
+  line-height: 1.75;
+  margin-bottom: 0.4em;
+  color: var(--gf-ink-800);
+}
+
+.novel .pull {
+  font-family: var(--gf-font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gf-ink-900);
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  padding: 36px 0;
+  margin: 56px 0;
+  text-wrap: balance;
+}
+
+/* Drop cap */
+.novel .drop::first-letter {
+  font-family: var(--gf-font-display);
+  float: left;
+  font-size: 5.6em;
+  line-height: 0.85;
+  font-weight: 800;
+  margin: 0.05em 0.12em -0.05em 0;
+  color: var(--gf-accent);
+}
+
+/* =========================================================
+   LINER NOTES (asides, captions, indices)
+   ========================================================= */
+.liner {
+  font-family: var(--gf-font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--gf-ink-500);
+  line-height: 1.6;
+}
+.liner-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.liner-row dt {
+  color: var(--gf-ink-500);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 10.5px;
+}
+.liner-row dd {
+  margin: 0;
+  color: var(--gf-ink-900);
+  font-family: var(--gf-font-novel);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   SPREAD (Side A two-column liner-index)
+   ========================================================= */
+.spread {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 32px 0;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+}
+@media (max-width: 900px) {
+  .spread {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 24px;
+  }
+}
+.spread .col-side {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  font-family: var(--gf-font-novel);
+  color: var(--gf-ink-700);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.spread .col-side h4 {
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+.spread .col-side dl {
+  margin: 0;
+}
+
+/* =========================================================
+   CTA BANNER (the dark Side B band at the foot of Side A)
+   ========================================================= */
+.cta-banner {
+  margin: 64px auto 0;
+  max-width: 1180px;
+  padding: 56px 56px 64px;
+  background: var(--gf-ink-900);
+  color: var(--gf-paper-50);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 80% at 110% 50%,
+      oklch(0.58 0.14 42 / 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      oklch(0.4 0.16 35 / 0.45),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+.cta-banner > * {
+  position: relative;
+  z-index: 1;
+}
+.cta-banner .meta {
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: oklch(0.78 0.1 60);
+  margin: 0;
+}
+.cta-banner h2 {
+  font-family: var(--gf-font-display);
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 72px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+  max-width: 18ch;
+  color: var(--gf-paper-50);
+  text-wrap: balance;
+}
+.cta-banner h2 em {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gf-accent-soft);
+}
+.cta-banner .row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 8px;
+}
+.cta-banner .cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  font-family: var(--gf-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gf-ink-900);
+  background: var(--gf-paper-50);
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--gf-paper-50);
+  transition: transform 0.2s ease;
+}
+.cta-banner .cta-btn:hover {
+  transform: translateY(-2px);
+}
+.cta-banner .cta-btn.ghost {
+  background: transparent;
+  color: var(--gf-paper-50);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.cta-banner .arrow {
+  transition: transform 0.25s ease;
+}
+.cta-banner .cta-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   END-SLEEVE FOOTER (printed footer of Side A)
+   ========================================================= */
+.endsleeve {
+  margin-top: 96px;
+  padding: 64px 32px 80px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 28px,
+    rgba(0, 0, 0, 0.02) 28px 29px
+  );
+}
+.endsleeve-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .endsleeve-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.endsleeve h4 {
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+.endsleeve ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.endsleeve li {
+  font-family: var(--gf-font-novel);
+  font-size: 15px;
+  margin: 6px 0;
+}
+.endsleeve a {
+  text-decoration: none;
+  color: var(--gf-ink-800);
+}
+.endsleeve a:hover {
+  color: var(--gf-accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.endsleeve .credits {
+  font-family: var(--gf-font-novel);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--gf-ink-700);
+  line-height: 1.6;
+  max-width: 36ch;
+}
+.endsleeve .end-row {
+  max-width: 1180px;
+  margin: 56px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--gf-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.endsleeve .endmark {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--gf-ink-900);
+  margin: 0 8px -1px;
+}
+
+/* =========================================================
+   COMPAT — keep .novel-container readable on sub-pages
+   (uses the same lyric-sheet typography, narrower measure)
+   ========================================================= */
+.novel-container {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  color: var(--gf-ink-800);
+}
+.novel-container h1 {
+  font-family: var(--gf-font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 5.6vw, 80px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--gf-ink-900);
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+.novel-container h1 em {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gf-accent);
+}
+.novel-container h2 {
+  font-family: var(--gf-font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--gf-ink-900);
+  margin: 64px 0 20px;
+}
+.novel-container h3 {
+  font-family: var(--gf-font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.25;
+  margin: 40px 0 12px;
+  color: var(--gf-ink-900);
+}
+.novel-container p {
+  font-family: var(--gf-font-novel);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.78;
+  color: var(--gf-ink-800);
+  margin: 0 0 1.4em 0;
+  text-wrap: pretty;
+}
+.novel-container a {
+  color: var(--gf-accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: oklch(0.45 0.14 38 / 0.45);
+}
+.novel-container a:hover {
+  color: var(--gf-ink-900);
+  text-decoration-color: var(--gf-accent);
+}
+.novel-container blockquote {
+  border-left: 2px solid var(--gf-accent);
+  padding-left: 1.5rem;
+  margin: 2.5rem 0;
+  font-style: italic;
+  color: var(--gf-ink-900);
+}
+.novel-container hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.18),
+    transparent
+  );
+  margin: 56px 0;
+}
+
+.insert-layout {
+  background-color: var(--gf-paper-50);
+  min-height: 100vh;
+}
+
+/* Tailwind v4 helper colors used by index.astro / sub-pages */
+.text-novel-body {
+  color: var(--gf-ink-800);
+}
+.text-novel-heading {
+  color: var(--gf-ink-900);
+}
+
+/* =========================================================
+   THEME UNIFICATION — base pages (services, contact, portfolio,
+   blog, codebases, case-studies, nonprofit, 404, etc.)
+   Old engine palette is overridden here so existing classes
+   automatically render in the gatefold's burnt-orange world.
+   ========================================================= */
+
+/* Italic accent spans across all hero headlines render in Lora italic
+   in the warm-vinyl orange. Match the gatefold home's energy without
+   editing every page. */
+h1 em,
+h2 em,
+h1 .italic,
+h2 .italic,
+.italic[class*='text-brand'],
+.italic[class*='text-warm'] {
+  font-family: var(--gf-font-novel);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gf-accent);
+}
+
+/* The old "brand" steel-blue accent is remapped to the burnt orange
+   so existing `text-brand-*` utilities turn warm. */
+.text-brand-300,
+.text-brand-400,
+.text-brand-500,
+.text-brand-600 {
+  color: var(--gf-accent) !important;
+}
+.text-brand-700,
+.text-brand-800,
+.text-brand-900 {
+  color: var(--gf-accent-deep) !important;
+}
+.hover\:text-brand-300:hover,
+.hover\:text-brand-400:hover,
+.hover\:text-brand-500:hover {
+  color: var(--gf-accent-deep) !important;
+}
+.bg-brand-100,
+.bg-brand-200 {
+  background-color: oklch(0.93 0.04 42) !important;
+}
+
+/* Base body type: paragraphs in main content render in Lora serif,
+   matching the gatefold reading register, without editing pages. */
+main p,
+main li {
+  font-family: var(--gf-font-novel);
+}
+main p {
+  line-height: 1.7;
+  color: var(--gf-ink-800);
+}
+main h1,
+main h2,
+main h3,
+main h4 {
+  font-family: var(--gf-font-display);
+  letter-spacing: -0.02em;
+  color: var(--gf-ink-900);
+}
+main h1 {
+  letter-spacing: -0.035em;
+}

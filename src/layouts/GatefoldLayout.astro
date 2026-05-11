@@ -1,0 +1,515 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+import '../styles/gatefold.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { ClientRouter } from 'astro:transitions';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  noindex?: boolean;
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.png',
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  author,
+  noindex = false,
+  jsonLd
+} = Astro.props;
+
+const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
+const canonicalUrl =
+  canonical || new URL(Astro.url.pathname, siteUrl).toString();
+const fullTitle =
+  title === 'Home'
+    ? 'Toledo Technologies | Remote Software Development Studio'
+    : `${title} | Toledo Technologies`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEOHead
+      title={fullTitle}
+      description={description}
+      canonical={canonicalUrl}
+      ogImage={ogImage}
+      ogType={ogType}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      noindex={noindex}
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <ClientRouter />
+
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {
+      jsonLd &&
+        (Array.isArray(jsonLd) ? (
+          jsonLd.map((data) => (
+            <script
+              type="application/ld+json"
+              set:html={JSON.stringify(data)}
+            />
+          ))
+        ) : (
+          <script
+            type="application/ld+json"
+            set:html={JSON.stringify(jsonLd)}
+          />
+        ))
+    }
+  </head>
+  <body class="text-novel-body min-h-screen" style="background: #0a0908;">
+    <a
+      href="#main-content"
+      class="focus:bg-paper-900 focus:rounded-engine-inner sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+    >
+      Skip to content
+    </a>
+
+    <!-- Screen reader announcer for gatefold state changes -->
+    <div
+      id="sr-announcer"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+    </div>
+
+    <!-- ============================================
+         GATEFOLD COVER — The Physical Sleeve
+         Iconic Contra-style hero, vinyl on the back,
+         wax seal, spine crease, barcode, tracklist.
+         ============================================ -->
+    <div
+      id="cover"
+      class="cover"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Gatefold cover. Press Enter or click Unfold to reveal the studio."
+    >
+      <!-- LEFT PANEL — front cover -->
+      <div class="cover-panel left" aria-hidden="false">
+        <div class="hero-art" aria-hidden="true">
+          <picture>
+            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <source
+              srcset="/images/hero-crt-3000.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              class="hero-photo"
+              src="/images/hero-crt-1600.jpg"
+              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
+              sizes="200vw"
+              alt=""
+              fetchpriority="high"
+              decoding="async"
+              loading="eager"
+            />
+          </picture>
+          <div class="hero-photo-tint"></div>
+        </div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+        <div class="cover-frame"></div>
+        <div class="cover-spine">Toledo Technologies — Side A • B</div>
+
+        <div class="cover-front">
+          <p class="meta">
+            <span>Long Play</span>
+            <span class="dot"></span>
+            <span>33⅓ RPM</span>
+            <span class="dot"></span>
+            <span>Remote Software Studio</span>
+          </p>
+
+          <h1 class="cover-title">
+            We build, <em>fix</em>,<br />and ship code—<br />slowly enough<br
+            />to do it right.
+          </h1>
+
+          <p class="cover-subtitle">
+            A high-fidelity record of working software. Side A is the studio.
+            Side B is the catalog. Both sides are meant to be played in full.
+          </p>
+
+          <div class="cover-foot">
+            <p class="cover-catno">Cat. No. TT—LP—001 · Side A</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spine crease -->
+      <div class="spine-crease" aria-hidden="true">
+        <span class="spine-light"></span>
+        <span class="spine-shadow"></span>
+        <span class="spine-text">TT · LP · 001</span>
+      </div>
+
+      <!-- Drag seam -->
+      <div id="seam" class="seam" aria-hidden="true"></div>
+
+      <!-- RIGHT PANEL — back cover, tracklist + vinyl -->
+      <div class="cover-panel right" aria-hidden="false">
+        <div class="hero-art" aria-hidden="true">
+          <picture>
+            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <source
+              srcset="/images/hero-crt-3000.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              class="hero-photo"
+              src="/images/hero-crt-1600.jpg"
+              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
+              sizes="200vw"
+              alt="A silver CRT monitor on a wooden desk beside an IBM Personal System/2 box, warm afternoon light, faded poster on the wall behind."
+              decoding="async"
+              loading="eager"
+            />
+          </picture>
+          <div class="hero-photo-tint right"></div>
+        </div>
+        <div class="grain"></div>
+        <div class="scanlines"></div>
+        <div class="cover-frame"></div>
+        <div class="cover-spine">TT—LP—001 • Pressed on demand</div>
+
+        <div class="cover-back">
+          <div class="cover-back-head">
+            <p class="catno-stamp">
+              <span>TT—LP—001</span>
+              <span class="bar"></span>
+              <span>Stereo</span>
+              <span class="bar"></span>
+              <span>33⅓</span>
+            </p>
+            <div class="barcode" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span
+              ></span><span></span>
+              <span></span><span></span><span></span><span></span><span
+              ></span><span></span>
+              <span></span><span></span><span></span><span></span><span
+              ></span><span></span>
+              <span></span><span></span><span></span><span></span><span
+              ></span><span></span>
+              <span></span><span></span><span></span>
+              <em>0 12345 67890 1</em>
+            </div>
+          </div>
+
+          <div class="cover-back-body">
+            <div class="cover-back-list">
+              <p class="label">
+                <span>Side A — The Studio</span><span class="bar"></span><span
+                  >05 tracks</span>
+              </p>
+              <ol class="tracklist">
+                <li>
+                  <span class="num">A1</span><span class="name"
+                    >Liner Notes (Intro)</span
+                  ><span class="dur">home</span>
+                </li>
+                <li>
+                  <span class="num">A2</span><span class="name">The Studio</span
+                  ><span class="dur">about</span>
+                </li>
+                <li>
+                  <span class="num">A3</span><span class="name"
+                    >Catalog of Work</span
+                  ><span class="dur">services</span>
+                </li>
+                <li>
+                  <span class="num">A4</span><span class="name">The Rescue</span
+                  ><span class="dur">case-studies</span>
+                </li>
+                <li>
+                  <span class="num">A5</span><span class="name"
+                    >Letter to the Reader</span
+                  ><span class="dur">contact</span>
+                </li>
+              </ol>
+              <p class="label" style="margin-top:18px;">
+                <span>Side B — The Catalog</span><span class="bar"></span><span
+                  >05 tracks</span>
+              </p>
+              <ol class="tracklist">
+                <li>
+                  <span class="num">B1</span><span class="name"
+                    >ToledoWeb (Custom Sites)</span
+                  ><span class="dur">web.</span>
+                </li>
+                <li>
+                  <span class="num">B2</span><span class="name"
+                    >SiteLift (WP Exits)</span
+                  ><span class="dur">sitelift.</span>
+                </li>
+                <li>
+                  <span class="num">B3</span><span class="name"
+                    >Toledo Apps (SaaS)</span
+                  ><span class="dur">apps.</span>
+                </li>
+                <li>
+                  <span class="num">B4</span><span class="name"
+                    >Toledo Mobile (Native)</span
+                  ><span class="dur">mobile.</span>
+                </li>
+                <li>
+                  <span class="num">B5</span><span class="name"
+                    >Toledo AI (Agents)</span
+                  ><span class="dur">ai.</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <p class="cover-credits">
+            Engineered, designed and printed in-studio. All material original.
+            No service mark, no licensing trickery. © 2026 Toledo Technologies.
+          </p>
+        </div>
+      </div>
+
+      <!-- Unfold -->
+      <div class="unfold-wrap">
+        <button
+          id="unfold-btn"
+          class="unfold"
+          aria-label="Unfold the gatefold to reveal the studio"
+        >
+          <span class="pulse" aria-hidden="true"></span>
+          <span>Unfold the Sleeve</span>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            aria-hidden="true"><path d="M3 12h18M14 5l7 7-7 7"></path></svg
+          >
+        </button>
+        <span class="unfold-hint">Or grab the seam and pull</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         STAGE — interior of the sleeve, revealed after unfold
+         ============================================ -->
+    <div
+      id="gatefold-content"
+      class="paper-stage relative z-0"
+      aria-hidden="false"
+    >
+      <span class="side-ribbon" aria-hidden="true"
+        >Side A — Toledo Technologies — Long Play</span
+      >
+      <Header />
+      <main id="main-content" class="relative z-10 flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script>
+      function initGatefold() {
+        const cover = document.getElementById('cover');
+        const btn = document.getElementById('unfold-btn');
+        const seam = document.getElementById('seam');
+        const announcer = document.getElementById('sr-announcer');
+        const content = document.getElementById('gatefold-content');
+        if (!cover || !btn) return;
+
+        const sessionKey = 'gatefold-open-v2';
+        const root = document.documentElement;
+        const isReduced = () =>
+          root.getAttribute('data-motion') === 'reduced' ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const announce = (msg: string) => {
+          if (!announcer) return;
+          announcer.textContent = '';
+          setTimeout(() => (announcer.textContent = msg), 30);
+        };
+
+        let isOpen = false;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragMaxAngle = 0;
+        const coverLeft = cover.querySelector(
+          '.cover-panel.left'
+        ) as HTMLElement | null;
+        const coverRight = cover.querySelector(
+          '.cover-panel.right'
+        ) as HTMLElement | null;
+
+        const openCover = () => {
+          if (isOpen) return;
+          isOpen = true;
+          cover.classList.remove('dragging');
+          if (coverLeft) coverLeft.style.transform = '';
+          if (coverRight) coverRight.style.transform = '';
+          cover.classList.add('open');
+          cover.setAttribute('aria-hidden', 'true');
+          announce('Gatefold opened. Side A revealed.');
+          try {
+            sessionStorage.setItem(sessionKey, '1');
+          } catch {}
+          const dur = isReduced() ? 600 : 1500;
+          setTimeout(() => {
+            cover.classList.add('gone');
+            const main = document.getElementById('main-content');
+            if (main) {
+              main.setAttribute('tabindex', '-1');
+              (main as HTMLElement).focus({ preventScroll: true });
+              main.removeAttribute('tabindex');
+            }
+          }, dur);
+        };
+
+        try {
+          if (sessionStorage.getItem(sessionKey) === '1') {
+            cover.classList.add('open', 'gone');
+            cover.setAttribute('aria-hidden', 'true');
+            isOpen = true;
+          }
+        } catch {}
+
+        btn.addEventListener('click', openCover);
+        btn.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCover();
+          }
+        });
+
+        document.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (
+            !isOpen &&
+            (e.key === 'Enter' || e.key === ' ') &&
+            document.activeElement === document.body
+          ) {
+            e.preventDefault();
+            openCover();
+          }
+        });
+
+        if (seam) {
+          const onDown = (clientX: number) => {
+            if (isOpen || isReduced()) return;
+            isDragging = true;
+            dragStartX = clientX;
+            dragMaxAngle = 0;
+            cover.classList.add('dragging');
+          };
+          const onMove = (clientX: number) => {
+            if (!isDragging) return;
+            const w = window.innerWidth / 2;
+            const dx = Math.max(0, Math.abs(clientX - dragStartX));
+            const t = Math.min(1, dx / (w * 0.55));
+            const angle = t * 115;
+            dragMaxAngle = Math.max(dragMaxAngle, angle);
+            if (coverLeft) coverLeft.style.transform = `rotateY(${-angle}deg)`;
+            if (coverRight) coverRight.style.transform = `rotateY(${angle}deg)`;
+          };
+          const onUp = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            cover.classList.remove('dragging');
+            if (dragMaxAngle > 32) {
+              openCover();
+            } else {
+              if (coverLeft) coverLeft.style.transform = '';
+              if (coverRight) coverRight.style.transform = '';
+            }
+          };
+
+          seam.addEventListener('mousedown', (e: MouseEvent) => {
+            onDown(e.clientX);
+            e.preventDefault();
+          });
+          window.addEventListener('mousemove', (e: MouseEvent) =>
+            onMove(e.clientX)
+          );
+          window.addEventListener('mouseup', onUp);
+          seam.addEventListener(
+            'touchstart',
+            (e: TouchEvent) => onDown(e.touches[0].clientX),
+            { passive: true }
+          );
+          window.addEventListener(
+            'touchmove',
+            (e: TouchEvent) => onMove(e.touches[0].clientX),
+            { passive: true }
+          );
+          window.addEventListener('touchend', onUp);
+        }
+
+        // Subtle parallax on cover hero
+        if (!isReduced()) {
+          const heroes = cover.querySelectorAll('.hero-art');
+          cover.addEventListener('mousemove', (e: MouseEvent) => {
+            if (isOpen) return;
+            const dx = (e.clientX / window.innerWidth - 0.5) * 14;
+            const dy = (e.clientY / window.innerHeight - 0.5) * 10;
+            heroes.forEach((h) => {
+              (h as HTMLElement).style.transform =
+                `translate(${dx}px, ${dy}px) scale(1.04)`;
+            });
+          });
+          cover.addEventListener('mouseleave', () => {
+            heroes.forEach((h) => {
+              (h as HTMLElement).style.transform = '';
+            });
+          });
+        }
+      }
+
+      initGatefold();
+      document.addEventListener('astro:after-swap', initGatefold);
+    </script>
+  </body>
+</html>

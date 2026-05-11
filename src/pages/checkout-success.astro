@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const jsonLd = [];
+const jsonLd: any[] = [];
 ---
 
 <BaseLayout
@@ -13,52 +13,71 @@ const jsonLd = [];
   realmText="0.98 0.02 150"
 >
   <section class="container-wide section-padding">
-    <div class="max-w-2xl mx-auto text-center">
-      <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10">
-        <svg class="w-10 h-10 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    <div class="mx-auto max-w-2xl text-center">
+      <div
+        class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full border border-white/10"
+      >
+        <svg
+          class="text-brand-400 h-10 w-10"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"></path>
         </svg>
       </div>
-      <h1 class="text-5xl sm:text-6xl font-bold mb-6 tracking-tight">
+      <h1 class="mb-6 text-5xl font-bold tracking-tight sm:text-6xl">
         Purchase Confirmed
       </h1>
-      <p class="text-xl opacity-50 mb-12 leading-relaxed">
-        Thanks for buying. You'll receive an email within 24 hours with repository access and transfer details.
+      <p class="mb-12 text-xl leading-relaxed opacity-50">
+        Thanks for buying. You'll receive an email within 24 hours with
+        repository access and transfer details.
       </p>
 
-      <div class="text-left mb-12">
-        <h2 class="text-xl font-bold mb-6">What happens next:</h2>
+      <div class="mb-12 text-left">
+        <h2 class="mb-6 text-xl font-bold">What happens next:</h2>
         <ol class="space-y-5 opacity-60">
           <li class="flex gap-4">
-            <span class="font-mono text-warm-500 font-bold text-lg">1</span>
+            <span class="text-warm-500 text-lg font-bold">1</span>
             <span>We verify the payment (usually instant).</span>
           </li>
           <li class="flex gap-4">
-            <span class="font-mono text-warm-500 font-bold text-lg">2</span>
-            <span>You get an email with GitHub repo access and documentation.</span>
+            <span class="text-warm-500 text-lg font-bold">2</span>
+            <span
+              >You get an email with GitHub repo access and documentation.</span
+            >
           </li>
           <li class="flex gap-4">
-            <span class="font-mono text-warm-500 font-bold text-lg">3</span>
-            <span>We schedule a 30-minute handoff call to answer questions.</span>
+            <span class="text-warm-500 text-lg font-bold">3</span>
+            <span
+              >We schedule a 30-minute handoff call to answer questions.</span
+            >
           </li>
           <li class="flex gap-4">
-            <span class="font-mono text-warm-500 font-bold text-lg">4</span>
+            <span class="text-warm-500 text-lg font-bold">4</span>
             <span>IP transfer documents are signed and delivered.</span>
           </li>
         </ol>
       </div>
 
       <div class="flex flex-wrap justify-center gap-6">
-        <a href="/codebases" class="btn-primary text-lg px-10 py-4">
+        <a href="/codebases" class="btn-primary px-10 py-4 text-lg">
           Browse More Codebases
         </a>
-        <a href="/portfolio" class="btn-ghost text-lg px-10 py-4">
+        <a href="/portfolio" class="btn-ghost px-10 py-4 text-lg">
           See Our Portfolio
         </a>
       </div>
 
-      <p class="opacity-20 text-sm mt-10">
-        Questions? Email <a href="mailto:hello@toledotechnologies.com" class="text-warm-400 hover:underline">hello@toledotechnologies.com</a>
+      <p class="mt-10 text-sm opacity-20">
+        Questions? Email <a
+          href="mailto:hello@toledotechnologies.com"
+          class="text-warm-400 hover:underline">hello@toledotechnologies.com</a
+        >
       </p>
     </div>
   </section>

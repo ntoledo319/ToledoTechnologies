@@ -5,8 +5,10 @@ import { getCollection } from 'astro:content';
 import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
 
 const caseStudies = await getCollection('case-studies');
-const sortedStudies = caseStudies.sort((a, b) => 
-  new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime()
+const sortedStudies = caseStudies.sort(
+  (a, b) =>
+    new Date(b.data.publishedDate).getTime() -
+    new Date(a.data.publishedDate).getTime()
 );
 
 const jsonLd = [
@@ -15,7 +17,7 @@ const jsonLd = [
     { name: 'Case Studies', url: '/case-studies' }
   ]),
   itemListSchema(
-    sortedStudies.map(s => ({
+    sortedStudies.map((s) => ({
       name: s.data.title,
       url: `/case-studies/${s.slug}`,
       description: s.data.description
@@ -30,23 +32,24 @@ const jsonLd = [
   description="Real projects, real results. See how we've helped clients with MVP development, bug fixes, legacy system rescues, and more."
   jsonLd={jsonLd}
   realmGlow="0.68 0.16 130"
-  realmBg="0.10 0.02 150"
-  realmText="0.98 0.02 150"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
   <!-- Hero -->
-  <section class="border-b border-white/5 relative overflow-hidden">
+  <section class="relative overflow-hidden border-b border-black/5">
     <div class="container-wide section-padding-sm relative z-10">
       <div class="max-w-4xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Case Studies' },
-        ]} />
-        <h1 class="text-5xl sm:text-7xl font-bold mb-6 tracking-tight leading-[0.9]">
+        <Breadcrumbs
+          items={[{ label: 'Home', href: '/' }, { label: 'Case Studies' }]}
+        />
+        <h1
+          class="mb-6 text-5xl leading-[0.9] font-bold tracking-tight sm:text-7xl"
+        >
           Case <span class="text-brand-400 italic">Studies</span>
         </h1>
-        <p class="text-xl sm:text-2xl opacity-50 max-w-2xl leading-relaxed">
-          Real projects, real results. Here's how we've helped clients ship software, 
-          fix problems, and build systems that work.
+        <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
+          Real projects, real results. Here's how we've helped clients ship
+          software, fix problems, and build systems that work.
         </p>
       </div>
     </div>
@@ -54,68 +57,70 @@ const jsonLd = [
 
   <!-- Case Studies -->
   <section class="container-wide section-padding-sm">
-    <div class="divide-y divide-white/5">
-      {sortedStudies.map((study, index) => (
-        <a 
-          href={`/case-studies/${study.slug}`}
-          class:list={[
-            "group block py-12 transition-all duration-300 hover:text-brand-400",
-            index === 0 && "pt-0"
-          ]}
-        >
-          <div class="flex items-center gap-4 mb-4">
-            <span class="text-sm font-medium opacity-30 uppercase tracking-widest">
-              {study.data.industry}
-            </span>
-            {study.data.featured && (
-              <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">
-                Featured
+    <div class="divide-y divide-black/5">
+      {
+        sortedStudies.map((study, index) => (
+          <a
+            href={`/case-studies/${study.slug}`}
+            class:list={[
+              'group hover:text-brand-400 block py-12 transition-all duration-300',
+              index === 0 && 'pt-0'
+            ]}
+          >
+            <div class="mb-4 flex items-center gap-4">
+              <span class="text-sm font-medium tracking-widest uppercase opacity-30">
+                {study.data.industry}
               </span>
-            )}
-          </div>
-          
-          <h2 class="text-2xl sm:text-3xl font-bold group-hover:text-brand-400 transition-colors mb-4 leading-tight">
-            {study.data.title}
-          </h2>
-          
-          <p class="text-lg opacity-50 mb-6 max-w-2xl leading-relaxed group-hover:opacity-70 transition-opacity">
-            {study.data.description}
-          </p>
-          
-          {study.data.results.length > 0 && (
-            <div class="mb-6">
-              <ul class="flex flex-wrap gap-x-6 gap-y-2">
-                {study.data.results.slice(0, 3).map((result) => (
-                  <li class="flex items-center gap-2 text-sm opacity-40">
-                    <span class="text-brand-400">→</span>
-                    <span>{result}</span>
-                  </li>
-                ))}
-              </ul>
+              {study.data.featured && (
+                <span class="text-brand-400 text-xs font-bold tracking-widest uppercase">
+                  Featured
+                </span>
+              )}
             </div>
-          )}
-          
-          <div class="flex flex-wrap gap-3">
-            {study.data.services.map((service) => (
-              <span class="text-xs opacity-15">
-                {service}
-              </span>
-            ))}
-          </div>
-        </a>
-      ))}
+
+            <h2 class="group-hover:text-brand-400 mb-4 text-2xl leading-tight font-bold transition-colors sm:text-3xl">
+              {study.data.title}
+            </h2>
+
+            <p class="mb-6 max-w-2xl text-lg leading-relaxed opacity-50 transition-opacity group-hover:opacity-70">
+              {study.data.description}
+            </p>
+
+            {study.data.results.length > 0 && (
+              <div class="mb-6">
+                <ul class="flex flex-wrap gap-x-6 gap-y-2">
+                  {study.data.results.slice(0, 3).map((result) => (
+                    <li class="flex items-center gap-2 text-sm opacity-40">
+                      <span class="text-brand-400">→</span>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div class="flex flex-wrap gap-3">
+              {study.data.services.map((service) => (
+                <span class="text-xs opacity-15">{service}</span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="border-t border-white/5">
+  <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
-        <h2 class="text-3xl font-bold mb-4">Have a similar problem?</h2>
-        <p class="text-lg opacity-50 mb-8">
-          Every project starts with a conversation. Tell us what you're working on.
+        <h2 class="mb-4 text-3xl font-bold">Have a similar problem?</h2>
+        <p class="mb-8 text-lg opacity-50">
+          Every project starts with a conversation. Tell us what you're working
+          on.
         </p>
-        <a href="/contact" class="btn-primary shadow-engine-glow">Get a Quote</a>
+        <a href="/contact" class="btn-primary shadow-engine-glow">Get a Quote</a
+        >
       </div>
     </div>
   </section>

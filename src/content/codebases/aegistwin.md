@@ -1,42 +1,50 @@
 ---
-title: "AegisTwin"
-tagline: "Event-driven agent runtime with governance and replay"
-description: "A productized agent runtime providing event-driven architecture, built-in policy governance, deterministic replay for debugging, and local memory graphs—everything needed to build auditable, controllable AI agents."
-status: "available"
-category: "AI Infrastructure"
-tags: ["ai-agents", "governance", "runtime", "replay", "memory-graph", "event-driven"]
+title: 'AegisTwin'
+tagline: 'Event-driven agent runtime with governance and replay'
+description: 'A productized agent runtime providing event-driven architecture, built-in policy governance, deterministic replay for debugging, and local memory graphs—everything needed to build auditable, controllable AI agents.'
+status: 'available'
+category: 'AI Infrastructure'
+tags:
+  [
+    'ai-agents',
+    'governance',
+    'runtime',
+    'replay',
+    'memory-graph',
+    'event-driven'
+  ]
 features:
-  - "Event-driven architecture with typed, traceable events"
-  - "Policy engine with configurable gates and audit logging"
-  - "Deterministic replay for debugging and verification"
-  - "Local memory graph (episodic, semantic, procedural)"
-  - "FastAPI control plane with OpenAPI documentation"
-  - "SDK for embedding in your own applications"
-  - "Docker and Kubernetes deployment ready"
-  - "Observability stack: Grafana, Prometheus, Jaeger"
+  - 'Event-driven architecture with typed, traceable events'
+  - 'Policy engine with configurable gates and audit logging'
+  - 'Deterministic replay for debugging and verification'
+  - 'Local memory graph (episodic, semantic, procedural)'
+  - 'FastAPI control plane with OpenAPI documentation'
+  - 'SDK for embedding in your own applications'
+  - 'Docker and Kubernetes deployment ready'
+  - 'Observability stack: Grafana, Prometheus, Jaeger'
 included:
-  - "Full source code (Python with FastAPI)"
-  - "TypeScript SDK for frontend integration"
-  - "Docker Compose with observability stack"
-  - "Helm charts for Kubernetes deployment"
-  - "8 example scripts covering all features"
-  - "Comprehensive documentation (16 guides)"
-  - "Synthetic test fixtures"
-  - "Integration test suite"
-  - "Enterprise security layer (auth, RBAC, encryption)"
-  - "Admin dashboard (React + TypeScript)"
-  - "Compliance documentation (SOC2, HIPAA, GDPR)"
-  - "Complete IP transfer ready"
+  - 'Full source code (Python with FastAPI)'
+  - 'TypeScript SDK for frontend integration'
+  - 'Docker Compose with observability stack'
+  - 'Helm charts for Kubernetes deployment'
+  - '8 example scripts covering all features'
+  - 'Comprehensive documentation (16 guides)'
+  - 'Synthetic test fixtures'
+  - 'Integration test suite'
+  - 'Enterprise security layer (auth, RBAC, encryption)'
+  - 'Admin dashboard (React + TypeScript)'
+  - 'Compliance documentation (SOC2, HIPAA, GDPR)'
+  - 'Complete IP transfer ready'
 targetAudience:
-  - "Teams building production AI agents"
-  - "Enterprises requiring auditable AI systems"
-  - "Developers needing deterministic agent debugging"
-  - "Organizations with AI governance requirements"
+  - 'Teams building production AI agents'
+  - 'Enterprises requiring auditable AI systems'
+  - 'Developers needing deterministic agent debugging'
+  - 'Organizations with AI governance requirements'
 order: 3
 price: 8500
 originalPrice: 25000
-pricingNote: "One-time purchase. Full IP transfer. Includes 90-day support."
-stripeLink: "https://buy.stripe.com/7sY28rbQq5d60cX1oE87K08"
+pricingNote: 'One-time purchase. Full IP transfer. Includes 90-day support.'
+stripeLink: 'https://buy.stripe.com/7sY28rbQq5d60cX1oE87K08'
 licensesAvailable: 3
 ---
 
@@ -47,6 +55,7 @@ AegisTwin is a **productized agent runtime** that provides the infrastructure mo
 ## The Problem It Solves
 
 Modern AI agents need more than inference:
+
 - No audit trail—can't explain what the agent did or why
 - No policy enforcement—agents can take unauthorized actions
 - No replay capability—impossible to debug non-deterministic behavior
@@ -57,19 +66,25 @@ AegisTwin provides the missing infrastructure layer.
 ## Key Capabilities
 
 ### Event-Driven Architecture
+
 All module communication flows through typed, traceable events. Every action has a parent chain, payload hash, and timestamp for complete provenance.
 
 ### Built-in Governance
+
 Configurable policy gates deny forbidden actions before they execute. All denials are logged with full context. Define rules like "never execute shell commands" or "block PII export."
 
 ### Deterministic Replay
+
 Record any agent run and replay it exactly. Hash verification ensures determinism. Critical for debugging, compliance audits, and regression testing.
 
 ### Local Memory Graph
+
 Episodic, semantic, and procedural memory systems—all running locally. No cloud dependency means full data sovereignty and privacy.
 
 ### Production-Ready API
+
 FastAPI control plane with:
+
 - `/health` — Health checks
 - `/demo/{name}` — Run demos
 - `/ingest` — Ingest data
@@ -78,6 +93,7 @@ FastAPI control plane with:
 - `/policies` — List policies
 
 ### Embeddable SDK
+
 Use AegisTwin as a library in your applications:
 
 ```python

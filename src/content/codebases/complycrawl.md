@@ -1,39 +1,47 @@
 ---
-title: "ComplyCrawl"
-tagline: "Compliance-first web automation toolkit"
-description: "A Python-based web automation toolkit that puts compliance first—automatic robots.txt enforcement, encrypted audit trails, and intelligent throttling for organizations that need powerful crawling without legal risk."
-status: "available"
-category: "Compliance Automation"
-tags: ["compliance", "web-automation", "crawling", "seo", "audit-trail", "robots-txt"]
+title: 'ComplyCrawl'
+tagline: 'Compliance-first web automation toolkit'
+description: 'A Python-based web automation toolkit that puts compliance first—automatic robots.txt enforcement, encrypted audit trails, and intelligent throttling for organizations that need powerful crawling without legal risk.'
+status: 'available'
+category: 'Compliance Automation'
+tags:
+  [
+    'compliance',
+    'web-automation',
+    'crawling',
+    'seo',
+    'audit-trail',
+    'robots-txt'
+  ]
 features:
-  - "Automatic robots.txt enforcement before any request"
-  - "Consent-first architecture with explicit consent gates"
-  - "Encrypted audit trails with SHA-256 hash chains"
-  - "Three ready-to-use playbooks: SEO, Catalog, Link Health"
-  - "Intelligent throttling with crawl-delay observation"
-  - "CSV and PDF report exports for stakeholders"
-  - "Domain whitelisting and custom user-agent support"
-  - "SOC 2 / ISO 27001 alignment built-in"
+  - 'Automatic robots.txt enforcement before any request'
+  - 'Consent-first architecture with explicit consent gates'
+  - 'Encrypted audit trails with SHA-256 hash chains'
+  - 'Three ready-to-use playbooks: SEO, Catalog, Link Health'
+  - 'Intelligent throttling with crawl-delay observation'
+  - 'CSV and PDF report exports for stakeholders'
+  - 'Domain whitelisting and custom user-agent support'
+  - 'SOC 2 / ISO 27001 alignment built-in'
 included:
-  - "Full source code (Python with CLI)"
-  - "Three complete playbooks (SEO regression, Catalog monitoring, Link health)"
-  - "YAML configuration profiles"
-  - "Encrypted vault system with Fernet encryption"
-  - "Docker configuration"
-  - "Railway deployment template"
-  - "Demo output and documentation"
-  - "Test suite with pytest"
-  - "Complete IP transfer ready"
+  - 'Full source code (Python with CLI)'
+  - 'Three complete playbooks (SEO regression, Catalog monitoring, Link health)'
+  - 'YAML configuration profiles'
+  - 'Encrypted vault system with Fernet encryption'
+  - 'Docker configuration'
+  - 'Railway deployment template'
+  - 'Demo output and documentation'
+  - 'Test suite with pytest'
+  - 'Complete IP transfer ready'
 targetAudience:
-  - "Regulated industries needing compliant web automation"
-  - "Marketing agencies monitoring client SEO"
-  - "E-commerce businesses tracking catalog changes"
-  - "Compliance teams requiring audit trails"
+  - 'Regulated industries needing compliant web automation'
+  - 'Marketing agencies monitoring client SEO'
+  - 'E-commerce businesses tracking catalog changes'
+  - 'Compliance teams requiring audit trails'
 order: 2
 price: 4500
 originalPrice: 12000
-pricingNote: "One-time purchase. Full IP transfer. Includes 30-day support."
-stripeLink: "https://buy.stripe.com/3cI8wPbQq34YcZJffu87K06"
+pricingNote: 'One-time purchase. Full IP transfer. Includes 30-day support.'
+stripeLink: 'https://buy.stripe.com/3cI8wPbQq34YcZJffu87K06'
 licensesAvailable: 5
 ---
 
@@ -44,6 +52,7 @@ ComplyCrawl is a **compliance-first web automation toolkit** designed for organi
 ## The Problem It Solves
 
 Traditional web scraping tools ignore compliance:
+
 - No robots.txt respect—risking legal action
 - No audit trails—impossible to prove compliant behavior
 - No rate limiting—overloading target servers
@@ -54,12 +63,14 @@ ComplyCrawl solves this with compliance baked into every layer.
 ## Key Capabilities
 
 ### Guardrails System
+
 - **robots.txt Parser**: Automatically fetches and evaluates robots.txt before any request
 - **Consent Gates**: Config requires explicit `consent: true` flag
 - **Domain Whitelisting**: Restrict automation to approved domains only
 - **Custom User-Agent**: Identify your bot with purpose and contact info
 
 ### Encrypted Audit Vault
+
 - **Append-Only Logging**: SHA-256 hash chains create tamper-evident audit trails
 - **Encrypted Storage**: Artifacts encrypted with Fernet (AES-128)
 - **Full Reproducibility**: Config snapshots with each run
@@ -77,6 +88,7 @@ Track product pages for price and availability changes. Configurable thresholds 
 Monitor URLs for availability, track redirect chains, measure response times, and generate broken link reports.
 
 ### Intelligent Throttling
+
 - Per-domain delays
 - Crawl-delay directive observation
 - Concurrency limits

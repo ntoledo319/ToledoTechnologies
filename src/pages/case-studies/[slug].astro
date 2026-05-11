@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import InsertLayout from '../../layouts/InsertLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, articleSchema } from '../../utils/jsonld';
 
@@ -8,7 +7,7 @@ export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
   return caseStudies.map((study) => ({
     params: { slug: study.slug },
-    props: { study },
+    props: { study }
   }));
 }
 
@@ -25,8 +24,8 @@ const jsonLd = [
     title: study.data.title,
     description: study.data.description,
     url: `/case-studies/${study.slug}`,
-    publishedDate: study.data.publishedDate.toISOString(),
-  }),
+    publishedDate: study.data.publishedDate.toISOString()
+  })
 ];
 
 function formatDate(date: Date): string {
@@ -37,109 +36,85 @@ function formatDate(date: Date): string {
 }
 ---
 
-<BaseLayout
+<InsertLayout
   title={study.data.title}
   description={study.data.description}
   jsonLd={jsonLd}
-  realmGlow="0.68 0.16 130"
-  realmBg="0.10 0.02 150"
-  realmText="0.98 0.02 150"
+  heading={study.data.title}
+  subheading={study.data.description}
 >
-  <!-- Header -->
-  <article>
-  <header class="border-b border-white/5">
-    <div class="container-wide section-padding-sm">
-      <div class="max-w-4xl">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Case Studies', href: '/case-studies' },
-          { label: study.data.title },
-        ]} />
-        
-        <div class="flex flex-wrap items-center gap-4 mb-6">
-          <span class="text-sm font-medium opacity-30 uppercase tracking-widest">
-            {study.data.industry}
-          </span>
-          <time class="text-sm opacity-30">
-            {formatDate(study.data.publishedDate)}
-          </time>
-        </div>
-        
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 tracking-tight leading-tight">
-          {study.data.title}
-        </h1>
-        
-        <p class="text-xl sm:text-2xl opacity-50 mb-8 max-w-3xl leading-relaxed">
-          {study.data.description}
-        </p>
-        
-        <div class="flex flex-wrap gap-3">
-          {study.data.services.map((service) => (
-            <a href="/services" class="text-sm text-brand-400 hover:text-brand-300 transition-colors">
-              {service}
-            </a>
-          ))}
-        </div>
-      </div>
+  <header class="mb-12 border-b border-black/5 pb-8">
+    <div class="mb-6 flex flex-wrap items-center gap-4">
+      <span class="text-sm font-medium tracking-widest uppercase opacity-40">
+        {study.data.industry}
+      </span>
+      <time class="text-sm opacity-40">
+        {formatDate(study.data.publishedDate)}
+      </time>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      {
+        study.data.services.map((service) => (
+          <a
+            href="/services"
+            class="text-warm-500 hover:text-warm-600 text-sm transition-colors"
+          >
+            {service}
+          </a>
+        ))
+      }
     </div>
   </header>
 
-  <!-- Results -->
-  {study.data.results.length > 0 && (
-    <section class="border-b border-white/5">
-      <div class="container-wide py-12">
-        <h2 class="text-xs font-bold text-brand-400 uppercase tracking-[0.3em] mb-8">
+  {
+    study.data.results.length > 0 && (
+      <section class="mb-12 border-b border-black/5 pb-8">
+        <h2
+          class="text-warm-500 mb-8 text-xs font-bold tracking-[0.3em] uppercase"
+          style="font-family: var(--font-lyric);"
+        >
           Key Results
         </h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid gap-8 sm:grid-cols-2">
           {study.data.results.map((result) => (
             <div>
               <p class="font-medium opacity-70">{result}</p>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
-  <!-- Content -->
-  <section class="container-narrow section-padding-sm">
-    <div class="max-w-3xl mx-auto prose prose-invert prose-lg prose-headings:font-mono prose-headings:tracking-tight prose-a:text-warm-400">
-      <Content />
+  <div class="prose prose-lg max-w-none">
+    <Content />
+  </div>
+
+  {
+    study.data.testimonial && (
+      <section class="mt-16 border-t border-black/5 pt-12">
+        <blockquote class="mb-8 text-xl leading-relaxed italic opacity-70 sm:text-2xl">
+          "{study.data.testimonial.quote}"
+        </blockquote>
+        <div>
+          <p class="font-bold">{study.data.testimonial.author}</p>
+          <p class="text-sm opacity-40">{study.data.testimonial.role}</p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="mt-16 border-t border-black/5 pt-12">
+    <h2 class="mb-3 text-2xl font-bold" style="font-family: var(--font-lyric);">
+      Have a similar challenge?
+    </h2>
+    <p class="mb-6 opacity-50">
+      Tell us what you're dealing with. We'll tell you what it takes to fix it.
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href="/contact" class="btn-primary">Get a Quote</a>
+      <a href="/case-studies" class="btn-ghost">More Case Studies</a>
     </div>
   </section>
-
-  <!-- Testimonial -->
-  {study.data.testimonial && (
-    <section class="border-t border-white/5">
-      <div class="container-narrow section-padding-sm">
-        <div class="max-w-3xl mx-auto text-center">
-          <blockquote class="text-xl sm:text-2xl opacity-70 mb-8 italic leading-relaxed">
-            "{study.data.testimonial.quote}"
-          </blockquote>
-          <div>
-            <p class="font-bold">{study.data.testimonial.author}</p>
-            <p class="text-sm opacity-30">{study.data.testimonial.role}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- CTA -->
-  <section class="border-t border-white/5">
-    <div class="container-narrow section-padding-sm">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-bold mb-3">Have a similar challenge?</h2>
-        <p class="opacity-50 mb-6">
-          Tell us what you're dealing with. We'll tell you what it takes to fix it.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="/contact" class="btn-primary">Get a Quote</a>
-          <a href="/case-studies" class="btn-ghost">More Case Studies</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  </article>
-</BaseLayout>
+</InsertLayout>

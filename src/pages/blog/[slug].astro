@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import InsertLayout from '../../layouts/InsertLayout.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, blogPostingSchema } from '../../utils/jsonld';
 
@@ -8,7 +7,7 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post }
   }));
 }
 
@@ -41,12 +40,12 @@ function formatDate(date: Date): string {
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const relatedPosts = allPosts
-  .filter(p => p.slug !== post.slug)
-  .filter(p => p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .filter((p) => p.slug !== post.slug)
+  .filter((p) => p.data.tags.some((tag) => post.data.tags.includes(tag)))
   .slice(0, 3);
 ---
 
-<BaseLayout
+<InsertLayout
   title={post.data.title}
   description={post.data.description}
   ogType="article"
@@ -54,97 +53,90 @@ const relatedPosts = allPosts
   modifiedTime={post.data.modifiedDate?.toISOString()}
   author={post.data.author}
   jsonLd={jsonLd}
-  realmGlow="0.58 0.12 210"
-  realmBg="0.12 0.01 220"
-  realmText="0.98 0.01 220"
 >
-  <!-- Article Header -->
-  <article>
-    <header class="border-b border-white/5">
-      <div class="container-narrow section-padding-sm">
-        <div class="max-w-3xl mx-auto">
-          <Breadcrumbs items={[
-            { label: 'Home', href: '/' },
-            { label: 'Blog', href: '/blog' },
-            { label: post.data.title },
-          ]} />
-          
-          <div class="flex flex-wrap items-center gap-4 mb-6">
-            <time class="text-sm opacity-30" datetime={post.data.publishedDate.toISOString()}>
-              {formatDate(post.data.publishedDate)}
-            </time>
-            <span class="opacity-10">•</span>
-            <span class="text-sm opacity-30">{post.data.author}</span>
-          </div>
-          
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 tracking-tight leading-tight">
-            {post.data.title}
-          </h1>
-          
-          <p class="text-xl sm:text-2xl opacity-50 mb-8 leading-relaxed">
-            {post.data.description}
-          </p>
-          
-          {post.data.tldr && (
-            <p class="text-base opacity-40 max-w-2xl mb-8">
-              <span class="font-bold text-warm-400 uppercase tracking-widest text-xs mr-2">TL;DR</span>
-              {post.data.tldr}
-            </p>
-          )}
-          
-          <div class="flex flex-wrap gap-3">
-            {post.data.tags.map((tag) => (
-              <a href={`/blog/tag/${tag}`} class="text-xs opacity-30 hover:opacity-70 hover:text-warm-400 transition-colors">
-                {tag}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Article Content -->
-    <div class="container-narrow section-padding-sm">
-      <div class="max-w-3xl mx-auto prose prose-invert prose-lg prose-headings:font-mono prose-headings:tracking-tight prose-a:text-warm-400 prose-a:no-underline hover:prose-a:underline prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']">
-        <Content />
-      </div>
+  <header class="mb-12 border-b border-black/5 pb-8">
+    <div class="mb-6 flex flex-wrap items-center gap-4">
+      <time
+        class="text-sm opacity-40"
+        datetime={post.data.publishedDate.toISOString()}
+      >
+        {formatDate(post.data.publishedDate)}
+      </time>
+      <span class="opacity-20">•</span>
+      <span class="text-sm opacity-40">{post.data.author}</span>
     </div>
-  </article>
 
-  <!-- Related Posts -->
-  {relatedPosts.length > 0 && (
-    <section class="border-t border-white/5">
-      <div class="container-narrow section-padding-sm">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="text-xl font-bold mb-8 opacity-40 uppercase tracking-widest">Related Posts</h2>
-          <div class="space-y-8">
-            {relatedPosts.map((related) => (
-              <a 
-                href={`/blog/${related.slug}`}
-                class="group block transition-all duration-300 hover:text-warm-400"
-              >
-                <h3 class="text-lg font-bold group-hover:text-warm-400 transition-colors mb-2">
-                  {related.data.title}
-                </h3>
-                <p class="text-sm opacity-40 group-hover:opacity-60 transition-opacity leading-relaxed">{related.data.description}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
+    <p class="mb-8 text-xl leading-relaxed opacity-60 sm:text-2xl">
+      {post.data.description}
+    </p>
 
-  <!-- CTA -->
-  <section class="border-t border-white/5">
-    <div class="container-narrow section-padding-sm">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-bold mb-3">Need this kind of work done?</h2>
-        <p class="opacity-50 mb-6">
-          We write about what we actually do. If this resonated, let's talk.
+    {
+      post.data.tldr && (
+        <p class="mb-8 max-w-2xl text-base opacity-50">
+          <span class="text-warm-500 mr-2 text-xs font-bold tracking-widest uppercase">
+            TL;DR
+          </span>
+          {post.data.tldr}
         </p>
-        <a href="/contact" class="btn-primary">Get a Quote</a>
-      </div>
+      )
+    }
+
+    <div class="flex flex-wrap gap-3">
+      {
+        post.data.tags.map((tag) => (
+          <a
+            href={`/blog/tag/${tag}`}
+            class="hover:text-warm-500 text-xs opacity-40 transition-colors hover:opacity-80"
+          >
+            {tag}
+          </a>
+        ))
+      }
     </div>
+  </header>
+
+  <div class="prose prose-lg max-w-none">
+    <Content />
+  </div>
+
+  {
+    relatedPosts.length > 0 && (
+      <section class="mt-20 border-t border-black/5 pt-12">
+        <h2
+          class="mb-8 text-xl font-bold tracking-widest uppercase opacity-40"
+          style="font-family: var(--font-lyric);"
+        >
+          Related Posts
+        </h2>
+        <div class="space-y-8">
+          {relatedPosts.map((related) => (
+            <a
+              href={`/blog/${related.slug}`}
+              class="group hover:text-warm-500 block transition-all duration-300"
+            >
+              <h3
+                class="group-hover:text-warm-500 mb-2 text-lg font-bold transition-colors"
+                style="font-family: var(--font-lyric);"
+              >
+                {related.data.title}
+              </h3>
+              <p class="text-sm leading-relaxed opacity-40 transition-opacity group-hover:opacity-60">
+                {related.data.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="mt-20 border-t border-black/5 pt-12">
+    <h2 class="mb-3 text-2xl font-bold" style="font-family: var(--font-lyric);">
+      Need this kind of work done?
+    </h2>
+    <p class="mb-6 opacity-50">
+      We write about what we actually do. If this resonated, let's talk.
+    </p>
+    <a href="/contact" class="btn-primary">Get a Quote</a>
   </section>
-</BaseLayout>
+</InsertLayout>

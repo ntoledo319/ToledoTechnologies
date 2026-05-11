@@ -15,8 +15,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    tldr: z.string().optional(),
-  }),
+    tldr: z.string().optional()
+  })
 });
 
 /**
@@ -40,8 +40,8 @@ const codebases = defineCollection({
     originalPrice: z.number().optional(),
     pricingNote: z.string().optional(),
     stripeLink: z.string().optional(),
-    licensesAvailable: z.number().optional(),
-  }),
+    licensesAvailable: z.number().optional()
+  })
 });
 
 /**
@@ -59,16 +59,18 @@ const caseStudies = defineCollection({
     publishedDate: z.coerce.date(),
     featured: z.boolean().default(false),
     results: z.array(z.string()).default([]),
-    testimonial: z.object({
-      quote: z.string(),
-      author: z.string(),
-      role: z.string(),
-    }).optional(),
-  }),
+    testimonial: z
+      .object({
+        quote: z.string(),
+        author: z.string(),
+        role: z.string()
+      })
+      .optional()
+  })
 });
 
 export const collections = {
   blog,
   codebases,
-  'case-studies': caseStudies,
+  'case-studies': caseStudies
 };
