@@ -118,7 +118,7 @@
 }
 
 /* Photographic hero — a single high-res image (the Midnight Session
-   workstation) renders at 200vw spanning both panels, so the
+   workstation) renders at 100vw spanning both panels, so the
    gatefold splits a continuous image when it opens. Each panel
    clips to its half. Type-legibility is handled by a per-panel
    gradient tint, NOT a global vignette, so the photo stays itself. */
@@ -126,7 +126,7 @@
   position: absolute;
   top: 0;
   height: 100%;
-  width: 200vw;
+  width: 100vw;
   overflow: hidden;
   filter: contrast(1.04) saturate(0.88) brightness(0.95);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
