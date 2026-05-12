@@ -117,8 +117,8 @@
   background: linear-gradient(to left, rgba(0, 0, 0, 0.18), transparent);
 }
 
-/* Photographic hero — a single high-res image (the Midnight Session
-   workstation) renders at 100vw spanning both panels, so the
+/* Photographic hero — a single high-res image (the CRT-on-desk
+   found-Polaroid) renders at 200vw spanning both panels, so the
    gatefold splits a continuous image when it opens. Each panel
    clips to its half. Type-legibility is handled by a per-panel
    gradient tint, NOT a global vignette, so the photo stays itself. */
@@ -126,9 +126,9 @@
   position: absolute;
   top: 0;
   height: 100%;
-  width: 100vw;
+  width: 200vw;
   overflow: hidden;
-  filter: contrast(1.04) saturate(0.88) brightness(0.95);
+  filter: contrast(1.02) saturate(0.92);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .cover-panel.left .hero-art {
@@ -145,7 +145,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
+  object-position: 50% 40%;
   display: block;
 }
 

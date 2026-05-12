@@ -134,10 +134,16 @@ const fullTitle =
       <div class="cover-panel left" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <source srcset="/images/hero-midnight.jpg" />
+            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <source
+              srcset="/images/hero-crt-3000.jpg"
+              media="(min-width: 900px)"
+            />
             <img
               class="hero-photo"
-              src="/images/hero-midnight.jpg"
+              src="/images/hero-crt-1600.jpg"
+              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
+              sizes="200vw"
               alt=""
               fetchpriority="high"
               decoding="async"
@@ -190,11 +196,17 @@ const fullTitle =
       <div class="cover-panel right" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <source srcset="/images/hero-midnight.jpg" />
+            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <source
+              srcset="/images/hero-crt-3000.jpg"
+              media="(min-width: 900px)"
+            />
             <img
               class="hero-photo"
-              src="/images/hero-midnight.jpg"
-              alt="A cinematic late-night creative workstation. A vintage record player spins a vinyl record under the warm, intimate glow of a desk lamp, casting soft shadows across a wooden desk. The atmosphere is quiet, focused, and high-fidelity."
+              src="/images/hero-crt-1600.jpg"
+              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
+              sizes="200vw"
+              alt="A silver CRT monitor on a wooden desk beside an IBM Personal System/2 box, warm afternoon light, faded poster on the wall behind."
               decoding="async"
               loading="eager"
             />
