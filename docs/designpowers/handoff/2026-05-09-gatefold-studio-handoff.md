@@ -10,24 +10,29 @@ This redesign transforms Toledo Technologies into a "High-Fidelity Gatefold" exp
 
 - **Base Surface:** Warm off-white (`oklch(0.98 0.01 45)`).
 - **Texture:** A high-frequency grain overlay (`opacity 0.03`) to simulate paper stock.
-- **The Hero:** Ultra-high-resolution abstract photography. No vector art.
+- **The Hero:** Art-directed responsive photography.
+  - **Desktop:** `hero-midnight.jpg` (Microphone).
+  - **Mobile:** `hero-crt.jpg` (Workstation).
 
 ### Typography (The Lyric Sheet)
 
 - **Headings:** Bold, clean sans-serif (e.g., Nunito/Outfit).
-- **Body:** Highly readable serif or soft sans-serif (e.g., Lora or Inter).
-- **Margins:** Generous. Body text should be centered with a max-width of `65ch` for reading comfort.
+- **Body:** Highly readable serif (Lora).
+- **Mobile Scale:** Reduce headline font-size floors to `32px` to prevent overflow and excessive scrolling on small screens.
+- **Margins:** Desktop uses `32px` frame inset; Mobile uses `16px` to reclaim content space.
 
-## 2. Interaction Specification (The Hinge)
+## 2. Interaction Specification (The Reveal)
 
-### The Unfold
+### The Unfold (Desktop)
 
-- **Mechanism:** A 3D "Hinge" interaction where the center image splits or a panel "opens" to reveal the content.
-- **Physics:** Use spring-based easing (`damping: 20, stiffness: 100`).
-- **States:**
-  - `Closed`: Pure hero image, minimal typography.
-  - `Unfolding`: Panels rotate along a Y-axis.
-  - `Open`: Content "Insert" is fully visible.
+- **Mechanism:** A 3D "Hinge" interaction where panels swing along a Y-axis.
+- **Physics:** Spring-based easing for tactile weight.
+
+### The Record Release (Mobile)
+
+- **Mechanism:** Tap-to-Reveal. Lateral drag is disabled to avoid browser gesture conflicts.
+- **Animation:** Panels slide Up and Fade out (simulating a record being pulled from a sleeve).
+- **Stability:** Use `100dvh` for the cover container to ensure perfect viewport centering regardless of mobile UI shifts.
 
 ### The Flip
 

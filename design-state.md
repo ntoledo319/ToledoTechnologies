@@ -33,8 +33,11 @@
 | Date       | Agent            | Decision              | Rationale                                                                           |
 | ---------- | ---------------- | --------------------- | ----------------------------------------------------------------------------------- |
 | 2026-05-09 | design-discovery | Gatefold Interaction  | Mimics the physical feeling of a record sleeve; creates a unique, intentional vibe. |
-| 2026-05-11 | design-discovery | 5-Microsite Pivot     | Reflects the new studio structure: Web, SiteLift, Apps, Mobile, AI.                 |
-| 2026-05-11 | design-discovery | Cross-cutting Pillars | Build /care, /discovery, /partner as shared studio services.                        |
+| 2026-05-11 | design-discovery | 5-Microsite Pivot      | Reflects the new studio structure: Web, SiteLift, Apps, Mobile, AI.                 |
+| 2026-05-11 | design-discovery | Cross-cutting Pillars  | Build /care, /discovery, /partner as shared studio services.                        |
+| 2026-05-12 | design-builder   | Mobile Optimization    | Switched to Tap-to-Reveal and 100dvh for stable, conflict-free mobile interaction.  |
+| 2026-05-12 | design-builder   | Art-Directed Heroes    | Desktop uses Microphone (Midnight); Mobile uses CRT Workstation for better fit.     |
+| 2026-05-12 | design-critic    | Anti-Slop Content Pass | Full rewrite of About/Home copy to strictly follow high-fidelity narrative rules.    |
 
 ## Open Questions
 

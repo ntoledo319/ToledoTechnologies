@@ -4,15 +4,15 @@
 
 ### The Gatefold Reveal
 
-**The principle:** Interaction must feel physical and hinges.
-**What this means in practice:** Navigation transitions mimic a gatefold record sleeve unfolding. We use spring physics, paper-like easing, and "hinge" points for UI elements.
-**What this means we will NOT do:** Standard digital transitions like fades, simple slides, or instant swaps.
+**The principle:** Interaction must feel physical and hinged.
+**What this means in practice:** On desktop, navigation transitions mimic a gatefold record sleeve unfolding (3D swing). On mobile, the interaction is simplified to a **"Record Release"** (Slide Up + Fade) triggered by a tap, bypassing lateral gestures that conflict with system navigation.
+**What this means we will NOT do:** Standard digital transitions like fades, simple slides, or instant swaps without a physical metaphor.
 
 ### Analog High-Def
 
 **The principle:** High-resolution imagery meets organic, tactile surfaces.
-**What this means in practice:** Ultra-sharp abstract heroes (inspired by the _Contra_ cover) are paired with paper grain, subtle noise, and organic textures.
-**What this means we will NOT do:** Flat, clinical, "web 2.0" vector graphics or perfectly smooth gradients.
+**What this means in practice:** Art-directed heroes deliver the best experience per device. Desktop uses the **Midnight Microphone** for wide-angle cinematic depth; mobile uses the **CRT Workstation** for warm, vertical intimacy. Both are paired with paper grain and organic textures.
+**What this means we will NOT do:** Use a "one-size-fits-all" image that crops poorly or loses its intention on smaller screens.
 
 ### The Deep Track
 
