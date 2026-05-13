@@ -58,18 +58,43 @@
   display: flex;
   perspective: 2200px;
   background: var(--gf-void);
+  height: 100vh;
+  height: 100dvh;
 }
 .cover-panel {
   position: relative;
   flex: 1;
-  height: 100vh;
+  height: 100%;
   background: var(--gf-paper-100);
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: transform var(--gf-hinge-duration) var(--gf-hinge-ease);
-  will-change: transform;
+  transition:
+    transform var(--gf-hinge-duration) var(--gf-hinge-ease),
+    opacity var(--gf-hinge-duration) var(--gf-hinge-ease);
+  will-change: transform, opacity;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .cover {
+    perspective: none; /* Flatten for mobile to avoid Z-index fighting */
+  }
+  .cover-panel {
+    position: absolute;
+    inset: 0;
+    flex: none;
+    width: 100%;
+    /* Mobile panels overlap; we reveal the sleeve as a single unit */
+  }
+  .cover-panel.right {
+    display: none; /* Hide right panel on mobile cover; left panel handles the "Sleeve" */
+  }
+  .cover.open .cover-panel.left {
+    transform: translateY(-100%) !important;
+    opacity: 0;
+  }
+}
+
 .cover-panel.left {
   transform-origin: right center;
 }
@@ -97,6 +122,12 @@
   background: linear-gradient(to right, rgba(0, 0, 0, 0.32), transparent);
 }
 
+@media (max-width: 768px) {
+  .cover-panel::after {
+    display: none;
+  }
+}
+
 /* Outer edge soft fall-off */
 .cover-panel::before {
   content: '';
@@ -115,6 +146,17 @@
 .cover-panel.right::before {
   right: 0;
   background: linear-gradient(to left, rgba(0, 0, 0, 0.18), transparent);
+}
+
+@media (max-width: 768px) {
+  .cover-panel::before {
+    width: 60px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 120px;
+  }
 }
 
 /* Photographic hero — a single high-res image (the CRT-on-desk
@@ -137,6 +179,14 @@
 .cover-panel.right .hero-art {
   right: 0;
   left: auto;
+}
+
+@media (max-width: 768px) {
+  .cover .hero-art {
+    width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+  }
 }
 
 .cover .hero-photo {
@@ -176,6 +226,17 @@
     );
 }
 
+@media (max-width: 768px) {
+  .cover .hero-photo-tint {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 6, 4, 0.1) 0%,
+      rgba(8, 6, 4, 0.4) 50%,
+      rgba(8, 6, 4, 0.8) 100%
+    );
+  }
+}
+
 /* Film grain on the cover hero — kept light so the photo's own
    texture stays primary. */
 .cover .grain {
@@ -205,9 +266,10 @@
     inset 0 0 0 1px rgba(0, 0, 0, 0.18),
     inset 0 0 60px rgba(0, 0, 0, 0.18);
 }
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .cover-frame {
-    inset: 18px;
+    inset: 16px;
+    border-width: 0.5px;
   }
 }
 
@@ -339,7 +401,7 @@
 .cover-title {
   font-family: var(--gf-font-display);
   font-weight: 800;
-  font-size: clamp(48px, 7.4vw, 124px);
+  font-size: clamp(34px, 7.4vw, 124px);
   line-height: 0.93;
   letter-spacing: -0.035em;
   margin: 0;
@@ -349,6 +411,12 @@
     0 1px 0 rgba(0, 0, 0, 0.4),
     0 2px 24px rgba(0, 0, 0, 0.55),
     0 4px 48px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 768px) {
+  .cover-title {
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
 }
 .cover-title em {
   font-family: var(--gf-font-novel);
@@ -365,6 +433,13 @@
   color: rgba(255, 255, 255, 0.88);
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7);
 }
+@media (max-width: 768px) {
+  .cover-subtitle {
+    margin-top: 16px;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+}
 .cover-catno {
   font-family: var(--gf-font-mono);
   font-size: 10.5px;
@@ -380,6 +455,13 @@
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .cover-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
 /* WAX SEAL — the album side stamp on the front cover */
@@ -823,6 +905,12 @@
   pointer-events: none;
   padding-bottom: env(safe-area-inset-bottom);
 }
+@media (max-width: 768px) {
+  .unfold-wrap {
+    bottom: 8vh;
+    gap: 12px;
+  }
+}
 .unfold {
   pointer-events: auto;
   display: inline-flex;
@@ -846,6 +934,14 @@
     border-color 0.25s ease;
   min-height: 48px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 768px) {
+  .unfold {
+    padding: 18px 36px;
+    font-size: 13px; /* Slightly larger for thumb visibility */
+    background: var(--gf-ink-900);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
 }
 .unfold:hover {
   background: rgba(0, 0, 0, 0.78);
@@ -1022,6 +1118,11 @@
   padding: 0 28px;
   color: var(--gf-ink-800);
 }
+@media (max-width: 768px) {
+  .novel {
+    padding: 0 16px;
+  }
+}
 .novel.wide {
   max-width: 92ch;
 }
@@ -1037,6 +1138,12 @@
   align-items: center;
   gap: 14px;
 }
+@media (max-width: 768px) {
+  .novel .eyebrow {
+    margin-bottom: 20px;
+    letter-spacing: 0.3em;
+  }
+}
 .novel .eyebrow .num {
   color: var(--gf-accent);
 }
@@ -1049,12 +1156,18 @@
 .novel h1 {
   font-family: var(--gf-font-display);
   font-weight: 800;
-  font-size: clamp(40px, 6.2vw, 92px);
+  font-size: clamp(32px, 6.2vw, 92px);
   line-height: 0.96;
   letter-spacing: -0.035em;
   color: var(--gf-ink-900);
   margin: 0 0 28px 0;
   text-wrap: balance;
+}
+@media (max-width: 768px) {
+  .novel h1 {
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
 }
 .novel h1 em {
   font-family: var(--gf-font-novel);
@@ -1071,15 +1184,26 @@
   max-width: 30ch;
   margin: 0 0 20px 0;
 }
+@media (max-width: 768px) {
+  .novel .deck {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+}
 
 .novel h2 {
   font-family: var(--gf-font-display);
   font-weight: 700;
-  font-size: clamp(26px, 2.8vw, 38px);
+  font-size: clamp(24px, 2.8vw, 38px);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--gf-ink-900);
   margin: 64px 0 20px;
+}
+@media (max-width: 768px) {
+  .novel h2 {
+    margin: 48px 0 16px;
+  }
 }
 .novel h3 {
   font-family: var(--gf-font-display);
@@ -1096,6 +1220,12 @@
   margin: 0 0 1.4em 0;
   color: var(--gf-ink-800);
   text-wrap: pretty;
+}
+@media (max-width: 768px) {
+  .novel p {
+    font-size: 17px;
+    line-height: 1.7;
+  }
 }
 .novel p strong {
   color: var(--gf-ink-900);

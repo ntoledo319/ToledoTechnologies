@@ -368,6 +368,7 @@ const fullTitle =
         const isReduced = () =>
           root.getAttribute('data-motion') === 'reduced' ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = () => window.innerWidth <= 768;
 
         const announce = (msg: string) => {
           if (!announcer) return;
@@ -426,6 +427,15 @@ const fullTitle =
           }
         });
 
+        // Mobile Tap-to-Reveal
+        [coverLeft, coverRight].forEach((panel) => {
+          panel?.addEventListener('click', (e) => {
+            if (isMobile() && !isOpen) {
+              openCover();
+            }
+          });
+        });
+
         document.addEventListener('keydown', (e: KeyboardEvent) => {
           if (
             !isOpen &&
@@ -439,14 +449,14 @@ const fullTitle =
 
         if (seam) {
           const onDown = (clientX: number) => {
-            if (isOpen || isReduced()) return;
+            if (isOpen || isReduced() || isMobile()) return;
             isDragging = true;
             dragStartX = clientX;
             dragMaxAngle = 0;
             cover.classList.add('dragging');
           };
           const onMove = (clientX: number) => {
-            if (!isDragging) return;
+            if (!isDragging || isMobile()) return;
             const w = window.innerWidth / 2;
             const dx = Math.max(0, Math.abs(clientX - dragStartX));
             const t = Math.min(1, dx / (w * 0.55));
