@@ -134,11 +134,13 @@ const fullTitle =
       <div class="cover-panel left" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <!-- Desktop: Microphone (Hero Midnight) -->
             <source
-              srcset="/images/hero-crt-3000.jpg"
-              media="(min-width: 900px)"
+              srcset="/images/hero-midnight.jpg"
+              media="(min-width: 769px)"
             />
+            <!-- Mobile: CRT Monitor (Hero CRT) -->
+            <source srcset="/images/hero-crt.jpg" media="(max-width: 768px)" />
             <img
               class="hero-photo"
               src="/images/hero-crt-1600.jpg"
@@ -196,17 +198,19 @@ const fullTitle =
       <div class="cover-panel right" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <source srcset="/images/hero-crt.jpg" media="(min-width: 1800px)" />
+            <!-- Desktop: Microphone (Hero Midnight) -->
             <source
-              srcset="/images/hero-crt-3000.jpg"
-              media="(min-width: 900px)"
+              srcset="/images/hero-midnight.jpg"
+              media="(min-width: 769px)"
             />
+            <!-- Mobile: CRT Monitor (Hero CRT) -->
+            <source srcset="/images/hero-crt.jpg" media="(max-width: 768px)" />
             <img
               class="hero-photo"
               src="/images/hero-crt-1600.jpg"
               srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
               sizes="200vw"
-              alt="A silver CRT monitor on a wooden desk beside an IBM Personal System/2 box, warm afternoon light, faded poster on the wall behind."
+              alt="A cinematic studio setting. Desktop shows a vintage microphone and record player; mobile shows a warm CRT workstation."
               decoding="async"
               loading="eager"
             />
