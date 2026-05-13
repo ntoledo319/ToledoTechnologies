@@ -89,12 +89,14 @@ const fullTitle =
         (Array.isArray(jsonLd) ? (
           jsonLd.map((data) => (
             <script
+              is:inline
               type="application/ld+json"
               set:html={JSON.stringify(data)}
             />
           ))
         ) : (
           <script
+            is:inline
             type="application/ld+json"
             set:html={JSON.stringify(jsonLd)}
           />
@@ -249,7 +251,8 @@ const fullTitle =
             <div class="cover-back-list">
               <p class="label">
                 <span>Side A — The Studio</span><span class="bar"></span><span
-                  >05 tracks</span>
+                  >05 tracks</span
+                >
               </p>
               <ol class="tracklist">
                 <li>
@@ -278,7 +281,8 @@ const fullTitle =
               </ol>
               <p class="label" style="margin-top:18px;">
                 <span>Side B — The Catalog</span><span class="bar"></span><span
-                  >05 tracks</span>
+                  >05 tracks</span
+                >
               </p>
               <ol class="tracklist">
                 <li>
@@ -364,7 +368,6 @@ const fullTitle =
         const btn = document.getElementById('unfold-btn');
         const seam = document.getElementById('seam');
         const announcer = document.getElementById('sr-announcer');
-        const content = document.getElementById('gatefold-content');
         if (!cover || !btn) return;
 
         const sessionKey = 'gatefold-open-v2';
@@ -433,7 +436,7 @@ const fullTitle =
 
         // Mobile Tap-to-Reveal
         [coverLeft, coverRight].forEach((panel) => {
-          panel?.addEventListener('click', (e) => {
+          panel?.addEventListener('click', () => {
             if (isMobile() && !isOpen) {
               openCover();
             }

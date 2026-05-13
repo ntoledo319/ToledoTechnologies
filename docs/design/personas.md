@@ -1,6 +1,6 @@
 # Inclusive Personas: The Gatefold Studio
 
-These personas represent the range of people who will interact with the "Gatefold Studio" redesign. They guide our decisions on typography, interaction physics, and content structure.
+These personas represent the range of people who will interact with the "Gatefold Studio" redesign. They guide decisions on typography, interaction physics, and content structure.
 
 ---
 
@@ -46,7 +46,7 @@ These personas represent the range of people who will interact with the "Gatefol
 
 **Goals:** Verify the studio's technical depth by reading the "Technical Novels."
 
-**Frustrations:** Sites that require precise mouse hovering to trigger interactions. "Folds" that aren't keyboard accessible.
+**Frustrations:** Sites that require precise mouse hovering to trigger interactions. "Folds" that are not keyboard accessible.
 
 **Environment:** Quiet, ergonomic home office.
 

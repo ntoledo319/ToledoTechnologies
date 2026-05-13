@@ -84,12 +84,14 @@ const fullTitle = `${title} | Toledo Technologies`;
         (Array.isArray(jsonLd) ? (
           jsonLd.map((data) => (
             <script
+              is:inline
               type="application/ld+json"
               set:html={JSON.stringify(data)}
             />
           ))
         ) : (
           <script
+            is:inline
             type="application/ld+json"
             set:html={JSON.stringify(jsonLd)}
           />

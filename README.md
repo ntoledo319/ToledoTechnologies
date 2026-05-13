@@ -7,7 +7,7 @@ Static website for [toledotechnologies.com](https://toledotechnologies.com) buil
 - **Framework**: [Astro](https://astro.build) v5
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) v4
 - **Language**: TypeScript
-- **Deployment**: Render Static Site
+- **Deployment**: Vercel Static Site
 
 ## Project Structure
 
@@ -41,15 +41,15 @@ npm run build
 npm run preview
 ```
 
-## Render Deployment Settings
+## Vercel Deployment Settings
 
-When deploying to Render as a Static Site:
+When deploying to Vercel as a Static Site:
 
 | Setting               | Value                     |
 | :-------------------- | :------------------------ |
 | **Build Command**     | `npm ci && npm run build` |
 | **Publish Directory** | `dist`                    |
-| **Node Version**      | 18 or higher              |
+| **Node Version**      | 20 or higher              |
 
 ### Environment Variables
 
@@ -69,7 +69,7 @@ After deploying to production:
 ### Social Preview Testing
 
 - [ ] Test Open Graph with [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
-- [ ] Test Twitter Cards with [Card Validator](https://cards-dev.twitter.com/validator)
+- [ ] Test X (Twitter) Cards with the [Card Validator](https://cards-dev.twitter.com/validator)
 - [ ] Verify OG images render correctly
 
 ### Performance & SEO Audit
@@ -96,7 +96,11 @@ Add new posts to `src/content/blog/` as Markdown files with frontmatter:
 title: 'Post Title'
 description: 'Brief description for SEO'
 publishedDate: 2024-01-15
+modifiedDate: 2024-01-20
+author: 'Author Name'
 tags: ['tag1', 'tag2']
+featured: false
+draft: false
 tldr: 'One-sentence summary'
 ---
 ```
@@ -117,6 +121,11 @@ features: ['Feature 1', 'Feature 2']
 included: ['Item 1', 'Item 2']
 targetAudience: ['Audience 1', 'Audience 2']
 order: 1
+price: 0
+originalPrice: 0
+pricingNote: 'Optional pricing note'
+stripeLink: 'https://buy.stripe.com/...'
+licensesAvailable: 10
 ---
 ```
 
@@ -128,9 +137,11 @@ Add case studies to `src/content/case-studies/`:
 ---
 title: 'Case Study Title'
 description: 'Brief description'
+client: 'Client Name'
 industry: 'Industry Name'
 services: ['Service 1', 'Service 2']
 publishedDate: 2024-01-15
+featured: false
 results: ['Result 1', 'Result 2']
 testimonial:
   quote: 'Testimonial text'

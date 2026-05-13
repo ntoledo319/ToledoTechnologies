@@ -22,7 +22,7 @@ export const defaultSpring: SpringConfig = {
  * Derived from damping: 20, stiffness: 100 with slight overshoot
  * for a tactile, physical feel.
  */
-export function springBezier(config: SpringConfig = defaultSpring): string {
+export function springBezier(_config: SpringConfig = defaultSpring): string {
   // Slight overshoot (back easing) makes the hinge feel physical
   return 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 }
