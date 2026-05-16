@@ -159,16 +159,17 @@
   }
 }
 
-/* Photographic hero — a single high-res image (the CRT-on-desk
-   found-Polaroid) renders at 200vw spanning both panels, so the
-   gatefold splits a continuous image when it opens. Each panel
-   clips to its half. Type-legibility is handled by a per-panel
-   gradient tint, NOT a global vignette, so the photo stays itself. */
+/* Photographic hero — the image fills one viewport (100vw) inside each
+   panel. Each panel clips to its half of the viewport, so the centered
+   subject of the photo (microphone head) ends up bisected by the spine
+   seam: half visible on the left panel, half on the right. When the
+   cover opens, the panels rotate away and the image is dismissed —
+   there is no continuous-image-across-panels effect to preserve. */
 .cover .hero-art {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 200vw;
+  width: 100vw;
   overflow: hidden;
   filter: contrast(1.02) saturate(0.92);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -177,6 +178,9 @@
   left: 0;
 }
 .cover-panel.right .hero-art {
+  /* Pull the image flush with the viewport's right edge so the right
+     panel shows the image's right half (the panel itself occupies
+     viewport 50vw–100vw). */
   right: 0;
   left: auto;
 }
@@ -207,32 +211,53 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /* IMPORTANT: this tint element fills .hero-art (width: 100vw), NOT
+     the cover-panel (50vw on desktop). The panel clips to its half via
+     overflow:hidden. So all 90deg gradient stops below are expressed
+     against the full 100vw tint width, with the panel's visible portion
+     being only 0–50% (left panel) or 50–100% (right panel) of that. */
+
+  /* Left panel visible range: 0%–50%. The mic mesh sits near 50% of
+     the tint (the seam side of the panel). Darken approaching that edge
+     so the bright silver doesn't fight the headline. */
   background:
-    /* Subtle bottom-to-top fall-off for cover-foot legibility */
-    linear-gradient(180deg, rgba(8, 6, 4, 0) 40%, rgba(8, 6, 4, 0.55) 100%),
-    /* Faint left edge darkening so headline has a tonal floor */
-    linear-gradient(90deg, rgba(8, 6, 4, 0.35) 0%, rgba(8, 6, 4, 0) 35%);
+    linear-gradient(
+      90deg,
+      rgba(8, 6, 4, 0) 25%,
+      rgba(8, 6, 4, 0.45) 42%,
+      rgba(8, 6, 4, 0.65) 50%
+    ),
+    linear-gradient(180deg, rgba(8, 6, 4, 0) 55%, rgba(8, 6, 4, 0.4) 100%);
 }
 .cover .hero-photo-tint.right {
+  /* Right panel visible range: 50%–100% of tint width. The mic shaft
+     intrudes from the seam (= tint's 50% mark) into the Side B rows.
+     Heavy darkening at 50%–58%, fading clear by ~73%. */
   background:
-    /* Mirror the left's faint right-edge floor for tracklist legibility */
-    linear-gradient(90deg, rgba(8, 6, 4, 0) 30%, rgba(8, 6, 4, 0.42) 100%),
+    linear-gradient(
+      90deg,
+      rgba(8, 6, 4, 0.7) 50%,
+      rgba(8, 6, 4, 0.45) 58%,
+      rgba(8, 6, 4, 0) 73%
+    ),
     linear-gradient(
       180deg,
       rgba(8, 6, 4, 0.18) 0%,
-      rgba(8, 6, 4, 0) 24%,
+      rgba(8, 6, 4, 0) 22%,
       rgba(8, 6, 4, 0) 70%,
-      rgba(8, 6, 4, 0.55) 100%
+      rgba(8, 6, 4, 0.4) 100%
     );
 }
 
 @media (max-width: 768px) {
   .cover .hero-photo-tint {
+    /* Stronger upper-third floor so the headline stays legible
+       where it sits over the bright CRT glow. */
     background: linear-gradient(
       180deg,
-      rgba(8, 6, 4, 0.1) 0%,
-      rgba(8, 6, 4, 0.4) 50%,
-      rgba(8, 6, 4, 0.8) 100%
+      rgba(8, 6, 4, 0.4) 0%,
+      rgba(8, 6, 4, 0.55) 45%,
+      rgba(8, 6, 4, 0.85) 100%
     );
   }
 }
@@ -368,15 +393,30 @@
    ========================================================= */
 .cover-front {
   position: absolute;
-  left: 8%;
-  right: 6%;
-  top: 14vh;
-  bottom: 14vh;
+  /* Pull off the spine on the right, never closer than ~60px to it
+     so the headline doesn't kiss the crease at narrow desktop widths. */
+  left: clamp(48px, 8%, 96px);
+  right: clamp(60px, 8%, 96px);
+  /* Top baseline matches .cover-back (9vh) — both panels read as one
+     printed object. Bottom at 9vh too; the unfold CTA pill is centered
+     on the seam, so it doesn't collide with the left-aligned catno. */
+  top: 9vh;
+  bottom: 9vh;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   color: #fff;
+}
+@media (max-width: 768px) {
+  .cover-front {
+    /* On mobile the CTA stack is full-width centered (no seam to share),
+       so the catno needs to clear it. 18vh lifts the catno above the
+       unfold button (which sits at bottom 8vh + ~80px stack height). */
+    left: 24px;
+    right: 24px;
+    top: 7vh;
+    bottom: 18vh;
+  }
 }
 .cover-front .meta {
   font-family: var(--gf-font-mono);
@@ -404,7 +444,8 @@
   font-size: clamp(34px, 7.4vw, 124px);
   line-height: 0.93;
   letter-spacing: -0.035em;
-  margin: 0;
+  /* Sits as one block under the meta line — fixed gap, not flex-distributed. */
+  margin: clamp(24px, 4vh, 56px) 0 0 0;
   text-wrap: balance;
   color: #fff;
   text-shadow:
@@ -418,11 +459,25 @@
     letter-spacing: -0.02em;
   }
 }
+/* Desktop cover panels are only ~50vw wide. The original clamp scaled the
+   headline past panel width, forcing every hard-break line to re-wrap and
+   clipping the last line under the spine. Cap the desktop scale so the
+   four <br/> lines fit cleanly. Mobile keeps the bigger clamp above. */
+@media (min-width: 769px) {
+  .cover-title {
+    font-size: clamp(48px, 5vw, 76px);
+  }
+}
 .cover-title em {
+  /* The italic Lora inside heavy Outfit is a deliberate pull-quote.
+     At weight 500 it read as broken-cascade light. Lora's italic axis
+     tops out at 600 in the loaded subset — push it there and tighten
+     the optical contrast so the swap reads as authored emphasis. */
   font-family: var(--gf-font-novel);
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--gf-accent-soft);
+  letter-spacing: -0.01em;
 }
 .cover-subtitle {
   margin: 28px 0 0 0;
@@ -450,6 +505,9 @@
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
 }
 .cover-foot {
+  /* Pushed to the bottom of cover-front; cover-front bottom (22vh) gives
+     the unfold CTA stack its own clear band below this line. */
+  margin-top: auto;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -527,15 +585,19 @@
    ========================================================= */
 .cover-back {
   position: absolute;
-  right: 6%;
-  left: 6%;
+  /* Mirror cover-front horizontal padding so left/right text blocks
+     align with each other across the spine. */
+  left: clamp(60px, 8%, 96px);
+  right: clamp(48px, 8%, 96px);
+  /* Top + bottom mirror .cover-front. Content density at 720p is tuned
+     via .tracklist li padding below, not by squeezing the panel. */
   top: 9vh;
   bottom: 9vh;
   z-index: 3;
   color: #fff;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 .cover-back-head {
   display: flex;
@@ -747,8 +809,18 @@
   letter-spacing: 0;
 }
 .tracklist li .dur {
-  color: rgba(255, 255, 255, 0.45);
+  /* Route/subdomain slugs, not durations. Warmer tone + wider tracking
+     signals "address" instead of a track-time field. Side A entries
+     (no trailing period) get a leading slash for "path on this domain";
+     Side B entries already read as subdomains via their trailing period. */
+  color: rgba(255, 235, 200, 0.6);
+  letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
+}
+.cover-back-list > .tracklist:first-of-type li .dur::before {
+  content: '/';
+  margin-right: 2px;
+  color: rgba(255, 235, 200, 0.32);
 }
 
 /* =========================================================
@@ -901,7 +973,9 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  z-index: 6;
+  /* Above .seam (z:7) so its overlap doesn't intercept button clicks.
+     pointer-events:none on the wrap keeps the seam draggable around the button. */
+  z-index: 8;
   pointer-events: none;
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -972,12 +1046,59 @@
   }
 }
 .unfold-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--gf-font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.62);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
   pointer-events: none;
+}
+/* The two short rules render as drag-tick marks bracketing the hint, so
+   "grab the seam" reads as a gesture instruction, not flavour text. */
+.unfold-hint::before,
+.unfold-hint::after {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.42);
+}
+.unfold-hint::before {
+  box-shadow: -4px 0 0 rgba(255, 255, 255, 0.42);
+}
+.unfold-hint::after {
+  box-shadow: 4px 0 0 rgba(255, 255, 255, 0.42);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .unfold-hint::before,
+  .unfold-hint::after {
+    animation: hint-tick 2.4s ease-in-out infinite;
+  }
+  .unfold-hint::after {
+    animation-direction: reverse;
+  }
+}
+@keyframes hint-tick {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translateX(-3px);
+    opacity: 0.75;
+  }
+}
+@media (max-width: 768px) {
+  /* Seam drag is disabled on mobile (initGatefold's onDown returns if
+     isMobile()), so the hint would promise an interaction that doesn't
+     exist. The tap-on-panel opener handles mobile. */
+  .unfold-hint {
+    display: none;
+  }
 }
 
 /* Seam — drag handle. Stops short of the bottom so the unfold button
