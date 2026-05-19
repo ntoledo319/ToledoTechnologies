@@ -90,8 +90,194 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
   <hr />
 
+  <section id="start" aria-labelledby="start-heading">
+    <h2 id="start-heading">Start here</h2>
+    <p style="margin-bottom: 24px;">
+      Tell us what you're trying to build or fix. We reply in under 24 hours
+      with the discovery that fits — and the price. No "let's hop on a call"
+      back-and-forth.
+    </p>
+
+    <form
+      action="https://formsubmit.co/hello@toledotechnologies.com"
+      method="POST"
+      style="border: 1px solid var(--gf-ink-200); padding: 32px; background: var(--gf-ink-50);"
+    >
+      <input type="hidden" name="_subject" value="New discovery inquiry" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input
+        type="hidden"
+        name="_next"
+        value="https://toledotechnologies.com/discovery?submitted=true"
+      />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" />
+
+      <fieldset style="border: none; padding: 0; margin: 0 0 24px;">
+        <legend
+          style="font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;"
+        >
+          What are you trying to build or fix? *
+        </legend>
+        <div style="display: grid; gap: 8px;">
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="website" required />
+            <span>A new website (or rebuild of an existing one)</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="wordpress-exit" />
+            <span>I want off WordPress</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="internal-tool" />
+            <span>An internal tool, portal, or custom software</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="mobile" />
+            <span>A mobile app (or rescue of one in progress)</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="ai" />
+            <span>An AI workflow or agent, with governance</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="intent" value="unsure" />
+            <span>I'm not sure yet</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset style="border: none; padding: 0; margin: 0 0 24px;">
+        <legend
+          style="font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;"
+        >
+          Rough budget band
+        </legend>
+        <div style="display: grid; gap: 8px;">
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="budget" value="under-5k" />
+            <span>Under $5K</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="budget" value="5k-15k" />
+            <span>$5K–$15K</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="budget" value="15k-50k" />
+            <span>$15K–$50K</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="budget" value="50k-plus" />
+            <span>$50K+</span>
+          </label>
+          <label style="display: flex; gap: 12px; cursor: pointer;">
+            <input type="radio" name="budget" value="unsure" />
+            <span>Not sure yet</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div style="margin-bottom: 24px;">
+        <label
+          for="trigger"
+          style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
+        >
+          What's the trigger?
+        </label>
+        <textarea
+          id="trigger"
+          name="trigger"
+          rows="3"
+          placeholder="Got hacked. Site is slow. Lost a deal to a competitor with a portal. Just raised. Plugin broke."
+          style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px; resize: vertical;"
+        ></textarea>
+      </div>
+
+      <div style="display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
+        <div>
+          <label
+            for="name"
+            style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
+          >
+            Name *
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px;"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
+          >
+            Email *
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px;"
+          />
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label
+          for="site-url"
+          style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
+        >
+          Site URL (if relevant)
+        </label>
+        <input
+          type="url"
+          id="site-url"
+          name="site_url"
+          placeholder="https://"
+          style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px;"
+        />
+      </div>
+
+      <button
+        type="submit"
+        style="background: var(--gf-ink-900); color: var(--gf-paper); border: none; padding: 14px 28px; font-family: var(--gf-font-mono); font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;"
+      >
+        Send inquiry →
+      </button>
+
+      <p
+        style="margin-top: 16px; font-size: 13px; color: var(--gf-ink-700); font-style: italic;"
+      >
+        We reply by email. We don't book sales calls before we know what
+        you need.
+      </p>
+    </form>
+
+    {Astro.url.searchParams.get('submitted') === 'true' && (
+      <div
+        style="margin-top: 32px; padding: 24px; border: 1px solid var(--gf-ink-900); background: var(--gf-paper);"
+      >
+        <p style="margin: 0;">
+          <strong>Inquiry received.</strong> We reply within 24 hours from{' '}
+          <code>hello@toledotechnologies.com</code>. If you don't see a reply,
+          check spam — and reply to that thread so we can fix it.
+        </p>
+      </div>
+    )}
+  </section>
+
+  <hr />
+
   <section>
-    <h2>The router</h2>
+    <h2>If you'd rather self-route</h2>
+    <p>
+      The same routing, but as a static reference. Useful if you already know
+      what you want and just need the link.
+    </p>
     <div
       style="font-family: var(--gf-font-mono); font-size: 14px; background: var(--gf-ink-50); padding: 24px; border: 1px solid var(--gf-ink-100);"
     >
