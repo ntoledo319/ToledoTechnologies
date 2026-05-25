@@ -154,6 +154,12 @@ AegisTwin/
 └── tests/              # Integration test suite
 ```
 
+## 🚀 [Live Demo →](https://aegistwin-demo.vercel.app/)
+
+Run agent actions through the policy gates, watch the hash-chained event log build up, then replay the run to verify chain integrity. The three primitives — event log, policy gates, deterministic replay — in your browser, in 60 seconds.
+
+Public source: [github.com/ntoledo319/AegisTwin](https://github.com/ntoledo319/AegisTwin) (94 tests, MIT)
+
 ## Real Benchmarks — Reproducible
 
 Run `python3 benchmarks/run_benchmarks.py` on your hardware to verify these:

@@ -110,6 +110,12 @@ TallySec/
 
 ## Try Before You Buy
 
+### 🚀 [Live Demo →](https://tallysec-demo.vercel.app/)
+
+Paste any URL into the live scanner and get a real risk score. Generate a sample completion certificate with your name on it. Same scanner that ships in the production package; students learn to extend it in Lab 3.
+
+### Downloadable materials
+
 These are the actual materials from the repo — what you'd hand to your instructors next week:
 
 - 📄 [Course Syllabus (PDF)](/downloads/tallysec-syllabus.pdf) — 8 modules, 15.5 contact hours, full topic breakdown
