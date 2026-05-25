@@ -1,0 +1,2 @@
+run_id,url,title,meta_desc,h1,canonical,noindex,raw_hash
+seo-1767782385,http://127.0.0.1:8000/index.html,Demo Site,This is a test page for ComplyCrawl demo.,Welcome to Demo Site,http://localhost:8000/index.html,No,00c14fb13fac450dc3ecf3fb292e035452a687ca2adccaff013db4e89da285b2

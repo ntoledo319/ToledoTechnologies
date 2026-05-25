@@ -1,0 +1,176 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Tools', url: '/tools' },
+  { name: 'Bootcamp ROI Calculator', url: '/tools/bootcamp-roi' }
+]);
+---
+
+<InsertLayout
+  title="Bootcamp ROI Calculator — TallySec vs Subscription Vendors"
+  description="Calculate the break-even point for buying TallySec outright vs renting per-seat from Cybrary, Pluralsight, or TryHackMe."
+  jsonLd={jsonLd}
+  heading="Bootcamp ROI Calculator"
+  subheading="What does TallySec actually save you versus a per-seat content subscription? Plug in your numbers."
+>
+  <div class="roi-tool">
+    <div class="inputs">
+      <label>
+        Students enrolled per year
+        <input id="students" type="number" value="100" min="1" max="10000" step="1" />
+      </label>
+      <label>
+        Per-seat annual cost from your current vendor ($)
+        <input id="seatCost" type="number" value="500" min="0" step="10" />
+        <small>Cybrary: ~$500. Pluralsight Premium: ~$360. TryHackMe Business: ~$140.</small>
+      </label>
+      <label>
+        Years to model
+        <input id="years" type="number" value="3" min="1" max="10" step="1" />
+      </label>
+      <label>
+        TallySec license cost (default)
+        <input id="tallyCost" type="number" value="12500" min="0" step="100" />
+      </label>
+    </div>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <p style="margin-top: 3rem; font-size: 0.9em; opacity: 0.7;">
+    These numbers are illustrative. Per-seat prices vary by negotiation,
+    annual commit, and feature tier. The point of the calculator is to show
+    the structural difference between a one-time IP purchase and recurring
+    seat licensing. The break-even is typically &lt; 30 students.
+  </p>
+
+  <p style="margin-top: 2rem;">
+    <a href="/codebases/tallysec" class="btn-primary">
+      See TallySec product page →
+    </a>
+  </p>
+</InsertLayout>
+
+<style>
+  .roi-tool {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  .inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .inputs label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95em;
+    font-weight: 500;
+  }
+  .inputs input {
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 1.1em;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: inherit;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .inputs small {
+    opacity: 0.6;
+    margin-top: 0.3rem;
+    font-size: 0.8em;
+  }
+  .output {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.7;
+  }
+  .output table {
+    width: 100%;
+    margin-top: 0.8rem;
+    font-size: 0.95em;
+  }
+  .output th, .output td {
+    padding: 0.5rem 0.8rem;
+    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .output th:first-child, .output td:first-child {
+    text-align: left;
+  }
+  .output .savings {
+    color: #b08d57;
+    font-weight: 700;
+    font-size: 1.4em;
+    margin-top: 1rem;
+    display: block;
+  }
+  .output .breakeven {
+    margin-top: 0.8rem;
+    font-style: italic;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  function fmt(n: number): string {
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function recompute(): void {
+    const students = Math.max(1, Number((document.getElementById('students') as HTMLInputElement).value) || 1);
+    const seatCost = Math.max(0, Number((document.getElementById('seatCost') as HTMLInputElement).value) || 0);
+    const years = Math.max(1, Number((document.getElementById('years') as HTMLInputElement).value) || 1);
+    const tallyCost = Math.max(0, Number((document.getElementById('tallyCost') as HTMLInputElement).value) || 0);
+
+    let html = `
+      <strong>Cost over ${years} year${years > 1 ? 's' : ''} at ${students} students/year:</strong>
+      <table>
+        <thead><tr><th>Approach</th><th>Year 1</th><th>Year ${years}</th><th>${years}-year total</th></tr></thead>
+        <tbody>`;
+
+    const rows: Array<[string, number]> = [];
+    // Compounding student count by 50% per year
+    let total = 0;
+    let studentsThisYear = students;
+    let yearTotals: number[] = [];
+    for (let y = 1; y <= years; y++) {
+      const cost = studentsThisYear * seatCost;
+      yearTotals.push(cost);
+      total += cost;
+      studentsThisYear = Math.round(studentsThisYear * 1.5);
+    }
+    const subTotal = total;
+
+    html += `<tr><td>Per-seat subscription</td><td>${fmt(yearTotals[0])}</td><td>${fmt(yearTotals[years - 1])}</td><td>${fmt(subTotal)}</td></tr>`;
+    html += `<tr><td>TallySec (one-time)</td><td>${fmt(tallyCost)}</td><td>$0</td><td>${fmt(tallyCost)}</td></tr>`;
+    html += `</tbody></table>`;
+
+    const savings = subTotal - tallyCost;
+    const breakevenStudents = seatCost > 0 ? Math.ceil(tallyCost / seatCost) : Infinity;
+    html += `<span class="savings">Savings: ${fmt(savings)}</span>`;
+    if (Number.isFinite(breakevenStudents)) {
+      html += `<div class="breakeven">Break-even point: TallySec pays for itself at <strong>${breakevenStudents} students</strong> in a single year.</div>`;
+    }
+    html += `<div class="breakeven">Note: model assumes 50% YoY student growth, which is typical for new programs. Adjust inputs to match your actual cohort plan.</div>`;
+
+    (document.getElementById('output') as HTMLElement).innerHTML = html;
+  }
+
+  ['students', 'seatCost', 'years', 'tallyCost'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', recompute);
+  });
+  recompute();
+</script>

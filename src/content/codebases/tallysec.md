@@ -39,9 +39,9 @@ targetAudience:
   - 'Consultants delivering security workshops'
   - 'Universities and bootcamps with security curricula'
 order: 1
-price: 5500
-originalPrice: 15000
-pricingNote: 'One-time purchase. Full IP transfer. Includes 30-day support.'
+price: 12500
+originalPrice: 35000
+pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
 stripeLink: 'https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07'
 licensesAvailable: 5
 ---
@@ -108,19 +108,44 @@ TallySec/
 └── legal/              # EULA, sale agreement
 ```
 
+## Try Before You Buy
+
+These are the actual materials from the repo — what you'd hand to your instructors next week:
+
+- 📄 [Course Syllabus (PDF)](/downloads/tallysec-syllabus.pdf) — 8 modules, 15.5 contact hours, full topic breakdown
+- 📄 [Sample Lab 1 — Student Version (PDF)](/downloads/tallysec-sample-lab.pdf) — see the depth and tone before you commit
+- 📄 [Grading Rubric (PDF)](/downloads/tallysec-rubric.pdf) — 100-point final exam scoring
+- 📄 [Competitive comparison vs Cybrary / Pluralsight / TryHackMe](/downloads/tallysec-comparison.pdf)
+
+## Why TallySec costs less than one year of Cybrary
+
+100 students/year on Cybrary or Pluralsight costs **$30k–$80k per year, recurring**. TallySec is **$12,500 one time**, run unlimited cohorts under your brand. The math:
+
+| Vendor | Year 1 | 3-year total |
+|---|---:|---:|
+| Cybrary (per-seat) | $50,000 | **$300,000** |
+| Pluralsight Premium | $36,000 | **$216,000** |
+| TallySec (one-time) | $12,500 | **$12,500** |
+
+Full breakdown in the comparison PDF above.
+
+## ROI Calculator
+
+[**Calculate your bootcamp's break-even point →**](/tools/bootcamp-roi)
+
 ## FAQ
 
 **Is this for production security scanning?**
 No. TallySec is a training/demo bundle with synthetic data. It teaches concepts, not production threat detection.
 
 **Can I rebrand this for my organization?**
-Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization guides are included.
+Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization guides are included. Unlike Cybrary or Pluralsight, you own the curriculum and issue certificates under your name.
 
 **What's the technical skill level required?**
 Labs progress from beginner to intermediate. Basic Python and API knowledge is helpful but not required.
 
 **Is support included?**
-Yes. Each purchase includes a limited support window (30–90 days) for setup questions and guidance. Everything needed is included in the repo with full documentation.
+No. TallySec is self-serve. The repo ships with comprehensive docs, a working Docker stack, all instructor keys, and sample lab walkthroughs. The price reflects the value of the code and IP — not an ongoing service relationship.
 
 **What's the acquisition process?**
-Review the materials, run the demos, and contact us for pricing. Exclusive sale agreement and IP assignment documents are included and ready.
+Click "Buy" above. After payment you receive a GitHub repo invite + signed IP transfer agreement within 24 hours. Drop-in to your existing LMS in 1–2 weeks.

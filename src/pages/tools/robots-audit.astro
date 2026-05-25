@@ -1,0 +1,302 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Tools', url: '/tools' },
+  { name: 'robots.txt Auditor', url: '/tools/robots-audit' }
+]);
+---
+
+<InsertLayout
+  title="robots.txt Auditor — Free Compliance Tool"
+  description="Audit any site's robots.txt for crawl directives, allow/deny rules, sitemap declarations, and compliance posture. Free tool powered by ComplyCrawl."
+  jsonLd={jsonLd}
+  heading="robots.txt Auditor"
+  subheading="Paste any URL. Get a one-page audit of its crawl directives, compliance posture, and red flags."
+>
+  <div class="audit-tool">
+    <div class="input-row">
+      <input id="urlInput" type="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" />
+      <button id="auditBtn">Audit</button>
+    </div>
+    <div id="status" class="status"></div>
+    <div id="result" class="result"></div>
+  </div>
+
+  <h2 style="margin-top: 3rem;">What this checks</h2>
+  <ul>
+    <li><strong>Reachability</strong> — does the site even publish a robots.txt at the standard location?</li>
+    <li><strong>Crawl directives</strong> — user-agent groupings, allow/disallow rules, crawl-delay values</li>
+    <li><strong>Sitemap declarations</strong> — does the file point to discoverable sitemaps?</li>
+    <li><strong>Wildcard blocks</strong> — paths blocked for all user-agents</li>
+    <li><strong>Compliance flags</strong> — patterns that often indicate misconfiguration</li>
+  </ul>
+
+  <h2>Powered by ComplyCrawl</h2>
+  <p>
+    This tool runs against ComplyCrawl's robots.txt evaluator —
+    the same module that gates every fetch in the full product. If you
+    crawl the web for SEO monitoring, catalog watching, or any commercial
+    purpose, you need this check running before every request.
+  </p>
+  <p>
+    <a href="/codebases/complycrawl" class="btn-primary">
+      See ComplyCrawl product page →
+    </a>
+  </p>
+
+  <p style="margin-top: 2rem; font-size: 0.85em; opacity: 0.65;">
+    Note: this audit fetches the target's <code>/robots.txt</code> from your browser. We don't log it. If you need
+    audit-grade, tamper-evident logging of these checks at scale, that's
+    what the full ComplyCrawl codebase provides.
+  </p>
+</InsertLayout>
+
+<style>
+  .audit-tool {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  .input-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .input-row input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    font-size: 1.05em;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: inherit;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .input-row button {
+    padding: 0.7rem 1.6rem;
+    font-size: 1em;
+    font-weight: 600;
+    background: #b08d57;
+    color: #0a0908;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .input-row button:hover { opacity: 0.9; }
+  .input-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .status {
+    font-style: italic;
+    opacity: 0.75;
+    min-height: 1.4em;
+    font-size: 0.95em;
+  }
+  .result { margin-top: 1rem; }
+  .result table {
+    width: 100%;
+    margin: 0.8rem 0;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+  .result th, .result td {
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: top;
+  }
+  .result th { font-weight: 600; opacity: 0.8; width: 30%; }
+  .result pre {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.85em;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+    max-height: 240px;
+  }
+  .flag-ok { color: #7fd97c; font-weight: 600; }
+  .flag-warn { color: #f0b66d; font-weight: 600; }
+  .flag-bad { color: #e57373; font-weight: 600; }
+</style>
+
+<script>
+  type Result = {
+    url: string;
+    fetched: boolean;
+    httpStatus?: number;
+    raw?: string;
+    userAgents: string[];
+    rules: { ua: string; disallow: string[]; allow: string[]; crawlDelay?: number }[];
+    sitemaps: string[];
+    blocksAll: boolean;
+    flags: { level: 'ok' | 'warn' | 'bad'; msg: string }[];
+  };
+
+  function normalizeOrigin(input: string): string | null {
+    try {
+      let u = input.trim();
+      if (!u) return null;
+      if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+      const parsed = new URL(u);
+      return parsed.origin;
+    } catch {
+      return null;
+    }
+  }
+
+  function parseRobotsTxt(text: string): Pick<Result, 'userAgents' | 'rules' | 'sitemaps' | 'blocksAll'> {
+    const lines = text.split(/\r?\n/);
+    const rules: Result['rules'] = [];
+    const sitemaps: string[] = [];
+    const userAgents = new Set<string>();
+    let current: Result['rules'][number] | null = null;
+
+    for (const raw of lines) {
+      const line = raw.replace(/#.*/, '').trim();
+      if (!line) continue;
+      const m = line.match(/^([a-z-]+)\s*:\s*(.+)$/i);
+      if (!m) continue;
+      const key = m[1].toLowerCase();
+      const val = m[2].trim();
+
+      if (key === 'user-agent') {
+        if (!current || current.ua !== val) {
+          current = { ua: val, disallow: [], allow: [], crawlDelay: undefined };
+          rules.push(current);
+        }
+        userAgents.add(val);
+      } else if (current && key === 'disallow') {
+        current.disallow.push(val);
+      } else if (current && key === 'allow') {
+        current.allow.push(val);
+      } else if (current && key === 'crawl-delay') {
+        const d = parseFloat(val);
+        if (!Number.isNaN(d)) current.crawlDelay = d;
+      } else if (key === 'sitemap') {
+        sitemaps.push(val);
+      }
+    }
+
+    const blocksAll = rules.some(
+      (r) => r.ua === '*' && r.disallow.some((d) => d === '/' || d === '/*')
+    );
+    return { userAgents: [...userAgents], rules, sitemaps, blocksAll };
+  }
+
+  function computeFlags(r: Pick<Result, 'rules' | 'sitemaps' | 'blocksAll' | 'fetched' | 'httpStatus'>): Result['flags'] {
+    const flags: Result['flags'] = [];
+    if (!r.fetched) {
+      flags.push({ level: 'bad', msg: 'No robots.txt found — every crawler treats this as "anything goes" by default, which is rarely the intent.' });
+      return flags;
+    }
+    if (r.httpStatus && r.httpStatus >= 400) {
+      flags.push({ level: 'bad', msg: `robots.txt returned HTTP ${r.httpStatus} — same effect as no file: crawlers assume full access.` });
+    }
+    if (r.blocksAll) {
+      flags.push({ level: 'warn', msg: 'This site blocks all crawlers globally (User-agent: * / Disallow: /). Often intentional for staging sites, occasionally accidental on production.' });
+    } else {
+      flags.push({ level: 'ok', msg: 'Site allows crawling under specific rules — typical, healthy posture.' });
+    }
+    if (r.sitemaps.length > 0) {
+      flags.push({ level: 'ok', msg: `${r.sitemaps.length} sitemap declaration${r.sitemaps.length > 1 ? 's' : ''} found — good for crawl efficiency.` });
+    } else {
+      flags.push({ level: 'warn', msg: 'No sitemap declared in robots.txt. Not required, but recommended for SEO and audit-friendly crawling.' });
+    }
+    const hasCrawlDelay = r.rules.some((rule) => rule.crawlDelay !== undefined);
+    if (hasCrawlDelay) {
+      flags.push({ level: 'ok', msg: 'Crawl-delay directives present — respect these in any commercial crawler to avoid rate-limit complaints.' });
+    }
+    const wildcardRule = r.rules.find((rule) => rule.ua === '*');
+    if (wildcardRule && wildcardRule.disallow.length > 0 && !r.blocksAll) {
+      flags.push({ level: 'ok', msg: `${wildcardRule.disallow.length} default-disallow path${wildcardRule.disallow.length > 1 ? 's' : ''} for all user-agents — these are off-limits for compliant crawling.` });
+    }
+    return flags;
+  }
+
+  async function audit(): Promise<void> {
+    const input = (document.getElementById('urlInput') as HTMLInputElement).value;
+    const btn = document.getElementById('auditBtn') as HTMLButtonElement;
+    const statusEl = document.getElementById('status') as HTMLElement;
+    const resultEl = document.getElementById('result') as HTMLElement;
+
+    const origin = normalizeOrigin(input);
+    if (!origin) {
+      statusEl.textContent = 'Enter a valid URL (e.g. https://example.com).';
+      return;
+    }
+    btn.disabled = true;
+    statusEl.textContent = `Fetching ${origin}/robots.txt …`;
+    resultEl.innerHTML = '';
+
+    const robotsUrl = `${origin}/robots.txt`;
+    let text = '';
+    let status = 0;
+    let fetched = false;
+
+    try {
+      const proxied = `https://r.jina.ai/${robotsUrl}`;
+      const resp = await fetch(proxied, { method: 'GET' });
+      status = resp.status;
+      if (resp.ok) {
+        text = await resp.text();
+        fetched = true;
+      }
+    } catch (e) {
+      try {
+        const resp2 = await fetch(robotsUrl, { mode: 'cors' });
+        status = resp2.status;
+        if (resp2.ok) {
+          text = await resp2.text();
+          fetched = true;
+        }
+      } catch {
+        // fall through
+      }
+    }
+
+    statusEl.textContent = fetched ? `Fetched ${robotsUrl}` : `Could not fetch ${robotsUrl}`;
+    const parsed = parseRobotsTxt(text);
+    const flags = computeFlags({ ...parsed, fetched, httpStatus: status });
+
+    let html = '<table>';
+    html += `<tr><th>Target</th><td><code>${robotsUrl}</code></td></tr>`;
+    html += `<tr><th>HTTP status</th><td>${status || '—'}</td></tr>`;
+    html += `<tr><th>User-agents covered</th><td>${parsed.userAgents.length ? parsed.userAgents.map((u) => `<code>${u}</code>`).join(', ') : '—'}</td></tr>`;
+    html += `<tr><th>Rule groups</th><td>${parsed.rules.length}</td></tr>`;
+    html += `<tr><th>Sitemap declarations</th><td>${parsed.sitemaps.length}</td></tr>`;
+    html += `<tr><th>Blocks all crawlers</th><td>${parsed.blocksAll ? '<span class="flag-warn">Yes</span>' : 'No'}</td></tr>`;
+    html += '</table>';
+
+    if (flags.length > 0) {
+      html += '<h3 style="margin-top:1.4rem">Compliance read</h3><ul>';
+      for (const f of flags) {
+        html += `<li><span class="flag-${f.level}">●</span> ${f.msg}</li>`;
+      }
+      html += '</ul>';
+    }
+
+    if (parsed.sitemaps.length > 0) {
+      html += '<h3 style="margin-top:1.4rem">Sitemaps</h3><ul>';
+      for (const s of parsed.sitemaps) html += `<li><code>${s}</code></li>`;
+      html += '</ul>';
+    }
+
+    if (text) {
+      html += '<h3 style="margin-top:1.4rem">Raw robots.txt</h3>';
+      html += `<pre>${text.replace(/</g, '&lt;')}</pre>`;
+    }
+
+    resultEl.innerHTML = html;
+    btn.disabled = false;
+  }
+
+  document.getElementById('auditBtn')?.addEventListener('click', audit);
+  document.getElementById('urlInput')?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter') audit();
+  });
+</script>

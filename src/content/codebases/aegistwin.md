@@ -41,9 +41,9 @@ targetAudience:
   - 'Developers needing deterministic agent debugging'
   - 'Organizations with AI governance requirements'
 order: 3
-price: 8500
-originalPrice: 25000
-pricingNote: 'One-time purchase. Full IP transfer. Includes 90-day support.'
+price: 15000
+originalPrice: 45000
+pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
 stripeLink: 'https://buy.stripe.com/7sY28rbQq5d60cX1oE87K08'
 licensesAvailable: 3
 ---
@@ -154,19 +154,50 @@ AegisTwin/
 └── tests/              # Integration test suite
 ```
 
+## Real Benchmarks — Reproducible
+
+Run `python3 benchmarks/run_benchmarks.py` on your hardware to verify these:
+
+| Metric | Number |
+|---|---|
+| Event bus throughput | **65,000–93,000 events/sec** |
+| Replay verification rate | **110,000+ events/sec** |
+| Policy gate overhead (10 policies) | **~41 µs mean** |
+| Memory per event | **~1 KB, linear scaling** |
+| 10,000-event run replay time | **<90 ms** |
+
+📄 [Full Benchmark Report (PDF)](/downloads/aegistwin-benchmarks.pdf) — every methodology + raw numbers
+
+## Why a buyer pays $15k
+
+Not for the runtime alone — for the runtime *plus* what nobody else publishes:
+
+- 📄 [Performance benchmarks](/downloads/aegistwin-benchmarks.pdf) — real, reproducible numbers on the actual code
+- 📄 [Comparison vs LangChain / AutoGen / CrewAI](/downloads/aegistwin-comparison.pdf) — honest positioning, including when *not* to use AegisTwin
+- ✅ 94 passing tests covering replay determinism, policy gating, memory consistency
+- ✅ Full Docker Compose with Grafana / Prometheus / Jaeger ready to deploy
+- ✅ Helm chart for Kubernetes — production deployment is one command
+- ✅ TypeScript SDK for frontend integration
+- ✅ 16 documentation guides (architecture, plugins, embedding, observability, etc.)
+- ✅ Compliance docs (SOC 2 / HIPAA / GDPR mappings)
+- ✅ Complete IP transfer
+
 ## FAQ
 
 **What's the difference between this and LangChain/LangGraph?**
-AegisTwin focuses on runtime infrastructure—governance, audit, replay—not prompt chaining. It complements orchestration frameworks by adding the enterprise layer.
+AegisTwin is a runtime, not a framework. You can run LangChain inside AegisTwin. AegisTwin adds replay, governance, and a typed event log that LangChain doesn't have. See the [comparison PDF](/downloads/aegistwin-comparison.pdf) for the honest breakdown.
 
 **Can I add custom policies?**
-Yes. The policy engine accepts Python functions. Define any rule: action type restrictions, content filters, rate limits, etc.
+Yes. The policy engine accepts Python functions. Define any rule: action type restrictions, content filters, rate limits, PII redaction, etc.
 
 **How does replay work?**
-Every event is logged with inputs and outputs. Replay loads a trace and re-executes with the same inputs. Hash verification confirms deterministic behavior.
+Every event is logged with inputs and outputs and a hash chain. Replay loads a trace and re-executes with the same recorded inputs. Hash verification confirms determinism. 10,000-event runs replay in <90 ms — fast enough to use as a CI step on every PR.
 
 **Is this production-ready?**
-Yes. Includes Docker Compose for development and Helm charts for Kubernetes production deployment. Observability stack (Prometheus, Grafana, Jaeger) included.
+Yes. Docker Compose for development, Helm chart for Kubernetes production, Prometheus/Grafana/Jaeger observability included. 94 passing tests.
+
+**Is support included?**
+No. AegisTwin is self-serve. The repo ships with 16 documentation guides, working Docker stack, comprehensive tests, and the benchmark + comparison artifacts above. Price reflects the code + IP transfer, not service.
 
 **How do I acquire this codebase?**
-Contact us to inquire about pricing. Includes full IP transfer, all source code, SDKs, documentation, and deployment configurations. Enterprise-ready with compliance documentation for SOC2, HIPAA, and GDPR.
+Click "Buy" above. Includes full IP transfer, all source code, SDKs, documentation, observability stack, and Helm charts. Delivered within 24 hours of payment via private GitHub invite + signed IP transfer agreement.
