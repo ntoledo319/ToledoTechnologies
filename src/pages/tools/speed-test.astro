@@ -1,0 +1,372 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Tools', url: '/tools' },
+  { name: 'Site Speed Test', url: '/tools/speed-test' }
+]);
+---
+
+<InsertLayout
+  title="Site Speed Test — Free Mobile & Desktop Audit"
+  description="Run any website through Google's PageSpeed Insights. Mobile and desktop. Lab data and field data. One read of where your site actually loses customers."
+  jsonLd={jsonLd}
+  heading="Site Speed Test"
+  subheading="Paste a URL. Get the same diagnostic we run during a $750 Fit Check. Free, no email required, no signup."
+>
+  <div class="audit-tool">
+    <div class="input-row">
+      <input id="urlInput" type="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" />
+      <button id="auditBtn">Test</button>
+    </div>
+    <div id="status" class="status"></div>
+    <div id="result" class="result"></div>
+  </div>
+
+  <h2 style="margin-top: 3rem;">What this checks</h2>
+  <ul>
+    <li><strong>Lighthouse mobile</strong> — what Google's audit tool sees on a throttled mobile network. Most agencies stop here.</li>
+    <li><strong>Lighthouse desktop</strong> — what Google sees on a fast wired connection. Most owners experience this version.</li>
+    <li><strong>CrUX field data</strong> — what real Chrome users actually experienced over the last 28 days. This is what Google's search ranking uses.</li>
+    <li><strong>The gap between them</strong> — the diagnostic that decides whether you have a "site needs work" problem or a "first-time visitor experience" problem.</li>
+  </ul>
+
+  <h2>What the score actually means</h2>
+  <table>
+    <thead>
+      <tr><th>Lighthouse Performance</th><th>What it means in practice</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="flag-ok">90-100</span></td><td>Fast. Most visitors get a good first paint.</td></tr>
+      <tr><td><span class="flag-ok">75-89</span></td><td>Acceptable. Could be tuned, not urgent.</td></tr>
+      <tr><td><span class="flag-warn">50-74</span></td><td>Slow. You are likely losing 10-25% of new mobile visitors to bounce.</td></tr>
+      <tr><td><span class="flag-bad">0-49</span></td><td>Painful. Mobile visitors are bouncing before the page renders.</td></tr>
+    </tbody>
+  </table>
+  <p style="opacity:0.7; font-size:0.95em;">
+    For LCP (Largest Contentful Paint), the threshold most owners care about is
+    <strong>under 2.5s on mobile</strong>. Past 4s, conversion drops measurably.
+    Past 10s, you have a different problem entirely.
+  </p>
+
+  <h2>What to do with the result</h2>
+  <p>
+    If the score is bad and you want a written diagnosis — what specifically is
+    causing it, what the fix list looks like, and what the realistic engagement
+    is — that is the
+    <a href="/services">Delphi Fit Check</a> at $750. It is a real one-page
+    report, not a sales call. Most subjects walk out with the scoped plan and
+    do the work themselves.
+  </p>
+  <p>
+    If you want examples of what one of these audits looks like, the
+    <a href="/case-studies">case studies</a> page has three of them in full.
+  </p>
+
+  <p style="margin-top: 2rem; font-size: 0.85em; opacity: 0.65;">
+    Note: this tool runs Google PageSpeed Insights against the URL you paste.
+    Public data only. We do not store the URL or log the result. Run it as many
+    times as you want.
+  </p>
+</InsertLayout>
+
+<style>
+  .audit-tool {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  .input-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .input-row input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    font-size: 1.05em;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: inherit;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .input-row button {
+    padding: 0.7rem 1.6rem;
+    font-size: 1em;
+    font-weight: 600;
+    background: #b08d57;
+    color: #0a0908;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .input-row button:hover { opacity: 0.9; }
+  .input-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .status {
+    font-style: italic;
+    opacity: 0.75;
+    min-height: 1.4em;
+    font-size: 0.95em;
+  }
+  .result { margin-top: 1rem; }
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .scorecard .cell {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .scorecard .cell .label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+  }
+  .scorecard .cell .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-top: 0.2em;
+  }
+  .scorecard .cell .sub {
+    font-size: 0.78em;
+    opacity: 0.65;
+    margin-top: 0.2em;
+  }
+  table {
+    width: 100%;
+    margin: 1rem 0;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+  th, td {
+    padding: 0.55rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: top;
+  }
+  th { font-weight: 600; opacity: 0.75; }
+  .flag-ok { color: #7fd97c; font-weight: 600; }
+  .flag-warn { color: #f0b66d; font-weight: 600; }
+  .flag-bad { color: #e57373; font-weight: 600; }
+  .strategy-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .strategy-section h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1em;
+  }
+  .read-section {
+    background: rgba(176, 141, 87, 0.06);
+    border-left: 3px solid #b08d57;
+    padding: 1rem 1.2rem;
+    margin-top: 1.5rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .read-section h3 { margin: 0 0 0.4rem 0; font-size: 1em; }
+  .read-section p { margin: 0.4rem 0; opacity: 0.9; }
+</style>
+
+<script>
+  type PsiBlock = {
+    performance: number | null;
+    accessibility: number | null;
+    best_practices: number | null;
+    seo: number | null;
+    lcp_ms: number | null;
+    fcp_ms: number | null;
+    cls: number | null;
+    tbt_ms: number | null;
+    speed_index_ms: number | null;
+    field_lcp_ms?: number | null;
+    field_cls?: number | null;
+    field_inp_ms?: number | null;
+  };
+
+  type ApiResponse = {
+    url: string;
+    mobile: PsiBlock | { error: string };
+    desktop: PsiBlock | { error: string };
+    error?: string;
+  };
+
+  function fmtMs(n: number | null | undefined): string {
+    if (n === null || n === undefined) return '—';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 's';
+    return n + 'ms';
+  }
+
+  function fmtScore(n: number | null): string {
+    return n === null || n === undefined ? '—' : String(n);
+  }
+
+  function scoreClass(n: number | null): string {
+    if (n === null) return '';
+    if (n >= 90) return 'flag-ok';
+    if (n >= 50) return 'flag-warn';
+    return 'flag-bad';
+  }
+
+  function lcpClass(ms: number | null): string {
+    if (ms === null) return '';
+    if (ms <= 2500) return 'flag-ok';
+    if (ms <= 4000) return 'flag-warn';
+    return 'flag-bad';
+  }
+
+  function renderBlock(label: string, b: PsiBlock | { error: string }): string {
+    if ('error' in b) {
+      return `<div class="strategy-section"><h3>${label}</h3><p class="flag-bad">${b.error}</p></div>`;
+    }
+    return `
+      <div class="strategy-section">
+        <h3>${label}</h3>
+        <div class="scorecard">
+          <div class="cell">
+            <div class="label">Performance</div>
+            <div class="value ${scoreClass(b.performance)}">${fmtScore(b.performance)}</div>
+          </div>
+          <div class="cell">
+            <div class="label">Accessibility</div>
+            <div class="value ${scoreClass(b.accessibility)}">${fmtScore(b.accessibility)}</div>
+          </div>
+          <div class="cell">
+            <div class="label">Best Practices</div>
+            <div class="value ${scoreClass(b.best_practices)}">${fmtScore(b.best_practices)}</div>
+          </div>
+          <div class="cell">
+            <div class="label">SEO</div>
+            <div class="value ${scoreClass(b.seo)}">${fmtScore(b.seo)}</div>
+          </div>
+        </div>
+        <table>
+          <tr><th>LCP (lab)</th><td class="${lcpClass(b.lcp_ms)}">${fmtMs(b.lcp_ms)}</td></tr>
+          <tr><th>FCP (lab)</th><td>${fmtMs(b.fcp_ms)}</td></tr>
+          <tr><th>TBT (lab)</th><td>${fmtMs(b.tbt_ms)}</td></tr>
+          <tr><th>CLS (lab)</th><td>${b.cls ?? '—'}</td></tr>
+          ${
+            b.field_lcp_ms !== null && b.field_lcp_ms !== undefined
+              ? `<tr><th>LCP (field, real users)</th><td class="${lcpClass(b.field_lcp_ms)}">${fmtMs(b.field_lcp_ms)}</td></tr>`
+              : ''
+          }
+          ${
+            b.field_inp_ms !== null && b.field_inp_ms !== undefined
+              ? `<tr><th>INP (field)</th><td>${fmtMs(b.field_inp_ms)}</td></tr>`
+              : ''
+          }
+        </table>
+      </div>
+    `;
+  }
+
+  function buildReadout(d: ApiResponse): string {
+    const m = d.mobile;
+    const dk = d.desktop;
+    if ('error' in m || 'error' in dk) return '';
+
+    const lines: string[] = [];
+
+    // Mobile LCP severity
+    if (m.lcp_ms !== null) {
+      if (m.lcp_ms > 10000) {
+        lines.push(`<p><strong>Mobile LCP at ${fmtMs(m.lcp_ms)}</strong> means new mobile visitors wait over ${(m.lcp_ms/1000).toFixed(0)} seconds before the main content paints. The vast majority will not wait. This is the single highest-impact issue on the site.</p>`);
+      } else if (m.lcp_ms > 4000) {
+        lines.push(`<p><strong>Mobile LCP at ${fmtMs(m.lcp_ms)}</strong> is past the 4-second threshold where measured conversion starts dropping. Worth fixing.</p>`);
+      } else if (m.lcp_ms <= 2500) {
+        lines.push(`<p><strong>Mobile LCP at ${fmtMs(m.lcp_ms)}</strong> is in Google's "good" range. Mobile-first-paint is not your bottleneck.</p>`);
+      }
+    }
+
+    // Lab vs field gap
+    if (m.lcp_ms !== null && m.field_lcp_ms !== null && m.field_lcp_ms !== undefined) {
+      const ratio = m.lcp_ms / m.field_lcp_ms;
+      if (ratio > 5) {
+        lines.push(`<p><strong>Lab/field gap: ${ratio.toFixed(1)}x.</strong> Your site is fast for repeat visitors (${fmtMs(m.field_lcp_ms)}) and slow for first-time visitors (${fmtMs(m.lcp_ms)}). The fix is not "speed up the site" — the fix is "warm up first-time visitors." This is one of the most commonly-missed diagnostics.</p>`);
+      }
+    }
+
+    // Desktop vs mobile gap
+    if (m.performance !== null && dk.performance !== null) {
+      const gap = dk.performance - m.performance;
+      if (gap >= 30) {
+        lines.push(`<p><strong>Desktop is ${gap} points faster than mobile.</strong> Owners check on desktop. New customers from Instagram, Google, press hits arrive on mobile. They see a much slower site than you do.</p>`);
+      }
+    }
+
+    // Best Practices low
+    if (m.best_practices !== null && m.best_practices < 70) {
+      lines.push(`<p><strong>Best Practices at ${m.best_practices}/100.</strong> Usually means mixed-content warnings, deprecated APIs, or stale third-party scripts. Shows as a security warning to some Chrome users.</p>`);
+    }
+
+    // A11y low
+    if (m.accessibility !== null && m.accessibility < 80) {
+      lines.push(`<p><strong>Accessibility at ${m.accessibility}/100.</strong> Below 80 typically means contrast failures, missing alt text, or unlabeled form controls. Affects roughly 1 in 4 visitors directly.</p>`);
+    }
+
+    if (lines.length === 0) return '';
+    return `<div class="read-section"><h3>Read</h3>${lines.join('')}</div>`;
+  }
+
+  async function runTest(): Promise<void> {
+    const input = document.getElementById('urlInput') as HTMLInputElement;
+    const btn = document.getElementById('auditBtn') as HTMLButtonElement;
+    const statusEl = document.getElementById('status') as HTMLElement;
+    const resultEl = document.getElementById('result') as HTMLElement;
+
+    const raw = input.value.trim();
+    if (!raw) {
+      statusEl.textContent = 'Enter a URL.';
+      return;
+    }
+
+    btn.disabled = true;
+    statusEl.textContent = 'Running mobile + desktop audits — this takes 20-40 seconds…';
+    resultEl.innerHTML = '';
+
+    let data: ApiResponse;
+    try {
+      const resp = await fetch('/api/speed-test', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ url: raw })
+      });
+      data = await resp.json();
+      if (!resp.ok || data.error) {
+        statusEl.textContent = data.error || `error ${resp.status}`;
+        btn.disabled = false;
+        return;
+      }
+    } catch (e: any) {
+      statusEl.textContent = `network error: ${e?.message || String(e)}`;
+      btn.disabled = false;
+      return;
+    }
+
+    statusEl.textContent = `Done. Target: ${data.url}`;
+    let html = '';
+    html += renderBlock('Mobile', data.mobile);
+    html += renderBlock('Desktop', data.desktop);
+    html += buildReadout(data);
+    html += `<p style="margin-top:1.5rem;opacity:0.7;font-size:0.9em;">Want a one-page written diagnosis of this report — exactly what to fix, in what order, and what an engagement would scope to? <a href="/services">Delphi Fit Check, $750.</a> Or email <a href="mailto:hello@toledotechnologies.com">hello@toledotechnologies.com</a> with this URL.</p>`;
+    resultEl.innerHTML = html;
+    btn.disabled = false;
+  }
+
+  document.getElementById('auditBtn')?.addEventListener('click', runTest);
+  document.getElementById('urlInput')?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter') runTest();
+  });
+</script>
