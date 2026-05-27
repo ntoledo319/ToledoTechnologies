@@ -31,6 +31,16 @@ type PsiResult = {
   field_inp_ms?: number | null;
 };
 
+type PsiApiResponse = {
+  lighthouseResult?: {
+    categories?: Record<string, { score?: unknown }>;
+    audits?: Record<string, { numericValue?: unknown }>;
+  };
+  loadingExperience?: {
+    metrics?: Record<string, { percentile?: unknown }>;
+  };
+};
+
 function normalizeUrl(input: string): string | null {
   const s = (input || '').trim();
   if (!s) return null;
@@ -48,12 +58,7 @@ async function runPsi(
   url: string,
   strategy: 'mobile' | 'desktop'
 ): Promise<PsiResult | { error: string }> {
-  const key = (import.meta as any).env?.PAGESPEED_API_KEY ?? process.env.PAGESPEED_API_KEY;
-  const params = new URLSearchParams({
-    url,
-    strategy,
-    category: 'performance'
-  });
+  const key = import.meta.env.PAGESPEED_API_KEY ?? process.env.PAGESPEED_API_KEY;
   // PSI API requires repeating ?category= for each one; URLSearchParams won't
   // collapse them — append manually.
   const u = `${PSI_BASE}?url=${encodeURIComponent(url)}&strategy=${strategy}` +
@@ -63,13 +68,14 @@ async function runPsi(
   let resp: Response;
   try {
     resp = await fetch(u, { headers: { Accept: 'application/json' } });
-  } catch (e: any) {
-    return { error: `network: ${e?.message || String(e)}` };
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : String(e);
+    return { error: `network: ${message}` };
   }
   if (!resp.ok) {
     return { error: `psi http ${resp.status}` };
   }
-  const data: any = await resp.json();
+  const data = (await resp.json()) as PsiApiResponse;
   const cats = data?.lighthouseResult?.categories || {};
   const audits = data?.lighthouseResult?.audits || {};
   const cwv = data?.loadingExperience?.metrics || {};
@@ -104,7 +110,7 @@ async function runPsi(
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  let body: any;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
@@ -114,7 +120,9 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const url = normalizeUrl(body?.url || '');
+  const rawUrl =
+    body && typeof body === 'object' && 'url' in body ? body.url : '';
+  const url = normalizeUrl(typeof rawUrl === 'string' ? rawUrl : '');
   if (!url) {
     return new Response(JSON.stringify({ error: 'enter a valid URL' }), {
       status: 400,
