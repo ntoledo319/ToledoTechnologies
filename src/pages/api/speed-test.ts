@@ -92,6 +92,10 @@ async function runPsi(
     const v = audits?.['cumulative-layout-shift']?.numericValue;
     return typeof v === 'number' ? Math.round(v * 1000) / 1000 : null;
   };
+  const fieldMetric = (id: string): number | null => {
+    const v = cwv?.[id]?.percentile;
+    return typeof v === 'number' ? v : null;
+  };
 
   return {
     performance: score('performance'),
@@ -103,9 +107,9 @@ async function runPsi(
     cls: numCls(),
     tbt_ms: numAudit('total-blocking-time'),
     speed_index_ms: numAudit('speed-index'),
-    field_lcp_ms: cwv?.LARGEST_CONTENTFUL_PAINT_MS?.percentile ?? null,
-    field_cls: cwv?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile ?? null,
-    field_inp_ms: cwv?.INTERACTION_TO_NEXT_PAINT?.percentile ?? null
+    field_lcp_ms: fieldMetric('LARGEST_CONTENTFUL_PAINT_MS'),
+    field_cls: fieldMetric('CUMULATIVE_LAYOUT_SHIFT_SCORE'),
+    field_inp_ms: fieldMetric('INTERACTION_TO_NEXT_PAINT')
   };
 }
 
