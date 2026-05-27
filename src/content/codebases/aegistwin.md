@@ -45,6 +45,8 @@ price: 15000
 originalPrice: 45000
 pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
 stripeLink: 'https://buy.stripe.com/7sY28rbQq5d60cX1oE87K08'
+gumroadLink: 'https://toledodev8.gumroad.com/l/aegistwin-source'
+gumroadPrice: 2500
 licensesAvailable: 3
 ---
 

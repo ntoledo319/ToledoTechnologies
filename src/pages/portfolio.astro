@@ -12,17 +12,17 @@ const jsonLd = [
     [
       {
         name: 'ComplyCrawl',
-        url: '/codebases/complycrawl',
+        url: '/codebases/complycrawl/',
         description: 'Compliance-first web automation'
       },
       {
         name: 'TallySec',
-        url: '/codebases/tallysec',
+        url: '/codebases/tallysec/',
         description: 'Security training platform'
       },
       {
         name: 'AegisTwin',
-        url: '/codebases/aegistwin',
+        url: '/codebases/aegistwin/',
         description: 'Agent runtime + governance'
       }
     ],
@@ -135,7 +135,7 @@ const stats = [
         </p>
         <div class="flex flex-wrap gap-6">
           <a
-            href="/codebases"
+            href="/codebases/"
             class="btn-primary shadow-engine-glow px-10 py-4 text-lg"
           >
             Buy a Codebase
@@ -182,7 +182,7 @@ const stats = [
         {
           forSaleProjects.map((project) => (
             <a
-              href={`/codebases/${project.name.toLowerCase()}`}
+              href={`/codebases/${project.name.toLowerCase()}/`}
               class="group hover:text-brand-400 flex items-start justify-between gap-8 py-10 transition-all duration-300"
             >
               <div class="max-w-3xl">
@@ -265,7 +265,7 @@ const stats = [
           >
             Start a Custom Build — $15K+
           </a>
-          <a href="/codebases" class="btn-ghost px-12 py-5 text-xl">
+          <a href="/codebases/" class="btn-ghost px-12 py-5 text-xl">
             Buy Existing Code
           </a>
         </div>

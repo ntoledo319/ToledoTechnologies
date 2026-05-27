@@ -42,6 +42,8 @@ price: 7500
 originalPrice: 25000
 pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
 stripeLink: 'https://buy.stripe.com/3cI8wPbQq34YcZJffu87K06'
+gumroadLink: 'https://toledodev8.gumroad.com/l/complycrawl-source'
+gumroadPrice: 1500
 licensesAvailable: 5
 ---
 

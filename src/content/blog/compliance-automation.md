@@ -110,4 +110,4 @@ If you're [buying a codebase](/blog/buying-a-codebase) for compliance purposes, 
 
 ---
 
-**Need help with compliance automation?** [Check out ComplyCrawl](/codebases/complycrawl) or [talk to us about custom solutions](/contact?subject=Compliance%20Automation). We also offer [automation services](/services) for teams that need hands-on help.
+**Need help with compliance automation?** [Check out ComplyCrawl](/codebases/complycrawl/) or [talk to us about custom solutions](/contact?subject=Compliance%20Automation). We also offer [automation services](/services) for teams that need hands-on help.

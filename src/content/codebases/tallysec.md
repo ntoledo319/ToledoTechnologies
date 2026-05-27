@@ -43,6 +43,8 @@ price: 12500
 originalPrice: 35000
 pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
 stripeLink: 'https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07'
+gumroadLink: 'https://toledodev8.gumroad.com/l/tallysec-source'
+gumroadPrice: 1800
 licensesAvailable: 5
 ---
 

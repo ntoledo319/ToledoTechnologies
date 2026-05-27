@@ -40,6 +40,8 @@ const codebases = defineCollection({
     originalPrice: z.number().optional(),
     pricingNote: z.string().optional(),
     stripeLink: z.string().optional(),
+    gumroadLink: z.string().optional(),
+    gumroadPrice: z.number().optional(),
     licensesAvailable: z.number().optional()
   })
 });

@@ -54,13 +54,13 @@ const faqs = [
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Codebases', url: '/codebases' },
-    { name: codebase.data.title, url: `/codebases/${codebase.slug}` }
+    { name: 'Codebases', url: '/codebases/' },
+    { name: codebase.data.title, url: `/codebases/${codebase.slug}/` }
   ]),
   softwareSchema({
     name: codebase.data.title,
     description: codebase.data.description,
-    url: `/codebases/${codebase.slug}`,
+    url: `/codebases/${codebase.slug}/`,
     status: codebase.data.status,
     category: codebase.data.category,
     tags: codebase.data.tags
@@ -87,6 +87,7 @@ const status = statusLabels[codebase.data.status] || statusLabels['available'];
 const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
 const hasStripe = !!codebase.data.stripeLink;
+const hasGumroad = !!codebase.data.gumroadLink;
 const licensesLeft = codebase.data.licensesAvailable;
 const showLowStock = licensesLeft && licensesLeft <= 5;
 ---
@@ -116,7 +117,7 @@ const showLowStock = licensesLeft && licensesLeft <= 5;
         <Breadcrumbs
           items={[
             { label: 'Home', href: '/' },
-            { label: 'Codebases', href: '/codebases' },
+            { label: 'Codebases', href: '/codebases/' },
             { label: codebase.data.title }
           ]}
         />
@@ -161,7 +162,20 @@ const showLowStock = licensesLeft && licensesLeft <= 5;
               </a>
             )
           }
-          <a href="/codebases" class="btn-ghost"> ← Back to Catalog </a>
+          {
+            hasGumroad && (
+              <a
+                href={codebase.data.gumroadLink}
+                class="btn-secondary px-10 py-4 text-base"
+                target="_blank"
+                rel="noopener"
+              >
+                License on Gumroad — $
+                {codebase.data.gumroadPrice?.toLocaleString() || 'Buy'}
+              </a>
+            )
+          }
+          <a href="/codebases/" class="btn-ghost"> ← Back to Catalog </a>
         </div>
         {
           showLowStock && (
@@ -306,6 +320,18 @@ const showLowStock = licensesLeft && licensesLeft <= 5;
               </a>
             )
           }
+          {
+            hasGumroad && (
+              <a
+                href={codebase.data.gumroadLink}
+                class="btn-secondary mb-4 w-full justify-center py-4"
+                target="_blank"
+                rel="noopener"
+              >
+                Non-exclusive License on Gumroad
+              </a>
+            )
+          }
           <a
             href={`/contact?subject=${bundleSubject}`}
             class="text-warm-400 hover:text-warm-300 block text-center text-sm font-medium transition-colors"
@@ -340,7 +366,7 @@ const showLowStock = licensesLeft && licensesLeft <= 5;
   <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="flex flex-wrap gap-6">
-        <a href="/codebases" class="btn-secondary px-8">View All Codebases</a>
+        <a href="/codebases/" class="btn-secondary px-8">View All Codebases</a>
         <a href="/services" class="btn-ghost px-8">See Our Services</a>
       </div>
     </div>

@@ -9,6 +9,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://toledotechnologies.com',
   output: 'static',
+  trailingSlash: 'always',
   adapter: vercel({
     webAnalytics: {
       enabled: true

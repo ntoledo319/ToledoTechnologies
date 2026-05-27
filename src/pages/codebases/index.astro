@@ -10,12 +10,12 @@ const sortedCodebases = codebases.sort((a, b) => a.data.order - b.data.order);
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Codebases', url: '/codebases' }
+    { name: 'Codebases', url: '/codebases/' }
   ]),
   itemListSchema(
     sortedCodebases.map((c) => ({
       name: c.data.title,
-      url: `/codebases/${c.slug}`,
+      url: `/codebases/${c.slug}/`,
       description: c.data.description
     })),
     'Available Codebases'
@@ -71,7 +71,7 @@ const statusLabels: Record<string, { text: string; class: string }> = {
             statusLabels[codebase.data.status] || statusLabels['available'];
           return (
             <a
-              href={`/codebases/${codebase.slug}`}
+              href={`/codebases/${codebase.slug}/`}
               class="group hover:text-warm-400 flex items-start justify-between gap-8 py-10 transition-all duration-300"
             >
               <div class="max-w-3xl">
