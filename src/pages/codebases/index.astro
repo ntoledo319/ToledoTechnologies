@@ -7,6 +7,14 @@ import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
 const codebases = await getCollection('codebases');
 const sortedCodebases = codebases.sort((a, b) => a.data.order - b.data.order);
 
+// Bundle pricing is DERIVED from the catalog so it can never drift from the
+// individual product pages. "Full" = sum of each codebase's exclusive price;
+// the bundle is sold at a fixed price via the live Stripe link below.
+const bundleFull = codebases.reduce((sum, c) => sum + c.data.price, 0);
+const bundlePrice = 15000;
+const bundleSavings = bundleFull - bundlePrice;
+const bundleSavingsPct = Math.round((bundleSavings / bundleFull) * 100);
+
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
@@ -157,15 +165,21 @@ const statusLabels: Record<string, { text: string; class: string }> = {
   <section id="bundle" class="border-t border-black/5">
     <div class="container-wide section-padding">
       <div class="mx-auto max-w-3xl text-center">
-        <h2 class="mb-4 text-4xl font-bold">Buy the Bundle — Save $3,500</h2>
+        <h2 class="mb-4 text-4xl font-bold">
+          Buy the Bundle — Save ${bundleSavings.toLocaleString()}
+        </h2>
         <p class="mb-10 text-xl opacity-50">
           Get all three codebases for one price. Perfect if you're building a
           security and automation practice.
         </p>
         <div class="mb-12 flex items-center justify-center gap-6">
-          <span class="text-5xl font-bold">$15,000</span>
-          <span class="text-2xl line-through opacity-30">$18,500</span>
-          <span class="text-sm font-bold text-green-400">Save 19%</span>
+          <span class="text-5xl font-bold">${bundlePrice.toLocaleString()}</span>
+          <span class="text-2xl line-through opacity-30">
+            ${bundleFull.toLocaleString()}
+          </span>
+          <span class="text-sm font-bold text-green-400">
+            Save {bundleSavingsPct}%
+          </span>
         </div>
         <div class="mb-12 grid gap-8 text-left sm:grid-cols-3">
           <div>
@@ -187,7 +201,7 @@ const statusLabels: Record<string, { text: string; class: string }> = {
           target="_blank"
           rel="noopener"
         >
-          Buy Bundle — $15,000
+          Buy Bundle — ${bundlePrice.toLocaleString()}
         </a>
         <p class="mt-6 text-sm opacity-30">
           Includes all source code, documentation, and 90-day support for all
