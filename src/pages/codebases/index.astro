@@ -69,9 +69,14 @@ const statusLabels: Record<string, { text: string; class: string }> = {
         sortedCodebases.map((codebase) => {
           const status =
             statusLabels[codebase.data.status] || statusLabels['available'];
+          const cardHref = codebase.data.externalLink
+            ? codebase.data.externalLink
+            : `/codebases/${codebase.slug}/`;
           return (
             <a
-              href={`/codebases/${codebase.slug}/`}
+              href={cardHref}
+              target={codebase.data.externalLink ? '_blank' : undefined}
+              rel={codebase.data.externalLink ? 'noopener' : undefined}
               class="group hover:text-warm-400 flex items-start justify-between gap-8 py-10 transition-all duration-300"
             >
               <div class="max-w-3xl">
@@ -97,7 +102,9 @@ const statusLabels: Record<string, { text: string; class: string }> = {
               </div>
               <div class="shrink-0 text-right">
                 <div class="text-3xl font-bold">
-                  ${codebase.data.price.toLocaleString()}
+                  {codebase.data.pricingNote
+                    ? codebase.data.pricingNote
+                    : `$${codebase.data.price.toLocaleString()}`}
                 </div>
                 {codebase.data.originalPrice && (
                   <div class="text-sm line-through opacity-30">
