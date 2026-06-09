@@ -88,7 +88,6 @@ const contactSubject = encodeURIComponent(`Interest in ${codebase.data.title}`);
 const bundleSubject = encodeURIComponent('Bundle Purchase Inquiry');
 const hasStripe = !!codebase.data.stripeLink;
 const hasGumroad = !!codebase.data.gumroadLink;
-const hasExternal = !!codebase.data.externalLink;
 const licensesLeft = codebase.data.licensesAvailable;
 const showLowStock = licensesLeft && licensesLeft <= 5;
 ---
@@ -145,16 +144,7 @@ const showLowStock = licensesLeft && licensesLeft <= 5;
         </div>
         <div class="flex flex-wrap gap-4">
           {
-            hasExternal ? (
-              <a
-                href={codebase.data.externalLink}
-                class="btn-primary shadow-engine-glow px-10 py-4 text-base"
-                target="_blank"
-                rel="noopener"
-              >
-                {codebase.data.externalLabel || 'View Project →'}
-              </a>
-            ) : hasStripe ? (
+            hasStripe ? (
               <a
                 href={codebase.data.stripeLink}
                 class="btn-primary shadow-engine-glow px-10 py-4 text-base"
