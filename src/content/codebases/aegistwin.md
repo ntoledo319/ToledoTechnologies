@@ -160,7 +160,7 @@ AegisTwin/
 
 Run agent actions through the policy gates, watch the hash-chained event log build up, then replay the run to verify chain integrity. The three primitives — event log, policy gates, deterministic replay — in your browser, in 60 seconds.
 
-Public source: [github.com/ntoledo319/AegisTwin](https://github.com/ntoledo319/AegisTwin) (94 tests, MIT)
+Public source: [github.com/ntoledo319/AegisTwin](https://github.com/ntoledo319/AegisTwin) (136 tests, MIT)
 
 ## Real Benchmarks — Reproducible
 
@@ -182,7 +182,7 @@ Not for the runtime alone — for the runtime *plus* what nobody else publishes:
 
 - 📄 [Performance benchmarks](/downloads/aegistwin-benchmarks.pdf) — real, reproducible numbers on the actual code
 - 📄 [Comparison vs LangChain / AutoGen / CrewAI](/downloads/aegistwin-comparison.pdf) — honest positioning, including when *not* to use AegisTwin
-- ✅ 94 passing tests covering replay determinism, policy gating, memory consistency
+- ✅ 136 passing tests covering replay determinism, policy gating, memory consistency
 - ✅ Full Docker Compose with Grafana / Prometheus / Jaeger ready to deploy
 - ✅ Helm chart for Kubernetes — production deployment is one command
 - ✅ TypeScript SDK for frontend integration
@@ -202,7 +202,7 @@ Yes. The policy engine accepts Python functions. Define any rule: action type re
 Every event is logged with inputs and outputs and a hash chain. Replay loads a trace and re-executes with the same recorded inputs. Hash verification confirms determinism. 10,000-event runs replay in <90 ms — fast enough to use as a CI step on every PR.
 
 **Is this production-ready?**
-Yes. Docker Compose for development, Helm chart for Kubernetes production, Prometheus/Grafana/Jaeger observability included. 94 passing tests.
+Yes. Docker Compose for development, Helm chart for Kubernetes production, Prometheus/Grafana/Jaeger observability included. 136 passing tests.
 
 **Is support included?**
 No. AegisTwin is self-serve. The repo ships with 16 documentation guides, working Docker stack, comprehensive tests, and the benchmark + comparison artifacts above. Price reflects the code + IP transfer, not service.
