@@ -7,7 +7,7 @@ Static website for [toledotechnologies.com](https://toledotechnologies.com) buil
 - **Framework**: [Astro](https://astro.build) v5
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) v4
 - **Language**: TypeScript
-- **Deployment**: Vercel Static Site
+- **Deployment**: G.R.A.C.E. VPS (git push → GitHub Actions → atomic release)
 
 ## Project Structure
 
@@ -41,19 +41,27 @@ npm run build
 npm run preview
 ```
 
-## Vercel Deployment Settings
+## Deployment
 
-When deploying to Vercel as a Static Site:
+Every push to `main` deploys automatically: `.github/workflows/deploy.yml`
+builds the site (`npm ci && npm run build` → `dist/`) and streams it over SSH
+to the G.R.A.C.E. VPS (`15.204.209.97`), where a forced-command release script
+(`/home/ubuntu/bin/deploy-toledo-root`) extracts it into a timestamped release
+and atomically swaps the `current` symlink that host Caddy serves at
+`toledotechnologies.com`. The workflow then polls `/version.txt` until the
+pushed commit SHA is live — a deploy isn't green until the new build is
+provably serving.
 
-| Setting               | Value                     |
-| :-------------------- | :------------------------ |
-| **Build Command**     | `npm ci && npm run build` |
-| **Publish Directory** | `dist`                    |
-| **Node Version**      | 20 or higher              |
+DNS is authoritative at Porkbun (`A @` and `A www` → the VPS). Server-side
+pieces (release script, Caddy block, deploy-key model) are documented in the
+grace-complete repo at `deploy/sites/toledo/README.md`.
 
-### Environment Variables
+Required GitHub Actions secrets: `VPS_SSH_KEY`, `VPS_HOST`, `VPS_USER`,
+`VPS_KNOWN_HOSTS`. No site environment variables are required — the site
+builds with zero configuration.
 
-No environment variables are required. The site builds with zero configuration.
+Rollback: repoint the `current` symlink to a previous release on the VPS (the
+newest 5 are retained), or revert the commit and push.
 
 ## Post-Launch SEO Checklist
 

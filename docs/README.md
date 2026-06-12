@@ -12,6 +12,6 @@ This directory contains the design system documentation for the Toledo Technolog
 
 ## Project Context
 
-The site is built with **Astro v5**, **Tailwind CSS v4**, and **TypeScript**, deployed on **Vercel** as a static site. It implements the "Gatefold Studio" design system: a physical, high-fidelity experience centered on narrative depth, tactile interaction, and senior-only directness.
+The site is built with **Astro v5**, **Tailwind CSS v4**, and **TypeScript**, deployed on the **G.R.A.C.E. VPS** (git push → GitHub Actions → atomic static release behind Caddy). It implements the "Gatefold Studio" design system: a physical, high-fidelity experience centered on narrative depth, tactile interaction, and senior-only directness.
 
 For development setup and content management, see the project [`README.md`](../README.md).

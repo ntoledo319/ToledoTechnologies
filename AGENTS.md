@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Static website for toledotechnologies.com built with Astro v5, Tailwind CSS v4, and TypeScript. Deployed on Render.
+Static website for toledotechnologies.com built with Astro v5, Tailwind CSS v4, and TypeScript. Deployed on the G.R.A.C.E. VPS: push to `main` triggers `.github/workflows/deploy.yml`, which builds `dist/` and ships an atomic release to the VPS (see README “Deployment”).
 
 ## Development
 
