@@ -158,13 +158,12 @@ testimonial:
 ---
 ```
 
-## Contact Form
+## Lead capture
 
-The contact form uses [FormSubmit](https://formsubmit.co/) for processing. No backend required.
+Lead forms POST to the GRACE lead bus at `https://eolkits.com/api/v1/lead`. Every submission is written to a database and emails the owner on a working path — durable capture, not fire-and-forget. (This replaces the old FormSubmit flow, which was dead at mxroute: submissions were silently dropped.)
 
-- Submissions go to: `hello@toledotechnologies.com`
-- Honeypot spam protection enabled
-- CAPTCHA disabled for better UX
+- Native HTML forms 303-redirect to their `_next` page after submit.
+- AJAX forms (SiteLift-style) get back JSON: `{ ok, lead_id }`.
 
 ## License
 
