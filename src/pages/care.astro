@@ -179,12 +179,13 @@ import InsertLayout from '../layouts/InsertLayout.astro';
   <section id="inquire">
     <h2>Inquire about Care</h2>
     <form
-      action="https://formsubmit.co/hello@toledotechnologies.com"
+      action="https://eolkits.com/api/v1/lead"
       method="POST"
       class="intake-form"
       style="display: grid; gap: 24px; max-width: 600px;"
     >
       <input type="hidden" name="_subject" value="New Care Plan Inquiry" />
+      <input type="hidden" name="_next" value="https://toledotechnologies.com/care?submitted=true" />
       <input type="hidden" name="_honey" style="display:none" />
 
       <fieldset

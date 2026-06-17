@@ -99,7 +99,7 @@ import InsertLayout from '../layouts/InsertLayout.astro';
     </p>
 
     <form
-      action="https://formsubmit.co/hello@toledotechnologies.com"
+      action="https://eolkits.com/api/v1/lead"
       method="POST"
       style="border: 1px solid var(--gf-ink-200); padding: 32px; background: var(--gf-ink-50);"
     >
@@ -514,7 +514,7 @@ import InsertLayout from '../layouts/InsertLayout.astro';
   <section id="not-sure">
     <h2>Not sure which one belongs to you?</h2>
     <form
-      action="https://formsubmit.co/hello@toledotechnologies.com"
+      action="https://eolkits.com/api/v1/lead"
       method="POST"
       class="intake-form"
       style="display: grid; gap: 24px; max-width: 600px;"
@@ -524,6 +524,7 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         name="_subject"
         value="New Discovery Routing Inquiry"
       />
+      <input type="hidden" name="_next" value="https://toledotechnologies.com/discovery?submitted=true" />
       <input type="hidden" name="_honey" style="display:none" />
 
       <fieldset
