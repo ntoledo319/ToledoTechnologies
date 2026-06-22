@@ -1,0 +1,31 @@
+# Toledo Technologies
+
+Custom websites for Connecticut businesses — designed, accessible, and shipped in about a
+week. A solo studio run by Nicholas Toledo. Based in Connecticut; works with CT businesses
+in person and clients nationwide remotely. Direct communication, fixed scope, fixed price,
+no agency overhead — and the client owns every account (domain, hosting, repo, CMS) on handoff.
+
+Contact: hello@toledotechnologies.com · https://toledotechnologies.com
+
+## Services
+- Custom website design (built from scratch, never templates) — from $5,500
+- Website redesign
+- Landing pages
+- WordPress-exit migration (SiteLift) — from $3,500
+- E-commerce / Stripe payment setup
+- Performance & SEO
+- Website maintenance / care plans — from $750/mo
+
+## What makes the work different
+- Every site gets its own design — no template look.
+- Accessibility (WCAG: keyboard, screen-reader, reduced-motion) and SEO built in, not bolted on.
+- Fast: most sites go live in about a week.
+- You own everything. Toledo is added as a collaborator for setup, then hands over the keys.
+
+## Good fit for
+Connecticut small businesses, professional services, and founders who want a custom,
+fast-loading, accessible site — and a developer who ships instead of sending status updates.
+
+## Links
+- Home / work: https://toledotechnologies.com
+- Start a project: https://toledotechnologies.com/contact
