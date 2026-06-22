@@ -5,6 +5,7 @@ import '../styles/gatefold.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
+import { professionalServiceSchema } from '../utils/jsonld';
 import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
@@ -49,37 +50,6 @@ const fullTitle =
   title === 'Home'
     ? 'Toledo Technologies | Remote Software Development Studio'
     : `${title} | Toledo Technologies`;
-
-// Site-wide local-business signal. Toledo is a service-area business (no storefront):
-// a Connecticut web studio that also works remote. This is the structured data that
-// lets local search + Maps surface the studio for "Connecticut web designer"-type intent.
-const professionalServiceLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Toledo Technologies',
-  legalName: 'Toledo Technologies LLC',
-  url: siteUrl,
-  email: 'hello@toledotechnologies.com',
-  description:
-    'Custom websites for Connecticut businesses — designed, accessible, and shipped in about a week. New sites, redesigns, WordPress-exit migrations, and payment setup. The client owns every account on handoff.',
-  founder: { '@type': 'Person', name: 'Nicholas Toledo' },
-  areaServed: [
-    { '@type': 'State', name: 'Connecticut' },
-    { '@type': 'Country', name: 'United States' }
-  ],
-  serviceType: [
-    'Custom Website Design',
-    'Website Redesign',
-    'Landing Page Design',
-    'WordPress Migration',
-    'E-commerce / Stripe Setup',
-    'Website Maintenance'
-  ],
-  knowsAbout: ['Web design', 'Accessibility', 'SEO', 'Astro', 'Next.js', 'Stripe', 'WordPress migration'],
-  priceRange: '$$',
-  image: `${siteUrl}/og-default.png`,
-  logo: `${siteUrl}/og-default.png`
-};
 ---
 
 <!doctype html>
@@ -125,7 +95,7 @@ const professionalServiceLd = {
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(professionalServiceLd)}
+      set:html={JSON.stringify(professionalServiceSchema())}
     />
 
     <!-- JSON-LD Structured Data (per-page) -->

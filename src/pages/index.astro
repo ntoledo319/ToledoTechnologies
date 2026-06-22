@@ -1,11 +1,19 @@
 ---
 import GatefoldLayout from '../layouts/GatefoldLayout.astro';
-import { organizationSchema, websiteSchema } from '../utils/jsonld';
+import {
+  organizationSchema,
+  websiteSchema,
+  professionalServiceSchema
+} from '../utils/jsonld';
 import LinerNotes from '../components/home/LinerNotes.astro';
 import HomeCTA from '../components/home/HomeCTA.astro';
 import SideAFooter from '../components/home/SideAFooter.astro';
 
-const jsonLd = [organizationSchema(), websiteSchema()];
+const jsonLd = [
+  organizationSchema(),
+  websiteSchema(),
+  professionalServiceSchema()
+];
 ---
 
 <GatefoldLayout

@@ -307,3 +307,47 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
     }))
   };
 }
+
+/**
+ * ProfessionalService (LocalBusiness) schema — the local-search / Maps signal.
+ * Toledo is a service-area business: a Connecticut web studio that also works remote.
+ * Used on the homepage and site-wide (via BaseLayout) so local intent can surface it.
+ */
+export function professionalServiceSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/#localbusiness`,
+    name: SITE_NAME,
+    legalName: 'Toledo Technologies LLC',
+    url: SITE_URL,
+    email: CONTACT_EMAIL,
+    image: `${SITE_URL}/og-default.png`,
+    description:
+      'Custom websites for Connecticut businesses — designed, accessible, and shipped in about a week. New sites, redesigns, WordPress-exit migrations, and payment setup. The client owns every account on handoff.',
+    founder: { '@type': 'Person', name: 'Nicholas Toledo' },
+    areaServed: [
+      { '@type': 'State', name: 'Connecticut' },
+      { '@type': 'Country', name: 'United States' }
+    ],
+    serviceType: [
+      'Custom Website Design',
+      'Website Redesign',
+      'Landing Page Design',
+      'WordPress Migration',
+      'E-commerce / Stripe Setup',
+      'Website Maintenance'
+    ],
+    knowsAbout: [
+      'Web design',
+      'Accessibility',
+      'SEO',
+      'Astro',
+      'Next.js',
+      'Stripe',
+      'WordPress migration'
+    ],
+    priceRange: '$$',
+    sameAs: [GITHUB_URL]
+  };
+}
