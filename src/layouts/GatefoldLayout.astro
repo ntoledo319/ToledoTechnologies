@@ -129,18 +129,40 @@ const fullTitle =
       <div class="cover-panel left" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <!-- Desktop: Microphone (Hero Midnight) -->
+            <!-- Desktop: Microphone (Hero Midnight) — landscape, full-bleed.
+                 AVIF first, then WebP; the browser picks the sharpest width its
+                 screen can resolve (native 3000px for 4K/Retina). -->
             <source
-              srcset="/images/hero-midnight.jpg"
               media="(min-width: 769px)"
+              type="image/avif"
+              srcset="/images/heroes/hero-midnight-1366.avif 1366w, /images/heroes/hero-midnight-1920.avif 1920w, /images/heroes/hero-midnight-2560.avif 2560w, /images/heroes/hero-midnight-3000.avif 3000w"
+              sizes="100vw"
             />
-            <!-- Mobile: CRT Monitor (Hero CRT) -->
-            <source srcset="/images/hero-crt.jpg" media="(max-width: 768px)" />
+            <source
+              media="(min-width: 769px)"
+              type="image/webp"
+              srcset="/images/heroes/hero-midnight-1366.webp 1366w, /images/heroes/hero-midnight-1920.webp 1920w, /images/heroes/hero-midnight-2560.webp 2560w, /images/heroes/hero-midnight-3000.webp 3000w"
+              sizes="100vw"
+            />
+            <!-- Mobile: CRT Monitor (Hero CRT) — portrait, art-directed. -->
+            <source
+              media="(max-width: 768px)"
+              type="image/avif"
+              srcset="/images/heroes/hero-crt-768.avif 768w, /images/heroes/hero-crt-1200.avif 1200w, /images/heroes/hero-crt-1600.avif 1600w, /images/heroes/hero-crt-2400.avif 2400w"
+              sizes="100vw"
+            />
+            <source
+              media="(max-width: 768px)"
+              type="image/webp"
+              srcset="/images/heroes/hero-crt-768.webp 768w, /images/heroes/hero-crt-1200.webp 1200w, /images/heroes/hero-crt-1600.webp 1600w, /images/heroes/hero-crt-2400.webp 2400w"
+              sizes="100vw"
+            />
             <img
               class="hero-photo"
-              src="/images/hero-crt-1600.jpg"
-              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
-              sizes="200vw"
+              src="/images/heroes/hero-midnight-1920.jpg"
+              width="1920"
+              height="1280"
+              sizes="100vw"
               alt=""
               fetchpriority="high"
               decoding="async"
@@ -193,18 +215,40 @@ const fullTitle =
       <div class="cover-panel right" aria-hidden="false">
         <div class="hero-art" aria-hidden="true">
           <picture>
-            <!-- Desktop: Microphone (Hero Midnight) -->
+            <!-- Desktop: Microphone (Hero Midnight) — landscape, full-bleed.
+                 AVIF first, then WebP; the browser picks the sharpest width its
+                 screen can resolve (native 3000px for 4K/Retina). -->
             <source
-              srcset="/images/hero-midnight.jpg"
               media="(min-width: 769px)"
+              type="image/avif"
+              srcset="/images/heroes/hero-midnight-1366.avif 1366w, /images/heroes/hero-midnight-1920.avif 1920w, /images/heroes/hero-midnight-2560.avif 2560w, /images/heroes/hero-midnight-3000.avif 3000w"
+              sizes="100vw"
             />
-            <!-- Mobile: CRT Monitor (Hero CRT) -->
-            <source srcset="/images/hero-crt.jpg" media="(max-width: 768px)" />
+            <source
+              media="(min-width: 769px)"
+              type="image/webp"
+              srcset="/images/heroes/hero-midnight-1366.webp 1366w, /images/heroes/hero-midnight-1920.webp 1920w, /images/heroes/hero-midnight-2560.webp 2560w, /images/heroes/hero-midnight-3000.webp 3000w"
+              sizes="100vw"
+            />
+            <!-- Mobile: CRT Monitor (Hero CRT) — portrait, art-directed. -->
+            <source
+              media="(max-width: 768px)"
+              type="image/avif"
+              srcset="/images/heroes/hero-crt-768.avif 768w, /images/heroes/hero-crt-1200.avif 1200w, /images/heroes/hero-crt-1600.avif 1600w, /images/heroes/hero-crt-2400.avif 2400w"
+              sizes="100vw"
+            />
+            <source
+              media="(max-width: 768px)"
+              type="image/webp"
+              srcset="/images/heroes/hero-crt-768.webp 768w, /images/heroes/hero-crt-1200.webp 1200w, /images/heroes/hero-crt-1600.webp 1600w, /images/heroes/hero-crt-2400.webp 2400w"
+              sizes="100vw"
+            />
             <img
               class="hero-photo"
-              src="/images/hero-crt-1600.jpg"
-              srcset="/images/hero-crt-1600.jpg 1600w, /images/hero-crt-3000.jpg 3000w, /images/hero-crt.jpg 4800w"
-              sizes="200vw"
+              src="/images/heroes/hero-midnight-1920.jpg"
+              width="1920"
+              height="1280"
+              sizes="100vw"
               alt="A cinematic studio setting. Desktop shows a vintage microphone and record player; mobile shows a warm CRT workstation."
               decoding="async"
               loading="eager"
