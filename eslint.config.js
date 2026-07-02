@@ -8,7 +8,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', '.vercel/**', '.astro/**', 'node_modules/**', 'tt/**']
+    ignores: ['dist/**', '.vercel/**', '.astro/**', 'node_modules/**', 'tt/**', 'docs/archive/**']
   },
   js.configs.recommended,
   {
