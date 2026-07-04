@@ -52,6 +52,17 @@ and atomically swaps the `current` symlink that host Caddy serves at
 pushed commit SHA is live — a deploy isn't green until the new build is
 provably serving.
 
+The CI pipeline is unchanged (same four secrets, same `tar | ssh` over the
+forced-command key, same `version.txt` gate). What changed on 2026-07-03: the
+box release script was regenerated from the shared static template
+(`deploy/sites/_template/deploy-static.sh.tmpl`), so every deploy now logs a
+deploy event into G.R.A.C.E. — `published` on success, `failed` if the release
+aborts before publish. Those events are visible on the "Living Fleet" hosting
+dashboard at `https://graceai.love/hosting` and via
+`GET /api/v1/hosting/toledo-root/deploys`. The canonical copy of this site's
+release script is `deploy/sites/toledo/deploy-toledo-root.sh` in grace-complete
+— edit there and reinstall on the box; never hand-edit the live script.
+
 DNS is authoritative at Porkbun (`A @` and `A www` → the VPS). Server-side
 pieces (release script, Caddy block, deploy-key model) are documented in the
 grace-complete repo at `deploy/sites/toledo/README.md`.
