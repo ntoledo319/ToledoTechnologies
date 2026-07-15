@@ -124,57 +124,69 @@ tldr: 'One-sentence summary'
 ---
 ```
 
-### Codebases
+### Codebase references
 
-Add products to `src/content/codebases/`:
+Add capability references to `src/content/codebases/`. This collection is not a
+storefront; pricing, inventory, checkout, license-availability, and support-sale
+fields are intentionally absent from the schema.
 
 ```yaml
 ---
 title: 'Product Name'
 tagline: 'Short tagline'
 description: 'Full description'
-status: 'available' # or "limited" or "in-development"
+status: 'reference' # or "active" or "archived"
 category: 'Security'
 tags: ['tag1', 'tag2']
 features: ['Feature 1', 'Feature 2']
 included: ['Item 1', 'Item 2']
 targetAudience: ['Audience 1', 'Audience 2']
 order: 1
-price: 0
-originalPrice: 0
-pricingNote: 'Optional pricing note'
-stripeLink: 'https://buy.stripe.com/...'
-licensesAvailable: 10
 ---
 ```
 
-### Case Studies
+### Proof and field notes
 
-Add case studies to `src/content/case-studies/`:
+Every entry in `src/content/case-studies/` must identify its provenance and
+limitations. Independent public research and sample deliverables must never be
+rendered as paid client work.
 
 ```yaml
 ---
 title: 'Case Study Title'
 description: 'Brief description'
-client: 'Client Name'
 industry: 'Industry Name'
 services: ['Service 1', 'Service 2']
 publishedDate: 2024-01-15
+measurementDate: 2024-01-14 # optional
 featured: false
-results: ['Result 1', 'Result 2']
-testimonial:
-  quote: 'Testimonial text'
-  author: 'Person Name'
-  role: 'Their Role'
+results: ['Recorded observation 1', 'Recorded observation 2']
+evidenceType: 'independent-research' # or "sample-deliverable"
+evidenceNote: 'Plain-language provenance statement'
+limitations: 'What this evidence cannot establish'
 ---
 ```
 
 ## Lead capture
 
-Lead forms POST to the GRACE lead bus at `https://eolkits.com/api/v1/lead`. Every submission is written to a database and emails the owner on a working path — durable capture, not fire-and-forget. (This replaces the old FormSubmit flow, which was dead at mxroute: submissions were silently dropped.)
+Lead forms POST to the eolkits lead bus at
+`https://eolkits.com/api/v1/lead`. Valid submissions are stored and notify the
+owner. The first-step forms keep visible fields to the information needed for
+routing; `source`, `product`, `service`, and `context` travel as hidden metadata.
 
 - Native HTML forms 303-redirect to their `_next` page after submit.
 - AJAX forms (SiteLift-style) get back JSON: `{ ok, lead_id }`.
+
+## Truth contracts
+
+- `/codebases/` is a reference archive, not a sale or licensing surface.
+- `/case-studies/` contains labeled research and samples, not implied clients.
+- `/portfolio/` separates reference builds, research notes, and sample outputs.
+- `/checkout-success/` is retained only as a no-index retired-route notice.
+- Contact links may pass `service` and `subject`; `/contact/` preserves both in
+  lead metadata and makes the routing context visible to the visitor.
+- The source-contract tests in `src/test/truth-contract.test.ts` protect these
+  boundaries from copy drift.
 
 ## License
 

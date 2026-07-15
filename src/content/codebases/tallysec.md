@@ -1,8 +1,8 @@
 ---
 title: 'TallySec'
 tagline: 'Teach security in the language of finance'
-description: 'AI-powered security education lab pack that connects threat scoring to quantifiable business impact and ROI. Complete training bundle with deterministic scanner, labs, assessments, and FastAPI microservice.'
-status: 'available'
+description: 'A security-education reference that combines deterministic scoring, synthetic data, structured labs, assessments, and a FastAPI service.'
+status: 'reference'
 category: 'Security Education'
 tags:
   [
@@ -29,28 +29,21 @@ included:
   - 'Docker and Docker Compose configuration'
   - 'Static web dashboard'
   - 'Documentation: Quickstart, Instructor Guide, Syllabus, Rubric, FAQ'
-  - 'Sales materials: One-pager, Press kit, Listing copy'
-  - 'Legal: Exclusive Sale Agreement (No-Support), Do-No-Evil EULA'
   - 'Brand assets: Wordmark, icons, palette, brand guide'
-  - 'Complete IP transfer ready'
 targetAudience:
   - 'Training organizations teaching security'
   - 'Enterprises building internal security education programs'
   - 'Consultants delivering security workshops'
   - 'Universities and bootcamps with security curricula'
 order: 1
-price: 12500
-originalPrice: 35000
-pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
-stripeLink: 'https://buy.stripe.com/4gM5kD4nYfRK0cXffu87K07'
-gumroadLink: 'https://toledodev8.gumroad.com/l/tallysec-source'
-gumroadPrice: 1800
-licensesAvailable: 5
 ---
 
 ## What TallySec Does
 
-TallySec is a **Risk-to-Return Lab Pack** that teaches security teams to communicate findings in executive language. It bridges the gap between technical threat detection and business impact by translating risk scores into ROI metrics.
+TallySec is a **Risk-to-Return reference build** that explores how a security
+curriculum can connect technical findings to business language. It uses
+synthetic data and is not a production scanner. This page documents capability;
+it does not offer the repository for sale or license.
 
 ## The Problem It Solves
 
@@ -73,7 +66,7 @@ A deterministic, feature-based scoring engine prioritizes threats and translates
 
 Five structured labs take students from basics to advanced concepts. Each includes student materials and instructor answer keys for classroom or self-paced learning.
 
-### Production-Ready API
+### Containerized API Reference
 
 FastAPI microservice runs locally or containerized. Includes OpenAPI documentation, Postman collection, and example integrations.
 
@@ -94,7 +87,7 @@ Reports and dashboards present findings in ROI terms—perfect for board present
 - **Data**: Synthetic labeled CSV dataset
 - **Dependencies**: fastapi, pydantic, uvicorn, requests
 
-## What's in the Box
+## Reference Artifact Inventory
 
 ```
 TallySec/
@@ -105,55 +98,41 @@ TallySec/
 ├── data/               # Synthetic datasets
 ├── web/                # Static dashboard
 ├── docs/               # Quickstart, Syllabus, FAQ
-├── sales/              # One-pager, listing materials
-├── press_kit/          # Boilerplate, press release
-└── legal/              # EULA, sale agreement
+└── docs/               # Quickstart, syllabus, and operating notes
 ```
 
-## Try Before You Buy
+## Inspect the Reference
 
 ### 🚀 [Live Demo →](https://tallysec-demo.vercel.app/)
 
-Paste any URL into the live scanner and get a real risk score. Generate a sample completion certificate with your name on it. Same scanner that ships in the production package; students learn to extend it in Lab 3.
+Paste a URL into the demonstration scanner and inspect its deterministic score.
+The demo is educational, uses a simplified model, and is not a security
+assessment of the submitted site.
 
 ### Downloadable materials
 
-These are the actual materials from the repo — what you'd hand to your instructors next week:
+These samples show the curriculum structure and writing level:
 
 - 📄 [Course Syllabus (PDF)](/downloads/tallysec-syllabus.pdf) — 8 modules, 15.5 contact hours, full topic breakdown
-- 📄 [Sample Lab 1 — Student Version (PDF)](/downloads/tallysec-sample-lab.pdf) — see the depth and tone before you commit
+- 📄 [Sample Lab 1 — Student Version (PDF)](/downloads/tallysec-sample-lab.pdf) — inspect the depth and tone
 - 📄 [Grading Rubric (PDF)](/downloads/tallysec-rubric.pdf) — 100-point final exam scoring
 - 📄 [Competitive comparison vs Cybrary / Pluralsight / TryHackMe](/downloads/tallysec-comparison.pdf)
 
-## Why TallySec costs less than one year of Cybrary
+## What This Reference Demonstrates
 
-100 students/year on Cybrary or Pluralsight costs **$30k–$80k per year, recurring**. TallySec is **$12,500 one time**, run unlimited cohorts under your brand. The math:
-
-| Vendor | Year 1 | 3-year total |
-|---|---:|---:|
-| Cybrary (per-seat) | $50,000 | **$300,000** |
-| Pluralsight Premium | $36,000 | **$216,000** |
-| TallySec (one-time) | $12,500 | **$12,500** |
-
-Full breakdown in the comparison PDF above.
-
-## ROI Calculator
-
-[**Calculate your bootcamp's break-even point →**](/tools/bootcamp-roi)
+- A deterministic teaching boundary separate from production scanning
+- Synthetic datasets and instructor keys that make exercises reproducible
+- An API, dashboard, and assessment flow packaged around the same concepts
+- Clear disclaimers about what the score can and cannot establish
 
 ## FAQ
 
 **Is this for production security scanning?**
 No. TallySec is a training/demo bundle with synthetic data. It teaches concepts, not production threat detection.
 
-**Can I rebrand this for my organization?**
-Yes. The Do-No-Evil EULA allows white-labeling. Brand assets and customization guides are included. Unlike Cybrary or Pluralsight, you own the curriculum and issue certificates under your name.
-
 **What's the technical skill level required?**
 Labs progress from beginner to intermediate. Basic Python and API knowledge is helpful but not required.
 
-**Is support included?**
-No. TallySec is self-serve. The repo ships with comprehensive docs, a working Docker stack, all instructor keys, and sample lab walkthroughs. The price reflects the value of the code and IP — not an ongoing service relationship.
-
-**What's the acquisition process?**
-Click "Buy" above. After payment you receive a GitHub repo invite + signed IP transfer agreement within 24 hours. Drop-in to your existing LMS in 1–2 weeks.
+**Can Toledo Technologies build a custom training system from these patterns?**
+Yes. A scoped engagement would define the audience, curriculum ownership,
+assessment rules, deployment, and accessibility requirements before quoting.

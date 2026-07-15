@@ -17,7 +17,7 @@ const { Content } = await study.render();
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Case Studies', url: '/case-studies' },
+    { name: 'Proof & Field Notes', url: '/case-studies' },
     { name: study.data.title, url: `/case-studies/${study.slug}` }
   ]),
   articleSchema({
@@ -34,6 +34,11 @@ function formatDate(date: Date): string {
     month: 'long'
   }).format(date);
 }
+
+const evidenceLabel =
+  study.data.evidenceType === 'independent-research'
+    ? 'Independent research · not client work'
+    : 'Sample deliverable · not client work';
 ---
 
 <InsertLayout
@@ -45,10 +50,10 @@ function formatDate(date: Date): string {
 >
   <header class="mb-12 border-b border-black/5 pb-8">
     <div class="mb-6 flex flex-wrap items-center gap-4">
-      <span class="text-sm font-medium tracking-widest uppercase opacity-40">
+      <span class="text-sm font-medium tracking-widest uppercase opacity-65">
         {study.data.industry}
       </span>
-      <time class="text-sm opacity-40">
+      <time class="text-sm opacity-65">
         {formatDate(study.data.publishedDate)}
       </time>
     </div>
@@ -67,6 +72,17 @@ function formatDate(date: Date): string {
     </div>
   </header>
 
+  <section class="evidence-band" aria-labelledby="evidence-label">
+    <div>
+      <p id="evidence-label" class="evidence-band-label">{evidenceLabel}</p>
+      <p>{study.data.evidenceNote}</p>
+    </div>
+    <div>
+      <p class="evidence-band-label">Limits</p>
+      <p>{study.data.limitations}</p>
+    </div>
+  </section>
+
   {
     study.data.results.length > 0 && (
       <section class="mb-12 border-b border-black/5 pb-8">
@@ -74,7 +90,7 @@ function formatDate(date: Date): string {
           class="text-warm-500 mb-8 text-xs font-bold tracking-[0.3em] uppercase"
           style="font-family: var(--font-lyric);"
         >
-          Key Results
+          Recorded evidence
         </h2>
         <div class="grid gap-8 sm:grid-cols-2">
           {study.data.results.map((result) => (
@@ -91,30 +107,17 @@ function formatDate(date: Date): string {
     <Content />
   </div>
 
-  {
-    study.data.testimonial && (
-      <section class="mt-16 border-t border-black/5 pt-12">
-        <blockquote class="mb-8 text-xl leading-relaxed italic opacity-70 sm:text-2xl">
-          "{study.data.testimonial.quote}"
-        </blockquote>
-        <div>
-          <p class="font-bold">{study.data.testimonial.author}</p>
-          <p class="text-sm opacity-40">{study.data.testimonial.role}</p>
-        </div>
-      </section>
-    )
-  }
-
   <section class="mt-16 border-t border-black/5 pt-12">
     <h2 class="mb-3 text-2xl font-bold" style="font-family: var(--font-lyric);">
-      Have a similar challenge?
+      Need the same question answered on your system?
     </h2>
     <p class="mb-6 opacity-50">
-      Tell us what you're dealing with. We'll tell you what it takes to fix it.
+      Paid discovery produces a scoped document with explicit evidence and
+      limitations. It does not begin with a promised outcome.
     </p>
     <div class="flex flex-wrap gap-4">
-      <a href="/contact" class="btn-primary">Get a Quote</a>
-      <a href="/case-studies" class="btn-ghost">More Case Studies</a>
+      <a href="/discovery#start" class="btn-primary">Choose a Discovery</a>
+      <a href="/case-studies" class="btn-ghost">More Field Notes</a>
     </div>
   </section>
 </InsertLayout>

@@ -6,7 +6,7 @@ import InsertLayout from '../layouts/InsertLayout.astro';
   title="Discovery Products"
   description="Six paid front doors to Toledo Technologies. SiteLift Fit Check, Website Migration Audit, Web App Discovery, AI Automation Blueprint, Mobile App Discovery, and SaaS Strategy."
   heading="Six paid front doors. One of them belongs to you."
-  subheading="Every project starts with a paid discovery. It produces a document — risk plan, scope map, fixed-price quote — that you can use whether or not you hire us. Half of every discovery fee credits to your project deposit if you proceed within thirty days."
+  subheading="When a project has material unknowns, paid discovery turns them into a risk plan, scope map, and quote basis you can use whether or not you hire us. Half of every discovery fee credits to the kickoff Project Retainer if you proceed within thirty days. The credit is capped at that Project Retainer; unused credit lapses and does not roll forward."
 >
   <p class="eyebrow" style="margin-bottom: 24px;">
     <span class="num">B7</span><span class="bar"></span><span
@@ -16,7 +16,12 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
   <section id="at-a-glance">
     <h2>The six discoveries at a glance</h2>
-    <div style="overflow-x: auto;">
+    <div
+      class="data-table-scroll"
+      role="region"
+      aria-label="Discovery pricing table; scroll horizontally on a small screen"
+      tabindex="0"
+    >
       <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
         <thead>
           <tr
@@ -80,10 +85,15 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </tbody>
       </table>
     </div>
+    <p class="table-scroll-hint">
+      On a small screen, swipe the ledger sideways to compare all four columns.
+    </p>
     <p>
       <em
-        >The shared rule: Half of every discovery fee credits to the project
-        deposit if you proceed within 30 days. You keep the document either way.</em
+        >The shared rule: Half of every discovery fee credits to the kickoff
+        Project Retainer if you proceed within 30 days. The credit is capped at
+        that Project Retainer; unused credit lapses and does not roll forward.
+        You keep the document either way.</em
       >
     </p>
   </section>
@@ -93,14 +103,15 @@ import InsertLayout from '../layouts/InsertLayout.astro';
   <section id="start" aria-labelledby="start-heading">
     <h2 id="start-heading">Start here</h2>
     <p style="margin-bottom: 24px;">
-      Tell us what you're trying to build or fix. We reply in under 24 hours
-      with the discovery that fits — and the price. No "let's hop on a call"
-      back-and-forth.
+      Tell us what you're trying to build or fix. We review the fit and reply by
+      email with the appropriate next step, including a discovery recommendation
+      and price when discovery is warranted.
     </p>
 
     <form
       action="https://eolkits.com/api/v1/lead"
       method="POST"
+      class="intake-form intake-form--compact"
       style="border: 1px solid var(--gf-ink-200); padding: 32px; background: var(--gf-ink-50);"
     >
       <input type="hidden" name="_subject" value="New discovery inquiry" />
@@ -108,81 +119,63 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       <input type="hidden" name="_template" value="table" />
       <input
         type="hidden"
+        name="source"
+        value="toledotechnologies.com/discovery"
+      />
+      <input type="hidden" name="product" value="Discovery routing" />
+      <input
+        type="hidden"
+        name="context"
+        value="Service and paid-discovery routing request"
+      />
+      <input
+        type="hidden"
         name="_next"
         value="https://toledotechnologies.com/discovery?submitted=true"
       />
       <input type="text" name="_honey" style="display:none" tabindex="-1" />
 
-      <fieldset style="border: none; padding: 0; margin: 0 0 24px;">
-        <legend
+      <label for="intent" style="display: grid; gap: 8px; margin-bottom: 24px;">
+        <span
           style="font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;"
         >
-          What are you trying to build or fix? *
-        </legend>
-        <div style="display: grid; gap: 8px;">
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="website" required />
-            <span>A new website (or rebuild of an existing one)</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="wordpress-exit" />
-            <span>I want off WordPress</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="internal-tool" />
-            <span>An internal tool, portal, or custom software</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="mobile" />
-            <span>A mobile app (or rescue of one in progress)</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="ai" />
-            <span>An AI workflow or agent, with governance</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="intent" value="unsure" />
-            <span>I'm not sure yet</span>
-          </label>
-        </div>
-      </fieldset>
+          What are you trying to build or fix?
+        </span>
+        <select id="intent" name="intent">
+          <option value="">Choose the closest track…</option>
+          <option value="website">A new website or rebuild</option>
+          <option value="wordpress-exit">A WordPress exit</option>
+          <option value="internal-tool"
+            >An internal tool, portal, or custom app</option
+          >
+          <option value="mobile">A mobile app or rescue</option>
+          <option value="ai">An AI workflow or governed agent</option>
+          <option value="unsure">Not sure yet</option>
+        </select>
+      </label>
 
-      <fieldset style="border: none; padding: 0; margin: 0 0 24px;">
-        <legend
+      <label for="budget" style="display: grid; gap: 8px; margin-bottom: 24px;">
+        <span
           style="font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;"
         >
           Rough budget band
-        </legend>
-        <div style="display: grid; gap: 8px;">
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="budget" value="under-5k" />
-            <span>Under $5K</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="budget" value="5k-15k" />
-            <span>$5K–$15K</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="budget" value="15k-50k" />
-            <span>$15K–$50K</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="budget" value="50k-plus" />
-            <span>$50K+</span>
-          </label>
-          <label style="display: flex; gap: 12px; cursor: pointer;">
-            <input type="radio" name="budget" value="unsure" />
-            <span>Not sure yet</span>
-          </label>
-        </div>
-      </fieldset>
+        </span>
+        <select id="budget" name="budget">
+          <option value="">Choose a band or leave this open…</option>
+          <option value="under-5k">Under $5K</option>
+          <option value="5k-15k">$5K–$15K</option>
+          <option value="15k-50k">$15K–$50K</option>
+          <option value="50k-plus">$50K+</option>
+          <option value="unsure">Not sure yet</option>
+        </select>
+      </label>
 
       <div style="margin-bottom: 24px;">
         <label
           for="trigger"
           style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
         >
-          What's the trigger?
+          What changed, or what is blocked?
         </label>
         <textarea
           id="trigger"
@@ -193,19 +186,21 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         ></textarea>
       </div>
 
-      <div style="display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
+      <div
+        class="intake-grid"
+        style="display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-bottom: 24px;"
+      >
         <div>
           <label
             for="name"
             style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
           >
-            Name *
+            Name
           </label>
           <input
             type="text"
             id="name"
             name="name"
-            required
             style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px;"
           />
         </div>
@@ -226,22 +221,6 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </div>
       </div>
 
-      <div style="margin-bottom: 24px;">
-        <label
-          for="site-url"
-          style="display: block; font-family: var(--gf-font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;"
-        >
-          Site URL (if relevant)
-        </label>
-        <input
-          type="url"
-          id="site-url"
-          name="site_url"
-          placeholder="https://"
-          style="width: 100%; padding: 12px; border: 1px solid var(--gf-ink-200); background: white; font-family: inherit; font-size: 15px;"
-        />
-      </div>
-
       <button
         type="submit"
         style="background: var(--gf-ink-900); color: var(--gf-paper); border: none; padding: 14px 28px; font-family: var(--gf-font-mono); font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;"
@@ -252,22 +231,24 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       <p
         style="margin-top: 16px; font-size: 13px; color: var(--gf-ink-700); font-style: italic;"
       >
-        We reply by email. We don't book sales calls before we know what
-        you need.
+        We reply by email. This form posts to Toledo's lead intake service at
+        eolkits.com; read the <a href="/privacy">privacy details</a> and
+        <a href="/terms">terms</a>.
       </p>
     </form>
 
-    {Astro.url.searchParams.get('submitted') === 'true' && (
-      <div
-        style="margin-top: 32px; padding: 24px; border: 1px solid var(--gf-ink-900); background: var(--gf-paper);"
-      >
-        <p style="margin: 0;">
-          <strong>Inquiry received.</strong> We reply within 24 hours from{' '}
-          <code>hello@toledotechnologies.com</code>. If you don't see a reply,
-          check spam — and reply to that thread so we can fix it.
-        </p>
-      </div>
-    )}
+    <div
+      id="submission-success"
+      role="status"
+      tabindex="-1"
+      hidden
+      style="margin-top: 32px; padding: 24px; border: 1px solid var(--gf-ink-900); background: var(--gf-paper);"
+    >
+      <p style="margin: 0;">
+        <strong>Inquiry received.</strong> Any reply will come from
+        <code>hello@toledotechnologies.com</code>.
+      </p>
+    </div>
   </section>
 
   <hr />
@@ -440,8 +421,8 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </li>
         <li>
           <strong>Inquiry:</strong>
-          <a href="https://ai.toledotechnologies.com/discovery"
-            >ai.toledotechnologies.com/discovery →</a
+          <a href="https://ai.toledotechnologies.com/#start"
+            >ai.toledotechnologies.com/#start →</a
           >
         </li>
       </ul>
@@ -461,8 +442,8 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         <li><strong>For:</strong> Product owners, consumer brands</li>
         <li>
           <strong>Inquiry:</strong>
-          <a href="https://mobile.toledotechnologies.com/discovery"
-            >mobile.toledotechnologies.com/discovery →</a
+          <a href="https://mobile.toledotechnologies.com/#discovery"
+            >mobile.toledotechnologies.com/#discovery →</a
           >
         </li>
       </ul>
@@ -513,104 +494,12 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
   <section id="not-sure">
     <h2>Not sure which one belongs to you?</h2>
-    <form
-      action="https://eolkits.com/api/v1/lead"
-      method="POST"
-      class="intake-form"
-      style="display: grid; gap: 24px; max-width: 600px;"
-    >
-      <input
-        type="hidden"
-        name="_subject"
-        value="New Discovery Routing Inquiry"
-      />
-      <input type="hidden" name="_next" value="https://toledotechnologies.com/discovery?submitted=true" />
-      <input type="hidden" name="_honey" style="display:none" />
-
-      <fieldset
-        style="border: 1px solid var(--gf-ink-200); padding: 24px; display: grid; gap: 16px;"
-      >
-        <legend style="padding: 0 8px; font-weight: bold;">Route me</legend>
-
-        <label style="display: grid; gap: 8px;">
-          In your own words, what are you trying to accomplish? *
-          <textarea
-            name="goal"
-            rows="5"
-            required
-            placeholder="Two or three sentences. We'll route you to the right discovery."
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          ></textarea>
-        </label>
-
-        <label style="display: grid; gap: 8px;">
-          Best guess at budget range *
-          <select
-            name="budget"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          >
-            <option value="">Select…</option>
-            <option value="<5k">Under $5K</option>
-            <option value="5-25k">$5K–$25K</option>
-            <option value="25-100k">$25K–$100K</option>
-            <option value="100-500k">$100K–$500K</option>
-            <option value="500k+">$500K+</option>
-            <option value="not-sure">Not sure</option>
-          </select>
-        </label>
-
-        <label style="display: grid; gap: 8px;">
-          Timeline *
-          <select
-            name="timeline"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          >
-            <option value="">Select…</option>
-            <option value="urgent">ASAP</option>
-            <option value="next-month">Within a month</option>
-            <option value="next-quarter">Within a quarter</option>
-            <option value="exploring">Exploring</option>
-          </select>
-        </label>
-      </fieldset>
-
-      <fieldset
-        style="border: 1px solid var(--gf-ink-200); padding: 24px; display: grid; gap: 16px;"
-      >
-        <legend style="padding: 0 8px; font-weight: bold;">Contact</legend>
-        <label style="display: grid; gap: 8px;"
-          >Name * <input
-            type="text"
-            name="name"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-        <label style="display: grid; gap: 8px;"
-          >Email * <input
-            type="email"
-            name="email"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-        <label style="display: grid; gap: 8px;"
-          >Company <input
-            type="text"
-            name="company"
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-      </fieldset>
-
-      <button
-        type="submit"
-        style="padding: 16px; background: var(--gf-ink-900); color: white; border: none; cursor: pointer; font-weight: bold;"
-        >Submit — we'll route you within 1 business day</button
-      >
-    </form>
+    <p>
+      Use the five-field form above and choose “Not sure yet.” The same inquiry
+      carries your goal, budget band, and reply address without asking you to
+      complete a second intake.
+    </p>
+    <p><a href="#start">→ Go to the routing form</a></p>
   </section>
 
   <hr />
@@ -629,17 +518,30 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       The hard part is picking which front door. The discovery itself does the
       rest.
     </h2>
-    <div style="display: flex; gap: 16px; justify-content: center;">
+    <div
+      class="cta-actions"
+      style="display: flex; gap: 16px; justify-content: center;"
+    >
       <a
         href="#at-a-glance"
         style="display: inline-block; padding: 12px 24px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold;"
         >Pick a discovery</a
       >
       <a
-        href="/contact"
+        href="/contact?service=discovery&subject=Discovery%20routing"
         style="display: inline-block; padding: 12px 24px; border: 1px solid rgba(255,255,255,0.3); color: white; text-decoration: none; font-weight: bold;"
         >Talk it through</a
       >
     </div>
   </section>
 </InsertLayout>
+
+<script>
+  if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
+    const success = document.querySelector<HTMLElement>('#submission-success');
+    if (success) {
+      success.hidden = false;
+      success.focus();
+    }
+  }
+</script>

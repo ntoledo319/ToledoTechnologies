@@ -20,8 +20,9 @@ const blog = defineCollection({
 });
 
 /**
- * Codebases collection schema.
- * For product pages of deploy-ready codebases for sale.
+ * Codebase collection schema.
+ * These entries are engineering references, not a storefront. They document
+ * what exists and what the work demonstrates without implying availability.
  */
 const codebases = defineCollection({
   type: 'content',
@@ -29,45 +30,35 @@ const codebases = defineCollection({
     title: z.string(),
     tagline: z.string(),
     description: z.string(),
-    status: z.enum(['available', 'limited', 'in-development']),
+    status: z.enum(['reference', 'active', 'archived']),
     category: z.string(),
     tags: z.array(z.string()).default([]),
     features: z.array(z.string()).default([]),
     included: z.array(z.string()).default([]),
     targetAudience: z.array(z.string()).default([]),
-    order: z.number().default(0),
-    price: z.number().default(0),
-    originalPrice: z.number().optional(),
-    pricingNote: z.string().optional(),
-    stripeLink: z.string().optional(),
-    gumroadLink: z.string().optional(),
-    gumroadPrice: z.number().optional(),
-    licensesAvailable: z.number().optional()
+    order: z.number().default(0)
   })
 });
 
 /**
- * Case Studies collection schema.
- * Showcases successful projects and client work.
+ * Proof-note collection schema.
+ * Every entry declares its evidence type and limitations so independent
+ * research can never be rendered as paid client work by implication.
  */
 const caseStudies = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    client: z.string().optional(),
     industry: z.string(),
     services: z.array(z.string()).default([]),
     publishedDate: z.coerce.date(),
+    measurementDate: z.coerce.date().optional(),
     featured: z.boolean().default(false),
     results: z.array(z.string()).default([]),
-    testimonial: z
-      .object({
-        quote: z.string(),
-        author: z.string(),
-        role: z.string()
-      })
-      .optional()
+    evidenceType: z.enum(['independent-research', 'sample-deliverable']),
+    evidenceNote: z.string(),
+    limitations: z.string()
   })
 });
 

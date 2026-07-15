@@ -8,7 +8,14 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', '.vercel/**', '.astro/**', 'node_modules/**', 'tt/**', 'docs/archive/**']
+    ignores: [
+      'dist/**',
+      '.vercel/**',
+      '.astro/**',
+      'node_modules/**',
+      'tt/**',
+      'docs/archive/**'
+    ]
   },
   js.configs.recommended,
   {
@@ -61,6 +68,12 @@ export default [
       ...jsxA11y.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,
       'jsx-a11y/label-has-associated-control': 'off',
+      'jsx-a11y/no-noninteractive-tabindex': [
+        'error',
+        {
+          roles: ['tabpanel', 'region']
+        }
+      ],
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

@@ -1,82 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const jsonLd: object[] = [];
 ---
 
 <BaseLayout
-  title="Thank You for Your Purchase"
-  description="Your codebase purchase is confirmed. Here's what happens next."
-  jsonLd={jsonLd}
+  title="Codebase Checkout Retired"
+  description="The former Toledo Technologies codebase checkout is no longer active."
+  noindex={true}
   realmGlow="0.65 0.18 140"
-  realmBg="0.10 0.02 150"
-  realmText="0.98 0.02 150"
+  realmBg="0.985 0.008 45"
+  realmText="0.11 0.03 45"
 >
   <section class="container-wide section-padding">
-    <div class="mx-auto max-w-2xl text-center">
-      <div
-        class="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full border border-white/10"
-      >
-        <svg
-          class="text-brand-400 h-10 w-10"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 13l4 4L19 7"></path>
-        </svg>
-      </div>
+    <div class="mx-auto max-w-2xl">
+      <p class="proof-kicker">Archived route · no transaction processed</p>
       <h1 class="mb-6 text-5xl font-bold tracking-tight sm:text-6xl">
-        Purchase Confirmed
+        This checkout is retired.
       </h1>
-      <p class="mb-12 text-xl leading-relaxed opacity-50">
-        Thanks for buying. You'll receive an email within 24 hours with
-        repository access and transfer details.
+      <p class="mb-6 text-xl leading-relaxed opacity-70">
+        Toledo Technologies no longer sells or licenses the archived codebases
+        through this website. Reaching this page does not confirm a purchase,
+        payment, repository transfer, or support entitlement.
       </p>
-
-      <div class="mb-12 text-left">
-        <h2 class="mb-6 text-xl font-bold">What happens next:</h2>
-        <ol class="space-y-5 opacity-60">
-          <li class="flex gap-4">
-            <span class="text-warm-500 text-lg font-bold">1</span>
-            <span>We verify the payment (usually instant).</span>
-          </li>
-          <li class="flex gap-4">
-            <span class="text-warm-500 text-lg font-bold">2</span>
-            <span
-              >You get an email with GitHub repo access and documentation.</span
-            >
-          </li>
-          <li class="flex gap-4">
-            <span class="text-warm-500 text-lg font-bold">3</span>
-            <span
-              >We schedule a 30-minute handoff call to answer questions.</span
-            >
-          </li>
-          <li class="flex gap-4">
-            <span class="text-warm-500 text-lg font-bold">4</span>
-            <span>IP transfer documents are signed and delivered.</span>
-          </li>
-        </ol>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="/codebases/" class="btn-primary px-10 py-4 text-lg">
-          Browse More Codebases
-        </a>
-        <a href="/portfolio" class="btn-ghost px-10 py-4 text-lg">
-          See Our Portfolio
+      <p class="mb-10 leading-relaxed opacity-60">
+        If a payment processor sent you here unexpectedly, do not submit another
+        payment. Email the address below with the processor receipt so the
+        transaction can be checked.
+      </p>
+      <div class="cta-actions flex flex-wrap gap-4">
+        <a href="/codebases/" class="btn-primary">View the reference archive</a>
+        <a
+          href="/contact?subject=Archived%20checkout%20question"
+          class="btn-ghost"
+        >
+          Ask about this route
         </a>
       </div>
-
-      <p class="mt-10 text-sm opacity-20">
-        Questions? Email <a
-          href="mailto:hello@toledotechnologies.com"
-          class="text-warm-400 hover:underline">hello@toledotechnologies.com</a
+      <p class="mt-10 text-sm opacity-50">
+        <a href="mailto:hello@toledotechnologies.com"
+          >hello@toledotechnologies.com</a
         >
       </p>
     </div>

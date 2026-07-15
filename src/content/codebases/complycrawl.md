@@ -1,8 +1,8 @@
 ---
 title: 'ComplyCrawl'
 tagline: 'Compliance-first web automation toolkit'
-description: 'A Python-based web automation toolkit that puts compliance first—automatic robots.txt enforcement, encrypted audit trails, and intelligent throttling for organizations that need powerful crawling without legal risk.'
-status: 'available'
+description: 'A Python web-automation reference built around robots.txt checks, tamper-evident audit trails, and explicit crawl controls.'
+status: 'reference'
 category: 'Compliance Automation'
 tags:
   [
@@ -21,7 +21,7 @@ features:
   - 'Intelligent throttling with crawl-delay observation'
   - 'CSV and PDF report exports for stakeholders'
   - 'Domain whitelisting and custom user-agent support'
-  - 'SOC 2 / ISO 27001 alignment built-in'
+  - 'SOC 2 / ISO 27001 control-mapping documentation'
 included:
   - 'Full source code (Python with CLI)'
   - 'Three complete playbooks (SEO regression, Catalog monitoring, Link health)'
@@ -31,25 +31,20 @@ included:
   - 'Railway deployment template'
   - 'Demo output and documentation'
   - 'Test suite with pytest'
-  - 'Complete IP transfer ready'
 targetAudience:
   - 'Regulated industries needing compliant web automation'
   - 'Marketing agencies monitoring client SEO'
   - 'E-commerce businesses tracking catalog changes'
   - 'Compliance teams requiring audit trails'
 order: 2
-price: 7500
-originalPrice: 25000
-pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
-stripeLink: 'https://buy.stripe.com/3cI8wPbQq34YcZJffu87K06'
-gumroadLink: 'https://toledodev8.gumroad.com/l/complycrawl-source'
-gumroadPrice: 1500
-licensesAvailable: 5
 ---
 
 ## What ComplyCrawl Does
 
-ComplyCrawl is a **compliance-first web automation toolkit** designed for organizations that need powerful crawling capabilities while respecting robots.txt, terms of service, and data protection regulations. Unlike traditional scrapers, ComplyCrawl puts legal compliance at the center.
+ComplyCrawl is a **compliance-oriented web-automation reference** built to
+make crawl policy, consent configuration, and audit history visible. It does
+not make a deployment legally compliant by itself, and this page is not a sale
+or license offer.
 
 ## The Problem It Solves
 
@@ -78,7 +73,7 @@ ComplyCrawl solves this with compliance baked into every layer.
 - **Full Reproducibility**: Config snapshots with each run
 - **Retention Controls**: Configurable data retention policies
 
-### Three Production-Ready Playbooks
+### Three Reference Playbooks
 
 **1. SEO Regression Monitoring**
 Monitor page titles, meta descriptions, H1 tags, canonical URLs, and robots meta tags. Detect content changes with fingerprinting.
@@ -106,7 +101,7 @@ Monitor URLs for availability, track redirect chains, measure response times, an
 - **Testing**: pytest suite included
 - **Deployment**: Docker + Railway template
 
-## What's in the Box
+## Reference Artifact Inventory
 
 ```
 ComplyCrawl/
@@ -124,23 +119,26 @@ ComplyCrawl/
 
 ## Sample Outputs — See the Actual Reports
 
-These are real artifacts produced by running the three playbooks. No mockups — what you'd hand to a client or auditor:
+These are sample artifacts produced by the reference playbooks. They show
+format and behavior; they are not third-party audit evidence or certification:
 
-- 📄 [Branded compliance report (PDF)](/downloads/complycrawl-sample-report.pdf) — the output a buyer's client actually sees
+- 📄 [Branded compliance report (PDF)](/downloads/complycrawl-sample-report.pdf) — sample output from the reference workflow
 - 📊 [SEO regression findings (CSV)](/downloads/complycrawl-sample-seo-findings.csv)
 - 📊 [Catalog monitor findings (CSV)](/downloads/complycrawl-sample-catalog-findings.csv)
 - 📊 [Link health findings (CSV)](/downloads/complycrawl-sample-link-findings.csv)
 - 📊 [Run summary (CSV)](/downloads/complycrawl-sample-run-summary.csv)
-- 📄 [GDPR & SOC 2 control mapping (PDF)](/downloads/complycrawl-gdpr-mapping.pdf) — attach verbatim to vendor questionnaires
+- 📄 [GDPR & SOC 2 control mapping (PDF)](/downloads/complycrawl-gdpr-mapping.pdf) — an engineering crosswalk, not legal advice or certification
 - 📄 [Comparison vs Scrapy / Playwright / Crawlee (PDF)](/downloads/complycrawl-comparison.pdf)
 
 ## Free Tool
 
 [**robots.txt Auditor →**](/tools/robots-audit) — paste any URL, get an instant compliance read of its crawl directives. Powered by ComplyCrawl's core engine.
 
-## Compliance-Ready by Design
+## Control Mapping, Not Certification
 
-ComplyCrawl is the only Python crawler in this space with a published [GDPR Article + SOC 2 TSC + ISO 27001 control crosswalk](/downloads/complycrawl-gdpr-mapping.pdf). Compliance buyers don't need a long sales call — they read the PDF and check the boxes against their requirements.
+The published [GDPR Article + SOC 2 TSC + ISO 27001 control crosswalk](/downloads/complycrawl-gdpr-mapping.pdf)
+maps features to control language. A qualified reviewer still has to evaluate
+the organization, deployment, policies, and evidence.
 
 ## FAQ
 
@@ -153,11 +151,11 @@ Each log entry includes a SHA-256 hash of the previous entry, creating a cryptog
 **Can I add custom playbooks?**
 Yes. The playbook framework is extensible. Documentation includes examples for creating new automation types.
 
-**Is this suitable for enterprise use?**
-Yes. The GDPR/SOC 2/ISO 27001 mapping above lists exactly which features satisfy which controls. Most enterprise procurement teams accept that doc as evidence in vendor questionnaires.
+**Does the mapping prove compliance?**
+No. It is implementation documentation. It can support a vendor review, but it
+does not satisfy controls on its own and should not be presented as an auditor's
+opinion.
 
-**Is support included?**
-No. ComplyCrawl is self-serve. The repo ships with threat model, security policy, data-handling docs, 32 passing tests, Docker setup, and the sample outputs above. Price reflects the code + IP transfer, not an ongoing service.
-
-**How do I acquire this codebase?**
-Click "Buy" above. After payment you receive a private GitHub invite + signed IP transfer agreement within 24 hours.
+**Can Toledo Technologies build a scoped automation system from this work?**
+Yes. A custom engagement starts by defining allowed domains, data handling,
+retention, review ownership, and acceptance tests.

@@ -80,7 +80,8 @@ Sometimes the answer is "don't." Consider:
 
 Premature optimization really is the root of a lot of evil. The same principle applies to [bug fixing](/blog/fast-bug-fixes) — understand the problem before you touch the code.
 
-We applied this exact methodology in our [legacy system rescue](/case-studies/legacy-system-rescue), where targeted database fixes reduced response times by 70%.
+The [Field Notes](/case-studies/) show how we document public performance
+measurements without presenting a hypothesis as a delivered client result.
 
 ---
 

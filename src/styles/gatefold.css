@@ -1870,3 +1870,455 @@ main h4 {
 main h1 {
   letter-spacing: -0.035em;
 }
+
+/* =========================================================
+   EVIDENCE PRESSING — proof ledger, archive, and sample insert
+   The visual language is a printed record insert: ruled tracks,
+   registration marks, and a visible provenance label.
+   ========================================================= */
+.proof-kicker {
+  margin: 0 0 0.8rem;
+  font-family: var(--gf-font-mono) !important;
+  font-size: 0.72rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gf-accent-deep) !important;
+}
+
+.proof-ledger-hero {
+  position: relative;
+  overflow: hidden;
+}
+.proof-ledger-hero::after {
+  content: '';
+  position: absolute;
+  width: min(46vw, 620px);
+  aspect-ratio: 1;
+  right: max(-18vw, -250px);
+  top: 50%;
+  transform: translateY(-50%);
+  border: clamp(34px, 5vw, 70px) double rgba(107, 43, 24, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px rgba(107, 43, 24, 0.08),
+    0 0 0 24px rgba(107, 43, 24, 0.03),
+    inset 0 0 0 1px rgba(107, 43, 24, 0.12);
+  pointer-events: none;
+}
+.proof-ledger-heading {
+  position: relative;
+  z-index: 1;
+  max-width: 62rem;
+}
+.proof-ledger-heading h1 {
+  max-width: 13ch;
+  margin: 0 0 1.75rem;
+  font-size: clamp(3.2rem, 7.5vw, 7.5rem);
+  line-height: 0.88;
+}
+.proof-ledger-heading h1 em {
+  display: block;
+}
+.proof-deck {
+  max-width: 42rem;
+  margin-bottom: 2rem !important;
+  font-size: clamp(1.15rem, 2vw, 1.45rem) !important;
+}
+
+.proof-grooves {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+}
+.proof-groove,
+.proof-grooves > li {
+  display: grid;
+  grid-template-columns: minmax(3rem, 0.25fr) 2fr;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+.proof-groove-mark,
+.proof-grooves > li > span {
+  font-family: var(--gf-font-display);
+  font-size: 1.6rem;
+  color: var(--gf-accent);
+}
+.proof-groove h2,
+.proof-groove p,
+.proof-grooves p {
+  margin: 0;
+}
+.proof-groove h2 {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+}
+.proof-groove p,
+.proof-grooves p {
+  max-width: 48rem;
+  font-size: 1rem;
+}
+
+.archive-tracklist-heading {
+  display: grid;
+  grid-template-columns: 1fr minmax(16rem, 30rem);
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+.archive-tracklist-heading h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 4.25rem);
+}
+.archive-tracklist-heading > p {
+  margin: 0;
+  font-size: 1rem;
+}
+.archive-tracklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--gf-ink-900);
+}
+.archive-tracklist > li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+.archive-track {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 2.25rem) 0;
+  color: inherit;
+  text-decoration: none;
+}
+.archive-track:hover .archive-track-copy strong {
+  color: var(--gf-accent-deep);
+}
+.archive-track-number,
+.archive-track-meta,
+.archive-track-cue,
+.archive-track-arrow {
+  font-family: var(--gf-font-mono);
+}
+.archive-track-number {
+  font-size: 0.76rem;
+  opacity: 0.45;
+}
+.archive-track-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.25rem;
+}
+.archive-track-copy strong {
+  font-family: var(--gf-font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  line-height: 1.05;
+  transition: color 180ms ease;
+}
+.archive-track-copy > span:last-child {
+  overflow-wrap: anywhere;
+  opacity: 0.67;
+}
+.archive-track-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.archive-track-cue,
+.archive-track-arrow {
+  font-size: 0.72rem;
+  color: var(--gf-accent-deep);
+}
+
+.proof-pressing {
+  position: relative;
+  border-block: 1px solid rgba(0, 0, 0, 0.18);
+}
+.proof-pressing-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  font-family: var(--gf-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+}
+.proof-pressing-body {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.8fr) 1.4fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2rem, 5vw, 4.5rem) 0;
+}
+.proof-pressing-body h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 0.98;
+}
+
+.proof-stamp {
+  position: relative;
+  padding: 1.1rem;
+  border: 2px solid var(--gf-accent-deep);
+  color: var(--gf-accent-deep);
+  font-family: var(--gf-font-mono);
+  font-size: 0.7rem;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-1.5deg);
+}
+
+.sample-insert {
+  display: grid;
+  grid-template-columns: minmax(2.8rem, 4rem) minmax(0, 1fr);
+  max-width: 72rem;
+  margin: clamp(4rem, 8vw, 8rem) auto;
+  padding-inline: 1.5rem;
+}
+.sample-insert-spine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  background: var(--gf-ink-900);
+  color: var(--gf-paper-50);
+  font-family: var(--gf-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.sample-insert-sheet {
+  position: relative;
+  padding: clamp(1.5rem, 5vw, 4.5rem);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background:
+    radial-gradient(
+      circle at 85% 16%,
+      transparent 0 2.3rem,
+      rgba(113, 48, 27, 0.1) 2.35rem 2.45rem,
+      transparent 2.5rem
+    ),
+    linear-gradient(105deg, rgba(113, 48, 27, 0.04), transparent 44%);
+}
+.sample-insert-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--gf-ink-900);
+}
+.sample-insert-header p,
+.sample-insert-footer p {
+  font-family: var(--gf-font-mono) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sample-insert-header h2 {
+  max-width: 18ch;
+  margin: 0.6rem 0 0;
+  font-size: clamp(2rem, 4.6vw, 4.6rem);
+  line-height: 0.95;
+}
+.sample-insert-stamp {
+  padding: 0.75rem;
+  border: 2px solid var(--gf-accent-deep);
+  color: var(--gf-accent-deep);
+  font: 700 0.66rem/1.35 var(--gf-font-mono);
+  letter-spacing: 0.1em;
+  text-align: center;
+  transform: rotate(2deg);
+}
+.sample-insert-tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sample-insert-tracks li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+}
+.sample-insert-tracks > li > span {
+  font-family: var(--gf-font-mono);
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+.sample-insert-tracks strong {
+  font-family: var(--gf-font-display);
+  font-size: 1.15rem;
+}
+.sample-insert-tracks p {
+  margin: 0.25rem 0 0;
+  font-size: 0.96rem;
+}
+.sample-insert-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  padding-top: 2rem;
+}
+.sample-insert-footer p {
+  max-width: 62ch;
+  margin: 0;
+}
+.sample-insert-footer a {
+  color: var(--gf-accent-deep);
+  font-family: var(--gf-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.evidence-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0 0 3rem;
+  padding: 1.25rem 0;
+  border-block: 1px solid rgba(0, 0, 0, 0.16);
+}
+.evidence-band > div {
+  min-width: 0;
+}
+.evidence-band-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--gf-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.proof-ledger-cta {
+  max-width: 52rem;
+  border-left: 2px solid var(--gf-accent);
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+}
+.proof-ledger-cta h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+.proof-ledger-cta p:not(.proof-kicker) {
+  max-width: 42rem;
+  font-size: 1.15rem;
+}
+
+/* Contained horizontal ledgers and usable first-step forms. */
+.data-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.data-table-scroll > table {
+  min-width: 36rem;
+}
+.table-scroll-hint {
+  display: none;
+  margin-top: -0.75rem !important;
+  font-family: var(--gf-font-mono) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.05em;
+  opacity: 0.58;
+}
+.intake-form,
+.intake-form fieldset,
+.intake-form label,
+.intake-form div {
+  min-width: 0;
+  max-width: 100%;
+}
+.intake-form input:not([type='hidden']),
+.intake-form select,
+.intake-form textarea,
+.intake-form button {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.intake-form textarea {
+  min-height: 7rem;
+}
+
+@media (max-width: 720px) {
+  .novel-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-inline: 1rem;
+  }
+  .novel-container section,
+  .novel-container fieldset {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .novel-container fieldset {
+    padding: 1rem !important;
+  }
+  .table-scroll-hint {
+    display: block;
+  }
+  .intake-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cta-actions > a,
+  .cta-actions > button {
+    width: 100%;
+  }
+  .archive-tracklist-heading,
+  .proof-pressing-body,
+  .sample-insert-header,
+  .sample-insert-footer,
+  .evidence-band {
+    grid-template-columns: 1fr;
+  }
+  .archive-track {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+  .archive-track-cue,
+  .archive-track-arrow {
+    grid-column: 2;
+  }
+  .sample-insert {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    padding-inline: 0.5rem;
+  }
+  .sample-insert-sheet {
+    padding: 1.25rem;
+  }
+  .sample-insert-stamp {
+    justify-self: start;
+  }
+  .sample-insert-tracks li {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .proof-ledger-hero::after {
+    opacity: 0.45;
+  }
+  .proof-groove,
+  .proof-grooves > li {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+}

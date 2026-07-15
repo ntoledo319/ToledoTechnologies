@@ -23,7 +23,7 @@ export function organizationSchema() {
     email: CONTACT_EMAIL,
     sameAs: [GITHUB_URL],
     description:
-      'Remote software development studio specializing in bug fixes, feature implementation, automation, and deploy-ready codebases.',
+      'Founder-led software practice for custom websites, applications, automation, performance work, and technical discovery.',
     knowsAbout: [
       'Software Development',
       'Bug Fixes',
@@ -47,7 +47,7 @@ export function websiteSchema() {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'Remote software development studio. We build, fix, and ship code—fast.',
+      'Founder-led software practice for custom builds, repairs, performance work, and paid discovery.',
     publisher: {
       '@id': `${SITE_URL}/#organization`
     }
@@ -167,43 +167,6 @@ export function itemListSchema(
 }
 
 /**
- * Product schema for codebase product pages.
- */
-export function productSchema(product: {
-  name: string;
-  description: string;
-  url: string;
-  status: string;
-  category?: string;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.name,
-    description: product.description,
-    url: product.url.startsWith('http')
-      ? product.url
-      : `${SITE_URL}${product.url}`,
-    brand: {
-      '@id': `${SITE_URL}/#organization`
-    },
-    category: product.category || 'Software',
-    offers: {
-      '@type': 'Offer',
-      availability:
-        product.status === 'available'
-          ? 'https://schema.org/InStock'
-          : product.status === 'limited'
-            ? 'https://schema.org/LimitedAvailability'
-            : 'https://schema.org/PreOrder',
-      seller: {
-        '@id': `${SITE_URL}/#organization`
-      }
-    }
-  };
-}
-
-/**
  * Article schema for case studies and long-form content.
  */
 export function articleSchema(article: {
@@ -248,16 +211,16 @@ export function articleSchema(article: {
 }
 
 /**
- * SoftwareSourceCode schema for codebase product pages.
- * More accurate than Product for code repositories.
+ * SoftwareSourceCode schema for public capability notes.
+ * Deliberately excludes Offer data: the archive is not a storefront.
  */
 export function softwareSchema(software: {
   name: string;
   description: string;
   url: string;
-  status: string;
   category?: string;
   tags?: string[];
+  codeRepository?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -267,26 +230,14 @@ export function softwareSchema(software: {
     url: software.url.startsWith('http')
       ? software.url
       : `${SITE_URL}${software.url}`,
-    codeRepository: software.url.startsWith('http')
-      ? software.url
-      : `${SITE_URL}${software.url}`,
+    ...(software.codeRepository
+      ? { codeRepository: software.codeRepository }
+      : {}),
     creator: {
       '@id': `${SITE_URL}/#organization`
     },
     applicationCategory: software.category || 'Software',
-    keywords: software.tags?.join(', '),
-    offers: {
-      '@type': 'Offer',
-      availability:
-        software.status === 'available'
-          ? 'https://schema.org/InStock'
-          : software.status === 'limited'
-            ? 'https://schema.org/LimitedAvailability'
-            : 'https://schema.org/PreOrder',
-      seller: {
-        '@id': `${SITE_URL}/#organization`
-      }
-    }
+    keywords: software.tags?.join(', ')
   };
 }
 
@@ -324,7 +275,7 @@ export function professionalServiceSchema() {
     email: CONTACT_EMAIL,
     image: `${SITE_URL}/og-default.png`,
     description:
-      'Custom websites for Connecticut businesses — designed, accessible, and shipped in about a week. New sites, redesigns, WordPress-exit migrations, and payment setup. The client owns every account on handoff.',
+      'Custom websites and software for Connecticut businesses, including new sites, redesigns, WordPress-exit migrations, web applications, mobile products, and governed automation. Scope, timing, and ownership terms are confirmed in writing.',
     founder: { '@type': 'Person', name: 'Nicholas Toledo' },
     areaServed: [
       { '@type': 'State', name: 'Connecticut' },
@@ -335,7 +286,7 @@ export function professionalServiceSchema() {
       'Website Redesign',
       'Landing Page Design',
       'WordPress Migration',
-      'E-commerce / Stripe Setup',
+      'Website Integrations',
       'Website Maintenance'
     ],
     knowsAbout: [
@@ -344,7 +295,7 @@ export function professionalServiceSchema() {
       'SEO',
       'Astro',
       'Next.js',
-      'Stripe',
+      'API integrations',
       'WordPress migration'
     ],
     priceRange: '$$',

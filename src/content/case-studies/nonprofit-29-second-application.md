@@ -1,16 +1,26 @@
 ---
-title: 'A 29-Second Application Page Is Killing the Mission'
-description: 'A New Haven nonprofit accelerator had an accessibility score of 100 and a mobile LCP of 29 seconds. The applicants who needed them most could not load the page.'
+title: 'A 29-Second Application-Page Lab Result'
+description: 'A May 2026 independent research snapshot of a public nonprofit application page, including what the measurements can and cannot establish.'
 industry: 'Nonprofit · Accelerator'
 services: ['Site Audit', 'Performance Diagnostics', 'Accessibility Review']
 publishedDate: 2026-05-21
+measurementDate: 2026-05-21
 featured: false
+evidenceType: 'independent-research'
+evidenceNote: 'Independent public-site research. The organization did not hire Toledo Technologies, and this note does not claim a delivered fix or measured outcome.'
+limitations: 'The measurements are point-in-time synthetic tests. Toledo Technologies had no applicant analytics, server telemetry, or deployment access.'
 results:
-  - 'Mobile Largest Contentful Paint: 29.1 seconds'
-  - 'First Contentful Paint: 6.98 seconds (catastrophic)'
-  - 'Mobile Accessibility score: 100/100 (top 1% of audited sites)'
-  - 'Desktop Performance: 35/100 (the problem is not just mobile networks)'
+  - 'Captured mobile Largest Contentful Paint: 29.1 seconds'
+  - 'Captured mobile First Contentful Paint: 6.98 seconds'
+  - 'Captured mobile Lighthouse accessibility score: 100/100'
+  - 'No conversion, completion-rate, or post-fix outcome data was available'
 ---
+
+## Evidence Label
+
+This is an **independent research note**, not client work. The organization did
+not request or pay for the audit. The numbers below are dated public-page
+measurements, not a claim about every visitor or a delivered result.
 
 ## The Subject
 
@@ -21,80 +31,65 @@ for funders, and the board page.
 
 ## The Premise of the Audit
 
-This was not a complaint-driven audit. The subject did not ask for one. We ran
-it because their mission and their measured technical investment lined up — a
-perfect 100 mobile Accessibility score is the kind of thing that only happens
-when the team genuinely cares about access — and we wanted to know whether
-the performance side of the build matched the accessibility side.
+The subject did not ask for this review. We selected a public application page
+to compare Lighthouse's accessibility and performance signals on the same
+page. Toledo Technologies had no private access to the site or organization.
 
 It did not.
 
 ## What We Found
 
-| Metric | Mobile | Desktop |
-|---|---|---|
-| Performance | 40/100 | 35/100 |
-| Largest Contentful Paint | 29.1s | 3.3s |
-| First Contentful Paint | 6.98s | 1.95s |
-| Total Blocking Time | 574ms | 1.82s |
-| Accessibility | **100** | 96 |
-| SEO | 92 | 92 |
-| Best Practices | 96 | 96 |
+| Metric                   | Mobile  | Desktop |
+| ------------------------ | ------- | ------- |
+| Performance              | 40/100  | 35/100  |
+| Largest Contentful Paint | 29.1s   | 3.3s    |
+| First Contentful Paint   | 6.98s   | 1.95s   |
+| Total Blocking Time      | 574ms   | 1.82s   |
+| Accessibility            | **100** | 96      |
+| SEO                      | 92      | 92      |
+| Best Practices           | 96      | 96      |
 
-The accessibility score is in the top 1% of sites we audit. The mobile
-performance score is in the bottom 5%.
-
-These are not separable concerns. An accelerator whose entire reason for
-existing is to support founders who do not have access to the same resources
-as everyone else is hosting their application page in a way that requires a
-fast laptop and a fast connection to even load.
-
-The applicants who most need this program are the ones being filtered out
-before the form renders.
+The captured accessibility and performance scores point in different
+directions. The test demonstrates a slow synthetic render under that profile;
+it does not establish who abandoned the page or how many applications were
+affected.
 
 ## What Is Causing It
 
-Without engaging — the subject did not hire us — three signals point to the
-same cause:
+Without server access, the run supports three investigation paths rather than
+a root-cause claim:
 
 1. **Desktop main-thread blocking is 1.82 seconds.** That is too much
    JavaScript executing on page load. Not a network problem; a payload problem.
-2. **First Contentful Paint at 6.98 seconds on mobile** means the initial HTML
-   does not arrive quickly. That is either a slow TTFB from the host, or
-   render-blocking resources upstream.
-3. **The site fetched from this network timed out at 60 seconds repeatedly.**
-   Google's PSI crawl from a different region eventually got through. That
-   pattern usually points to a hosting region mismatch — a host serving from
-   a region far from most visitors.
+2. **First Contentful Paint at 6.98 seconds on mobile** warrants separating
+   server response time from render-blocking resources in a trace.
+3. **The site timed out from one test network while PSI completed elsewhere.**
+   Geography, transient availability, network policy, and hosting are all
+   possible explanations. The public test cannot choose among them.
 
-The audit recommendation: a hosting migration is the largest single LCP
-improvement available. That work alone usually halves mobile LCP for sites
-on this configuration. After that, addressing the JS payload — likely a
-heavy CMS template with too many widgets loaded on the public pages — is
-the next 8-10 seconds of LCP improvement.
+The next responsible step would be repeated regional tests plus a trace of the
+critical request chain. A hosting change should only be recommended if those
+tests isolate server or regional latency; JavaScript work should only be scoped
+after the main-thread profile identifies the blocking code.
 
 ## What We Did Not Do
 
 We did not pitch a rebuild. The site is good. The accessibility work is real.
 The technical investment is uneven, not absent.
 
-We did not contact the subject with a sales call. The audit was for our
-research dataset; this writeup is the version of the audit that any subject
-can request from us before deciding whether to engage.
+We did not contact the subject or represent this as delivered work. This public
+version exists to show the reasoning and its limits.
 
 ## What This Looks Like For A Subject Who Wants Help
 
-For a nonprofit at this performance level, the engagement looks like a
-single-phase migration project: new host, new template structure on three
-pages (home, apply, donate), no rebuild of the rest. Two to three weeks of
-work. The application page LCP should drop from 29 seconds to under 5.
-
-That is the conversation. No retainer required. Most nonprofits self-fund the
-work after one application cycle measurably increases completion rates.
+For a nonprofit at this performance level, a paid audit should end with a
+smallest-credible intervention: measured baseline, named bottleneck, affected
+pages, acceptance target, and a quote. The public snapshot is not sufficient
+to promise a sub-five-second result or prescribe a migration.
 
 ## What This Means For Other Nonprofits
 
-If your accessibility score is high and your performance score is low, your
-site is technically compliant with WCAG and practically inaccessible to your
-audience. Both matter. Both are measurable. Neither requires a six-figure
-agency to fix.
+If an automated accessibility score is high and performance is low, test both
+with their proper tools: manual accessibility checks, repeatable performance
+traces, and real-user data where available. A Lighthouse score is evidence,
+not certification or a complete user study.

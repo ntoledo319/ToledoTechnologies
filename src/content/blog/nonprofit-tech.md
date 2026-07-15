@@ -110,4 +110,6 @@ Our approach:
 
 ---
 
-**Running a nonprofit and need tech help?** [Learn about our Daedalus Landed initiative](/nonprofit) or [get in touch directly](/contact?subject=Nonprofit%20Project). We also wrote about [how MVP launches work](/case-studies/startup-mvp-launch) for organizations moving fast on tight timelines.
+**Running a nonprofit and need tech help?** [Learn about the early-stage
+Daedalus Landed direction](/nonprofit) or [get in touch directly](/contact?service=nonprofit&subject=Nonprofit%20Project).
+For evidence standards, read the independently labeled [Field Notes](/case-studies/).

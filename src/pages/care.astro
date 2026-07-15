@@ -4,9 +4,9 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
 <InsertLayout
   title="Care Plans"
-  description="One maintenance ladder for Toledo Technologies. Basic Care, Standard Support, Product Support, and Strategic Growth plans for websites, apps, and AI systems."
-  heading="One maintenance ladder. Whatever we shipped, we maintain."
-  subheading="Sites, web apps, mobile apps, SaaS systems, AI workflows — they all attach to the same plans. The thing you bought matters less than how alive it needs to be. Pick the level that matches the rhythm of your work."
+  description="One maintenance ladder for Toledo Technologies. Hearth, Aegis, Laurel, and Olympian Care plans for websites, apps, and AI systems."
+  heading="One maintenance ladder. Match upkeep to system risk."
+  subheading="Sites, web apps, mobile apps, SaaS systems, and AI workflows can all use the same published plans. What matters is how often the system changes, how quickly incidents need a response, and how much active monitoring it needs."
 >
   <p class="eyebrow" style="margin-bottom: 24px;">
     <span class="num">B6</span><span class="bar"></span><span>Care Plans</span>
@@ -26,8 +26,8 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       </li>
     </ul>
     <p>
-      You can move between them. Most clients start on a Care Plan after launch
-      and graduate to a Bucket once they know their cadence.
+      You can move between them. A Care Plan fits systems that need monitoring
+      and response coverage; a Bucket fits an already-defined monthly queue.
     </p>
   </section>
 
@@ -35,7 +35,12 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
   <section>
     <h2>Care Plans</h2>
-    <div style="overflow-x: auto;">
+    <div
+      class="data-table-scroll"
+      role="region"
+      aria-label="Care plan comparison; scroll horizontally on a small screen"
+      tabindex="0"
+    >
       <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
         <thead>
           <tr
@@ -49,25 +54,25 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </thead>
         <tbody>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Basic Care</strong></td>
+            <td style="padding: 12px;"><strong>Hearth Care</strong></td>
             <td style="padding: 12px;">$750/mo</td>
             <td style="padding: 12px;">2 hrs</td>
             <td style="padding: 12px;">Static or simple sites</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Standard Support</strong></td>
+            <td style="padding: 12px;"><strong>Aegis Care</strong></td>
             <td style="padding: 12px;">$1,500/mo</td>
             <td style="padding: 12px;">6 hrs</td>
             <td style="padding: 12px;">Active businesses, CMS-driven sites</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Product Support</strong></td>
+            <td style="padding: 12px;"><strong>Laurel Care</strong></td>
             <td style="padding: 12px;">$4,500/mo</td>
             <td style="padding: 12px;">15 hrs</td>
             <td style="padding: 12px;">Apps, SaaS, AI systems</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Strategic Growth</strong></td>
+            <td style="padding: 12px;"><strong>Olympian Care</strong></td>
             <td style="padding: 12px;">$10,000+/mo</td>
             <td style="padding: 12px;">40 hrs</td>
             <td style="padding: 12px;"
@@ -77,6 +82,9 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </tbody>
       </table>
     </div>
+    <p class="table-scroll-hint">
+      On a small screen, swipe the ledger sideways to compare plans.
+    </p>
 
     <h3>What's included at every tier</h3>
     <ul>
@@ -85,16 +93,17 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         small adjustments, security patches, and routine maintenance.
       </li>
       <li>
-        <strong>Monitoring.</strong> Uptime, performance, error tracking. We know
-        before you do.
+        <strong>Monitoring.</strong> Agreed uptime, performance, and error checks
+        configured to surface incidents through the response path.
       </li>
       <li>
-        <strong>Response window.</strong> 1 business day on Basic Care; 4 hours on
-        Standard; same-day on Product Support; 1 hour on Strategic Growth.
+        <strong>Response window.</strong> Within 24 business hours on Hearth Care;
+        12 business hours on Aegis Care; 4 business hours on Laurel Care; and 2–4
+        business hours on Olympian Care.
       </li>
       <li>
-        <strong>Front-of-queue priority.</strong> Retainer clients move ahead of project
-        work for support requests.
+        <strong>Front-of-queue priority.</strong> Active retainer requests move ahead
+        of unscheduled project work.
       </li>
       <li>
         <strong>Quarterly check-in.</strong> A short call covering performance, content,
@@ -107,7 +116,12 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 
   <section>
     <h2>Bucket Retainers (pure dev hours, no monitoring)</h2>
-    <div style="overflow-x: auto;">
+    <div
+      class="data-table-scroll"
+      role="region"
+      aria-label="Development bucket comparison; scroll horizontally on a small screen"
+      tabindex="0"
+    >
       <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
         <thead>
           <tr
@@ -121,19 +135,19 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </thead>
         <tbody>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Starter Bucket</strong></td>
+            <td style="padding: 12px;"><strong>Hearth</strong></td>
             <td style="padding: 12px;">$1,800/mo</td>
             <td style="padding: 12px;">10 hrs</td>
             <td style="padding: 12px;">$180/hr</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Growth Bucket</strong></td>
+            <td style="padding: 12px;"><strong>Aegis</strong></td>
             <td style="padding: 12px;">$4,000/mo</td>
             <td style="padding: 12px;">25 hrs</td>
             <td style="padding: 12px;">$160/hr</td>
           </tr>
           <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Scale Bucket</strong></td>
+            <td style="padding: 12px;"><strong>Olympian</strong></td>
             <td style="padding: 12px;">$7,500/mo</td>
             <td style="padding: 12px;">50 hrs</td>
             <td style="padding: 12px;">$150/hr</td>
@@ -141,6 +155,9 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </tbody>
       </table>
     </div>
+    <p class="table-scroll-hint">
+      On a small screen, swipe the ledger sideways to compare buckets.
+    </p>
     <p>
       Buckets are for clients who already know what they need built each month
       and don't need monitoring on top.
@@ -152,25 +169,25 @@ import InsertLayout from '../layouts/InsertLayout.astro';
   <section>
     <h2>How to pick</h2>
     <p>
-      If you have a website that mostly sits there — a Signal lander, an
-      editorial site that updates a few times a quarter — <strong
-        >Basic Care at $750/mo</strong
+      If you have a website that mostly sits there — an Arcadia marketing site,
+      an editorial site that updates a few times a quarter — <strong
+        >Hearth Care at $750/mo</strong
       > is enough. We patch security, fix bugs, swap content when you ask. Two hours
       covers it.
     </p>
     <p>
       If your site or app is part of how the business operates — content goes
       out weekly, the contact form is a real lead source, the team makes edits,
-      integrations sometimes wobble — <strong
-        >Standard Support at $1,500/mo</strong
-      > is the right level. Six hours is enough for the work; the monitoring is what
-      catches the problems before customers do.
+      integrations sometimes wobble — <strong>Aegis Care at $1,500/mo</strong> is
+      the likely starting point. Six hours creates a defined work allowance; the monitoring
+      provides an agreed incident signal rather than a guarantee that every issue
+      will be caught first.
     </p>
     <p>
-      If we shipped you a SaaS, an internal tool, a mobile app, or a production
-      AI system, you almost certainly need <strong
-        >Product Support at $4,500/mo or higher</strong
-      >. Fifteen hours is the floor for systems that need active monitoring.
+      A SaaS product, internal tool, mobile app, or production AI system will
+      often require <strong>Laurel Care at $4,500/mo or higher</strong>. The
+      correct tier depends on operating risk, integrations, traffic, response
+      needs, and the monthly change queue.
     </p>
   </section>
 
@@ -185,7 +202,14 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       style="display: grid; gap: 24px; max-width: 600px;"
     >
       <input type="hidden" name="_subject" value="New Care Plan Inquiry" />
-      <input type="hidden" name="_next" value="https://toledotechnologies.com/care?submitted=true" />
+      <input type="hidden" name="source" value="toledotechnologies.com/care" />
+      <input type="hidden" name="product" value="Care plans" />
+      <input type="hidden" name="context" value="Care plan fit inquiry" />
+      <input
+        type="hidden"
+        name="_next"
+        value="https://toledotechnologies.com/care?submitted=true"
+      />
       <input type="hidden" name="_honey" style="display:none" />
 
       <fieldset
@@ -196,15 +220,14 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         >
 
         <label style="display: grid; gap: 8px;">
-          What kind of system needs care? *
+          What kind of system needs care?
           <select
             name="system_type"
-            required
             style="padding: 8px; border: 1px solid var(--gf-ink-300);"
           >
             <option value="">Select…</option>
             <option value="website"
-              >Website (Signal / Editorial / Studio / Exodus / Atelier)</option
+              >Website (Arcadia / Aegis / Laurel / Odyssey / Elysian / Olympian)</option
             >
             <option value="sitelift">SiteLift migrated site</option>
             <option value="web-app">Web app or internal tool</option>
@@ -217,40 +240,19 @@ import InsertLayout from '../layouts/InsertLayout.astro';
         </label>
 
         <label style="display: grid; gap: 8px;">
-          Did Toledo Technologies build it? *
-          <select
-            name="we_built_it"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          >
-            <option value="">Select…</option>
-            <option value="yes-recent">Yes — within the last year</option>
-            <option value="yes-older">Yes — over a year ago</option>
-            <option value="no-take-over"
-              >No — looking for someone to take it over</option
-            >
-          </select>
-        </label>
-
-        <label style="display: grid; gap: 8px;">
-          Which plan are you considering? *
+          Which plan are you considering?
           <select
             name="plan_interest"
-            required
             style="padding: 8px; border: 1px solid var(--gf-ink-300);"
           >
             <option value="">Select…</option>
-            <option value="basic-care">Basic Care ($750/mo)</option>
-            <option value="standard-support"
-              >Standard Support ($1,500/mo)</option
-            >
-            <option value="product-support">Product Support ($4,500/mo)</option>
-            <option value="strategic-growth"
-              >Strategic Growth ($10,000+/mo)</option
-            >
-            <option value="starter-bucket">Starter Bucket ($1,800/mo)</option>
-            <option value="growth-bucket">Growth Bucket ($4,000/mo)</option>
-            <option value="scale-bucket">Scale Bucket ($7,500/mo)</option>
+            <option value="hearth-care">Hearth Care ($750/mo)</option>
+            <option value="aegis-care">Aegis Care ($1,500/mo)</option>
+            <option value="laurel-care">Laurel Care ($4,500/mo)</option>
+            <option value="olympian-care">Olympian Care ($10,000+/mo)</option>
+            <option value="hearth-bucket">Hearth ($1,800/mo)</option>
+            <option value="aegis-bucket">Aegis ($4,000/mo)</option>
+            <option value="olympian-bucket">Olympian ($7,500/mo)</option>
             <option value="not-sure">Not sure — recommend</option>
           </select>
         </label>
@@ -271,10 +273,9 @@ import InsertLayout from '../layouts/InsertLayout.astro';
       >
         <legend style="padding: 0 8px; font-weight: bold;">Contact</legend>
         <label style="display: grid; gap: 8px;"
-          >Name * <input
+          >Name <input
             type="text"
             name="name"
-            required
             style="padding: 8px; border: 1px solid var(--gf-ink-300);"
           /></label
         >
@@ -286,26 +287,33 @@ import InsertLayout from '../layouts/InsertLayout.astro';
             style="padding: 8px; border: 1px solid var(--gf-ink-300);"
           /></label
         >
-        <label style="display: grid; gap: 8px;"
-          >Company <input
-            type="text"
-            name="company"
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
       </fieldset>
 
       <button
         type="submit"
         style="padding: 16px; background: var(--gf-ink-900); color: white; border: none; cursor: pointer; font-weight: bold;"
-        >Submit inquiry — reply within 1 business day</button
+        >Submit inquiry</button
       >
 
       <p style="font-size: 14px; color: var(--gf-ink-500);">
         Care plans are quoted, not self-serve. We confirm fit, scope, and start
-        date before invoicing. Full <a href="/terms">terms</a>.
+        date before invoicing. This form posts to Toledo's lead intake service
+        at eolkits.com. Read the <a href="/privacy">privacy details</a> and
+        <a href="/terms">terms</a>.
       </p>
     </form>
+    <div
+      id="submission-success"
+      role="status"
+      tabindex="-1"
+      hidden
+      style="margin-top: 32px; padding: 24px; border: 1px solid var(--gf-ink-900); background: var(--gf-paper);"
+    >
+      <p style="margin: 0;">
+        <strong>Inquiry received.</strong> Any reply will come from
+        <code>hello@toledotechnologies.com</code>.
+      </p>
+    </div>
   </section>
 
   <hr />
@@ -327,13 +335,23 @@ import InsertLayout from '../layouts/InsertLayout.astro';
     <p
       style="font-family: var(--gf-font-novel); font-size: 18px; margin-bottom: 32px; opacity: 0.8;"
     >
-      Pick the level that matches the rhythm of the work. We'll tell you if
-      you've over-bought; we never under-quote.
+      Pick the level that matches the rhythm of the work. We'll tell you if the
+      plan is oversized or the system needs a different scope before invoicing.
     </p>
     <a
-      href="/contact"
+      href="/contact?service=care&subject=Care%20plan%20question"
       style="display: inline-block; padding: 12px 24px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold;"
       >Talk it through</a
     >
   </section>
 </InsertLayout>
+
+<script>
+  if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
+    const success = document.querySelector<HTMLElement>('#submission-success');
+    if (success) {
+      success.hidden = false;
+      success.focus();
+    }
+  }
+</script>

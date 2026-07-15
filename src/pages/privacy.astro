@@ -7,7 +7,7 @@ const jsonLd = breadcrumbSchema([
   { name: 'Privacy Policy', url: '/privacy' }
 ]);
 
-const lastUpdated = 'January 2026';
+const lastUpdated = 'July 14, 2026';
 ---
 
 <InsertLayout
@@ -35,21 +35,19 @@ const lastUpdated = 'January 2026';
   </ul>
 
   <h3>Automatic Information</h3>
-  <p>Our website may collect standard web analytics data including:</p>
-  <ul>
-    <li>IP address (anonymized where possible)</li>
-    <li>Browser type and version</li>
-    <li>Pages visited and time spent</li>
-    <li>Referring website</li>
-  </ul>
+  <p>
+    This site does not currently load a client-side analytics or advertising
+    tracker. Like any web host, the server and security layer may process
+    ordinary request data such as IP address, browser, requested path, and
+    timestamp for delivery, reliability, and abuse prevention.
+  </p>
 
   <h2>How We Use Information</h2>
   <p>We use collected information to:</p>
   <ul>
     <li>Respond to your inquiries and requests</li>
     <li>Provide services you've requested</li>
-    <li>Improve our website and services</li>
-    <li>Send relevant updates if you've opted in</li>
+    <li>Operate, secure, and improve our website and services</li>
   </ul>
 
   <h2>Information Sharing</h2>
@@ -67,9 +65,19 @@ const lastUpdated = 'January 2026';
 
   <h2>Contact Form</h2>
   <p>
-    Our contact form uses FormSubmit.co to deliver messages to our email.
-    FormSubmit processes your submission data to deliver the message. See their
-    privacy policy for details on their data handling.
+    Forms submit to Toledo Technologies' lead intake API at
+    <code>https://eolkits.com/api/v1/lead</code>. The service stores the fields
+    you submit in Toledo's operating lead database and sends the owner a
+    notification email. This is durable lead capture; it is not FormSubmit and
+    it is not used to add you to a newsletter.
+  </p>
+  <p>
+    The form may also include hidden context such as the page, service track, or
+    subject that brought you to the form. That context is used to route the
+    inquiry. If you prefer not to use the form, email
+    <a href="mailto:hello@toledotechnologies.com"
+      >hello@toledotechnologies.com</a
+    > directly.
   </p>
 
   <h2>Data Security</h2>
@@ -90,8 +98,9 @@ const lastUpdated = 'January 2026';
 
   <h2>Cookies</h2>
   <p>
-    Our website may use essential cookies for functionality. We do not use
-    tracking cookies for advertising purposes.
+    We do not use advertising cookies. The gatefold homepage uses browser
+    session storage to remember that you opened the sleeve during the current
+    tab session; that value is not used to identify you or build a profile.
   </p>
 
   <h2>Third-Party Links</h2>

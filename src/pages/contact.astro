@@ -9,13 +9,17 @@ const jsonLd = breadcrumbSchema([
 ]);
 
 const topics = [
-  { value: '', label: 'Select a topic...' },
-  { value: 'quote', label: 'Get a Quote' },
+  { value: '', label: 'Choose the closest track...' },
+  { value: 'website', label: 'Custom Website' },
+  { value: 'wordpress-exit', label: 'WordPress Exit' },
+  { value: 'custom-software', label: 'Web App or Custom Software' },
+  { value: 'mobile', label: 'Mobile App' },
+  { value: 'ai-automation', label: 'AI or Automation' },
   { value: 'bug-fix', label: 'Fix Something Broken' },
-  { value: 'feature', label: 'Build a Feature' },
-  { value: 'codebase', label: 'Buy a Codebase' },
   { value: 'nonprofit', label: 'Nonprofit Project' },
-  { value: 'other', label: 'Something Else' }
+  { value: 'partner', label: 'Agency Partnership' },
+  { value: 'care', label: 'Care Plan' },
+  { value: 'other', label: 'Not Sure Yet' }
 ];
 
 const budgets = [
@@ -25,15 +29,6 @@ const budgets = [
   { value: '15k-50k', label: '$15,000 - $50,000' },
   { value: 'over-50k', label: 'Over $50,000' },
   { value: 'not-sure', label: 'Not sure yet' }
-];
-
-const timelines = [
-  { value: '', label: 'When do you need it?' },
-  { value: 'asap', label: 'ASAP (within days)' },
-  { value: '2-weeks', label: 'Within 2 weeks' },
-  { value: '1-month', label: 'Within a month' },
-  { value: '3-months', label: 'Within 3 months' },
-  { value: 'flexible', label: 'Flexible / Planning ahead' }
 ];
 
 const whatToInclude = [
@@ -47,7 +42,7 @@ const whatToInclude = [
 
 <BaseLayout
   title="Contact"
-  description="Get in touch with Toledo Technologies. Request a quote for software development, bug fixes, or codebase purchases. We respond within 1 business day."
+  description="Describe a software project, repair, or discovery need. Toledo Technologies reviews the context and replies by email with questions or a concrete routing plan."
   jsonLd={jsonLd}
   realmGlow="0.60 0.18 340"
   realmBg="0.10 0.02 280"
@@ -63,11 +58,12 @@ const whatToInclude = [
         <h1
           class="mb-6 text-5xl leading-[0.9] font-bold tracking-tight sm:text-7xl"
         >
-          Write the <span class="text-brand-400 italic">Studio</span>
+          Write <span class="text-brand-400 italic">Nicholas</span>
         </h1>
         <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
-          Tell us what you need. We'll reply within one business day with
-          questions or a concrete scoping plan.
+          Toledo Technologies is founder-led. Tell Nicholas what you need; the
+          reply will ask the useful questions or give you a concrete routing
+          plan.
         </p>
       </div>
     </div>
@@ -79,6 +75,7 @@ const whatToInclude = [
       <!-- Form Column -->
       <div class="lg:col-span-2">
         <form
+          id="project-inquiry"
           action="https://eolkits.com/api/v1/lead"
           method="POST"
           class="space-y-8"
@@ -86,10 +83,33 @@ const whatToInclude = [
           <input
             type="hidden"
             name="_subject"
+            id="lead-subject"
             value="New Contact Form Submission"
           />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
+          <input
+            type="hidden"
+            name="source"
+            value="toledotechnologies.com/contact"
+          />
+          <input
+            type="hidden"
+            name="product"
+            value="Toledo Technologies services"
+          />
+          <input
+            type="hidden"
+            name="service"
+            id="lead-service"
+            value="general"
+          />
+          <input
+            type="hidden"
+            name="context"
+            id="lead-context"
+            value="Direct contact inquiry"
+          />
           <input type="text" name="_honey" style="display:none" />
           <input
             type="hidden"
@@ -97,19 +117,25 @@ const whatToInclude = [
             value="https://toledotechnologies.com/contact?submitted=true"
           />
 
+          <p
+            id="inquiry-context"
+            class="hidden border-l-2 border-current pl-4 font-mono text-xs tracking-wide uppercase opacity-55"
+            role="status"
+          >
+          </p>
+
           <div class="grid gap-8 sm:grid-cols-2">
             <div>
               <label
                 for="name"
                 class="mb-3 block text-sm font-medium opacity-60"
               >
-                Name *
+                Name
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                required
                 class="rounded-engine-pill focus:border-warm-500 focus:ring-warm-500 text-surface-900 w-full border border-black/10 bg-black/5 px-6 py-4 transition-all placeholder:text-black/30 focus:ring-1"
                 placeholder="Your name"
               />
@@ -152,45 +178,24 @@ const whatToInclude = [
             </select>
           </div>
 
-          <div class="grid gap-8 sm:grid-cols-2">
-            <div>
-              <label
-                for="budget"
-                class="mb-3 block text-sm font-medium opacity-60"
-              >
-                Budget Range
-              </label>
-              <select
-                id="budget"
-                name="budget"
-                class="rounded-engine-pill focus:border-warm-500 focus:ring-warm-500 text-surface-900 w-full border border-black/10 bg-black/5 px-6 py-4 transition-all focus:ring-1"
-              >
-                {
-                  budgets.map((budget) => (
-                    <option value={budget.value}>{budget.label}</option>
-                  ))
-                }
-              </select>
-            </div>
-            <div>
-              <label
-                for="timeline"
-                class="mb-3 block text-sm font-medium opacity-60"
-              >
-                Timeline
-              </label>
-              <select
-                id="timeline"
-                name="timeline"
-                class="rounded-engine-pill focus:border-warm-500 focus:ring-warm-500 text-surface-900 w-full border border-black/10 bg-black/5 px-6 py-4 transition-all focus:ring-1"
-              >
-                {
-                  timelines.map((timeline) => (
-                    <option value={timeline.value}>{timeline.label}</option>
-                  ))
-                }
-              </select>
-            </div>
+          <div>
+            <label
+              for="budget"
+              class="mb-3 block text-sm font-medium opacity-60"
+            >
+              Budget Range
+            </label>
+            <select
+              id="budget"
+              name="budget"
+              class="rounded-engine-pill focus:border-warm-500 focus:ring-warm-500 text-surface-900 w-full border border-black/10 bg-black/5 px-6 py-4 transition-all focus:ring-1"
+            >
+              {
+                budgets.map((budget) => (
+                  <option value={budget.value}>{budget.label}</option>
+                ))
+              }
+            </select>
           </div>
 
           <div>
@@ -198,12 +203,11 @@ const whatToInclude = [
               for="message"
               class="mb-3 block text-sm font-medium opacity-60"
             >
-              Tell us more *
+              Tell us more
             </label>
             <textarea
               id="message"
               name="message"
-              required
               rows="6"
               class="rounded-engine-inner focus:border-warm-500 focus:ring-warm-500 text-surface-900 w-full resize-y border border-black/10 bg-black/5 px-6 py-4 transition-all placeholder:text-black/30 focus:ring-1"
               placeholder="Describe your project, problem, or question..."
@@ -219,9 +223,12 @@ const whatToInclude = [
             </button>
           </div>
 
-          <p class="text-sm opacity-30">
-            Form powered by FormSubmit. If the form doesn't work, email us
-            directly at
+          <p class="text-sm leading-relaxed opacity-45">
+            This form posts to Toledo's lead intake service at eolkits.com. The
+            submission is stored in the operating lead database and sends an
+            owner notification email. Read the <a href="/privacy"
+              >privacy details</a
+            >, or skip the form and email
             <a
               href="mailto:hello@toledotechnologies.com"
               class="text-warm-400 hover:underline"
@@ -229,6 +236,14 @@ const whatToInclude = [
               hello@toledotechnologies.com
             </a>
           </p>
+
+          <div
+            id="submission-success"
+            class="hidden border border-black/15 p-5 text-sm"
+            role="status"
+          >
+            <strong>Message received.</strong> Any reply will come from hello@toledotechnologies.com.
+          </div>
         </form>
       </div>
 
@@ -246,8 +261,8 @@ const whatToInclude = [
               Support Hours
             </p>
             <p class="text-sm opacity-60">Mon–Fri, 10:00 AM–5:30 PM ET</p>
-            <p class="mt-1 text-xs opacity-30">
-              Typical response within 1 business day
+            <p class="mt-1 text-xs opacity-55">
+              Replies are sent during support hours.
             </p>
           </div>
           <a
@@ -315,10 +330,41 @@ const whatToInclude = [
 </BaseLayout>
 
 <script>
-  if (typeof window !== 'undefined') {
+  function applyInquiryContext() {
     const urlParams = new URLSearchParams(window.location.search);
+    const service = urlParams.get('service') || 'general';
+    const subject = urlParams.get('subject')?.trim() || '';
+    const context = subject || (service !== 'general' ? service : '');
+    const serviceInput =
+      document.querySelector<HTMLInputElement>('#lead-service');
+    const contextInput =
+      document.querySelector<HTMLInputElement>('#lead-context');
+    const subjectInput =
+      document.querySelector<HTMLInputElement>('#lead-subject');
+    const topicSelect = document.querySelector<HTMLSelectElement>('#topic');
+    const contextNote = document.querySelector<HTMLElement>('#inquiry-context');
+
+    if (serviceInput) serviceInput.value = service;
+    if (contextInput) contextInput.value = context || 'Direct contact inquiry';
+    if (subjectInput && context) subjectInput.value = `New inquiry: ${context}`;
+
+    if (topicSelect) {
+      const available = Array.from(topicSelect.options).some(
+        (option) => option.value === service
+      );
+      if (available) topicSelect.value = service;
+    }
+
+    if (contextNote && context) {
+      contextNote.textContent = `Inquiry context carried forward: ${context}`;
+      contextNote.classList.remove('hidden');
+    }
+
     if (urlParams.get('submitted') === 'true') {
-      // Form submitted successfully
+      document.querySelector('#submission-success')?.classList.remove('hidden');
     }
   }
+
+  applyInquiryContext();
+  document.addEventListener('astro:page-load', applyInquiryContext);
 </script>

@@ -2,77 +2,37 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
-const pricingTiers = [
-  {
-    name: 'Rapid Pulse',
-    price: 1500,
-    time: '24 Hours',
-    features: [
-      'Core Web Vitals Check',
-      'Lighthouse Audit',
-      'Quick Fix List',
-      'Bundle Optimization'
-    ],
-    tagline: 'The instant fix'
-  },
-  {
-    name: 'Deep Dive',
-    price: 4500,
-    time: '5 Days',
-    features: [
-      'Database Query Profiling',
-      'Memory Leak Analysis',
-      'Hydration Bottlenecks',
-      'CI/CD Perf Integration'
-    ],
-    tagline: 'Total optimization',
-    featured: true
-  },
-  {
-    name: 'Continuous Edge',
-    price: 'Custom',
-    time: 'Ongoing',
-    features: [
-      'Monthly Retainer',
-      'Priority Fixes',
-      'New Feature Profiling',
-      'Real User Monitoring'
-    ],
-    tagline: 'Scale with confidence'
-  }
-];
-
 const auditSteps = [
   {
     step: '01',
     label: 'Baseline',
-    value: '34ms',
-    description: 'Measuring current TTFB and LCP.'
+    value: 'Captured',
+    description: 'Record the current environment, workload, and measurements.'
   },
   {
     step: '02',
     label: 'Diagnosis',
-    value: '90%',
-    description: 'Identifying unoptimized assets.'
+    value: 'Traceable',
+    description: 'Tie bottlenecks to requests, code paths, assets, or queries.'
   },
   {
     step: '03',
     label: 'Execution',
-    value: 'Lighthouse 100',
-    description: 'Applying tactical fixes.'
+    value: 'Scoped',
+    description: 'Prioritize changes by impact, risk, and implementation cost.'
   },
   {
     step: '04',
-    label: 'Final Polish',
-    value: 'Verified',
-    description: 'Benchmarking against targets.'
+    label: 'Re-test',
+    value: 'Compared',
+    description: 'Measure the same workload again and report the delta.'
   }
 ];
 ---
 
 <BaseLayout
   title="Performance Audit"
-  description="High-performance software optimization. We diagnose bottlenecks and ship fixes that make your application fly."
+  description="Measurement-led performance diagnosis for sites and software, with findings, limits, and any implementation scope confirmed in writing."
   realmGlow="0.60 0.25 300"
   realmBg="0.985 0.008 45"
   realmText="0.11 0.03 45"
@@ -96,15 +56,16 @@ const auditSteps = [
         <p
           class="mb-12 max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl"
         >
-          We don't just find bottlenecks; we eliminate them. High-fidelity
-          performance audits for mission-critical applications.
+          Measurement-led performance work for web applications and sites. The
+          audit identifies bottlenecks; any implementation scope says exactly
+          which fixes are included.
         </p>
         <div class="flex flex-wrap gap-6">
           <a
-            href="/contact?subject=Performance%20Audit"
+            href="/contact?service=Performance%20Audit&subject=Performance%20audit%20inquiry"
             class="btn-primary shadow-engine-glow px-10 py-4 text-lg"
           >
-            Book an Audit
+            Ask About Performance Work
           </a>
         </div>
       </div>
@@ -158,80 +119,47 @@ const auditSteps = [
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- Commercial path -->
   <section class="border-t border-black/5">
     <div class="container-wide section-padding">
-      <div class="mb-16 text-center">
-        <h2 class="mb-6 text-4xl font-bold sm:text-5xl">Price Guide</h2>
-        <p class="mx-auto max-w-2xl text-xl opacity-40">
-          Fixed-price results. No hidden fees. Just sheer performance.
+      <div class="mx-auto max-w-4xl">
+        <h2 class="mb-6 text-4xl font-bold sm:text-5xl">How this is scoped</h2>
+        <p class="max-w-3xl text-xl leading-relaxed opacity-60">
+          The retired performance-package names and prices previously shown on
+          this page are no longer active offers. Current work follows the
+          published Strategic / Audit / Consulting rate of $225/hour or a
+          written fixed scope. Payment, access, measurements, and delivery
+          timing are confirmed before work begins.
         </p>
-      </div>
-
-      <div class="mx-auto max-w-4xl divide-y divide-black/5">
-        {
-          pricingTiers.map((tier) => (
-            <div
-              class:list={[
-                'grid items-start gap-8 py-12 md:grid-cols-12',
-                tier.featured && 'relative'
-              ]}
-            >
-              {tier.featured && (
-                <div class="mb-2 md:col-span-12">
-                  <span class="text-brand-400 text-xs font-bold tracking-widest uppercase">
-                    Recommended
-                  </span>
-                </div>
-              )}
-              <div class="md:col-span-4">
-                <div class="mb-2 text-xs font-bold tracking-widest uppercase opacity-30">
-                  {tier.tagline}
-                </div>
-                <h3 class="mb-4 text-3xl font-bold">{tier.name}</h3>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-brand-400 text-4xl font-bold">
-                    {typeof tier.price === 'number'
-                      ? `$${tier.price.toLocaleString()}`
-                      : tier.price}
-                  </span>
-                  {typeof tier.price === 'number' && (
-                    <span class="text-lg opacity-30">/ once</span>
-                  )}
-                </div>
-                <div class="mt-2 text-sm opacity-30">
-                  Typical delivery:{' '}
-                  <span class="font-bold opacity-60">{tier.time}</span>
-                </div>
-              </div>
-
-              <div class="md:col-span-5">
-                <ul class="space-y-3">
-                  {tier.features.map((feature) => (
-                    <li class="flex items-start gap-3 text-sm opacity-60">
-                      <span class="text-brand-400 mt-0.5 shrink-0">→</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="md:col-span-3 md:text-right">
-                <a
-                  href={`/contact?subject=Performance%20Audit%20-%20${tier.name}`}
-                  class:list={[
-                    'inline-flex justify-center px-6 py-3 text-sm font-bold transition-all duration-300',
-                    tier.featured
-                      ? 'btn-primary shadow-engine-glow'
-                      : 'btn-secondary'
-                  ]}
-                >
-                  Select {tier.name}
-                </a>
-              </div>
-            </div>
-          ))
-        }
+        <div
+          class="mt-10 grid gap-8 border-y border-black/5 py-10 md:grid-cols-3"
+        >
+          <div>
+            <h3 class="mb-3 text-lg font-bold">1. State the symptom</h3>
+            <p class="text-sm leading-relaxed opacity-60">
+              Share the public URL or environment, the workload, and what
+              changed.
+            </p>
+          </div>
+          <div>
+            <h3 class="mb-3 text-lg font-bold">2. Confirm evidence access</h3>
+            <p class="text-sm leading-relaxed opacity-60">
+              We identify which logs, traces, source, and repeatable
+              measurements are available.
+            </p>
+          </div>
+          <div>
+            <h3 class="mb-3 text-lg font-bold">3. Approve a written scope</h3>
+            <p class="text-sm leading-relaxed opacity-60">
+              Diagnosis and implementation are separated unless the approved
+              scope explicitly combines them.
+            </p>
+          </div>
+        </div>
+        <p class="mt-8 text-sm leading-relaxed opacity-55">
+          A public PageSpeed result may be a useful input, but it is not itself
+          a Toledo audit, outcome promise, or authorization to change a system.
+        </p>
       </div>
     </div>
   </section>
@@ -244,9 +172,13 @@ const auditSteps = [
           "We clean up the mess so you can run the business."
         </h2>
         <p class="mb-12 text-xl opacity-40">
-          Don't let a slow site kill your conversion rate. Let's make it fly.
+          Bring the URL, the workload, and the symptom. The first job is to
+          measure what is actually slow.
         </p>
-        <a href="/contact" class="btn-ghost px-12 py-4 text-lg">
+        <a
+          href="/contact?service=Performance%20Audit&subject=Performance%20question"
+          class="btn-ghost px-12 py-4 text-lg"
+        >
           Ask a Question
         </a>
       </div>

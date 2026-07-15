@@ -73,7 +73,9 @@ When you hire us to fix a bug, you get:
 
 No mystery. No drama. Just clean fixes.
 
-See how this approach played out in practice: our [legacy system rescue case study](/case-studies/legacy-system-rescue) took a healthcare app from 94% to 99.9% uptime using exactly this method.
+The same evidence discipline applies to public research: the [Field Notes](/case-studies/)
+separate observed measurements, working hypotheses, and unknowns instead of
+turning a debugging story into a client claim.
 
 ---
 

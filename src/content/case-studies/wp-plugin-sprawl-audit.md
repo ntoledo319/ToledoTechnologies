@@ -1,16 +1,27 @@
 ---
-title: 'The $500/Year Plugin Tax Nobody Audits'
-description: 'A two-location CT wellness brand was paying for 9 WordPress plugins they barely used. The site was loading in 18.5 seconds on mobile. Here is what the audit found.'
+title: 'A Public WordPress Stack, Costed Carefully'
+description: 'A May 2026 independent research snapshot showing observed plugins, synthetic performance measurements, and the assumptions behind a cost model.'
 industry: 'Wellness · Multi-Location Retail'
 services: ['Site Audit', 'Performance Diagnostics', 'Cost Analysis']
 publishedDate: 2026-05-21
+measurementDate: 2026-05-21
 featured: true
+evidenceType: 'independent-research'
+evidenceNote: 'Independent public-site research. The business did not hire Toledo Technologies; pricing and stack details are estimates unless explicitly marked observed.'
+limitations: 'Public inspection cannot establish paid license tiers, hosting invoices, maintenance fees, conversion impact, or the effect of a proposed fix.'
 results:
-  - 'Mobile LCP: 18.5 seconds (industry-acceptable is under 2.5s)'
-  - '9+ active plugins identified, ~$400-600/yr in license renewals'
-  - 'Best Practices score: 58/100 mobile (mixed-content + deprecated APIs)'
-  - 'Cleanse-program signup flow leaking on mobile due to render-blocking JS'
+  - 'Captured mobile LCP: 18.5 seconds in the dated synthetic run'
+  - '9 public plugin/theme signatures observed; paid tiers were not verified'
+  - 'Captured mobile Best Practices score: 58/100'
+  - 'No invoice, conversion, or post-fix outcome data was available'
 ---
+
+## Evidence Label
+
+This is an **independent research note**, not a client case study. The business
+did not commission the work. Public technology signatures and dated synthetic
+tests are observations; costs and remedies below are explicitly estimates or
+investigation paths.
 
 ## The Subject
 
@@ -22,8 +33,8 @@ Stack on inspection: WordPress 6.8.5, Astra parent theme + child theme,
 Elementor Pro 3.33, Essential Addons for Elementor, header-footer-elementor,
 Astra Sites, popup-maker, user-registration, contact-form-7, pdf-embedder.
 
-That is the kind of stack you inherit when a freelancer set it up two years ago
-and you have not touched it since. Not malicious. Just accumulated.
+Public inspection cannot establish who installed the stack, when, or why. It
+only shows what the site exposed on the measurement date.
 
 ## What the Audit Looked At
 
@@ -40,13 +51,14 @@ Three things, in order:
 
 **Cost stack, annualized:**
 
-- Elementor Pro license: $99/yr
-- Essential Addons Pro: $99/yr (likely; Lite tier present, behavior suggests Pro)
-- Astra Pro (suspected): $59/yr
-- Hosting (likely SiteGround or similar at this plugin combination): $300-500/yr
-- Maintenance: unknown, but typically $50-150/mo retainer for a stack this complex
+- Elementor Pro public list price at the time: $99/yr if a paid tier was active
+- Essential Addons: paid tier not verified
+- Astra: paid tier not verified
+- Hosting provider and invoice: unknown
+- Maintenance agreement: unknown
 
-That is $850-2,300/yr to keep the lights on, before any improvement work happens.
+Without invoices, an annual total would be speculation. A commissioned audit
+would request renewals and hosting bills before calculating savings.
 
 **Performance, mobile:**
 
@@ -62,16 +74,13 @@ That is $850-2,300/yr to keep the lights on, before any improvement work happens
 - LCP: 2.4 seconds (acceptable)
 - TBT: 428 ms
 
-The gap between desktop and mobile is the entire story. Owners check their site on
-desktop. New customers — the ones reached via the wellness brand's Instagram
-spend — arrive on mobile, cold cache, 4G. That experience is what is converting
-or not.
+The desktop/mobile gap is a reason to inspect device-specific payload and
+rendering. The public run did not include traffic-source or conversion data.
 
 ## What We Recommended
 
-We did not recommend a rebuild. The design is fine. The brand is fine. The
-problem is overhead — too many plugins doing too little, all loading on first
-paint.
+The snapshot does not justify a rebuild. It justifies tracing which public
+scripts and styles contribute to the tested critical path.
 
 The actual fix list, prioritized by mobile-LCP impact:
 
@@ -83,31 +92,27 @@ The actual fix list, prioritized by mobile-LCP impact:
    pages where the team actually edits content.
 3. **Fix the mixed-content warnings** (the 58 Best Practices score).
    Half-credit-fix; full credit needs the third-party scripts upgraded.
-4. **Migrate hosting to a real WP host** (Kinsta, WP Engine, or Rocket.net).
-   The current host is the long-tail of LCP — a single TTFB improvement
-   from a slow shared host to a real WP-tuned host is usually 800ms-1.5s
-   straight off LCP.
+4. **Verify hosting before recommending a migration.** The provider and invoice
+   are unknown. Repeat regional tests and isolate server response time before
+   deciding whether a hosting move belongs in the scope.
 
-Estimated total work: 2-3 weeks. Estimated cost reduction: $200-400/yr in
-plugin licenses dropped. Estimated mobile-LCP improvement: 18.5s → 4-6s
-realistic, 2.5s aspirational.
+Timeline, savings, and performance targets should be set only after access to
+the plugin licenses, hosting account, and repeatable traces.
 
 ## What This Audit Cost the Subject
 
-Nothing. We do not bill for the diagnostic, and we do not require an
-engagement to receive the writeup. The audit lives at the Delphi Fit Check
-price point if the subject wants the written brief, or free if they just
-want to know.
+Nothing—because this was not commissioned or delivered to the subject. A paid
+Delphi Fit Check is a separate engagement with agreed access, a written
+deliverable, and explicit limitations.
 
-This case study is the kind of writeup we produce. Names anonymized, methodology
-visible, no spin.
+This research note shows the reasoning format. It is not proof of a client
+relationship or a completed improvement.
 
 ## What This Means For You
 
-If your stack looks like the above — WordPress + Elementor + Astra + a stack
-of plugins added over the years by different freelancers — your mobile
-LCP is almost certainly the bottleneck on your highest-value flows.
+If your stack resembles the one above, measure the highest-value flows directly
+before assuming plugin count is the bottleneck.
 
-The diagnostic is a real number, not a vibe. The fix is usually 70% removal,
-20% replacement, 10% rewrite. Most engagements close at the Fit Check level
-and walk out with a scoped plan, not a sales pitch.
+The diagnostic should end in evidence: a dated trace, a list of verified costs,
+an ordered change set, and a re-test plan. The [sample deliverable](/case-studies/)
+shows that structure.

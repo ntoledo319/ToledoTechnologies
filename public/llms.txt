@@ -1,31 +1,43 @@
 # Toledo Technologies
 
-Custom websites for Connecticut businesses — designed, accessible, and shipped in about a
-week. A solo studio run by Nicholas Toledo. Based in Connecticut; works with CT businesses
-in person and clients nationwide remotely. Direct communication, fixed scope, fixed price,
-no agency overhead — and the client owns every account (domain, hosting, repo, CMS) on handoff.
+Toledo Technologies is Nicholas Toledo's founder-led software practice. Nicholas
+is the default technical lead and implementer. Any specialist or collaborator is
+disclosed before their work enters an engagement.
 
-Contact: hello@toledotechnologies.com · https://toledotechnologies.com
+Contact: hello@toledotechnologies.com · https://toledotechnologies.com/contact
 
-## Services
-- Custom website design (built from scratch, never templates) — from $5,500
-- Website redesign
-- Landing pages
-- WordPress-exit migration (SiteLift) — from $3,500
-- E-commerce / Stripe payment setup
-- Performance & SEO
-- Website maintenance / care plans — from $750/mo
+## Services and published starting points
+- Custom websites — $5,500+
+- Custom web applications — $15,000+
+- Native mobile applications — $50,000+
+- Cross-platform mobile applications — $65,000+
+- AI automation and governed-agent work — $10,000+
+- SiteLift WordPress-exit migration — $3,500+
+- Care plans — $750/month+
 
-## What makes the work different
-- Every site gets its own design — no template look.
-- Accessibility (WCAG: keyboard, screen-reader, reduced-motion) and SEO built in, not bolted on.
-- Fast: most sites go live in about a week.
-- You own everything. Toledo is added as a collaborator for setup, then hands over the keys.
+## Paid discovery
+- SiteLift Fit Check — $750 fixed
+- Website Migration Audit — $1,500 fixed
+- Web App Discovery — $3,500–$5,000
+- AI Automation Blueprint — $3,500–$10,000
+- Mobile App Discovery — $5,000–$7,500
+- SaaS / Product Strategy — $7,500–$15,000
 
-## Good fit for
-Connecticut small businesses, professional services, and founders who want a custom,
-fast-loading, accessible site — and a developer who ships instead of sending status updates.
+Discovery is paid 100% upfront. For a qualifying project started within 30 days,
+50% of the discovery fee is credited to the kickoff Project Retainer. The credit
+is capped at that Project Retainer; unused credit lapses and does not roll
+forward. The
+discovery document remains usable whether or not Toledo is hired for implementation.
 
-## Links
-- Home / work: https://toledotechnologies.com
-- Start a project: https://toledotechnologies.com/contact
+## Evidence labels
+- Codebase pages are capability references, not products offered for sale or license.
+- Field notes identify independent public research and its limitations.
+- Sample deliverables are labeled as samples and are not presented as client work.
+- A public repository is not automatically a production deployment or client result.
+
+## Start
+- Service overview: https://toledotechnologies.com/services
+- Discovery routing: https://toledotechnologies.com/discovery/#start
+- Contact: https://toledotechnologies.com/contact
+- Mobile discovery: https://mobile.toledotechnologies.com/#discovery
+- AI discovery: https://ai.toledotechnologies.com/#start

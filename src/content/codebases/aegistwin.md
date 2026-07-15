@@ -1,8 +1,8 @@
 ---
 title: 'AegisTwin'
 tagline: 'Event-driven agent runtime with governance and replay'
-description: 'A productized agent runtime providing event-driven architecture, built-in policy governance, deterministic replay for debugging, and local memory graphs—everything needed to build auditable, controllable AI agents.'
-status: 'available'
+description: 'An engineering reference for event-driven agent architecture, policy gates, deterministic replay, and local memory graphs.'
+status: 'reference'
 category: 'AI Infrastructure'
 tags:
   [
@@ -20,7 +20,7 @@ features:
   - 'Local memory graph (episodic, semantic, procedural)'
   - 'FastAPI control plane with OpenAPI documentation'
   - 'SDK for embedding in your own applications'
-  - 'Docker and Kubernetes deployment ready'
+  - 'Docker and Kubernetes deployment artifacts'
   - 'Observability stack: Grafana, Prometheus, Jaeger'
 included:
   - 'Full source code (Python with FastAPI)'
@@ -33,26 +33,20 @@ included:
   - 'Integration test suite'
   - 'Enterprise security layer (auth, RBAC, encryption)'
   - 'Admin dashboard (React + TypeScript)'
-  - 'Compliance documentation (SOC2, HIPAA, GDPR)'
-  - 'Complete IP transfer ready'
+  - 'Compliance-oriented mapping notes (not certification)'
 targetAudience:
   - 'Teams building production AI agents'
   - 'Enterprises requiring auditable AI systems'
   - 'Developers needing deterministic agent debugging'
   - 'Organizations with AI governance requirements'
 order: 3
-price: 15000
-originalPrice: 45000
-pricingNote: 'One-time purchase. Full IP transfer. Self-serve docs; no support included.'
-stripeLink: 'https://buy.stripe.com/7sY28rbQq5d60cX1oE87K08'
-gumroadLink: 'https://toledodev8.gumroad.com/l/aegistwin-source'
-gumroadPrice: 2500
-licensesAvailable: 3
 ---
 
 ## What AegisTwin Does
 
-AegisTwin is a **productized agent runtime** that provides the infrastructure modern AI agents need: governance, auditability, and reproducibility. Build agents that are controllable, debuggable, and enterprise-ready.
+AegisTwin is an **agent-runtime reference build** for governance, auditability,
+and reproducibility. It demonstrates patterns Toledo Technologies can apply to
+custom agent work; this page is not an offer to sell or license the repository.
 
 ## The Problem It Solves
 
@@ -83,7 +77,7 @@ Record any agent run and replay it exactly. Hash verification ensures determinis
 
 Episodic, semantic, and procedural memory systems—all running locally. No cloud dependency means full data sovereignty and privacy.
 
-### Production-Ready API
+### API Reference
 
 FastAPI control plane with:
 
@@ -160,35 +154,34 @@ AegisTwin/
 
 Run agent actions through the policy gates, watch the hash-chained event log build up, then replay the run to verify chain integrity. The three primitives — event log, policy gates, deterministic replay — in your browser, in 60 seconds.
 
-Public source: [github.com/ntoledo319/AegisTwin](https://github.com/ntoledo319/AegisTwin) (136 tests, MIT)
+Public source: [github.com/ntoledo319/AegisTwin](https://github.com/ntoledo319/AegisTwin) (136 test functions in public `main`, MIT)
 
 ## Real Benchmarks — Reproducible
 
 Run `python3 benchmarks/run_benchmarks.py` on your hardware to verify these:
 
-| Metric | Number |
-|---|---|
-| Event bus throughput | **65,000–93,000 events/sec** |
-| Replay verification rate | **110,000+ events/sec** |
-| Policy gate overhead (10 policies) | **~41 µs mean** |
-| Memory per event | **~1 KB, linear scaling** |
-| 10,000-event run replay time | **<90 ms** |
+| Metric                             | Number                       |
+| ---------------------------------- | ---------------------------- |
+| Event bus throughput               | **65,000–93,000 events/sec** |
+| Replay verification rate           | **110,000+ events/sec**      |
+| Policy gate overhead (10 policies) | **~41 µs mean**              |
+| Memory per event                   | **~1 KB, linear scaling**    |
+| 10,000-event run replay time       | **<90 ms**                   |
 
 📄 [Full Benchmark Report (PDF)](/downloads/aegistwin-benchmarks.pdf) — every methodology + raw numbers
 
-## Why a buyer pays $15k
+## What This Reference Demonstrates
 
-Not for the runtime alone — for the runtime *plus* what nobody else publishes:
+The useful proof is inspectable and reproducible:
 
 - 📄 [Performance benchmarks](/downloads/aegistwin-benchmarks.pdf) — real, reproducible numbers on the actual code
-- 📄 [Comparison vs LangChain / AutoGen / CrewAI](/downloads/aegistwin-comparison.pdf) — honest positioning, including when *not* to use AegisTwin
-- ✅ 136 passing tests covering replay determinism, policy gating, memory consistency
+- 📄 [Comparison vs LangChain / AutoGen / CrewAI](/downloads/aegistwin-comparison.pdf) — honest positioning, including when _not_ to use AegisTwin
+- ✅ 136 test functions in public `main` covering replay determinism, policy gating, and memory consistency
 - ✅ Full Docker Compose with Grafana / Prometheus / Jaeger ready to deploy
 - ✅ Helm chart for Kubernetes — production deployment is one command
 - ✅ TypeScript SDK for frontend integration
 - ✅ 16 documentation guides (architecture, plugins, embedding, observability, etc.)
-- ✅ Compliance docs (SOC 2 / HIPAA / GDPR mappings)
-- ✅ Complete IP transfer
+- ✅ Compliance-oriented mapping notes, explicitly not an audit or certification
 
 ## FAQ
 
@@ -201,11 +194,12 @@ Yes. The policy engine accepts Python functions. Define any rule: action type re
 **How does replay work?**
 Every event is logged with inputs and outputs and a hash chain. Replay loads a trace and re-executes with the same recorded inputs. Hash verification confirms determinism. 10,000-event runs replay in <90 ms — fast enough to use as a CI step on every PR.
 
-**Is this production-ready?**
-Yes. Docker Compose for development, Helm chart for Kubernetes production, Prometheus/Grafana/Jaeger observability included. 136 passing tests.
+**Is this a production guarantee?**
+No. The repository includes deployment and observability assets plus a public
+test suite, but production readiness depends on the target environment, threat
+model, integrations, and independent verification.
 
-**Is support included?**
-No. AegisTwin is self-serve. The repo ships with 16 documentation guides, working Docker stack, comprehensive tests, and the benchmark + comparison artifacts above. Price reflects the code + IP transfer, not service.
-
-**How do I acquire this codebase?**
-Click "Buy" above. Includes full IP transfer, all source code, SDKs, documentation, observability stack, and Helm charts. Delivered within 24 hours of payment via private GitHub invite + signed IP transfer agreement.
+**Can Toledo Technologies build from these patterns?**
+Yes. Use the custom-build inquiry on this page to describe the governance,
+replay, or observability problem. A separate scoped engagement would define the
+deliverables, ownership, and verification plan.

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SampleDiscoveryInsert from '../../components/SampleDiscoveryInsert.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema, itemListSchema } from '../../utils/jsonld';
 
@@ -14,7 +15,7 @@ const sortedStudies = caseStudies.sort(
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Case Studies', url: '/case-studies' }
+    { name: 'Proof & Field Notes', url: '/case-studies' }
   ]),
   itemListSchema(
     sortedStudies.map((s) => ({
@@ -22,14 +23,14 @@ const jsonLd = [
       url: `/case-studies/${s.slug}`,
       description: s.data.description
     })),
-    'Case Studies'
+    'Toledo Technologies Proof and Field Notes'
   )
 ];
 ---
 
 <BaseLayout
-  title="Case Studies"
-  description="Real projects, real results. See how we've helped clients with MVP development, bug fixes, legacy system rescues, and more."
+  title="Proof & Field Notes"
+  description="Dated research notes and sample deliverables from Toledo Technologies. Independent audits are labeled and are not presented as paid client work."
   jsonLd={jsonLd}
   realmGlow="0.68 0.16 130"
   realmBg="0.985 0.008 45"
@@ -40,22 +41,30 @@ const jsonLd = [
     <div class="container-wide section-padding-sm relative z-10">
       <div class="max-w-4xl">
         <Breadcrumbs
-          items={[{ label: 'Home', href: '/' }, { label: 'Case Studies' }]}
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Proof & Field Notes' }
+          ]}
         />
         <h1
           class="mb-6 text-5xl leading-[0.9] font-bold tracking-tight sm:text-7xl"
         >
-          Case <span class="text-brand-400 italic">Studies</span>
+          Proof &amp; <span class="text-brand-400 italic">Field Notes</span>
         </h1>
         <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
-          Real projects, real results. Here's how we've helped clients ship
-          software, fix problems, and build systems that work.
+          Inspect the evidence and its boundary. Every note below says where the
+          data came from, what Toledo did not have access to, and whether a
+          client relationship existed.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Case Studies -->
+  <section class="container-wide pt-12 sm:pt-16">
+    <SampleDiscoveryInsert />
+  </section>
+
+  <!-- Evidence notes -->
   <section class="container-wide section-padding-sm">
     <div class="divide-y divide-black/5">
       {
@@ -68,12 +77,15 @@ const jsonLd = [
             ]}
           >
             <div class="mb-4 flex items-center gap-4">
-              <span class="text-sm font-medium tracking-widest uppercase opacity-30">
-                {study.data.industry}
+              <span class="text-sm font-medium tracking-widest uppercase opacity-60">
+                {study.data.evidenceType === 'independent-research'
+                  ? 'Independent research'
+                  : 'Sample deliverable'}{' '}
+                · {study.data.industry}
               </span>
               {study.data.featured && (
                 <span class="text-brand-400 text-xs font-bold tracking-widest uppercase">
-                  Featured
+                  Selected note
                 </span>
               )}
             </div>
@@ -86,11 +98,15 @@ const jsonLd = [
               {study.data.description}
             </p>
 
+            <p class="mb-6 max-w-3xl font-mono text-xs leading-relaxed tracking-wide uppercase opacity-70">
+              {study.data.evidenceNote}
+            </p>
+
             {study.data.results.length > 0 && (
               <div class="mb-6">
                 <ul class="flex flex-wrap gap-x-6 gap-y-2">
                   {study.data.results.slice(0, 3).map((result) => (
-                    <li class="flex items-center gap-2 text-sm opacity-40">
+                    <li class="flex items-center gap-2 text-sm opacity-65">
                       <span class="text-brand-400">→</span>
                       <span>{result}</span>
                     </li>
@@ -101,7 +117,7 @@ const jsonLd = [
 
             <div class="flex flex-wrap gap-3">
               {study.data.services.map((service) => (
-                <span class="text-xs opacity-15">{service}</span>
+                <span class="text-xs opacity-60">{service}</span>
               ))}
             </div>
           </a>
@@ -114,12 +130,13 @@ const jsonLd = [
   <section class="border-t border-black/5">
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
-        <h2 class="mb-4 text-3xl font-bold">Have a similar problem?</h2>
+        <h2 class="mb-4 text-3xl font-bold">Need a comparable diagnosis?</h2>
         <p class="mb-8 text-lg opacity-50">
-          Every project starts with a conversation. Tell us what you're working
-          on.
+          Start with the smallest discovery that can turn the unknowns into a
+          dated, usable document.
         </p>
-        <a href="/contact" class="btn-primary shadow-engine-glow">Get a Quote</a
+        <a href="/discovery#start" class="btn-primary shadow-engine-glow"
+          >Choose a Discovery</a
         >
       </div>
     </div>

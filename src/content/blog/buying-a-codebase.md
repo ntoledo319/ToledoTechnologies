@@ -56,16 +56,18 @@ Make sure you're getting full rights to the code. Ask explicitly:
 - **Vague pricing**: Good sellers know what their code is worth
 - **No support period**: You'll have questions. Make sure someone will answer them.
 
-## Our Approach at Toledo Technologies
+## How Toledo Technologies Evaluates Existing Code
 
-When we sell a codebase, we include:
+When we evaluate an inherited or reference codebase, we look for:
 
 - Full documentation
 - A working demo
-- 30 days of support for questions
-- Clear licensing terms
+- Reproducible verification commands
+- Clear ownership and third-party licensing terms
 
-We want you to succeed with the code, not struggle with it. If you're evaluating compliance tools specifically, check out our post on [compliance automation](/blog/compliance-automation) to understand what's real vs. theater.
+The public [codebase archive](/codebases/) shows how Toledo labels capability
+evidence without offering old repositories as a shortcut around discovery. If
+you're evaluating compliance tools specifically, read our post on [compliance automation](/blog/compliance-automation).
 
 ## Bottom Line
 
@@ -73,4 +75,6 @@ Buying code can save you months of development time—if you do your homework. A
 
 ---
 
-**Related:** [Check out our available codebases](/codebases) or [get a custom quote](/contact) for your project. And if you're launching something new, read how we helped a startup go [from idea to launch in 6 weeks](/case-studies/startup-mvp-launch).
+**Related:** [Inspect the codebase archive](/codebases/) or [describe the system
+you need](/contact?service=custom-software&subject=Existing%20code%20evaluation).
+The archive is capability evidence, not a sale catalog.

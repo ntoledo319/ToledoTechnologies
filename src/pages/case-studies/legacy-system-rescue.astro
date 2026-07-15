@@ -1,0 +1,33 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+---
+
+<InsertLayout
+  title="Retired Proof Page"
+  description="This former Toledo Technologies case-study URL has been retired because its client and outcome claims were not supported by publishable evidence."
+  heading="This proof page was retired."
+  subheading="The former page at this URL did not meet the evidence standard now used across Toledo Technologies."
+  noindex={true}
+>
+  <section aria-labelledby="why-retired">
+    <h2 id="why-retired">Why it is no longer published</h2>
+    <p>
+      The previous page described a client engagement and outcome without a
+      publishable source that could substantiate those claims. It has been
+      removed rather than relabeled as completed client work.
+    </p>
+    <p>
+      This notice is a correction, not a case study, testimonial, or claim that
+      Toledo performed the work formerly described here.
+    </p>
+  </section>
+
+  <section class="mt-12 border-t border-black/5 pt-10">
+    <h2>Inspect the current evidence ledger</h2>
+    <p>
+      Current field notes identify provenance, limitations, and whether a
+      client relationship existed.
+    </p>
+    <a href="/case-studies" class="btn-primary">Proof &amp; Field Notes</a>
+  </section>
+</InsertLayout>
