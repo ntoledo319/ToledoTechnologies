@@ -1,3 +1,0 @@
-run_id,url,status_code,redirects,final_url
-linkhealth-1767782390,http://localhost:8000/index.html,200,0,http://localhost:8000/index.html
-linkhealth-1767782390,http://localhost:8000/missing.html,404,0,http://localhost:8000/missing.html

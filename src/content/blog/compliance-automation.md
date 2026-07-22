@@ -110,6 +110,6 @@ If you're [buying a codebase](/blog/buying-a-codebase) for compliance purposes, 
 
 ---
 
-**Need help with compliance automation?** [Inspect the ComplyCrawl reference](/codebases/complycrawl/)
+**Need help with compliance automation?** Try our free [robots.txt Auditor](/tools/robots-audit),
 or [talk to us about a scoped system](/contact?service=ai-automation&subject=Compliance%20Automation).
-The reference demonstrates patterns; it is not certification or a repository sale.
+A scoped engagement defines allowed domains, data handling, retention, and acceptance tests — it is not certification.

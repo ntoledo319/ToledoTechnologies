@@ -50,23 +50,6 @@ describe('public truth contracts', () => {
     }
   });
 
-  it('keeps the codebase archive free of storefront fields and vendors', () => {
-    const scopedSource = [
-      read('src/content/config.ts'),
-      read('src/pages/codebases/index.astro'),
-      read('src/pages/codebases/[slug].astro'),
-      ...readdirSync(join(root, 'src/content/codebases'))
-        .filter((name) => name.endsWith('.md'))
-        .map((name) => read(`src/content/codebases/${name}`))
-    ].join('\n');
-
-    expect(scopedSource).not.toMatch(
-      /stripeLink|gumroadLink|licensesAvailable|originalPrice|pricingNote/i
-    );
-    expect(scopedSource).not.toMatch(/buy\s+(?:a|this|the)\s+codebase/i);
-    expect(scopedSource).toMatch(/not (?:offered )?for sale|not a storefront/i);
-  });
-
   it('routes AI and mobile discovery to their exact service anchors', () => {
     const source = `${read('src/pages/services.astro')}\n${read('src/pages/discovery.astro')}`;
     expect(source).toContain('https://ai.toledotechnologies.com/#start');
@@ -217,12 +200,6 @@ describe('public truth contracts', () => {
     expect(header).toContain('setMenuOpen(false)');
     expect(header).toContain('menuButton.focus()');
     expect(breadcrumbs).toContain('min-h-6');
-  });
-
-  it('does not describe AegisTwin test definitions as a passing run', () => {
-    const source = read('src/content/codebases/aegistwin.md');
-    expect(source).toContain('136 test functions in public `main`');
-    expect(source).not.toMatch(/136 passing tests/i);
   });
 
   it('does not render research notes as client results', () => {

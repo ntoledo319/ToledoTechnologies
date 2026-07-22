@@ -5,8 +5,10 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SampleDiscoveryInsert from '../components/SampleDiscoveryInsert.astro';
 import { breadcrumbSchema, itemListSchema } from '../utils/jsonld';
 
-const references = (await getCollection('codebases')).sort(
-  (a, b) => a.data.order - b.data.order
+const notes = (await getCollection('case-studies')).sort(
+  (a, b) =>
+    new Date(b.data.publishedDate).getTime() -
+    new Date(a.data.publishedDate).getTime()
 );
 
 const jsonLd = [
@@ -15,28 +17,23 @@ const jsonLd = [
     { name: 'Proof Ledger', url: '/portfolio' }
   ]),
   itemListSchema(
-    references.map((reference) => ({
-      name: reference.data.title,
-      url: `/codebases/${reference.slug}/`,
-      description: reference.data.description
+    notes.map((note) => ({
+      name: note.data.title,
+      url: `/case-studies/${note.slug}/`,
+      description: note.data.description
     })),
-    'Inspectable Engineering References'
+    'Independent Research Notes'
   )
 ];
 
 const evidenceRules = [
   {
     mark: 'A',
-    title: 'Reference build',
-    body: 'An inspectable system or repository that demonstrates an engineering pattern. It is not automatically a production deployment.'
-  },
-  {
-    mark: 'B',
     title: 'Research note',
     body: 'A dated analysis of public evidence. It is not presented as a paid engagement, private audit, or client outcome.'
   },
   {
-    mark: 'C',
+    mark: 'B',
     title: 'Sample deliverable',
     body: 'A clearly labeled example of the artifact a discovery can produce. It contains no invented client provenance.'
   }
@@ -60,13 +57,13 @@ const evidenceRules = [
         <p class="proof-kicker">Toledo Technologies · evidence pressing 001</p>
         <h1>Proof, with the <em>labels left on.</em></h1>
         <p class="proof-deck">
-          This ledger separates what was built, what was observed, and what is
-          only a sample. No project count, deployment claim, or client story is
-          implied by a repository existing.
+          This ledger separates what was observed from what is only a sample. No
+          project count, deployment claim, or client story is implied — every
+          note says where the data came from and what it cannot establish.
         </p>
         <div class="cta-actions flex flex-wrap gap-4">
-          <a href="/codebases/" class="btn-primary">Inspect the code archive</a>
-          <a href="/case-studies/" class="btn-ghost">Read the field notes</a>
+          <a href="/case-studies/" class="btn-primary">Read the field notes</a>
+          <a href="/discovery/" class="btn-ghost">Choose a discovery</a>
         </div>
       </div>
     </div>
@@ -96,29 +93,32 @@ const evidenceRules = [
     <div class="container-wide section-padding-sm">
       <div class="archive-tracklist-heading">
         <div>
-          <p class="proof-kicker">Side A · reference builds</p>
-          <h2>Systems you can inspect</h2>
+          <p class="proof-kicker">Side A · research notes</p>
+          <h2>Public research you can inspect</h2>
         </div>
         <p>
-          Capability references only. These codebases are not offered for sale
-          or license.
+          Independent analysis of public sites — not client work. Each note
+          states its measurement window and what it cannot establish.
         </p>
       </div>
 
       <ol class="archive-tracklist">
         {
-          references.map((reference, index) => (
+          notes.map((note, index) => (
             <li>
-              <a href={`/codebases/${reference.slug}/`} class="archive-track">
+              <a href={`/case-studies/${note.slug}/`} class="archive-track">
                 <span class="archive-track-number">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span class="archive-track-copy">
                   <span class="archive-track-meta">
-                    {reference.data.category} · reference build
+                    {note.data.evidenceType === 'independent-research'
+                      ? 'Independent research'
+                      : 'Sample deliverable'}{' '}
+                    · {note.data.industry}
                   </span>
-                  <strong>{reference.data.title}</strong>
-                  <span>{reference.data.description}</span>
+                  <strong>{note.data.title}</strong>
+                  <span>{note.data.description}</span>
                 </span>
                 <span class="archive-track-arrow" aria-hidden="true">
                   ↗

@@ -145,7 +145,7 @@ export function blogPostingSchema(post: {
 }
 
 /**
- * ItemList schema for catalog pages (codebases, blog index).
+ * ItemList schema for catalog pages (portfolio, case studies, blog index).
  */
 export function itemListSchema(
   items: { name: string; url: string; description?: string }[],
@@ -207,37 +207,6 @@ export function articleSchema(article: {
         ? article.image
         : `${SITE_URL}${article.image}`
       : `${SITE_URL}/og-default.png`
-  };
-}
-
-/**
- * SoftwareSourceCode schema for public capability notes.
- * Deliberately excludes Offer data: the archive is not a storefront.
- */
-export function softwareSchema(software: {
-  name: string;
-  description: string;
-  url: string;
-  category?: string;
-  tags?: string[];
-  codeRepository?: string;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareSourceCode',
-    name: software.name,
-    description: software.description,
-    url: software.url.startsWith('http')
-      ? software.url
-      : `${SITE_URL}${software.url}`,
-    ...(software.codeRepository
-      ? { codeRepository: software.codeRepository }
-      : {}),
-    creator: {
-      '@id': `${SITE_URL}/#organization`
-    },
-    applicationCategory: software.category || 'Software',
-    keywords: software.tags?.join(', ')
   };
 }
 

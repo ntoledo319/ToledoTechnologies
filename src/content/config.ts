@@ -20,27 +20,6 @@ const blog = defineCollection({
 });
 
 /**
- * Codebase collection schema.
- * These entries are engineering references, not a storefront. They document
- * what exists and what the work demonstrates without implying availability.
- */
-const codebases = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    tagline: z.string(),
-    description: z.string(),
-    status: z.enum(['reference', 'active', 'archived']),
-    category: z.string(),
-    tags: z.array(z.string()).default([]),
-    features: z.array(z.string()).default([]),
-    included: z.array(z.string()).default([]),
-    targetAudience: z.array(z.string()).default([]),
-    order: z.number().default(0)
-  })
-});
-
-/**
  * Proof-note collection schema.
  * Every entry declares its evidence type and limitations so independent
  * research can never be rendered as paid client work by implication.
@@ -64,6 +43,5 @@ const caseStudies = defineCollection({
 
 export const collections = {
   blog,
-  codebases,
   'case-studies': caseStudies
 };

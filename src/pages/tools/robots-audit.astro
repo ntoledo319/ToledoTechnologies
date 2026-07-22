@@ -11,7 +11,7 @@ const jsonLd = breadcrumbSchema([
 
 <InsertLayout
   title="robots.txt Auditor — Free Compliance Tool"
-  description="Audit any site's robots.txt for crawl directives, allow/deny rules, sitemap declarations, and compliance posture. Free tool powered by ComplyCrawl."
+  description="Audit any site's robots.txt for crawl directives, allow/deny rules, sitemap declarations, and compliance posture. A free tool from Toledo Technologies."
   jsonLd={jsonLd}
   heading="robots.txt Auditor"
   subheading="Paste any URL. Get a one-page audit of its crawl directives, compliance posture, and red flags."
@@ -34,23 +34,27 @@ const jsonLd = breadcrumbSchema([
     <li><strong>Compliance flags</strong> — patterns that often indicate misconfiguration</li>
   </ul>
 
-  <h2>Powered by ComplyCrawl</h2>
+  <h2>Why this check belongs before every request</h2>
   <p>
-    This tool runs against ComplyCrawl's robots.txt evaluator —
-    the same module that gates every fetch in the full product. If you
-    crawl the web for SEO monitoring, catalog watching, or any commercial
-    purpose, you need this check running before every request.
+    If you crawl the web for SEO monitoring, catalog watching, or any commercial
+    purpose, robots.txt is the line between compliant automation and a legal
+    liability. Ignoring disallow rules or crawl-delay directives is how a
+    scraper turns into a complaint — or a lawsuit.
   </p>
   <p>
-    <a href="/codebases/complycrawl/" class="btn-primary">
-      See ComplyCrawl product page →
+    <a
+      href="/contact?service=ai-automation&subject=Compliant%20web%20automation"
+      class="btn-primary"
+    >
+      Scope a compliant automation build →
     </a>
   </p>
 
   <p style="margin-top: 2rem; font-size: 0.85em; opacity: 0.65;">
     Note: this audit fetches the target's <code>/robots.txt</code> from your browser. We don't log it. If you need
-    audit-grade, tamper-evident logging of these checks at scale, that's
-    what the full ComplyCrawl codebase provides.
+    audit-grade, tamper-evident logging of these checks at scale, that is a
+    scoped engagement — describe the workflow and we define the guardrails,
+    retention, and acceptance tests.
   </p>
 </InsertLayout>
 

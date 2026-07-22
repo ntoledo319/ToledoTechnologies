@@ -3,7 +3,7 @@ title: 'Buying a Codebase Without Regretting It'
 description: "What to look for when purchasing a pre-built codebase, common pitfalls to avoid, and how to evaluate if it's actually worth your money."
 publishedDate: 2024-01-15
 modifiedDate: 2024-02-26
-tags: ['codebases', 'due-diligence', 'software-buying']
+tags: ['technical-audit', 'due-diligence', 'software-buying']
 featured: true
 tldr: 'Check the docs, run the tests, verify dependencies are maintained, and always get a demo before you pay.'
 ---
@@ -58,16 +58,16 @@ Make sure you're getting full rights to the code. Ask explicitly:
 
 ## How Toledo Technologies Evaluates Existing Code
 
-When we evaluate an inherited or reference codebase, we look for:
+When we evaluate an inherited codebase, we look for:
 
 - Full documentation
 - A working demo
 - Reproducible verification commands
 - Clear ownership and third-party licensing terms
 
-The public [codebase archive](/codebases/) shows how Toledo labels capability
-evidence without offering old repositories as a shortcut around discovery. If
-you're evaluating compliance tools specifically, read our post on [compliance automation](/blog/compliance-automation).
+That is the same due-diligence pass we run in a pre-purchase technical audit
+before you commit money to someone else's code. If you're evaluating compliance
+tools specifically, read our post on [compliance automation](/blog/compliance-automation).
 
 ## Bottom Line
 
@@ -75,6 +75,5 @@ Buying code can save you months of development time—if you do your homework. A
 
 ---
 
-**Related:** [Inspect the codebase archive](/codebases/) or [describe the system
-you need](/contact?service=custom-software&subject=Existing%20code%20evaluation).
-The archive is capability evidence, not a sale catalog.
+**Related:** [Describe the code you're evaluating](/contact?service=custom-software&subject=Existing%20code%20evaluation)
+and we'll tell you what a pre-purchase technical audit would check before you pay.

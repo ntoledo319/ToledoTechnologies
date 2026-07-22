@@ -30,10 +30,9 @@ forward. The
 discovery document remains usable whether or not Toledo is hired for implementation.
 
 ## Evidence labels
-- Codebase pages are capability references, not products offered for sale or license.
 - Field notes identify independent public research and its limitations.
 - Sample deliverables are labeled as samples and are not presented as client work.
-- A public repository is not automatically a production deployment or client result.
+- A public research note is not automatically a paid client engagement or a promised outcome.
 
 ## Start
 - Service overview: https://toledotechnologies.com/services

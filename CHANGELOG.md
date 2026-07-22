@@ -28,6 +28,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced the dead local speed-test API experience with a transparent launcher
   for Google PageSpeed Insights and a non-causal measurement guide.
 
+### Removed
+
+- Retired the public codebase archive entirely: deleted the AegisTwin, ComplyCrawl,
+  and TallySec capability notes, the `/codebases/` routes and collection, the
+  archived checkout page, and all sale collateral under `public/downloads/`.
+- Scrubbed every remaining reference — navigation, footers, the Proof Ledger
+  (now research notes + sample deliverables), services, 404, terms, policies,
+  `llms.txt`, blog cross-links, the robots.txt tool attribution, the unused
+  `softwareSchema`, and the codebase-specific truth-contract tests.
+
 ### Fixed
 
 - Contact and privacy copy now describe the actual eolkits storage and notification
