@@ -5,6 +5,7 @@ import '../styles/gatefold.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
+import Analytics from '../components/Analytics.astro';
 import { professionalServiceSchema } from '../utils/jsonld';
 import { ClientRouter } from 'astro:transitions';
 
@@ -139,8 +140,6 @@ const fullTitle =
       <slot />
     </main>
     <Footer />
-  <!-- toledo-analytics -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PASTE_CLOUDFLARE_TOKEN_HERE"}'></script>
-  <!-- /toledo-analytics -->
+    <Analytics />
   </body>
 </html>

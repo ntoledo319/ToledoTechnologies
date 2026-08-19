@@ -1,0 +1,38 @@
+---
+/*
+ * Cloudflare Web Analytics beacon — single source of truth for every layout.
+ *
+ * The site tag is a PUBLIC value: it ships in the page source and is visible
+ * to every visitor, so it is safe to commit. It is NOT a secret.
+ *
+ * To switch analytics on, set the token in ONE place — either:
+ *   - paste it into CF_BEACON_TOKEN below, or
+ *   - set PUBLIC_CF_BEACON_TOKEN in the build environment (.env / CI).
+ *
+ * Where the token comes from (toledotechnologies.com is not proxied through
+ * Cloudflare, so it needs this manual JS beacon — there is no auto-inject):
+ *   dash.cloudflare.com -> Analytics & Logs -> Web Analytics ->
+ *   add "toledotechnologies.com" -> copy the JS-snippet "token" value.
+ *
+ * When no token is set, this renders NOTHING. The site never ships a dead
+ * third-party request carrying a placeholder token.
+ */
+
+// Paste the public Cloudflare Web Analytics token here to enable it site-wide.
+const CF_BEACON_TOKEN = '';
+
+const token = (
+  import.meta.env.PUBLIC_CF_BEACON_TOKEN ?? CF_BEACON_TOKEN
+).trim();
+---
+
+{
+  token && (
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token })}
+    />
+  )
+}

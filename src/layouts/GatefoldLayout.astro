@@ -5,6 +5,7 @@ import '../styles/gatefold.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
+import Analytics from '../components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
@@ -558,8 +559,6 @@ const fullTitle =
       initGatefold();
       document.addEventListener('astro:after-swap', initGatefold);
     </script>
-  <!-- toledo-analytics -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PASTE_CLOUDFLARE_TOKEN_HERE"}'></script>
-  <!-- /toledo-analytics -->
+    <Analytics />
   </body>
 </html>
