@@ -29,6 +29,16 @@ is capped at that Project Retainer; unused credit lapses and does not roll
 forward. The
 discovery document remains usable whether or not Toledo is hired for implementation.
 
+## Toledo-operated software
+- Tessera free bounded evidence check — no account
+- PCI DSS 6.4.3 written remediation pack — $299 once
+- PCI DSS 5.4.1 email-authentication remediation pack — $99 once
+- PCI DSS 11.6.1 one-target evidence ledger — $99/month, evaluated every 72 hours
+
+Tessera reports bounded software-generated evidence for qualified human review; it
+does not determine PCI DSS compliance. Public synthetic samples are available before
+checkout: https://qi.toledotechnologies.com/pci-4-compliance-scanner
+
 ## Evidence labels
 - Field notes identify independent public research and its limitations.
 - Sample deliverables are labeled as samples and are not presented as client work.
@@ -40,3 +50,4 @@ discovery document remains usable whether or not Toledo is hired for implementat
 - Contact: https://toledotechnologies.com/contact
 - Mobile discovery: https://mobile.toledotechnologies.com/#discovery
 - AI discovery: https://ai.toledotechnologies.com/#start
+- Tessera compliance evidence: https://qi.toledotechnologies.com/pci-4-compliance-scanner
