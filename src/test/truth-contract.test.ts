@@ -58,6 +58,34 @@ describe('public truth contracts', () => {
     );
   });
 
+  it('lists Tessera as a bounded product with exact live prices', () => {
+    const source = [
+      read('src/pages/services.astro'),
+      read('src/components/Footer.astro'),
+      read('src/components/home/SideAFooter.astro'),
+      read('public/llms.txt')
+    ].join('\n');
+
+    expect(source).toContain(
+      'https://qi.toledotechnologies.com/pci-4-compliance-scanner'
+    );
+    expect(source).toContain('PCI DSS 6.4.3 remediation pack ($299 once)');
+    expect(source).toContain('PCI DSS 5.4.1 email-authentication');
+    expect(source).toMatch(
+      /one-target PCI DSS 11\.6\.1\s+evidence ledger \(\$99\/month\)/
+    );
+    expect(source).toMatch(/does not determine (?:PCI DSS )?compliance/i);
+    expect(source).toContain(
+      'https://github.com/ntoledo319/pci-payment-page-check'
+    );
+    expect(source).toContain(
+      'https://github.com/marketplace/actions/pci-payment-page-script-check'
+    );
+    expect(source).toContain('Free MIT served-HTML inventory Action');
+    expect(source).toMatch(/does not execute JavaScript/i);
+    expect(source).toMatch(/does not (?:certify|determine).*compliance/i);
+  });
+
   it('uses the live lead bus and keeps contact routing context', () => {
     const contact = read('src/pages/contact.astro');
     expect(contact).toContain('https://eolkits.com/api/v1/lead');
