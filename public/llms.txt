@@ -39,6 +39,12 @@ Tessera reports bounded software-generated evidence for qualified human review; 
 does not determine PCI DSS compliance. Public synthetic samples are available before
 checkout: https://qi.toledotechnologies.com/pci-4-compliance-scanner
 
+Free MIT served-HTML inventory Action (does not execute JavaScript or certify
+compliance): https://github.com/ntoledo319/pci-payment-page-check
+GitHub Marketplace: https://github.com/marketplace/actions/pci-payment-page-script-check
+Reviewer-owned inventory template:
+https://qi.toledotechnologies.com/pci/pci-dss-6-4-3-script-inventory-template
+
 ## Evidence labels
 - Field notes identify independent public research and its limitations.
 - Sample deliverables are labeled as samples and are not presented as client work.
@@ -51,3 +57,4 @@ checkout: https://qi.toledotechnologies.com/pci-4-compliance-scanner
 - Mobile discovery: https://mobile.toledotechnologies.com/#discovery
 - AI discovery: https://ai.toledotechnologies.com/#start
 - Tessera compliance evidence: https://qi.toledotechnologies.com/pci-4-compliance-scanner
+- Free payment-page Action: https://github.com/ntoledo319/pci-payment-page-check

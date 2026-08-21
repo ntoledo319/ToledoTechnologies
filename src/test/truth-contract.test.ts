@@ -72,9 +72,18 @@ describe('public truth contracts', () => {
     expect(source).toContain('PCI DSS 6.4.3 remediation pack ($299 once)');
     expect(source).toContain('PCI DSS 5.4.1 email-authentication');
     expect(source).toMatch(
-      /one-target\s+PCI DSS 11\.6\.1\s+evidence ledger \(\$99\/month\)/
+      /one-target PCI DSS 11\.6\.1\s+evidence ledger \(\$99\/month\)/
     );
     expect(source).toMatch(/does not determine (?:PCI DSS )?compliance/i);
+    expect(source).toContain(
+      'https://github.com/ntoledo319/pci-payment-page-check'
+    );
+    expect(source).toContain(
+      'https://github.com/marketplace/actions/pci-payment-page-script-check'
+    );
+    expect(source).toContain('Free MIT served-HTML inventory Action');
+    expect(source).toMatch(/does not execute JavaScript/i);
+    expect(source).toMatch(/does not (?:certify|determine).*compliance/i);
   });
 
   it('uses the live lead bus and keeps contact routing context', () => {
