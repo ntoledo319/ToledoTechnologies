@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - A gatefold-native proof ledger, labeled sample discovery insert, evidence bands,
   and source-contract tests for public claims and lead forms.
+- A contextual Tessera catalog entry with exact live products and prices, the free
+  scanner, reviewer-owned inventory template, and personal `ntoledo319` Marketplace
+  Action, all paired with the static-check and qualified-review limitations.
 
 ### Changed
 
