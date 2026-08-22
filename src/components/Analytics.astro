@@ -9,17 +9,18 @@
  *   - paste it into CF_BEACON_TOKEN below, or
  *   - set PUBLIC_CF_BEACON_TOKEN in the build environment (.env / CI).
  *
- * Where the token comes from (toledotechnologies.com is not proxied through
- * Cloudflare, so it needs this manual JS beacon — there is no auto-inject):
- *   dash.cloudflare.com -> Analytics & Logs -> Web Analytics ->
- *   add "toledotechnologies.com" -> copy the JS-snippet "token" value.
+ * This token is the "site_token" of the Cloudflare Web Analytics site created
+ * for host toledotechnologies.com (the domain resolves straight to the VPS via
+ * Porkbun, so it is not proxied through Cloudflare and needs this manual JS
+ * beacon — there is no auto-inject). Manage it at:
+ *   dash.cloudflare.com -> Analytics & Logs -> Web Analytics.
  *
  * When no token is set, this renders NOTHING. The site never ships a dead
  * third-party request carrying a placeholder token.
  */
 
-// Paste the public Cloudflare Web Analytics token here to enable it site-wide.
-const CF_BEACON_TOKEN = '';
+// Public Cloudflare Web Analytics site_token for toledotechnologies.com.
+const CF_BEACON_TOKEN = '995219a111fe4d7e909f31238115e36e';
 
 const token = (
   import.meta.env.PUBLIC_CF_BEACON_TOKEN ?? CF_BEACON_TOKEN
@@ -30,7 +31,7 @@ const token = (
   token && (
     <script
       is:inline
-      defer
+      type="module"
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon={JSON.stringify({ token })}
     />
