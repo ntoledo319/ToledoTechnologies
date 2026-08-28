@@ -86,6 +86,23 @@ describe('public truth contracts', () => {
     expect(source).toMatch(/does not (?:certify|determine).*compliance/i);
   });
 
+  it('keeps the compliance article handoff bounded and non-certifying', () => {
+    const source = read('src/content/blog/compliance-automation.md');
+
+    expect(source).toContain(
+      'https://qi.toledotechnologies.com/pci-4-compliance-scanner'
+    );
+    expect(source).toMatch(
+      /Inventory the served scripts on a payment page — free, no account/
+    );
+    expect(source).toMatch(/page you own\s+or are\s+authorized to inspect/i);
+    expect(source).toMatch(/does not execute JavaScript/i);
+    expect(source).toMatch(/runtime-injected\s+scripts/i);
+    expect(source).toMatch(/does not.*determine PCI DSS\s+compliance/is);
+    expect(source).toMatch(/not continuous monitoring/i);
+    expect(source).not.toContain('/tools/robots-audit');
+  });
+
   it('uses the live lead bus and keeps contact routing context', () => {
     const contact = read('src/pages/contact.astro');
     expect(contact).toContain('https://eolkits.com/api/v1/lead');
