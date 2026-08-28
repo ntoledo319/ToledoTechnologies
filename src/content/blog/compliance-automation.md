@@ -2,7 +2,7 @@
 title: "Compliance Automation: What's Real vs. Theater"
 description: 'Separating genuine compliance automation from checkbox theater. What actually helps vs. what just looks good on paper.'
 publishedDate: 2024-02-19
-modifiedDate: 2024-02-26
+modifiedDate: 2026-08-28
 tags: ['compliance', 'automation', 'security']
 featured: false
 tldr: 'Real compliance automation catches problems before audits. Theater just generates reports that nobody reads.'
@@ -108,8 +108,22 @@ When evaluating compliance tools:
 
 If you're [buying a codebase](/blog/buying-a-codebase) for compliance purposes, apply the same due-diligence mindset — check the docs, run the tests, verify the claims.
 
+### A Payment-Page Example You Can Inspect
+
+**[Inventory the served scripts on a payment page — free, no account →](https://qi.toledotechnologies.com/pci-4-compliance-scanner)**
+
+Tessera inventories the script elements in the HTML a server returns, including
+observed source domains and integrity attributes. Run it only on a page you own
+or are authorized to inspect. It does not execute JavaScript, see
+runtime-injected scripts, decide which domains your business authorized, or
+determine PCI DSS compliance.
+
+That is not continuous monitoring. It is a bounded first inventory you can
+inspect without an account before deciding what evidence or remediation is
+actually needed.
+
 ---
 
-**Need help with compliance automation?** Try our free [robots.txt Auditor](/tools/robots-audit),
-or [talk to us about a scoped system](/contact?service=ai-automation&subject=Compliance%20Automation).
-A scoped engagement defines allowed domains, data handling, retention, and acceptance tests — it is not certification.
+**Need a broader compliance system?** [Talk to us about a scoped engagement](/contact?service=ai-automation&subject=Compliance%20Automation).
+We define allowed domains, data handling, retention, and acceptance tests in
+writing — it is not certification.

@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A contextual Tessera catalog entry with exact live products and prices, the free
   scanner, reviewer-owned inventory template, and personal `ntoledo319` Marketplace
   Action, all paired with the static-check and qualified-review limitations.
+- A single contextual handoff from the existing compliance-automation article to
+  Tessera's account-free served-HTML inventory, with authorization, runtime-script,
+  continuous-monitoring, and compliance-determination limits stated beside it.
 
 ### Changed
 
