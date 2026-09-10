@@ -1,0 +1,59 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+---
+
+<InsertLayout
+  title="Order received"
+  description="What happens after you complete a Toledo Technologies checkout."
+  noindex={true}
+  heading="Order received"
+  subheading="Here is exactly what happens next."
+>
+  <h2>This page is not your receipt</h2>
+  <p>
+    Landing here means your browser finished the checkout flow. It does not by
+    itself confirm that a payment settled — a redirect can happen for several
+    reasons, and we would rather tell you that than let this page imply
+    something it cannot verify.
+  </p>
+  <p>
+    We confirm every payment directly against the payment processor, not from
+    this page. Your card issuer's own confirmation and the emailed receipt from
+    our processor are the authoritative records.
+  </p>
+
+  <h2>What happens next</h2>
+  <ol>
+    <li>
+      We verify the completed session, the payment intent and the captured
+      charge, and check that the amount, currency and agreed scope match the
+      order you approved.
+    </li>
+    <li>
+      You get a written confirmation from us that repeats the agreed scope, the
+      amount and currency, and the acceptance checks we committed to.
+    </li>
+    <li>
+      We deliver the agreed work, along with the tests and the handover notes
+      needed to verify it yourself.
+    </li>
+  </ol>
+  <p>
+    You do not need to keep this page open, and you do not need to return to it.
+    If you closed the tab before it loaded, nothing is lost.
+  </p>
+
+  <h2>If something looks wrong</h2>
+  <p>
+    If the amount, the currency or the scope does not match what you agreed,
+    tell us before we begin the work. Reply to the thread where the order was
+    agreed, or reach us through the
+    <a href="/contact">contact page</a>. Quote the order reference from your
+    processor receipt and describe what differs.
+  </p>
+  <p>
+    We would rather correct an order than deliver against the wrong scope. If a
+    charge was made in error, say so and we will reconcile it against our own
+    records rather than ask you to prove it.
+  </p>
+</InsertLayout>
