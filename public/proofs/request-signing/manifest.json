@@ -1,0 +1,30 @@
+{
+  "scope": "Synthetic local proof; no real customer data or keys",
+  "tests_run": 39,
+  "files": {
+    "proof.py": {
+      "bytes": 13035,
+      "sha256": "e187835b9fd080cd54250680ea3ff936029b6dbd6d663840a59ffc9f360aca1a"
+    },
+    "test_proof.py": {
+      "bytes": 13843,
+      "sha256": "c994304f659c0b9f58307517466d6c92551961b02c3b9f192b1feec0f00f3fb9"
+    },
+    "README.md": {
+      "bytes": 7069,
+      "sha256": "c43090a1f92d8282b005aeeb4586fce5f06e30986f529ea43f71a974078ab87c"
+    },
+    "verification.json": {
+      "bytes": 4942,
+      "sha256": "2b55a2d5634a349b215e72582c71bbc6f16f4c05751abf866fa698767591cbcf"
+    },
+    "demo-result.json": {
+      "bytes": 788,
+      "sha256": "8c46b4cda2f349b98f789c152dc6671c1d4293444757a9fd47f2afcb2ffa4504"
+    },
+    "technical-note.md": {
+      "bytes": 2040,
+      "sha256": "adc9a6acbcf5b5fca046d247eb02bbb22c87e131694f30daf315561e92996550"
+    }
+  }
+}

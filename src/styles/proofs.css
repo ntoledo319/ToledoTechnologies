@@ -1,0 +1,76 @@
+.proof-kicker {
+  margin: 0 0 1rem;
+  font: 600 0.75rem/1.6 var(--font-mono, 'JetBrains Mono', monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.proof-sample {
+  margin: 3rem 0;
+  padding: 2rem 0 0;
+  border-top: 1px solid currentColor;
+}
+.proof-sample h2 {
+  margin-top: 0.75rem;
+}
+.proof-facts {
+  margin: 2rem 0;
+  border-block: 1px solid rgb(0 0 0 / 15%);
+}
+.proof-facts > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.3fr) 1fr;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+}
+.proof-facts > div + div {
+  border-top: 1px solid rgb(0 0 0 / 10%);
+}
+.proof-facts dt {
+  font: 600 0.75rem/1.7 var(--font-mono, 'JetBrains Mono', monospace);
+  text-transform: uppercase;
+}
+.proof-facts dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.proof-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin: 1.25rem 0;
+}
+.proof-links a,
+.proof-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 0.4rem;
+}
+.proof-links a:focus-visible,
+.proof-back:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+.proof-command {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1.1rem;
+  border: 1px solid rgb(0 0 0 / 20%);
+  font: 0.85rem/1.8 var(--font-mono, 'JetBrains Mono', monospace);
+}
+.proof-checksum {
+  display: block;
+  overflow-wrap: anywhere;
+  font: 0.75rem/1.8 var(--font-mono, 'JetBrains Mono', monospace);
+}
+.proof-limit {
+  padding-left: 1.25rem;
+  border-left: 3px solid currentColor;
+}
+@media (max-width: 480px) {
+  .proof-facts > div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "scope": "offline synthetic demonstration; no BIGO or WooCommerce execution",
+  "python": "3.12.3",
+  "cryptography": "41.0.7",
+  "openssl": "OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)",
+  "php_available": false,
+  "test_command": "python3 -m unittest -v",
+  "tests_run": 39,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "output": "test_no_key_payload_or_signature_logging (test_proof.DemoTest.test_no_key_payload_or_signature_logging) ... ok\ntest_boolean_not_valid_amount (test_proof.LedgerTest.test_boolean_not_valid_amount) ... ok\ntest_changed_snapshot_rejected (test_proof.LedgerTest.test_changed_snapshot_rejected) ... ok\ntest_concurrent_workers_only_one_claim (test_proof.LedgerTest.test_concurrent_workers_only_one_claim) ... ok\ntest_definitive_rejection_terminal (test_proof.LedgerTest.test_definitive_rejection_terminal) ... ok\ntest_distinct_events_same_order_no_requeue (test_proof.LedgerTest.test_distinct_events_same_order_no_requeue) ... ok\ntest_double_claim_suppressed (test_proof.LedgerTest.test_double_claim_suppressed) ... ok\ntest_duplicate_event (test_proof.LedgerTest.test_duplicate_event) ... ok\ntest_event_id_collision (test_proof.LedgerTest.test_event_id_collision) ... ok\ntest_fingerprint_key_order_independent (test_proof.LedgerTest.test_fingerprint_key_order_independent) ... ok\ntest_http_200_is_not_success_classifier (test_proof.LedgerTest.test_http_200_is_not_success_classifier) ... ok\ntest_late_result_wrong_attempt_rejected (test_proof.LedgerTest.test_late_result_wrong_attempt_rejected) ... ok\ntest_maximum_attempts (test_proof.LedgerTest.test_maximum_attempts) ... ok\ntest_only_known_not_sent_gets_bounded_backoff (test_proof.LedgerTest.test_only_known_not_sent_gets_bounded_backoff) ... ok\ntest_reconciliation_requires_evidence (test_proof.LedgerTest.test_reconciliation_requires_evidence) ... ok\ntest_restart_persists_uncertainty_and_event_dedup (test_proof.LedgerTest.test_restart_persists_uncertainty_and_event_dedup) ... ok\ntest_sql_identifier_not_executed (test_proof.LedgerTest.test_sql_identifier_not_executed) ... ok\ntest_success_requires_reference (test_proof.LedgerTest.test_success_requires_reference) ... ok\ntest_unknown_confirmed_not_executed_allows_next_attempt (test_proof.LedgerTest.test_unknown_confirmed_not_executed_allows_next_attempt) ... ok\ntest_unknown_outcome_no_blind_retry (test_proof.LedgerTest.test_unknown_outcome_no_blind_retry) ... ok\ntest_unknown_reconciled_success_not_resent (test_proof.LedgerTest.test_unknown_reconciled_success_not_resent) ... ok\ntest_unpaid_cannot_queue (test_proof.LedgerTest.test_unpaid_cannot_queue) ... ok\ntest_ascii_escape_serialization_rejected (test_proof.SignatureTest.test_ascii_escape_serialization_rejected) ... ok\ntest_exact_preimage_contract (test_proof.SignatureTest.test_exact_preimage_contract) ... ok\ntest_exact_signature_verifies (test_proof.SignatureTest.test_exact_signature_verifies) ... ok\ntest_freshness_is_separate_policy (test_proof.SignatureTest.test_freshness_is_separate_policy) ... ok\ntest_independent_openssl_verification (test_proof.SignatureTest.test_independent_openssl_verification) ... ok\ntest_invalid_base64_rejected (test_proof.SignatureTest.test_invalid_base64_rejected) ... ok\ntest_key_order_change_rejected (test_proof.SignatureTest.test_key_order_change_rejected) ... ok\ntest_no_nan_serialization (test_proof.SignatureTest.test_no_nan_serialization) ... ok\ntest_request_immutable (test_proof.SignatureTest.test_request_immutable) ... ok\ntest_signature_tamper_rejected (test_proof.SignatureTest.test_signature_tamper_rejected) ... ok\ntest_timestamp_format_rejected (test_proof.SignatureTest.test_timestamp_format_rejected) ... ok\ntest_timestamp_tampering_rejected (test_proof.SignatureTest.test_timestamp_tampering_rejected) ... ok\ntest_trailing_newline_rejected (test_proof.SignatureTest.test_trailing_newline_rejected) ... ok\ntest_uri_format_rejected (test_proof.SignatureTest.test_uri_format_rejected) ... ok\ntest_uri_tampering_rejected (test_proof.SignatureTest.test_uri_tampering_rejected) ... ok\ntest_whitespace_serialization_change_rejected (test_proof.SignatureTest.test_whitespace_serialization_change_rejected) ... ok\ntest_wrong_key_rejected (test_proof.SignatureTest.test_wrong_key_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 39 tests in 0.897s\n\nOK\n",
+  "sha256": {
+    "proof.py": "e187835b9fd080cd54250680ea3ff936029b6dbd6d663840a59ffc9f360aca1a",
+    "test_proof.py": "c994304f659c0b9f58307517466d6c92551961b02c3b9f192b1feec0f00f3fb9",
+    "README.md": "c43090a1f92d8282b005aeeb4586fce5f06e30986f529ea43f71a974078ab87c",
+    "technical-note.md": "adc9a6acbcf5b5fca046d247eb02bbb22c87e131694f30daf315561e92996550"
+  },
+  "merchant_protocol_verified": false,
+  "real_provider_idempotency_verified": false,
+  "real_keys_used": false,
+  "network_api_calls": 0
+}

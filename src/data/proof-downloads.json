@@ -1,0 +1,12 @@
+{
+  "requestSigning": {
+    "file": "request-signing-proof.zip",
+    "bytes": 14927,
+    "sha256": "828969a0f9a27b5d37303e4908f52cfafcfe1f4be0b2382078a30c974a3372b4"
+  },
+  "purchasing": {
+    "file": "purchasing-archive-proof.zip",
+    "bytes": 18016,
+    "sha256": "810470db5b9fd5ce19ce0367327ae74a6dba48690117b6c1d0beda1e7a591518"
+  }
+}

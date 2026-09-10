@@ -1,0 +1,139 @@
+{
+  "schema": "toledo-purchasing-proof-v1",
+  "synthetic_fixture": true,
+  "source_name": "fixture.csv",
+  "source_sha256": "ec5a9792d71912cb2c2ffa5726aaff4a515876bb6817673feb80a4530790c939",
+  "source_bytes": 481,
+  "source_rows": 8,
+  "accepted_rows": 4,
+  "rejected_rows": 3,
+  "duplicate_rows": 1,
+  "purchase_orders": 3,
+  "suppliers": 2,
+  "unknown_received_rows": 1,
+  "currency_totals": {
+    "EUR": "12.00",
+    "USD": "95.00"
+  },
+  "supplier_totals": [
+    {
+      "supplier": "Harbor Supply",
+      "currency": "USD",
+      "ordered_line_value": "50.00"
+    },
+    {
+      "supplier": "North Bolt",
+      "currency": "EUR",
+      "ordered_line_value": "12.00"
+    },
+    {
+      "supplier": "North Bolt",
+      "currency": "USD",
+      "ordered_line_value": "45.00"
+    }
+  ],
+  "records": [
+    {
+      "po_id": "PO-100",
+      "date": "2026-08-15",
+      "supplier": "North Bolt",
+      "sku": "00123",
+      "currency": "USD",
+      "ordered_quantity": "10",
+      "received_quantity": "6",
+      "unit_cost": "2.50",
+      "source": "fixture.csv: record 1 (ends at line 2)",
+      "ordered_line_value": "25.00",
+      "receipt_state": "Partial"
+    },
+    {
+      "po_id": "PO-100",
+      "date": "2026-08-15",
+      "supplier": "North Bolt",
+      "sku": "00124",
+      "currency": "USD",
+      "ordered_quantity": "5",
+      "received_quantity": null,
+      "unit_cost": "4.00",
+      "source": "fixture.csv: record 2 (ends at line 3)",
+      "ordered_line_value": "20.00",
+      "receipt_state": "Unknown"
+    },
+    {
+      "po_id": "PO-200",
+      "date": "2026-08-19",
+      "supplier": "North Bolt",
+      "sku": "00123",
+      "currency": "EUR",
+      "ordered_quantity": "4",
+      "received_quantity": "4",
+      "unit_cost": "3.00",
+      "source": "fixture.csv: record 3 (ends at line 4)",
+      "ordered_line_value": "12.00",
+      "receipt_state": "Received"
+    },
+    {
+      "po_id": "PO-300",
+      "date": "2026-08-27",
+      "supplier": "Harbor Supply",
+      "sku": "00999",
+      "currency": "USD",
+      "ordered_quantity": "2",
+      "received_quantity": "0",
+      "unit_cost": "25.00",
+      "source": "fixture.csv: record 4 (ends at line 5)",
+      "ordered_line_value": "50.00",
+      "receipt_state": "Not received"
+    }
+  ],
+  "rejected": [
+    {
+      "source": "fixture.csv: record 6 (ends at line 7)",
+      "reason": "ordered_quantity: expected a non-negative decimal, up to 6 decimal places",
+      "values": {
+        "po_id": "PO-300",
+        "date": "2026-08-27",
+        "supplier": "Harbor Supply",
+        "sku": "00125",
+        "currency": "USD",
+        "ordered_quantity": "bananas",
+        "received_quantity": "1",
+        "unit_cost": "3.00"
+      }
+    },
+    {
+      "source": "fixture.csv: record 7 (ends at line 8)",
+      "reason": "received_quantity: expected a non-negative decimal, up to 6 decimal places",
+      "values": {
+        "po_id": "PO-300",
+        "date": "2026-08-27",
+        "supplier": "Harbor Supply",
+        "sku": "00126",
+        "currency": "USD",
+        "ordered_quantity": "2",
+        "received_quantity": "?",
+        "unit_cost": "3.00"
+      }
+    },
+    {
+      "source": "fixture.csv: record 8 (ends at line 9)",
+      "reason": "unit_cost: expected a non-negative decimal, up to 6 decimal places",
+      "values": {
+        "po_id": "PO-300",
+        "date": "2026-08-27",
+        "supplier": "Harbor Supply",
+        "sku": "00127",
+        "currency": "USD",
+        "ordered_quantity": "2",
+        "received_quantity": "1",
+        "unit_cost": "NaN"
+      }
+    }
+  ],
+  "duplicates": [
+    {
+      "source": "fixture.csv: record 5 (ends at line 6)",
+      "reason": "Exact duplicate row; excluded from totals"
+    }
+  ]
+}

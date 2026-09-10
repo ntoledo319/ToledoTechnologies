@@ -1,0 +1,22 @@
+{
+  "scope": "OFFLINE SYNTHETIC PROOF; no BIGO request sent; no WooCommerce code executed",
+  "signature_checks": {
+    "exact_bytes_verify": true,
+    "body_tamper_rejected": true,
+    "uri_tamper_rejected": true,
+    "timestamp_tamper_rejected": true
+  },
+  "byte_evidence": {
+    "body_length": 38,
+    "body_sha256": "203a17a4e589634f7bb60d614737cb9dedf33e92419e7ae6f32122c3cca82faa",
+    "preimage_sha256": "02884310e862de4763691ba4d9f3eb8107aca8f5e55bb2223ba676de90867a22"
+  },
+  "state_checks": {
+    "initial": "queued",
+    "duplicate": "duplicate_event",
+    "after_unknown": "uncertain",
+    "retry_blocked_while_uncertain": true,
+    "after_simulated_reconciliation": "fulfilled"
+  },
+  "key_handling": "ephemeral 2048-bit key generated in memory; no key or payload logged"
+}

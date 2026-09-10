@@ -1,0 +1,13 @@
+# Request-signing and order-safety proof
+
+I built a new offline demonstration around two integration failure points: request signatures changing between serialization and transmission, and duplicate or uncertain recharge attempts after an order is paid. This is a new demonstration, not a claimed previous client integration.
+
+The signature test uses an ephemeral RSA key and a public BIGO-related example as a provisional reference. It signs the exact request bytes, URI and timestamp with RSA PKCS#1 v1.5 / SHA-256. Independent OpenSSL verification passes. Changing JSON whitespace, key order, Unicode escaping, URI or timestamp correctly fails verification. No real key or customer payload is logged.
+
+A separate SQLite simulation prevents duplicate paid events and concurrent workers from claiming the same order twice. It retries only an outcome classified as definitely not sent. A lost response moves the order to an uncertain state and blocks resending until an authoritative status check resolves it. That distinction matters: a recharge can succeed even when its response is lost. I have not assumed that BIGO provides idempotency.
+
+All 39 local tests pass. No BIGO API call, WooCommerce execution, merchant server inspection or real recharge has occurred. The environment used for this demonstration has Python and OpenSSL, but no PHP runtime; the eventual WordPress repair must be implemented and tested in the supported PHP environment.
+
+The next diagnostic step is to compare an existing plugin with the BIGO documentation supplied by the provider: exact byte/signature rules, registered public key/version, timestamp window, outbound server IP, response codes and transaction lookup. That will determine the repair. A test signature response alone will not establish payment-to-recharge fulfillment; the final acceptance test must cover the real paid-order flow and its duplicate/failure cases in an approved test environment.
+
+The working proof is included for inspection before any repair scope or system access is agreed.
