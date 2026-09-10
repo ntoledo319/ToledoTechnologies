@@ -1,0 +1,143 @@
+---
+import InsertLayout from '../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Fixed-scope engagements', url: '/engagements' }
+]);
+---
+
+<InsertLayout
+  title="Fixed-scope engagements"
+  description="Three bounded pieces of work with published prices, defined acceptance tests, and payment after you verify the result."
+  jsonLd={jsonLd}
+  heading="Fixed-scope engagements"
+  subheading="Published prices. Defined acceptance. You pay after it passes."
+>
+  <p>
+    Most technical work is quoted after a discovery call, a scoping document and
+    a proposal. That is three weeks before anyone writes a line of code, and it
+    is how a small, well-defined problem ends up costing more to specify than to
+    solve.
+  </p>
+  <p>
+    These three engagements are bounded on purpose. The scope is written down,
+    the price is published, and the acceptance test is agreed before work starts
+    — so you can decide in one reply instead of three meetings.
+  </p>
+
+  <h2>1. File conversion — US$850</h2>
+  <p>
+    You have an export from a system you are leaving, or a file in a shape
+    nothing else will read. You need it in a schema something else accepts,
+    and you need to trust it.
+  </p>
+  <p><strong>What you get:</strong></p>
+  <ul>
+    <li>the converted file, in the target schema you specify</li>
+    <li>
+      complete source-row accounting: every input row either appears in the
+      output or appears in a reject list with the reason it was rejected. The
+      counts reconcile, or the run fails rather than quietly publishing
+    </li>
+    <li>a written policy for duplicates and for rows that are ambiguous</li>
+    <li>one command that regenerates the whole output from the source</li>
+    <li>tests you specify and can run yourself</li>
+  </ul>
+  <p>
+    <strong>Bounded at:</strong> one source format, one target format, up to
+    50,000 rows. Larger or multi-format work is quoted separately.
+  </p>
+
+  <h2>2. Integration triage — US$1,200, refunded if we cannot reproduce it</h2>
+  <p>
+    Something that used to work is failing intermittently, silently, or only in
+    production. Before anyone should be paid to fix it, someone has to prove
+    what is actually wrong.
+  </p>
+  <p><strong>What you get:</strong></p>
+  <ul>
+    <li>a reproduction of the failure, or a written statement that it could not be reproduced and what that rules out</li>
+    <li>root cause with the evidence that establishes it — logs, request bytes, timing, whatever actually demonstrates it</li>
+    <li>a fix plan with acceptance criteria you can check</li>
+    <li>a written risk note on what else the same cause is likely affecting</li>
+  </ul>
+  <p>
+    <strong>If we cannot reproduce the failure, this is refunded in full.</strong>
+    We would rather return the fee than hand you a confident guess.
+  </p>
+
+  <h2>3. Reproducible test or evaluation harness — US$2,200</h2>
+  <p>
+    You have a system whose output quality you assert but cannot re-verify on
+    demand — a model, a classifier, a matching or extraction step. You need a
+    number you can defend, and regenerate next quarter without paying for it
+    twice.
+  </p>
+  <p><strong>What you get:</strong></p>
+  <ul>
+    <li>a scoring harness that runs against saved outputs, so a published result can be re-derived offline without re-running the system that produced it</li>
+    <li>results that are byte-stable: identical inputs give identical output, every time</li>
+    <li>explicit accounting for the awkward cases — abstentions, unparseable output, missing and duplicate records — reported separately rather than collapsed into one number</li>
+    <li>a self-contained viewer, and documentation for your team to add cases without us</li>
+  </ul>
+
+  <h2>How payment works</h2>
+  <p>
+    We agree the scope and the acceptance test in writing first. You pay after
+    the acceptance test passes, not before. For a first engagement, that means
+    your risk is your own review time.
+  </p>
+  <p>
+    Prices are in US dollars and exclude any tax applicable in your
+    jurisdiction. Larger work is quoted as milestones against the same
+    principle: each one is defined, checkable and paid on acceptance.
+  </p>
+
+  <h2>What would make these a bad fit</h2>
+  <p>
+    Worth saying plainly, because a mismatch discovered later is expensive for
+    both of us:
+  </p>
+  <ul>
+    <li>
+      <strong>If you need someone on calls</strong> — standups, live debugging
+      sessions, stakeholder meetings — this is not that. The work is
+      asynchronous and delivered in writing.
+    </li>
+    <li>
+      <strong>If you need regulatory certification</strong> — accessibility
+      conformance statements, security attestations, clinical or financial
+      sign-off — we do not issue those.
+    </li>
+    <li>
+      <strong>If the problem is not yet defined</strong>, a fixed price is the
+      wrong instrument. Say so and we will scope it honestly rather than sell
+      you a number.
+    </li>
+    <li>
+      <strong>If you need a specific platform we have no track record in</strong>,
+      we will tell you rather than learn on your budget.
+    </li>
+  </ul>
+
+  <h2>Evidence, not adjectives</h2>
+  <p>
+    Rather than describe how carefully we work, the
+    <a href="/proofs">working samples</a> are published with full source, their
+    test records, and their stated limits. They are built on invented data and
+    are demonstrations of method rather than client references — the pages say
+    so themselves.
+  </p>
+  <p>
+    Toledo Technologies LLC is the contracting supplier. How we operate is set
+    out on the <a href="/about">about page</a>.
+  </p>
+  <p>
+    To start one of these, or to ask whether your problem fits,
+    <a href="/contact">get in touch</a> with the shape of the task. A reply that
+    says "this does not fit, here is why" is a normal outcome and costs you
+    nothing.
+  </p>
+</InsertLayout>
