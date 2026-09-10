@@ -1,0 +1,128 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import downloads from '../../data/proof-downloads.json';
+import '../../styles/proofs.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Working samples', url: '/proofs/' },
+  { name: 'Request signing', url: '/proofs/request-signing/' }
+]);
+---
+
+<InsertLayout
+  title="Request-signing proof"
+  description="An offline RSA request-signing demonstration with 39 passing tests, independent OpenSSL verification, and simulated duplicate-event and uncertain-outcome handling."
+  jsonLd={jsonLd}
+  heading="Signed bytes. Deliberate retries."
+  subheading="An offline request-signing and order-safety proof."
+>
+  <a class="proof-back" href="/proofs/">← All working samples</a>
+
+  <p>
+    The first check is simple: the bytes signed must be the bytes sent. The
+    second is harder: losing a response does not establish that an order failed.
+    This demonstration tests those boundaries with generated keys and invented
+    orders.
+  </p>
+
+  <dl class="proof-facts">
+    <div><dt>Verified</dt><dd>39 tests passed; zero skipped.</dd></div>
+    <div>
+      <dt>Independent check</dt><dd>
+        OpenSSL verified the generated RSA signature.
+      </dd>
+    </div>
+    <div>
+      <dt>Execution</dt><dd>Local Python and SQLite. No provider API calls.</dd>
+    </div>
+    <div>
+      <dt>Recorded</dt><dd>
+        <time datetime="2026-09-10">10 September 2026</time>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="proof-links">
+    <a
+      href="/proofs/request-signing/request-signing-proof.zip"
+      download
+      data-astro-reload>Download the source and 39 tests (ZIP, 15 KB)</a
+    >
+    <a href="/proofs/request-signing/technical-note.txt" data-astro-reload
+      >Read the plain-text technical note</a
+    >
+    <a href="/proofs/request-signing/verification.json" data-astro-reload
+      >Inspect the test results (JSON)</a
+    >
+  </div>
+  <p><strong>ZIP SHA-256</strong></p>
+  <code class="proof-checksum">{downloads.requestSigning.sha256}</code>
+
+  <h2>What the signature tests establish</h2>
+  <p>
+    The proof serializes a JSON body once. It signs those exact bytes followed
+    by the URI and a timestamp in seconds, using RSA PKCS#1 v1.5 with SHA-256.
+    The same body is retained in an immutable prepared request.
+  </p>
+  <p>
+    Changing whitespace, key order, Unicode escaping, a trailing newline, the
+    URI, or the timestamp makes verification fail. A wrong key and a changed
+    signature also fail. The temporary private key stays in memory; it is not
+    printed or saved.
+  </p>
+
+  <h2>What the order simulation establishes</h2>
+  <p>
+    A durable SQLite record suppresses duplicate paid events and prevents
+    concurrent workers from claiming the same order at the same time. Only a result classified as
+    definitely not sent receives an automatic retry, with a limit and backoff.
+    An unknown outcome is held until a simulated status check resolves it.
+  </p>
+  <p class="proof-limit">
+    Local duplicate suppression does not prove provider idempotency or
+    exactly-once delivery. A real integration needs the provider's documented
+    duplicate-request behavior or an authoritative transaction lookup. Without
+    that evidence, an uncertain recharge must not be blindly repeated.
+  </p>
+
+  <h2>Run it locally</h2>
+  <p>
+    Extract the ZIP. In its directory, use Python with the
+    <code>cryptography</code> package installed. OpenSSL is needed for the independent
+    verifier test.
+  </p>
+  <pre
+    class="proof-command"><code>python3 proof.py
+python3 -m unittest -v</code></pre>
+
+  <h2>What has not been tested</h2>
+  <p>
+    No real key, customer data, recharge, WooCommerce execution, or merchant
+    server inspection is included. PHP was not installed in the proof
+    environment. Payment verification and provider outcomes are simulated. A
+    real repair requires the current provider documentation, existing plugin,
+    registered key details, outbound-IP configuration, and an authorized test
+    environment.
+  </p>
+  <p>
+    The candidate signing contract was informed by a
+    <a
+      href="https://github.com/yothen/Bigo-Open-Api/blob/main/demo/rs256_sign_req.py"
+      target="_blank"
+      rel="noopener noreferrer">public BIGO-related signature example</a
+    > and its
+    <a
+      href="https://github.com/yothen/Bigo-Open-Api/blob/main/BIGOLIVEOpenPlatformAccessGuide_forserver.md"
+      target="_blank"
+      rel="noopener noreferrer">access guide</a
+    >. That repository's current official status and applicability to a
+    particular reseller integration are unverified.
+  </p>
+  <p>
+    AI agents built and checked this new sample for Toledo Technologies LLC. It
+    is not a claimed previous client integration or a working WooCommerce/BIGO
+    connector.
+  </p>
+</InsertLayout>

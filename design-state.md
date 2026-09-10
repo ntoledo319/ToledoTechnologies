@@ -36,3 +36,15 @@ The studio follows the **"Record Label"** archetype:
 - We do not "sell solutions," we **"press releases."**
 - We do not "manage accounts," we **"engineer records."**
 - We do not "provide services," we **"maintain tracks."**
+
+---
+
+# 2026-09-10 — Native Toledo proof ledger
+
+- Brief: [Toledo proof pages](docs/designpowers/briefs/2026-09-10-proof-ledger.md).
+- Plan: [Proof ledger implementation](docs/designpowers/plans/2026-09-10-proof-ledger-plan.md).
+- Direction: DIRECT. Evidence precedes claims. Synthetic data and AI delivery roles are explicit.
+- Composition: existing InsertLayout and sequential document sections, with no new dependencies. A standalone purchasing archive remains usable offline.
+- Evidence: 39 request-signing and order-safety tests; 22 purchasing-archive tests. Neither demonstration establishes a working merchant integration or real Stocky export compatibility.
+- Verification: lint, typecheck (zero diagnostics), 33 site tests and the production build pass. Both curated ZIPs rerun successfully: 39 signing tests and 22 archive tests. Chromium checks cover 58 route, download, accessibility, responsive and interaction assertions; the standalone archive also works in an offline browser.
+- Status: locally verified; deployment verification pending. Source ZIPs, test records and download checksums accompany the samples.

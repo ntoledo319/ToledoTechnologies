@@ -1,0 +1,116 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import downloads from '../../data/proof-downloads.json';
+import '../../styles/proofs.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Working samples', url: '/proofs/' },
+  { name: 'Purchasing archive', url: '/proofs/purchasing/' }
+]);
+---
+
+<InsertLayout
+  title="Purchasing-archive proof"
+  description="Open a synthetic purchasing archive with PO, SKU and supplier search, separate currency totals, original-row references and explicit rejected records. Source and 22 tests included."
+  jsonLd={jsonLd}
+  heading="Keep the purchase. Keep the source."
+  subheading="A working offline archive, using invented records."
+>
+  <a class="proof-back" href="/proofs/">← All working samples</a>
+  <p>
+    This proof turns a CSV into a purchasing book you can open in a browser
+    without a server. Search the purchase order, SKU, or supplier. Every
+    accepted line retains a reference to its input record.
+  </p>
+  <div class="proof-links">
+    <a href="/proofs/purchasing/archive.html" data-astro-reload
+      >Open the working archive →</a
+    >
+    <a
+      href="/proofs/purchasing/purchasing-archive-proof.zip"
+      download
+      data-astro-reload>Download archive, source and tests (ZIP, 18 KB)</a
+    >
+  </div>
+
+  <h2>Try the actual lookup</h2>
+  <p>
+    In the archive, search <code>00123</code>. It appears on two purchase orders
+    in different currencies. Select USD to narrow the result, then clear the
+    filters. A nonexistent SKU produces an explicit empty result.
+  </p>
+  <dl class="proof-facts">
+    <div><dt>Verified</dt><dd>22 local tests passed.</dd></div>
+    <div>
+      <dt>Fixture</dt><dd>
+        3 purchase orders, 2 suppliers; all data is invented.
+      </dd>
+    </div>
+    <div>
+      <dt>Coverage</dt><dd>
+        8 input records = 4 accepted + 3 rejected + 1 duplicate.
+      </dd>
+    </div>
+    <div>
+      <dt>Ordered value</dt><dd>USD 95.00 and EUR 12.00, kept separate.</dd>
+    </div>
+  </dl>
+  <p>
+    Ordered line value means ordered quantity multiplied by unit cost. It is not
+    actual spend, payment, received value, tax, or inventory valuation. One line
+    has an unknown received quantity; it stays unknown.
+  </p>
+
+  <h2>What survives the conversion</h2>
+  <p>
+    Leading-zero SKUs, partial receipts, source references, and currency labels
+    survive. Invalid quantities are reported instead of silently dropped. Exact
+    duplicate rows are excluded and counted. A source SHA-256 fingerprints the
+    input file.
+  </p>
+  <p>
+    The source values are escaped before being displayed as HTML. Formula-like
+    text is not executed. The generated archive has no external scripts, fonts,
+    uploads, or network requests. Download it and keep using it independently of
+    Toledo.
+  </p>
+
+  <h2>Run the converter</h2>
+  <p>
+    Extract the ZIP. Python 3.10 or later is sufficient; no extra packages are
+    needed.
+  </p>
+  <pre
+    class="proof-command"><code>python3 archive.py fixture.csv --output preview --synthetic
+python3 -m unittest -v</code></pre>
+  <p><strong>ZIP SHA-256</strong></p>
+  <code class="proof-checksum">{downloads.purchasing.sha256}</code>
+
+  <h2>The boundary of this proof</h2>
+  <p class="proof-limit">
+    The input uses an explicit demonstration schema. No actual Stocky export has
+    been inspected, so Stocky compatibility is unverified. This is not a live
+    connector, an inventory system, or a way to restore historical purchase
+    orders in Shopify.
+  </p>
+  <p>
+    Source coverage applies only to the supplied file. It cannot establish that
+    an export contains every purchase, recover absent data, or determine whether
+    identical real lines are legitimate without their source identifiers.
+  </p>
+  <div class="proof-links">
+    <a href="/proofs/purchasing/report.json" data-astro-reload
+      >Inspect the synthetic records (JSON)</a
+    >
+    <a href="/proofs/purchasing/verification.json" data-astro-reload
+      >Inspect the test results (JSON)</a
+    >
+  </div>
+  <p>
+    AI agents built and checked this sample for Toledo Technologies LLC. It is a
+    bounded demonstration, not a client deployment or a completed commercial
+    product.
+  </p>
+</InsertLayout>

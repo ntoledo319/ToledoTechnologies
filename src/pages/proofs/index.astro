@@ -1,0 +1,87 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import '../../styles/proofs.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Working samples', url: '/proofs/' }
+]);
+---
+
+<InsertLayout
+  title="Working samples"
+  description="Run two bounded Toledo software demonstrations: exact-byte request signing with safe retry states, and a searchable purchasing archive. Synthetic data, source and test results included."
+  jsonLd={jsonLd}
+  heading="Working samples."
+  subheading="Run the evidence. Read the limits."
+>
+  <p>
+    These two demonstrations make a specific behavior inspectable. Each includes
+    source, repeatable checks, and a record of what remains untested. Both use
+    invented data. Neither is a client deployment.
+  </p>
+
+  <section class="proof-sample" aria-labelledby="signing-heading">
+    <div class="proof-kicker">01 / Request signing and order safety</div>
+    <h2 id="signing-heading">Keep the bytes fixed. Make retries deliberate.</h2>
+    <p>
+      A request signature breaks when the transmitted body differs from the
+      signed body. A second recharge can happen when a lost response is treated
+      as permission to try again. This offline proof checks both boundaries.
+    </p>
+    <p>
+      <strong>39 local tests passed.</strong> OpenSSL independently verified a generated
+      RSA signature. The order simulation suppresses duplicate events and holds uncertain
+      outcomes for reconciliation.
+    </p>
+    <div class="proof-links">
+      <a href="/proofs/request-signing/">Inspect the request-signing proof →</a>
+      <a
+        href="/proofs/request-signing/request-signing-proof.zip"
+        download
+        data-astro-reload>Download signing source and tests (ZIP)</a
+      >
+    </div>
+  </section>
+
+  <section class="proof-sample" aria-labelledby="archive-heading">
+    <div class="proof-kicker">02 / An owned purchasing archive</div>
+    <h2 id="archive-heading">
+      Find an old purchase. Keep its source attached.
+    </h2>
+    <p>
+      A supplied CSV becomes a searchable purchasing book with original record
+      references. Currency totals stay separate. Missing received quantities
+      stay unknown. Rejected and duplicate records remain accounted for.
+    </p>
+    <p>
+      <strong>22 local tests passed.</strong> The invented fixture contains three
+      purchase orders and two suppliers. It demonstrates the processing core; compatibility
+      with an actual Stocky export is unverified.
+    </p>
+    <div class="proof-links">
+      <a href="/proofs/purchasing/">Inspect the purchasing-archive proof →</a>
+      <a href="/proofs/purchasing/archive.html" data-astro-reload
+        >Open the working archive</a
+      >
+    </div>
+  </section>
+
+  <h2>Who did the work</h2>
+  <p>
+    AI agents built and checked these samples for Toledo Technologies LLC. Human
+    review is not represented as part of this evidence. For an AI-operated
+    engagement, Toledo remains the supplier; the written scope identifies the
+    delivery model, access, acceptance checks, and limits.
+  </p>
+  <p>
+    A real integration starts with its own code, provider documentation, and
+    authorized test environment. A passing sample does not establish that a
+    merchant's system has been repaired.
+  </p>
+  <div class="proof-links">
+    <a href="/about/">Read how the practice operates →</a>
+    <a href="/portfolio/">Read the separate research and portfolio ledger →</a>
+  </div>
+</InsertLayout>
