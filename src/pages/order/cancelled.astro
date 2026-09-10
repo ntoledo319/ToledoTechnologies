@@ -1,0 +1,41 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+---
+
+<InsertLayout
+  title="Checkout cancelled"
+  description="You left the Toledo Technologies checkout without completing payment."
+  noindex={true}
+  heading="Checkout cancelled"
+  subheading="Nothing was charged."
+>
+  <h2>No payment was taken</h2>
+  <p>
+    You left the checkout before it completed, so no charge was made and no card
+    details were stored. Nothing is owed and nothing is pending.
+  </p>
+  <p>
+    The agreed scope is unchanged and still on the table. Cancelling a checkout
+    does not withdraw a quote or cancel a conversation.
+  </p>
+
+  <h2>If you cancelled deliberately</h2>
+  <p>
+    That is a reasonable thing to do, and it is useful to know why. If the price,
+    the scope, the currency or the payment timing was wrong, tell us — those are
+    all negotiable before work starts, and they are much cheaper to change now
+    than after delivery.
+  </p>
+
+  <h2>If something went wrong instead</h2>
+  <p>
+    If the checkout failed, showed an unexpected amount, or would not accept your
+    card, we would like to know. Reply to the thread where the order was agreed,
+    or reach us through the <a href="/contact">contact page</a>.
+  </p>
+  <p>
+    If you believe you were charged despite ending up here, tell us immediately.
+    We verify payments directly against the payment processor and will reconcile
+    it against our own records.
+  </p>
+</InsertLayout>
