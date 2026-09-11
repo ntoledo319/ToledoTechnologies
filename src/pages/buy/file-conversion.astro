@@ -1,0 +1,120 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Fixed-scope engagements', url: '/engagements' },
+  { name: 'File conversion', url: '/buy/file-conversion' }
+]);
+
+const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
+---
+
+<InsertLayout
+  title="Buy: file conversion — US$850"
+  description="One data file, converted into the schema you need, with every source row accounted for. Fixed price, bounded scope, refunded in full if it falls outside it."
+  jsonLd={jsonLd}
+  heading="File conversion"
+  subheading="US$850. One source format, one target schema. Buy it directly — no call, no quote."
+>
+  <p>
+    This is a bounded product, not an open-ended engagement. The scope below is
+    the whole of it. Paying is your acceptance of exactly this, which is why it
+    is written out in full rather than summarised.
+  </p>
+
+  <p>
+    <a href={PAY} rel="noopener">Buy this — US$850</a>
+  </p>
+
+  <h2>What you send</h2>
+  <p>
+    One data file in a delimited or structured text format — CSV, TSV,
+    fixed-width, JSON or XML — up to 50,000 rows, plus a written description of
+    the target schema you need it in. Redacted or sample data is fine and is
+    often faster than a description.
+  </p>
+
+  <h2>What you get back</h2>
+  <p>Within two business days of receiving both the file and the target schema:</p>
+  <ol>
+    <li>The converted file, in your target schema.</li>
+    <li>
+      <strong>Complete source-row accounting.</strong> Every input row either
+      appears in the output or appears in a reject list with the specific reason
+      it was rejected. The counts reconcile. If they do not reconcile, the run
+      fails rather than producing a number that cannot be accounted for.
+    </li>
+    <li>
+      A written duplicate policy: which records were treated as duplicates, on
+      what key, and what was done with them. Duplicates are surfaced for your
+      decision, never silently merged.
+    </li>
+    <li>
+      One reproducible command that regenerates the whole output from your source
+      file, so you can re-run it yourself after we are done.
+    </li>
+    <li>Acceptance tests you specify, which you run yourself to verify the result.</li>
+  </ol>
+
+  <p>
+    Identifiers are preserved literally. Leading zeros are kept. Values that look
+    numeric but are not — account codes, SKUs, postcodes — are left as text.
+    Monetary values and quantities are never inferred where your source does not
+    state them, and currencies are never summed across.
+  </p>
+
+  <h2>What is out of scope</h2>
+  <p>Explicitly not included at this price:</p>
+  <ul>
+    <li>access to any of your live systems, databases or accounts</li>
+    <li>ongoing sync or scheduled runs</li>
+    <li>
+      data cleaning beyond the stated conversion — correcting wrong values, or
+      enriching from outside sources
+    </li>
+    <li>any legal, tax, accounting or regulatory opinion on the data</li>
+    <li>files over 50,000 rows</li>
+    <li>binary, proprietary or encrypted formats we cannot read</li>
+    <li>
+      any guarantee about how a third-party system will behave when you import
+      the result
+    </li>
+  </ul>
+
+  <h2>If it does not fit</h2>
+  <p>
+    If we cannot read your file, or the conversion turns out to fall outside this
+    scope, <strong>you are refunded in full</strong> and we tell you why. We
+    would rather return the money than deliver something that does not do what
+    this page says.
+  </p>
+
+  <h2>After you pay</h2>
+  <p>
+    Send your file and target schema to
+    <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>.
+    You will get a written confirmation repeating the scope and the acceptance
+    tests before any work starts.
+  </p>
+
+  <h2>Who you are buying from</h2>
+  <p>
+    Toledo Technologies LLC is a US company, and it is AI-operated:
+    correspondence, implementation, testing and handover are run by AI, with the
+    company accountable for delivery. Invoiced and collected in USD. Work is
+    asynchronous and delivered in writing — there are no calls. If that is not
+    how you want to work, this is the wrong supplier and you should not buy.
+  </p>
+  <p>
+    The method behind this is public and runnable at
+    <a href="/proofs">/proofs</a> — those samples use invented fixture data and
+    demonstrate method, not client history. Other fixed-price work is listed at
+    <a href="/engagements">/engagements</a>.
+  </p>
+
+  <p>
+    <a href={PAY} rel="noopener">Buy this — US$850</a>
+  </p>
+</InsertLayout>
