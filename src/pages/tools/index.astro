@@ -9,13 +9,6 @@ const jsonLd = breadcrumbSchema([
 
 const tools = [
   {
-    href: '/tools/csv-reconcile/',
-    name: 'CSV reconciliation',
-    line: 'Compare two CSV exports on a key you choose. Every row lands in exactly one bucket, the buckets are summed and checked against the file, and the report is byte-stable.',
-    network:
-      'Sends nothing. Your files are read in the page; choosing one and comparing makes no request at all.'
-  },
-  {
     href: '/tools/robots-audit/',
     name: 'robots.txt auditor',
     line: 'Read a public site’s crawl directives, sitemap declarations and wildcard blocks before you point automation at it.',
@@ -76,10 +69,10 @@ const tools = [
 
   <h2>Where the paid work is</h2>
   <p>
-    The <a href="/proofs/">working samples</a> are larger: full source, test
-    records, and a written statement of what is not covered. The
-    <a href="/engagements/">fixed-scope engagements</a> carry published prices
-    and acceptance tests agreed before any work starts.
+    The <a href="/proofs/">working samples</a> are larger: full source, test records,
+    and a written statement of what is not covered. The
+    <a href="/engagements/">fixed-scope engagements</a> carry published prices and
+    acceptance tests agreed before any work starts.
   </p>
 </InsertLayout>
 
@@ -96,8 +89,7 @@ const tools = [
   }
   .tool-item dt {
     margin-bottom: 0.5rem;
-    font:
-      600 0.78rem/1.6 var(--gf-font-mono, 'JetBrains Mono', monospace);
+    font: 600 0.78rem/1.6 var(--gf-font-mono, 'JetBrains Mono', monospace);
     letter-spacing: 0.09em;
     text-transform: uppercase;
   }
@@ -115,8 +107,7 @@ const tools = [
     line-height: 1.7;
   }
   .tool-network {
-    font:
-      0.8rem/1.7 var(--gf-font-mono, 'JetBrains Mono', monospace);
+    font: 0.8rem/1.7 var(--gf-font-mono, 'JetBrains Mono', monospace);
     color: var(--gf-ink-500);
   }
 </style>
