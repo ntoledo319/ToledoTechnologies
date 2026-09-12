@@ -1,0 +1,122 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Tools', url: '/tools' }
+]);
+
+const tools = [
+  {
+    href: '/tools/csv-reconcile/',
+    name: 'CSV reconciliation',
+    line: 'Compare two CSV exports on a key you choose. Every row lands in exactly one bucket, the buckets are summed and checked against the file, and the report is byte-stable.',
+    network:
+      'Sends nothing. Your files are read in the page; choosing one and comparing makes no request at all.'
+  },
+  {
+    href: '/tools/robots-audit/',
+    name: 'robots.txt auditor',
+    line: 'Read a public site’s crawl directives, sitemap declarations and wildcard blocks before you point automation at it.',
+    network:
+      'Sends the address you type to r.jina.ai, a third-party read proxy, which fetches the robots.txt on your behalf. Only if that request fails outright does it retry the site directly from your browser.'
+  },
+  {
+    href: '/tools/speed-test/',
+    name: 'Site speed test',
+    line: 'Hand a public URL to Google PageSpeed Insights, with a plain-language guide to reading lab and field numbers.',
+    network:
+      'Sends the URL you type to Google. No Toledo form submission and no account.'
+  },
+  {
+    href: '/tools/bootcamp-roi/',
+    name: 'Training platform cost model',
+    line: 'Compare a per-seat subscription against an estimated custom build using your own numbers. A planning calculator, not a quote.',
+    network: 'Sends nothing. The arithmetic runs in the page.'
+  }
+];
+---
+
+<InsertLayout
+  title="Tools"
+  description="Small working tools from Toledo Technologies. Each one states plainly whether it sends anything anywhere."
+  jsonLd={jsonLd}
+  heading="Tools"
+  subheading="Small things that do one job. Each says what it sends, and where."
+>
+  <p>
+    These are free and need no account. They exist because the quickest way to
+    show how a practice works is to hand someone something that works.
+  </p>
+  <p>
+    Every tool below states what it sends and where, because with anything that
+    touches your data that is the first question worth asking and it is usually
+    the hardest to get answered. "Sends nothing" describes what happens when you
+    use the tool, and where a third party is involved it is named. Loading any
+    page on this site fetches two webfonts from Google's CDN, which is a request
+    for a font file and carries nothing of yours.
+  </p>
+
+  <dl class="tool-list">
+    {
+      tools.map((tool) => (
+        <div class="tool-item">
+          <dt>
+            <a href={tool.href}>{tool.name}</a>
+          </dt>
+          <dd>
+            <p>{tool.line}</p>
+            <p class="tool-network">{tool.network}</p>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <h2>Where the paid work is</h2>
+  <p>
+    The <a href="/proofs/">working samples</a> are larger: full source, test
+    records, and a written statement of what is not covered. The
+    <a href="/engagements/">fixed-scope engagements</a> carry published prices
+    and acceptance tests agreed before any work starts.
+  </p>
+</InsertLayout>
+
+<style>
+  .tool-list {
+    margin: 2.5rem 0;
+  }
+  .tool-item {
+    padding: 1.75rem 0;
+    border-top: 1px solid rgb(0 0 0 / 12%);
+  }
+  .tool-item:last-child {
+    border-bottom: 1px solid rgb(0 0 0 / 12%);
+  }
+  .tool-item dt {
+    margin-bottom: 0.5rem;
+    font:
+      600 0.78rem/1.6 var(--gf-font-mono, 'JetBrains Mono', monospace);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .tool-item dt a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .tool-item dd {
+    margin: 0;
+  }
+  .tool-item dd p {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .tool-network {
+    font:
+      0.8rem/1.7 var(--gf-font-mono, 'JetBrains Mono', monospace);
+    color: var(--gf-ink-500);
+  }
+</style>

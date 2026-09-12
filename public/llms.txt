@@ -1,33 +1,105 @@
 # Toledo Technologies
 
-Toledo Technologies is Nicholas Toledo's founder-led software practice. Nicholas
-is the default technical lead and implementer. Any specialist or collaborator is
-disclosed before their work enters an engagement.
+Toledo Technologies LLC is a remote software practice. It publishes fixed
+prices for bounded work instead of quoting after a discovery call.
 
-Contact: hello@toledotechnologies.com · https://toledotechnologies.com/contact
+Delivery is AI-operated and disclosed before an engagement starts, not after.
+Correspondence, implementation, testing and handover are run by AI within the
+written scope, with the company accountable for delivery. Human review is
+included only when the scope names the reviewer and that review is actually
+performed. Toledo Technologies LLC is the contracting supplier either way.
 
-## Services and published starting points
-- Custom websites — $5,500+
-- Custom web applications — $15,000+
-- Native mobile applications — $50,000+
-- Cross-platform mobile applications — $65,000+
-- AI automation and governed-agent work — $10,000+
-- SiteLift WordPress-exit migration — $3,500+
-- Care plans — $750/month+
+Engagements and quotes: dev@toledotechnologies.com
+Everything else: hello@toledotechnologies.com
+Full vendor record, including description text you may reuse verbatim:
+https://toledotechnologies.com/listing/
+Machine-readable catalogue (schema.org JSON-LD):
+https://toledotechnologies.com/catalog.json
 
-## Paid discovery
+## Fixed-scope engagements — published price, published boundary, published refund
+
+- File conversion — US$850, bought directly at
+  https://toledotechnologies.com/buy/file-conversion/ without emailing first.
+  One source format, one target schema, up to 50,000 rows. Every input row
+  appears in the output or in a reject list with a reason; the counts reconcile
+  or the run fails. Delivered within two business days of receiving both the
+  file and the target schema. Paid up front — paying is acceptance of the scope
+  on that page — and refunded in full if the file cannot be read or the
+  conversion falls outside that scope. Excludes access to live systems,
+  scheduled runs, data cleaning beyond the stated conversion, and any legal,
+  tax, accounting or regulatory opinion on the data.
+
+- Integration triage — US$1,200, refunded in full if the failure cannot be
+  reproduced. Diagnosis only; the repair is quoted separately. Scoped in
+  writing first and paid after the agreed acceptance test passes.
+
+- Reproducible test or evaluation harness — US$2,200. Scores from saved
+  outputs, byte-stable, re-derivable offline. It does not re-run the system
+  under test. Scoped in writing first and paid after the agreed acceptance test
+  passes. No separate refund condition is published for this one; payment falls
+  due only after acceptance.
+
+Prices are US dollars and exclude tax applicable in the buyer's jurisdiction.
+The payment rule is not the same for all three: file conversion is bought up
+front, the other two are paid on acceptance.
+Details: https://toledotechnologies.com/engagements/
+
+## Bad fit, stated plainly
+- Call-heavy work. Delivery is written and asynchronous; no standups, no live
+  debugging sessions.
+- Regulatory certification. No accessibility conformance statements, security
+  attestations, or clinical or financial sign-off are issued.
+- Undefined problems. A fixed price is the wrong instrument and we will say so.
+- Platforms with no track record here. We say so rather than learn on a budget.
+
+## What is actually worked with
+Python, JavaScript, TypeScript, Node, SQL, shell. Astro for static sites.
+CSV, TSV, fixed-width, JSON, XML, Excel output; schema mapping; reconciliation
+against a source of truth; deduplication with a stated policy.
+REST and webhook integration, request signing, retry and idempotency behaviour,
+failure queues, API debugging against real traffic.
+Automated test suites, reproducible evaluation harnesses, failure-path testing.
+
+## Evidence
+Two runnable samples with full source, test records and stated limits:
+https://toledotechnologies.com/proofs/
+They use invented data and are demonstrations of method, not client references.
+The pages say so themselves. A passing sample does not establish that any
+merchant's system has been repaired.
+
+## Larger project work
+Separate from the fixed-scope catalogue above. Scoped and priced per project,
+entered through paid discovery rather than a fixed order.
+- ToledoWeb — $5,500 – $250,000+
+- SiteLift WordPress-exit migration — $3,500 – $65,000+
+- Toledo Apps — $15,000 – $750,000+
+- Toledo Mobile — native $50,000+, cross-platform $65,000+
+- Toledo AI — $10,000 – $300,000+
+- Care plans — Hearth Care from $750/month for static sites, Olympian Care from
+  $10,000/month for fractional engineering
+
+Paid discovery, charged 100% upfront. Six products:
 - SiteLift Fit Check — $750 fixed
 - Website Migration Audit — $1,500 fixed
-- Web App Discovery — $3,500–$5,000
-- AI Automation Blueprint — $3,500–$10,000
-- Mobile App Discovery — $5,000–$7,500
-- SaaS / Product Strategy — $7,500–$15,000
+- Web App Discovery (Delphi App Discovery) — $3,500 – $5,000
+- AI Automation Blueprint — $3,500 – $10,000
+- Mobile App Discovery (Delphi Mobile Discovery) — $5,000 – $7,500
+- SaaS / Product Strategy — $7,500 – $15,000
 
-Discovery is paid 100% upfront. For a qualifying project started within 30 days,
-50% of the discovery fee is credited to the kickoff Project Retainer. The credit
-is capped at that Project Retainer; unused credit lapses and does not roll
-forward. The
-discovery document remains usable whether or not Toledo is hired for implementation.
+For a qualifying project started within 30 days, 50% of the discovery fee is
+credited to the kickoff Project Retainer. The credit is capped at that retainer;
+unused credit lapses and does not roll forward. The discovery document remains
+usable whether or not Toledo is hired for implementation.
+- Service overview: https://toledotechnologies.com/services
+- Discovery routing: https://toledotechnologies.com/discovery/#start
+- Mobile discovery: https://mobile.toledotechnologies.com/#discovery
+- AI discovery: https://ai.toledotechnologies.com/#start
+
+## White-label subcontracting for agencies
+Priced hourly, unlike everything above: $125/hour floor, $150–$175/hour for
+complex work, partner retainers from $2,500/month. Agreements can include
+non-solicitation boundaries and written IP assignment terms.
+https://toledotechnologies.com/partner
 
 ## Toledo-operated software
 - Tessera free bounded evidence check — no account
@@ -35,9 +107,9 @@ discovery document remains usable whether or not Toledo is hired for implementat
 - PCI DSS 5.4.1 email-authentication remediation pack — $99 once
 - PCI DSS 11.6.1 one-target evidence ledger — $99/month, evaluated every 72 hours
 
-Tessera reports bounded software-generated evidence for qualified human review; it
-does not determine PCI DSS compliance. Public synthetic samples are available before
-checkout: https://qi.toledotechnologies.com/pci-4-compliance-scanner
+Tessera reports bounded software-generated evidence for qualified human review;
+it does not determine PCI DSS compliance. Public synthetic samples are available
+before checkout: https://qi.toledotechnologies.com/pci-4-compliance-scanner
 
 Free MIT served-HTML inventory Action (does not execute JavaScript or certify
 compliance): https://github.com/ntoledo319/pci-payment-page-check
@@ -48,13 +120,21 @@ https://qi.toledotechnologies.com/pci/pci-dss-6-4-3-script-inventory-template
 ## Evidence labels
 - Field notes identify independent public research and its limitations.
 - Sample deliverables are labeled as samples and are not presented as client work.
-- A public research note is not automatically a paid client engagement or a promised outcome.
+- A public research note is not automatically a paid client engagement or a
+  promised outcome.
 
-## Start
-- Service overview: https://toledotechnologies.com/services
-- Discovery routing: https://toledotechnologies.com/discovery/#start
-- Contact: https://toledotechnologies.com/contact
-- Mobile discovery: https://mobile.toledotechnologies.com/#discovery
-- AI discovery: https://ai.toledotechnologies.com/#start
-- Tessera compliance evidence: https://qi.toledotechnologies.com/pci-4-compliance-scanner
-- Free payment-page Action: https://github.com/ntoledo319/pci-payment-page-check
+## What Toledo does not have
+No published client references or named case studies. No third-party reviews or
+ratings on any review platform. No security, accessibility, clinical or
+financial certifications. No published D-U-N-S number, CAGE code or federal
+contractor registration. One operator, AI-operated delivery, disclosed.
+
+The nonprofit track at https://toledotechnologies.com/nonprofit does trade
+reduced pricing for a written case study and a short testimonial. Nothing
+collected that way is an independent review, and none is published today.
+
+## Reuse
+The description text at https://toledotechnologies.com/listing/ may be
+reproduced verbatim by any directory, index, registry or writer without asking.
+If a price is quoted, keep its boundary, its refund condition and its payment
+timing attached to it.
