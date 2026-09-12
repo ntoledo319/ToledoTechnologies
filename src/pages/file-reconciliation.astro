@@ -1,0 +1,598 @@
+---
+import InsertLayout from '../layouts/InsertLayout.astro';
+import { breadcrumbSchema, faqSchema } from '../utils/jsonld';
+
+/*
+ * Paste the Stripe Payment Link URL here once it exists (it does not yet).
+ * Until then the page says so plainly and routes buyers to email instead of
+ * showing a button that goes nowhere. Typed as `string` on purpose so the
+ * empty-string branch stays reachable for the type checker.
+ */
+const PAYMENT_LINK: string = 'https://buy.stripe.com/14A9AT07I7le8Jt2sI87K0f';
+
+const PRICE_USD = 450;
+const AGREEMENT_VERSION = '2026-09-11';
+const MAX_ROWS = '250,000';
+const MAX_MB = 50;
+const EMAIL_ATTACH_MB = 15;
+
+const INTAKE_TEMPLATE = `FILE A: orders-export.csv
+FILE B: warehouse-shipped.xlsx
+KEY A: order_id
+KEY B: OrderRef
+COMPARE: qty = Quantity
+COMPARE: total = LineTotal
+COMPARE: ship_date = ShippedOn
+NORMALIZE: total = number:2
+NORMALIZE: ship_date = date
+NORMALIZE: qty = number:0`;
+
+const COUNT_IDENTITY = `rows_in_A = compared_matched
+          + compared_differs
+          + only_in_A
+          + not_one_to_one_A
+          + excluded_rows_A
+
+rows_in_B = compared_matched
+          + compared_differs
+          + only_in_B
+          + not_one_to_one_B
+          + excluded_rows_B`;
+
+const faqs = [
+  {
+    question: 'What exactly do I send?',
+    answer:
+      'Two files (CSV, TSV or XLSX), the name of the column that identifies a row in each file, and the list of columns you want compared. Nothing else, and no call.'
+  },
+  {
+    question: 'What do I get back?',
+    answer:
+      'A workbook with eight sheets — summary, matched, differs, only in A, only in B, not one-to-one A, not one-to-one B, excluded rows — plus a self-contained Python script that regenerates it from the same two files, a README with the exact rule applied to each column, and a note listing every judgement call made.'
+  },
+  {
+    question: 'How long does it take?',
+    answer:
+      'Two business days (Monday to Friday, US Eastern) from the email that contains both files and a complete instruction block.'
+  },
+  {
+    question: 'When is it refunded?',
+    answer:
+      'In full if a key column you named is missing, if a file cannot be parsed or is the wrong format, if a file is over the size limits, or if fewer than 10 percent of keys line up one-to-one. Also in full, for any reason at all, at any point before the result is delivered.'
+  },
+  {
+    question: 'Will you tell me which file is correct?',
+    answer:
+      'No. The report shows where the two files disagree. Deciding which side is right requires knowing your business, and that is not part of this fixed scope.'
+  },
+  {
+    question: 'What happens to rows whose key is duplicated?',
+    answer:
+      'They are listed and counted, never dropped and never guessed at. A key is compared only when it appears exactly once in each file. Any row whose key fails that test — whether it repeats in its own file or in the other one — goes to the not-one-to-one sheet for its side, with the reason on the row.'
+  }
+];
+
+const offerSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Two-file reconciliation',
+  serviceType: 'Data reconciliation',
+  description:
+    'A fixed-scope comparison of two data files. You send two CSV, TSV or XLSX files and the key column that identifies a row. You get back a workbook showing matched, differing, only-in-A and only-in-B rows with counts that reconcile, and a script that re-runs it.',
+  provider: { '@id': 'https://toledotechnologies.com/#organization' },
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  termsOfService: 'https://toledotechnologies.com/file-reconciliation/',
+  offers: {
+    '@type': 'Offer',
+    price: String(PRICE_USD),
+    priceCurrency: 'USD',
+    url: 'https://toledotechnologies.com/file-reconciliation/',
+    availability: 'https://schema.org/InStock',
+    category: 'Fixed-scope professional service'
+  }
+};
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Two-file reconciliation', url: '/file-reconciliation/' }
+  ]),
+  offerSchema,
+  faqSchema(faqs)
+];
+---
+
+<InsertLayout
+  title={`Two-file reconciliation — US$${PRICE_USD}`}
+  description="Send two CSV, TSV or Excel files and the column that identifies a row. Get back a workbook of matched, differing and unmatched rows with counts that reconcile, plus a script that re-runs it. Fixed price, fixed scope, no call."
+  jsonLd={jsonLd}
+  heading="Two-file reconciliation"
+  subheading={`US$${PRICE_USD}. You send two files and a key. You get back exactly where they disagree.`}
+>
+  <p>
+    Two files are supposed to say the same thing. The export and the report. The
+    invoice list and the bank line items. Last month's inventory and this
+    month's. They do not agree, and finding out where takes an afternoon of
+    lookups that nobody can check afterwards.
+  </p>
+  <p>
+    This is one bounded piece of work with a published price. Everything it
+    covers and everything it refuses is on this page. There is no call, no
+    quote, and no proposal — comparing two files is fully specified by the two
+    files and the key, so there is nothing for a conversation to discover.
+  </p>
+
+  <p class="tt-buy">
+    {
+      PAYMENT_LINK ? (
+        <a href={PAYMENT_LINK} rel="noopener" class="tt-buy-link">
+          Buy a reconciliation — US${PRICE_USD}
+        </a>
+      ) : (
+        <span>
+          <strong>Checkout is not open for this yet.</strong> The card checkout
+          is being set up. Until it is live, email{' '}
+          <a href="mailto:dev@toledotechnologies.com">
+            dev@toledotechnologies.com
+          </a>{' '}
+          with the subject <em>Reconciliation</em> and you will get an invoice
+          for US${PRICE_USD} under exactly the terms written below.
+        </span>
+      )
+    }
+  </p>
+
+  <h2>What you send</h2>
+  <p>
+    One email to <a href="mailto:dev@toledotechnologies.com">
+      dev@toledotechnologies.com</a
+    >, after you pay, containing three things.
+  </p>
+  <ol>
+    <li>
+      <strong>Your two files</strong>, attached, or a download link that does
+      not require a sign-in. Anything over about {EMAIL_ATTACH_MB} MB should go as
+      a link — mail servers between you and us will reject a larger attachment, and
+      the {MAX_MB} MB limit below is a limit on the file, not a claim about what email
+      can carry.
+    </li>
+    <li>
+      <strong>Your payment reference</strong> — the receipt number from the payment
+      confirmation email.
+    </li>
+    <li>
+      <strong>An instruction block</strong>, in this shape. Copy it and replace
+      the values.
+    </li>
+  </ol>
+
+  <pre class="tt-block">{INTAKE_TEMPLATE}</pre>
+
+  <p>
+    <code>KEY</code> is the column that identifies a row. Use up to three columns,
+    comma-separated, if the identity is a combination — and list them in the same
+    order on both sides. <code>COMPARE</code> pairs one column in A with one column
+    in B; list up to 25. <code>NORMALIZE</code> is optional and chooses how a compared
+    pair is judged equal. These are the whole list:
+  </p>
+  <ul>
+    <li><code>trim</code> — ignore leading and trailing whitespace.</li>
+    <li><code>nocase</code> — ignore letter case.</li>
+    <li>
+      <code>number:N</code> — read as a number and compare rounded to N decimal places.
+      Currency symbols, thousands separators and parenthesised negatives are handled.
+    </li>
+    <li>
+      <code>date</code> — read as a date and compare the calendar date only. ISO <code
+        >YYYY-MM-DD</code
+      > and US <code>M/D/YYYY</code> are recognised.
+    </li>
+    <li>
+      <code>date:dmy</code> — the same, but ambiguous dates are read day-first, so
+      <code>03/04/2026</code> means 3 April.
+    </li>
+    <li>
+      <code>digits</code> — compare only the digits, ignoring everything else.
+    </li>
+    <li><code>blank_equals_zero</code> — treat an empty cell as 0.</li>
+  </ul>
+  <p>
+    Leave <code>NORMALIZE</code> off a pair and it is compared as exact text after
+    trimming. Ask for a rule that is not on that list and we will say no and tell
+    you why, rather than improvise one. Leave <code>COMPARE</code> out entirely and
+    every column whose name appears in both files is compared, matched on the header
+    name ignoring case and spacing; if that comes to more than 25 columns we send
+    you the list and ask which 25 rather than choosing for you, and the two-business-day
+    clock restarts when you answer. Whichever you choose, the rule actually applied
+    to every column is written down in the delivered README, so you can check that
+    we read you correctly.
+  </p>
+
+  <h2>The limits your files have to fit</h2>
+  <p>These are checked before any work starts, and they are the refund test.</p>
+  <ul>
+    <li>Exactly two files, one comparison.</li>
+    <li>
+      Each file is <code>.csv</code>, <code>.tsv</code> or <code>.xlsx</code>.
+    </li>
+    <li>
+      Each file is at most {MAX_MB} MB and at most {MAX_ROWS} data rows.
+    </li>
+    <li>
+      Each file has one header row, in row 1, with non-empty column names.
+    </li>
+    <li>
+      Excel files: first worksheet only, values only. Formulas are read as the
+      value Excel last saved. Macros, pivot tables, merged cells in the header
+      row and multi-row headers are out of scope.
+    </li>
+    <li>Text encoding is UTF-8 or Windows-1252.</li>
+    <li>Up to three key columns. Up to 25 compared column pairs.</li>
+  </ul>
+
+  <h2>What you get back</h2>
+  <p>
+    One ZIP, by email, within two business days. Business days are Monday to
+    Friday, US Eastern. It contains four things.
+  </p>
+  <ul>
+    <li>
+      <strong><code>reconciliation.xlsx</code></strong> — eight sheets:
+      <code>summary</code>, <code>matched</code>, <code>differs</code>,
+      <code>only_in_a</code>, <code>only_in_b</code>,
+      <code>not_one_to_one_a</code>, <code>not_one_to_one_b</code>,
+      <code>excluded_rows</code>. The <code>differs</code> sheet gives one row per
+      key, and for each column that disagreed: the A value, the B value, and the rule
+      that was applied.
+    </li>
+    <li>
+      <strong><code>reconcile.py</code></strong> — one self-contained Python 3 script
+      that regenerates the whole workbook from your two source files. Your key, your
+      column pairs and your normalization rules sit in a config block at the top.
+      Standard library plus <code>openpyxl</code>; nothing else to install. Run
+      it again next month on next month's files.
+    </li>
+    <li>
+      <strong><code>README.md</code></strong> — the exact command to run, the rule
+      applied to each compared column, and one plain sentence explaining each sheet
+      with its row count.
+    </li>
+    <li>
+      <strong><code>NOTES.md</code></strong> — every judgement call made while building
+      it, and every question deliberately left undecided.
+    </li>
+  </ul>
+
+  <h2>The counts reconcile, or nothing is delivered</h2>
+  <p>
+    A comparison is only worth anything if no row quietly disappeared. Every row
+    of both files lands in exactly one place, and the script asserts it:
+  </p>
+
+  <pre class="tt-block">{COUNT_IDENTITY}</pre>
+
+  <p>
+    A key is compared only when it appears exactly once in file A <em>and</em>
+    exactly once in file B. Any row whose key fails that test goes to the not-one-to-one
+    sheet for its side, with the reason written on the row.
+  </p>
+  <p>
+    That covers two different situations, and the distinction matters because
+    the second one is the common one. A key can repeat inside its own file. A
+    key can also appear once on your side and several times on the other — one
+    order in file A, three shipment lines in file B. Those rows are not
+    <code>only_in_a</code>, because the key does exist in B, and they are not a
+    difference, because there is no single row to compare against. They are
+    listed, counted, and left for you to decide.
+  </p>
+  <p>
+    <code>excluded_rows</code> holds the rest: rows that could not be read at all,
+    and rows whose key was blank. Each one says which, and why.
+  </p>
+  <p>
+    If either identity fails, that is an error in our arithmetic rather than a
+    fact about your data. The script stops and writes no workbook, and you hear
+    about it — we fix it or refund you. We would rather send you nothing and say
+    why than send you a report whose totals do not add up.
+  </p>
+
+  <h2>What this does not include</h2>
+  <p>
+    Stated plainly, because a mismatch found after payment is worse for both of
+    us than a sale that never happened.
+  </p>
+  <ul>
+    <li>
+      <strong>We do not decide which file is right.</strong> The report shows where
+      they disagree. Which side to believe depends on your business, and that is not
+      in this scope.
+    </li>
+    <li>
+      <strong>No fuzzy or approximate matching.</strong> Keys are equal after the
+      normalization you asked for, or they are not equal. Nothing is matched on a
+      guess.
+    </li>
+    <li>
+      <strong>No matching on anything but the key you name.</strong> If the two files
+      share no identifier at all, this is the wrong purchase.
+    </li>
+    <li>
+      <strong>No one-to-many resolution.</strong> Where a key is not one-to-one we
+      report it; we do not sum, allocate or roll up the many side to make it fit.
+    </li>
+    <li>
+      <strong>No connections to your systems.</strong> No databases, no APIs, no credentials,
+      no access of any kind. Two files that you send.
+    </li>
+    <li>
+      <strong>No PDFs, Word files, images or scans</strong>, and no links that
+      require a sign-in to open.
+    </li>
+    <li>
+      <strong>No changes to your data.</strong> Nothing is cleaned, corrected, deduplicated
+      on your behalf, or written back anywhere.
+    </li>
+    <li>
+      <strong>No scheduled or ongoing runs</strong>, no hosting, no dashboard,
+      no account to create. The script is yours; putting it on a schedule for
+      you is different work.
+    </li>
+    <li>
+      <strong>No audit, accounting, tax or legal opinion.</strong> This is a mechanical
+      comparison of two files. It is not an attestation and it does not replace your
+      own review.
+    </li>
+    <li>
+      <strong>No calls or meetings.</strong> Everything happens in writing.
+    </li>
+    <li>
+      <strong>One reconciliation per purchase.</strong> A second pair of files is
+      a second purchase.
+    </li>
+  </ul>
+
+  <h2>One re-run, included</h2>
+  <p>
+    If a rule was applied that you did not ask for, or a column pair you listed
+    was missed, say so within seven days of delivery and it is re-run once at no
+    charge. That means the same two files with the rules corrected. A different
+    pair of files, or a different key, is a new purchase.
+  </p>
+
+  <h2>When you get your money back</h2>
+  <p>
+    <strong>
+      Before delivery, you can cancel for any reason at all and get the full
+      amount back.
+    </strong>
+    No explanation needed. Once the ZIP is sent, the work is done and the fee is earned.
+  </p>
+  <p>
+    Separately, the fee is refunded in full — and we say so in writing within
+    two business days, before doing any of the work — if any of these is true of
+    what you sent:
+  </p>
+  <ul>
+    <li>a key column you named is not present in one of the files;</li>
+    <li>a file cannot be parsed, or is not CSV, TSV or XLSX;</li>
+    <li>
+      a file is over {MAX_MB} MB or over {MAX_ROWS} data rows;
+    </li>
+    <li>
+      fewer than 10% of the keys in the smaller file appear exactly once in each
+      file — meaning there is effectively nothing to compare.
+    </li>
+  </ul>
+  <p>
+    Refunds go back to the card that paid. The payment processor controls how
+    long that takes to appear, usually five to ten business days, and we do not
+    control that.
+  </p>
+  <p>
+    If we are going to miss the two-business-day deadline, you hear that before
+    the deadline, not after — and you can take the refund instead of waiting.
+  </p>
+
+  <h2>Your files</h2>
+  <ul>
+    <li>
+      Send redacted files where you can. If a column does not need comparing,
+      delete it before sending.
+    </li>
+    <li>
+      <strong>
+        Do not send protected health information, full payment card numbers,
+        government identity numbers, or anything covered by a regulation that
+        requires a signed data agreement.
+      </strong>
+      Toledo is not set up for that and will not sign such an agreement at this price.
+      If it arrives anyway we stop, refund you in full, and delete it from the systems
+      we control — but nobody can retract what has already been received, which is
+      the reason not to send it in the first place.
+    </li>
+    <li>
+      Your files are kept only while the work needs them. Within 30 days of
+      delivery they are deleted from the systems Toledo controls — the mailbox
+      they arrived in and the machine the comparison ran on — and sooner if you
+      ask.
+    </li>
+    <li>
+      <strong>One limit worth stating rather than burying.</strong> The comparison
+      is carried out by AI agents running on a commercial AI service, so the contents
+      of your files pass through that provider and are retained under its business
+      terms, on its schedule, not Toledo's. Toledo cannot delete data from that provider
+      on demand and does not claim to. If that is not acceptable for your data, do
+      not send it.
+    </li>
+    <li>
+      Your files are not sold, published, passed to other customers, or used as
+      public examples.
+    </li>
+  </ul>
+
+  <h2>Who does the work</h2>
+  <p>
+    Toledo Technologies LLC is the contracting supplier and is responsible for
+    the result. The work is carried out by AI agents rather than employees. They
+    read your column headers and sample rows, write the comparison script, run
+    it, and check that the counts reconcile. Human review is not represented as
+    part of what you receive.
+  </p>
+  <p>
+    There is one operator and no team behind this. That is why the scope is
+    narrow, the capacity is limited, and the refund before delivery is
+    unconditional: they are the honest way to sell a bounded thing rather than
+    an availability we cannot promise.
+  </p>
+
+  <h2>Evidence</h2>
+  <p>
+    The accounting discipline described above is not a claim about how carefully
+    we work — it is published and runnable. The
+    <a href="/proofs/">working samples</a> include a purchasing archive that does
+    exactly this kind of full accepted, rejected and duplicate row accounting, with
+    its source and its test record. Both samples use invented data. They demonstrate
+    method, not client deployments, and the pages say so themselves. This exact deliverable
+    — the eight-sheet workbook — has not yet been produced for a customer file, which
+    is what the refund before delivery is for.
+  </p>
+  <p>
+    If what you actually need is one file turned into a different schema rather
+    than two files compared, that is a separate published product at US$850:
+    <a href="/buy/file-conversion/">file conversion</a>. Larger or less bounded
+    work is priced on the
+    <a href="/engagements/">fixed-scope engagements page</a>. How Toledo
+    operates is set out on the <a href="/about/">about page</a>.
+  </p>
+
+  <h2>When this is the wrong purchase</h2>
+  <ul>
+    <li>
+      <strong>You do not know which column is the key.</strong> A reconciliation needs
+      an identifier. Without one there is nothing to join on.
+    </li>
+    <li>
+      <strong>The two files share no identifier at all.</strong> That needs approximate
+      matching, which this explicitly does not do.
+    </li>
+    <li>
+      <strong>Your two files are one-to-many by design</strong> — an invoice header
+      against its line items, for example. You will get an honest report that says
+      so, but almost every row will land in the not-one-to-one sheets, which is probably
+      not what you wanted to buy.
+    </li>
+    <li>
+      <strong>You need a sign-off.</strong> Toledo does not issue auditor, accounting
+      or regulatory attestations.
+    </li>
+    <li>
+      <strong>You need it within the hour.</strong> The commitment is two business
+      days.
+    </li>
+    <li>
+      <strong>You need it to run itself every month.</strong> This is a one-off. You
+      get the script and can schedule it yourself; building that pipeline for you
+      is separate work.
+    </li>
+  </ul>
+
+  <h2>Price and terms</h2>
+  <p>
+    US${PRICE_USD}, in US dollars, excluding any tax applicable in your
+    jurisdiction. Paid in full at purchase. An invoice is issued automatically
+    with the payment.
+  </p>
+  <p>
+    This is a self-serve product, so it is paid up front and is fully refundable
+    at your sole discretion until the result is delivered. That is deliberately
+    different from the larger work on the
+    <a href="/engagements/">engagements page</a>, which is scoped in writing
+    first and paid after an acceptance test passes. Both are published in full;
+    neither is negotiated.
+  </p>
+  <p>
+    <strong>This page is the agreement.</strong> There is no separate contract to
+    sign and no terms to negotiate — buying it accepts exactly what is written here,
+    and nothing that is not. The version in force is the one published at the moment
+    you paid. This is version {AGREEMENT_VERSION}; earlier versions are kept,
+    and the exact text your purchase was made under will be sent to you on
+    request.
+  </p>
+
+  <p class="tt-buy">
+    {
+      PAYMENT_LINK ? (
+        <a href={PAYMENT_LINK} rel="noopener" class="tt-buy-link">
+          Buy a reconciliation — US${PRICE_USD}
+        </a>
+      ) : (
+        <span>
+          Card checkout is not open yet. Email{' '}
+          <a href="mailto:dev@toledotechnologies.com">
+            dev@toledotechnologies.com
+          </a>{' '}
+          with the subject <em>Reconciliation</em> to be invoiced under these
+          terms.
+        </span>
+      )
+    }
+  </p>
+</InsertLayout>
+
+<style>
+  /* Tailwind's preflight strips list markers; this page is a specification,
+     so the enumeration needs to read as one. Scoped to this page only. */
+  ul,
+  ol {
+    font-family: var(--gf-font-novel);
+    margin: 0 0 1.6em 0;
+    padding-left: 1.5rem;
+  }
+  ul {
+    list-style: disc;
+  }
+  ol {
+    list-style: decimal;
+  }
+  li {
+    margin-bottom: 0.65em;
+    line-height: 1.7;
+  }
+  li::marker {
+    color: var(--gf-accent);
+  }
+
+  code {
+    font-family: var(--gf-font-mono, ui-monospace, 'JetBrains Mono', monospace);
+    font-size: 0.9em;
+    background: rgba(0, 0, 0, 0.045);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+  }
+
+  .tt-block {
+    font-family: var(--gf-font-mono, ui-monospace, 'JetBrains Mono', monospace);
+    font-size: clamp(13px, 1.05vw, 15px);
+    line-height: 1.65;
+    background: rgba(0, 0, 0, 0.035);
+    border-left: 2px solid var(--gf-accent);
+    padding: 1.1rem 1.25rem;
+    margin: 0 0 1.8em;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .tt-buy {
+    margin: 2.6rem 0;
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .tt-buy-link {
+    font-family: var(--gf-font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2vw, 26px);
+    letter-spacing: -0.02em;
+  }
+</style>

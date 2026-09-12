@@ -1,0 +1,233 @@
+---
+import InsertLayout from '../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../utils/jsonld';
+import {
+  entity,
+  deliveryModel,
+  offers,
+  descriptions,
+  classification,
+  capabilities,
+  doesNotHave,
+  paymentTerms,
+  offerCatalogSchema
+} from '../data/listing';
+
+/**
+ * Prices are written the way the rest of the site writes them — "US$850", not
+ * "$850". This page tells third parties to copy from it verbatim, so the form
+ * it publishes has to be the unambiguous one.
+ */
+const usd = (amount: number) => `US$${amount.toLocaleString('en-US')}`;
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Vendor record', url: '/listing/' }
+  ]),
+  offerCatalogSchema()
+];
+---
+
+<InsertLayout
+  title="Vendor record"
+  description="The facts a directory, a procurement form or a write-up asks for, in one place: legal entity, delivery model, published prices, refund and payment terms, classification codes, and what Toledo Technologies does not have."
+  jsonLd={jsonLd}
+  heading="Vendor record"
+  subheading="Everything a listing form asks for, written once, kept current here."
+>
+  <p>
+    Directories, procurement questionnaires and partner registries ask the same
+    fifteen questions in fifteen different orders. This page is the answer to
+    all of them. If you are listing Toledo Technologies somewhere, or writing
+    about it, copy from here rather than paraphrasing the rest of the site — the
+    text below is what we stand behind, at the lengths those forms accept.
+  </p>
+  <p>
+    The machine-readable version of the catalogue is at
+    <a href="/catalog.json">/catalog.json</a>, and the summary written for
+    language models is at <a href="/llms.txt">/llms.txt</a>. Both are generated
+    from the same source as this page, so they cannot drift apart from it.
+  </p>
+
+  <h2>Entity</h2>
+  <ul>
+    <li><strong>Legal name:</strong> {entity.legalName}</li>
+    <li><strong>Trading name:</strong> {entity.tradingName}</li>
+    <li><strong>Entity type:</strong> {entity.entityType}</li>
+    <li><strong>Jurisdiction:</strong> {entity.jurisdiction}</li>
+    <li><strong>Service area:</strong> {entity.serviceArea}</li>
+    <li><strong>Working language:</strong> {entity.workingLanguage}</li>
+    <li><strong>Website:</strong> <a href="/">{entity.website}</a></li>
+    <li>
+      <strong>Engagements and quotes:</strong>
+      <a href={`mailto:${entity.engagementsEmail}`}>{entity.engagementsEmail}</a
+      >
+    </li>
+    <li>
+      <strong>Everything else:</strong>
+      <a href={`mailto:${entity.generalEmail}`}>{entity.generalEmail}</a>
+    </li>
+    <li>
+      <strong>Public code:</strong>
+      <a href={entity.publicCode} rel="noopener">{entity.publicCode}</a>
+    </li>
+  </ul>
+
+  <h2>Who does the work</h2>
+  <p><strong>{deliveryModel.summary}</strong></p>
+  <p>{deliveryModel.detail}</p>
+  <p>{deliveryModel.channel}</p>
+  <p>
+    If a directory requires a named human principal for each listed vendor, that
+    is Nicholas Toledo, sole member. If it requires that delivery be performed
+    by employees, we do not qualify and would rather you know that from this
+    page than from an application.
+  </p>
+
+  <h2>What is for sale</h2>
+  <p>
+    Three fixed-scope engagements. The price, the boundary, the refund condition
+    and when payment falls due are all published. Full terms are on
+    <a href="/engagements/">the engagements page</a> and, for the one you can buy
+    directly, on <a href="/buy/file-conversion/">/buy/file-conversion/</a>. This
+    is the short form.
+  </p>
+  {
+    offers.map((offer) => (
+      <div>
+        <h3>
+          {offer.name} — {usd(offer.priceUsd)}
+        </h3>
+        <p>{offer.summary}</p>
+        <ul>
+          <li>
+            <strong>Bounded at:</strong> {offer.bound}
+          </li>
+          <li>
+            <strong>Accepted when:</strong> {offer.acceptance}
+          </li>
+          <li>
+            <strong>Refund:</strong> {offer.refund}
+          </li>
+          <li>
+            <strong>Payment:</strong> {offer.payment}
+          </li>
+          <li>
+            <strong>Turnaround:</strong> {offer.turnaround}
+          </li>
+          {offer.buyUrl && (
+            <li>
+              <strong>Buy it directly:</strong>{' '}
+              <a href="/buy/file-conversion/">/buy/file-conversion/</a>
+            </li>
+          )}
+        </ul>
+      </div>
+    ))
+  }
+
+  <h2>Payment terms</h2>
+  <p>
+    There is no single payment rule across all three, and a form that forces one
+    answer should get both sentences rather than the convenient one.
+  </p>
+  <ul>
+    <li><strong>Currency:</strong> {paymentTerms.currency}</li>
+    <li><strong>Method:</strong> {paymentTerms.method}</li>
+    <li><strong>Bought directly:</strong> {paymentTerms.directBuy}</li>
+    <li><strong>Quoted work:</strong> {paymentTerms.quoted}</li>
+    <li><strong>Tax:</strong> {paymentTerms.tax}</li>
+  </ul>
+
+  <h2>Description, at the lengths forms ask for</h2>
+  <p>
+    Use whichever fits the field. These are not alternate marketing angles; they
+    are the same facts truncated honestly.
+  </p>
+
+  <h3>One line</h3>
+  <blockquote><p>{descriptions.oneLine}</p></blockquote>
+
+  <h3>Roughly 25 words</h3>
+  <blockquote><p>{descriptions.words25}</p></blockquote>
+
+  <h3>Roughly 50 words</h3>
+  <blockquote><p>{descriptions.words50}</p></blockquote>
+
+  <h3>Roughly 100 words</h3>
+  <blockquote><p>{descriptions.words100}</p></blockquote>
+
+  <h2>Classification</h2>
+  <ul>
+    <li>
+      <strong>Primary NAICS:</strong>
+      {classification.naicsPrimary.code} — {classification.naicsPrimary.title}
+    </li>
+    {
+      classification.naicsSecondary.map((code) => (
+        <li>
+          <strong>Also applicable:</strong> {code.code} — {code.title}
+        </li>
+      ))
+    }
+    <li><strong>Categories:</strong> {classification.categories.join('; ')}</li>
+    <li><strong>Keywords:</strong> {classification.keywords.join(', ')}</li>
+  </ul>
+  <p>
+    We do not publish a UNSPSC code. The codeset is revised and we would rather
+    leave the field blank than assert a number we have not checked against the
+    current edition.
+  </p>
+
+  <h2>What we actually work with</h2>
+  <ul>
+    <li>
+      <strong>Languages and runtimes:</strong>
+      {capabilities.languages.join(', ')}
+    </li>
+    <li><strong>Data work:</strong> {capabilities.data.join(', ')}</li>
+    <li>
+      <strong>Integration work:</strong>
+      {capabilities.integration.join(', ')}
+    </li>
+    <li><strong>Testing:</strong> {capabilities.testing.join(', ')}</li>
+  </ul>
+  <p>
+    Not on this list means we would be learning it on your budget, and we would
+    say so rather than take the work.
+  </p>
+
+  <h2>What we do not have</h2>
+  <p>
+    Published on purpose. A directory that requires any of these should reject
+    this listing, and finding that out here costs everyone less than finding it
+    out after an application.
+  </p>
+  <ul>
+    {doesNotHave.map((item) => <li>{item}</li>)}
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>
+    Two samples are published with full source, their test records and their
+    stated limits: <a href="/proofs/">working samples</a>. They are built on
+    invented data and are demonstrations of method, not client references. The
+    pages say so themselves. Anyone assessing this listing should read the
+    limits before the results.
+  </p>
+
+  <h2>Reuse</h2>
+  <p>
+    Any directory, index, registry or writer may reproduce the description
+    blocks on this page verbatim without asking. If you shorten them, please
+    keep the price, the refund condition and the payment timing attached to the
+    engagement they belong to — a price without its boundary is the part that
+    gets us both into trouble.
+  </p>
+  <p>
+    If something on this page is out of date where you have listed us, email
+    <a href={`mailto:${entity.engagementsEmail}`}>{entity.engagementsEmail}</a>
+    and we will correct the source rather than argue with the copy.
+  </p>
+</InsertLayout>

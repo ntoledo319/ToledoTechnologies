@@ -1,0 +1,387 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Public-surface audit', url: '/audit' }
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Public-surface audit',
+    serviceType: 'Technical audit',
+    description:
+      'A fixed-scope audit of everything a stranger can verify about a business from outside it, delivered with the script that reproduces every finding.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Toledo Technologies LLC',
+      url: 'https://toledotechnologies.com'
+    },
+    areaServed: 'Worldwide',
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Public-surface audit',
+        price: '400',
+        priceCurrency: 'USD',
+        url: 'https://toledotechnologies.com/audit'
+      },
+      {
+        '@type': 'Offer',
+        name: 'Re-check within 90 days',
+        price: '150',
+        priceCurrency: 'USD',
+        url: 'https://toledotechnologies.com/audit'
+      }
+    ]
+  }
+];
+---
+
+<InsertLayout
+  title="Public-surface audit — US$400"
+  description="Fifty-two checks on everything a stranger can verify about your business from outside it: mail authentication, domain and certificate risk, HTTP behaviour, and whether your pages say the same thing to a machine that they say to a person. Delivered with the script that reproduces every finding."
+  jsonLd={jsonLd}
+  heading="Public-surface audit"
+  subheading="US$400. Fifty-two checks run from outside, with the script that reproduces every one of them."
+>
+  <p>
+    Everything about your business that a stranger can check without your
+    permission is already checkable. Your mail authentication records, your
+    domain registration, the certificates issued in your name, what your pages
+    say to something that reads them mechanically rather than looking at them.
+    Customers do not check any of it. Procurement reviewers, insurers, acquirers
+    and people impersonating you all do.
+  </p>
+  <p>
+    This audit is that check, written down. No access to anything you own. No
+    credentials, no logins, no agent on your server, nothing to install. You
+    give us a domain name and we give you back what is visible from outside it.
+  </p>
+  <p>
+    <a href="/audit/toledo-technologies">
+      The complete worked example is our own site, audited by the same script,
+      with the fourteen findings it produced.</a
+    >
+  </p>
+
+  <h2>What you get</h2>
+  <p>
+    By email, within two business days of you confirming the scope in writing:
+  </p>
+  <ol>
+    <li>
+      <strong>The report</strong>, readable and machine-readable. Every one of
+      52 checks, each marked <em>pass</em>, <em>finding</em> or
+      <em>not established</em>, with the evidence that produced it. Findings are ranked, and each one says what it
+      actually costs you if it stays as it is — not a score, not a grade, not a
+      letter.
+    </li>
+    <li>
+      <strong>The evidence.</strong> Every DNS answer, HTTP response, header and
+      certificate we looked at, captured as bytes with a SHA-256 digest over the
+      set. If you disagree with a conclusion, you can read what it was drawn
+      from.
+    </li>
+    <li>
+      <strong>The script.</strong> One Python file, standard library only, no
+      dependencies to install and no key to obtain. Run it against your own
+      domain and it produces the same report. Run it against the saved evidence
+      and it produces that report byte for byte, without touching the network.
+    </li>
+  </ol>
+
+  <h2>The acceptance test</h2>
+  <p>
+    Stated before you buy, because a finding you cannot check is just an
+    opinion with a price on it:
+  </p>
+  <p>
+    <strong
+      >Every finding in the report reproduces when you run the included script
+      against your own domain.</strong
+    > A finding that does not reproduce is withdrawn and the report is reissued
+    without it. If more than three findings are withdrawn, the audit is free and
+    you keep everything.
+  </p>
+  <p>
+    That is a real risk to take, so it is worth saying how it is survivable: the
+    script is what produces the findings in the first place. There is no second,
+    softer, hand-written list. The report is a reading of the script's output,
+    and the script is the thing you are given.
+  </p>
+  <p>
+    It has already caught one. A draft of the checker reported that our own
+    certificate did not cover <code>www</code>. It does — <code>www</code>
+    presents its own certificate, which the check was not connecting to. The
+    finding was withdrawn, the check was rewritten to connect to each hostname
+    separately, and
+    <a href="/audit/toledo-technologies#withdrawn"
+      >the withdrawal is written into the worked example</a
+    > rather than quietly deleted.
+  </p>
+
+  <h2>What the 52 checks cover</h2>
+
+  <h3>Mail authentication and impersonation surface — 10 checks</h3>
+  <p>
+    SPF presence, uniqueness, terminal qualifier, and the DNS lookup budget —
+    the 10-lookup limit that turns SPF into a permanent error once a vendor you
+    added last year widens their own record, silently and with no symptom you
+    would ever notice. DMARC presence, policy strength, sampling percentage and
+    reporting address. DKIM selectors. MTA-STS and TLS reporting. MX.
+  </p>
+  <p>
+    The question these answer is specific: can a stranger send an invoice that
+    appears to come from your billing address and have your customer's mail
+    provider deliver it to the inbox? For most small businesses the answer is
+    yes, and the record that would stop it is one DNS line.
+  </p>
+
+  <h3>Domain and certificate continuity — 9 checks</h3>
+  <p>
+    Registration expiry and registrar transfer lock, read from RDAP. Nameserver
+    count and concentration. DNSSEC. CAA. Certificate expiry, issuer, and
+    whether every hostname you use presents a certificate that names it.
+  </p>
+  <p>
+    Plus Certificate Transparency: the public log of every certificate ever
+    issued for your domain. It routinely names subdomains the owner forgot
+    existed — staging copies, a vendor's old integration host, a subdomain from
+    a project that ended. They are public regardless of whether you linked them.
+  </p>
+
+  <h3>How the site behaves before a browser renders it — 9 checks</h3>
+  <p>
+    Plain HTTP redirecting to HTTPS. Whether the apex and <code>www</code> forms
+    converge or both serve. HSTS and its max-age. The five standard protection
+    headers, and frame protection. Cookies set on a plain GET, and their flags.
+    Software versions disclosed in headers. Compression. Median response time
+    over repeated samples from one location.
+  </p>
+
+  <h3>What your pages say to something that reads them — 13 checks</h3>
+  <p>
+    robots.txt and what it permits, sitemaps followed through their indexes, and
+    whether the URLs they list actually answer. security.txt. llms.txt. Titles
+    and descriptions, missing or duplicated. Canonical URLs. Link preview
+    metadata. Structured data — present, parsing, and what it declares. Internal
+    links that do not resolve. Plain-HTTP subresources on HTTPS pages.
+  </p>
+
+  <h3>Whether your claims agree with each other — 5 checks</h3>
+  <p>
+    This is the part no free tool does. The same fact is published in several
+    places and they drift apart:
+  </p>
+  <ul>
+    <li>prices in your visible text against prices in your structured data</li>
+    <li>
+      the contact address in your markup against the one in your structured data
+    </li>
+    <li>
+      whether one legal entity name is used, or several variants of it
+    </li>
+    <li>
+      whether anything reading the HTML can identify a next step for a buyer at
+      all
+    </li>
+    <li>whether any policy page carries a date it took effect</li>
+  </ul>
+  <p>
+    A price that appears one way to a reader and another way to a shopping
+    surface is not a design problem. It is two different answers to the same
+    question, published by you, and the machine-readable one is the one that
+    gets quoted.
+  </p>
+
+  <h3>The machine-checkable part of accessibility — 6 checks</h3>
+  <p>
+    Images with no <code>alt</code> attribute and images with no declared
+    dimensions. Documents with no <code>lang</code>. Heading outlines that skip
+    or repeat levels. Link text that does not say where the link goes. Form
+    fields with no programmatic label.
+  </p>
+  <p>
+    <strong>This is a defect list, not a conformance statement.</strong> It is
+    the subset a parser can settle from static HTML. Colour contrast, focus
+    order, keyboard traps and anything requiring a rendered page are outside it,
+    and we do not issue accessibility conformance statements of any kind.
+  </p>
+
+  <h2>What this deliberately does not do</h2>
+  <p>
+    The boundary matters more than the coverage, so it is enforced in the script
+    rather than promised in prose:
+  </p>
+  <ul>
+    <li>
+      <strong>GET and HEAD only.</strong> No POST, no form submission, no login
+      attempt, no credential of any kind.
+    </li>
+    <li>
+      <strong>No path guessing.</strong> It requests the domain you name, pages
+      linked from those pages, URLs in your own sitemap, and a fixed list of
+      conventional well-known files. It does not go looking for
+      <code>.env</code>, <code>.git</code>, backups or admin panels — the files
+      that only exist by mistake.
+    </li>
+    <li>
+      <strong>No vulnerability scanning, no fuzzing, no port scanning.</strong>
+      Ports 80 and 443 on the hostnames you name, and nothing else.
+    </li>
+    <li>
+      <strong>Rate limited and identified.</strong> One request at a time, with
+      a User-Agent that says what it is and links here.
+    </li>
+  </ul>
+  <p>
+    Everything past that line is a different kind of work, it needs written
+    authorisation from whoever owns the system, and it is not what this is.
+  </p>
+
+  <h2>The script is free</h2>
+  <p>
+    Worth being direct about, because you will work it out in five minutes
+    anyway.
+    <a href="/audit/public_surface_check.py" download data-astro-reload
+      >The checker is published under the MIT licence</a
+    > and you can run it yourself, today, for nothing. It is one file and it needs
+    nothing installed.
+  </p>
+  <p>What US$400 buys is the part the script cannot do:</p>
+  <ul>
+    <li>
+      <strong>Which of the findings matter for you.</strong> A script hands back
+      fourteen items. Two of them can cost you money this quarter and eleven are
+      hygiene. Deciding which is which needs to know what your business
+      actually is, and that is a judgement, not a check.
+    </li>
+    <li>
+      <strong>The exact change, written out.</strong> Not "enable DMARC" — the
+      record, the value, the order to apply it in, and what breaks if you skip a
+      step.
+    </li>
+    <li>
+      <strong>What we could not establish and why.</strong> Checks that could
+      not complete are reported as such, never as passes, and the report says
+      what would settle them.
+    </li>
+    <li>
+      <strong>Being wrong in writing.</strong> The reproduce-or-withdraw term
+      above. A free script has no such obligation to you.
+    </li>
+  </ul>
+  <p>
+    If reading the script's output yourself is enough, do that instead. That is
+    a real outcome and we would rather you got it.
+  </p>
+
+  <h2>What it costs, and when you pay</h2>
+  <ul>
+    <li>
+      <strong>US$400</strong> — one domain, up to 60 pages crawled, delivered
+      within two business days of written scope confirmation.
+    </li>
+    <li>
+      <strong>US$150</strong> — a re-check of the same domain within 90 days,
+      which reports what changed since the first run rather than repeating it.
+      The point of this one is to prove the fixes landed.
+    </li>
+  </ul>
+  <p>
+    <strong>You pay after the files arrive, not before</strong> — the same term
+    as every other engagement here. We confirm the scope and this acceptance
+    test in writing, deliver, and invoice after you have the report and the
+    evidence in your hands. Your risk on a first engagement is your own reading
+    time.
+  </p>
+  <p>
+    Prices are in US dollars and exclude any tax applicable in your
+    jurisdiction. Additional domains are US$250 each when run together.
+  </p>
+  <p>
+    Two business days is the term, not a best case. This is a one-operator
+    supplier; if a run cannot be delivered in that window, you will be told
+    before work starts rather than after, and you can walk away at no cost.
+  </p>
+
+  <h2>What would make this a bad fit</h2>
+  <ul>
+    <li>
+      <strong>If you want a certificate or an attestation.</strong> This is a
+      defect list with evidence. It is not a penetration test, a SOC 2 artifact,
+      a WCAG conformance statement, or anything a regulator or an insurer will
+      accept as an assessment. If someone has told you that you need one of
+      those, buy that instead.
+    </li>
+    <li>
+      <strong>If the problem is inside the system.</strong> Everything here is
+      visible from outside. Application logic, your database, your authenticated
+      pages and anything behind a login are all invisible to it, and a clean
+      report says nothing about them.
+    </li>
+    <li>
+      <strong>If you need someone on a call.</strong> The work is asynchronous
+      and delivered in writing. There are no calls.
+    </li>
+    <li>
+      <strong>If your site is one page with no mail on the domain.</strong> Half
+      the checks will report nothing to report, and you will have paid US$400
+      for the half that were worth running. Say so and we will tell you whether
+      it is worth it before you pay.
+    </li>
+  </ul>
+
+  <h2>Limits of the method, stated plainly</h2>
+  <ul>
+    <li>
+      Timing is measured from one location with no browser. It is connection and
+      server time, not page load, and it is not a Core Web Vitals measurement.
+    </li>
+    <li>
+      DKIM selectors are arbitrary strings. Conventional names are probed; a
+      selector found is proof of signing, but nothing found is not proof of
+      absence, and it is reported as not established rather than as a failure.
+    </li>
+    <li>
+      The HTML parser does not execute JavaScript. A page that assembles itself
+      in the browser is largely invisible to it, and the report says so rather
+      than reporting an empty page as a finding.
+    </li>
+    <li>
+      Form-label detection does not see a wrapping <code>&lt;label&gt;</code>.
+      That check produces a list to verify, and is labelled as such.
+    </li>
+    <li>
+      Third-party services — crt.sh, RDAP, public DNS resolvers — are sometimes
+      unavailable. When they are, the affected check is reported as not
+      established, with the reason. A check that could not run is never counted
+      as a pass.
+    </li>
+  </ul>
+
+  <h2>Starting one</h2>
+  <p>
+    Email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
+    with the domain. That is the whole intake — there is nothing to fill in and
+    nothing to grant us.
+  </p>
+  <p>
+    You will get a written confirmation repeating the scope, the price and this
+    acceptance test before any work starts, and the files within two business
+    days of your reply agreeing to it. If the answer is that your public surface
+    is in good shape, you get a report that says so, with the evidence, and that
+    is a legitimate result rather than a reason to manufacture findings.
+  </p>
+  <p>
+    Toledo Technologies LLC is the contracting supplier, and it is AI-operated:
+    correspondence, the audit itself and the written report are run by AI, with
+    the company accountable for delivery. How that works is set out on the
+    <a href="/about">about page</a>. Other fixed-price work is at
+    <a href="/engagements">/engagements</a>, and the runnable code samples behind
+    the method are at <a href="/proofs">/proofs</a>.
+  </p>
+</InsertLayout>

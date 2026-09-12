@@ -1,0 +1,444 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Public-surface audit', url: '/audit' },
+  { name: 'Worked example: our own site', url: '/audit/toledo-technologies' }
+]);
+
+const RUN = {
+  subject: 'toledotechnologies.com',
+  date: '11 September 2026',
+  checks: 52,
+  findings: 14,
+  high: 1,
+  medium: 2,
+  low: 11,
+  passed: 38,
+  unknown: 0,
+  pages: 30,
+  requests: 119,
+  digest: '39bae06c80e759781919bb66a81218e155c5383bbe1530f1bfa8b9a0fff7431e'
+};
+---
+
+<InsertLayout
+  title="Public-surface audit, worked example: our own site"
+  description="The complete public-surface audit product, performed on toledotechnologies.com. 52 checks, 14 findings including one high, the full evidence, and the one finding that was withdrawn because it did not reproduce."
+  jsonLd={jsonLd}
+  heading="Worked example: our own site"
+  subheading="The same 52 checks, run against toledotechnologies.com. Fourteen findings, one of them ours to be embarrassed about."
+>
+  <p>
+    This is the <a href="/audit">public-surface audit</a> performed in full, on
+    the only subject we can publish without asking anyone's permission: our own
+    domain. Nothing is redacted and nothing is softened. The high finding is a
+    real defect in our own mail configuration, published here because an audit
+    product whose worked example is flattering is not evidence of anything.
+  </p>
+
+  <h2>The run</h2>
+  <ul>
+    <li><strong>Subject:</strong> <code>{RUN.subject}</code></li>
+    <li><strong>Evaluated as of:</strong> {RUN.date}</li>
+    <li>
+      <strong>Checks defined:</strong> {RUN.checks} — every one appears exactly
+      once in the output
+    </li>
+    <li>
+      <strong>Findings:</strong> {RUN.findings} ({RUN.high} high, {RUN.medium} medium,
+      {RUN.low} low)
+    </li>
+    <li><strong>Passed:</strong> {RUN.passed}</li>
+    <li>
+      <strong>Not established:</strong> {RUN.unknown} — no check failed to
+      complete on this run
+    </li>
+    <li>
+      <strong>Work done:</strong> {RUN.pages} pages retrieved across {RUN.requests}
+      network requests, single-threaded, rate limited
+    </li>
+    <li>
+      <strong>Evidence digest (SHA-256):</strong>
+      <code class="break-all">{RUN.digest}</code>
+    </li>
+  </ul>
+
+  <h2>Reproduce it before you read it</h2>
+  <p>
+    Five files, all published. The first is the whole method; the rest are this
+    run.
+  </p>
+  <ul>
+    <li>
+      <a href="/audit/public_surface_check.py" download data-astro-reload
+        >public_surface_check.py</a
+      > — the checker. One file, Python 3.9+, standard library only. MIT licensed.
+    </li>
+    <li>
+      <a
+        href="/audit/toledo-technologies-report.md"
+        download
+        data-astro-reload>toledo-technologies-report.md</a
+      > — the report exactly as generated, all 52 checks.
+    </li>
+    <li>
+      <a
+        href="/audit/toledo-technologies-findings.json"
+        download
+        data-astro-reload>toledo-technologies-findings.json</a
+      > — the same thing machine-readable.
+    </li>
+    <li>
+      <a
+        href="/audit/toledo-technologies-evidence.json"
+        download
+        data-astro-reload>toledo-technologies-evidence.json</a
+      > — every captured DNS answer, HTTP response and certificate. About 700 KB.
+    </li>
+    <li>
+      <a
+        href="/audit/toledo-technologies-run.json"
+        download
+        data-astro-reload>toledo-technologies-run.json</a
+      > — the crawl parameters this run used.
+    </li>
+  </ul>
+  <p>Run it against us yourself:</p>
+  <pre><code>python3 public_surface_check.py toledotechnologies.com \
+    --max-pages 30 --today 2026-09-11</code></pre>
+  <p>
+    Or re-derive this exact report from the captured bytes, with the network
+    unplugged. Download the script, the report, the evidence and the run
+    parameters into one directory, then:
+  </p>
+  <pre><code>mkdir evidence
+cp toledo-technologies-evidence.json evidence/evidence.json
+cp toledo-technologies-run.json      evidence/run.json
+
+python3 public_surface_check.py toledotechnologies.com \
+    --replay ./evidence --generated-at 2026-09-11T00:00:00Z \
+    --md replay.md
+
+diff replay.md toledo-technologies-report.md</code></pre>
+  <p>
+    That diff is empty. The replay walks the same page graph because the crawl
+    parameters travel with the evidence — which is what
+    <code>run.json</code> is for. An earlier version did not save them, a replay
+    with a different page limit silently produced different findings, and the
+    reproducibility claim was false until that was fixed.
+  </p>
+
+  <h2>High: our own DMARC policy does nothing</h2>
+  <p>
+    <code>mail.dmarc_policy</code>. The record exists and has existed for a
+    while. It is set to monitor only.
+  </p>
+  <pre><code>v=DMARC1; p=none; rua=mailto:hello@toledotechnologies.com;pct=100; aspf=r; adkim=r</code></pre>
+  <p>
+    <code>p=none</code> instructs receiving mail providers to do nothing when a
+    message claiming to be from this domain fails authentication. Not quarantine
+    it. Nothing. A stranger can send an invoice that appears to come from
+    <code>toledotechnologies.com</code>, and it lands in the inbox looking
+    exactly like a real one. Publishing DMARC at <code>p=none</code> and
+    considering the matter handled is the single most common mail
+    misconfiguration there is, and we were doing it.
+  </p>
+  <p>
+    What makes this worth ranking high rather than shrugging at is that the
+    expensive part is already done. Three other checks passed:
+  </p>
+  <ul>
+    <li>
+      <code>mail.spf_all</code> — the SPF record ends in <code>-all</code>, a
+      hard fail, not the <code>~all</code> most domains stop at.
+    </li>
+    <li>
+      <code>mail.spf_lookups</code> — it costs 4 of the 10 permitted DNS
+      lookups, so it is nowhere near the limit that turns SPF into a permanent
+      error.
+    </li>
+    <li>
+      <code>mail.dkim</code> — a selector is published and signing.
+    </li>
+  </ul>
+  <p>
+    So authentication works. Only the instruction to act on it is missing. This
+    is the difference between a finding and a fix list, and it is the part a
+    free scanner does not give you:
+  </p>
+  <ol>
+    <li>
+      Reports are already going to a monitored address, so the enumeration step
+      is done. Read two to four weeks of aggregate reports and confirm every
+      legitimate sending source passes alignment. Expect to find one — a form
+      handler, a newsletter tool — that nobody remembered.
+    </li>
+    <li>
+      Move to <code>p=quarantine; pct=25</code>. A quarter of failing mail goes
+      to spam. If a legitimate sender was missed, this is where it surfaces, at
+      a quarter of the blast radius.
+    </li>
+    <li>Raise to <code>pct=100</code> once a full reporting cycle is clean.</li>
+    <li>
+      Then <code>p=reject</code>. Add <code>sp=reject</code> at the same time, or
+      every subdomain remains an open relay for the same forgery.
+    </li>
+    <li>
+      Leave <code>aspf=r</code> and <code>adkim=r</code> alone. Relaxed
+      alignment is correct here; tightening to strict before the reports prove
+      it is how a working newsletter starts bouncing.
+    </li>
+  </ol>
+  <p>
+    Four DNS edits over roughly six weeks, most of it waiting for reports rather
+    than working. Nothing in that list costs money.
+  </p>
+
+  <h2>Medium: two</h2>
+
+  <h3>Prices are published, but only to human readers</h3>
+  <p>
+    <code>claims.price</code>. Twenty distinct prices appear in the visible text
+    across the site. Zero appear in structured data, despite 229 JSON-LD nodes
+    being present across 30 pages — so the machinery is there, and the prices
+    are not in it.
+  </p>
+  <p>
+    The consequence is narrow and real: anything that reads pages rather than
+    looking at them — a shopping surface, a directory, an assistant answering
+    "what does this cost" — has to scrape the number out of prose or give up.
+    Guessing wrong is worse than not knowing, because a wrong price is quoted
+    with the same confidence as a right one.
+  </p>
+  <p>
+    The fix is an <code>Offer</code> node on each page that names a price, with
+    the same number that is visible on it. The check that would then apply is
+    the one directly above it in the report: visible prices and structured-data
+    prices must agree. They currently cannot disagree, because one side is
+    empty.
+  </p>
+
+  <h3>Form fields with no programmatic label</h3>
+  <p>
+    <code>a11y.labels</code>. Five fields on <code>/care</code> — two selects, a
+    textarea, a text input and an email input — resolve to no
+    <code>&lt;label for&gt;</code>, no <code>aria-label</code> and no
+    <code>title</code>.
+  </p>
+  <p>
+    This finding ships with its own limit attached, in the report, not as a
+    footnote here: <strong
+      >the parser does not detect a wrapping <code>&lt;label&gt;</code></strong
+    >. It is a list to verify, not a verdict. That is how this check is
+    delivered to a customer too — a check that can be wrong in a known way says
+    so at the point it reports, or the whole report has to be treated as
+    unreliable.
+  </p>
+
+  <h2>Low: eleven</h2>
+  <p>
+    Ranked low because each one is either cheap to fix and low consequence, or
+    genuinely optional. A report that ranked all fourteen as urgent would be
+    easier to sell and worth less.
+  </p>
+  <ul>
+    <li>
+      <strong><code>ct.hostnames</code></strong> — nine hostnames under this
+      domain appear in public Certificate Transparency logs, and all nine still
+      resolve: the apex, <code>www</code>, and seven others.
+      <br />
+      The script ranks this low because a resolving hostname is not by itself a
+      defect. What the list is for is the review it forces, and that is the
+      whole argument for the product: Certificate Transparency is a public,
+      permanent, searchable log of every hostname you have ever certificated,
+      and it does not care which ones you meant to keep. A script can hand you
+      the list. Going through it and deciding which entries should still be
+      reachable — and telling the owner privately rather than publishing the
+      conclusion — is the judgement being sold, and it is not something a
+      scanner does for you.
+    </li>
+    <li>
+      <strong><code>domain.dnssec</code></strong> — no DS record. Answers about
+      this domain can be forged on the resolution path. One registrar toggle.
+    </li>
+    <li>
+      <strong><code>domain.caa</code></strong> — no CAA record, so any public CA
+      may issue for this name.
+    </li>
+    <li>
+      <strong><code>http.headers</code></strong> — four of the five standard
+      protection headers are present and correct. Content-Security-Policy is
+      absent.
+    </li>
+    <li>
+      <strong><code>content.security_txt</code></strong> — no RFC 9116 file, so
+      someone who finds a problem has to guess where to report it. The usual
+      guess is somewhere public.
+    </li>
+    <li>
+      <strong><code>claims.policy_dates</code></strong> — no privacy or terms
+      page carries a date it took effect, so none of them can be shown to have
+      been in force on any particular day.
+    </li>
+    <li>
+      <strong><code>mail.mta_sts</code></strong> and
+      <strong><code>mail.tls_rpt</code></strong> — no MTA-STS policy and no TLS
+      reporting, so inbound SMTP can be downgraded to plaintext and we would not
+      know.
+    </li>
+    <li>
+      <strong><code>a11y.headings</code></strong> — six pages with no
+      <code>h1</code>, thirty with a skipped or repeated heading level. The home
+      page has two <code>h1</code> elements.
+    </li>
+    <li>
+      <strong><code>perf.render_blocking</code></strong> — thirty pages load one
+      synchronous script in <code>&lt;head&gt;</code>.
+    </li>
+    <li>
+      <strong><code>content.favicon</code></strong> — <code>/favicon.ico</code>
+      returns 404. Icons are declared in the HTML, which most things honour, but
+      some readers and chat previews ask for the root path first.
+    </li>
+  </ul>
+
+  <h2>What passed</h2>
+  <p>
+    Thirty-eight checks, and listing them matters as much as listing the
+    failures — a report that only says what is wrong gives you no way to tell a
+    healthy surface from an unaudited one. The full list is in the report file.
+    The ones that were not free:
+  </p>
+  <ul>
+    <li>
+      <code>content.links_internal</code> — all 49 distinct internal link
+      targets resolve. No broken links anywhere in 30 pages.
+    </li>
+    <li>
+      <code>content.sitemap_entries</code> — the sitemap index resolves through
+      to 55 page URLs and all 40 sampled entries return success. Sitemaps
+      listing dead URLs is one of the most common self-inflicted indexing bugs
+      there is.
+    </li>
+    <li>
+      <code>content.titles</code> and <code>content.descriptions</code> — 30
+      pages, 30 distinct titles, 30 distinct descriptions, none missing.
+    </li>
+    <li>
+      <code>tls.names</code> — the apex and <code>www</code> each present a
+      certificate naming themselves. See below.
+    </li>
+    <li>
+      <code>http.hsts</code> — <code>max-age=31536000; includeSubDomains;
+      preload</code>.
+    </li>
+    <li>
+      <code>http.cookies</code> — the home page sets no cookies at all on a
+      plain GET, so there is no consent question to have.
+    </li>
+    <li>
+      <code>http.ttfb</code> — median 66 ms over three samples. One location, no
+      browser; this is connection and server time, not page load.
+    </li>
+    <li>
+      <code>domain.locks</code> — <code>clientTransferProhibited</code> and
+      <code>clientDeleteProhibited</code> are both set.
+    </li>
+  </ul>
+
+  <h2 id="withdrawn">The finding that was withdrawn</h2>
+  <p>
+    A draft of the checker reported this, as a medium:
+  </p>
+  <blockquote>
+    <p>
+      <em>tls.names — Certificate does not cover every hostname you use.
+      Missing: www.toledotechnologies.com.</em>
+    </p>
+  </blockquote>
+  <p>
+    It is false. The check connected to the apex, read that certificate's
+    subject alternative names, and compared them against both hostname forms.
+    The apex certificate names only the apex — because
+    <code>www.toledotechnologies.com</code> presents its own certificate, issued
+    separately, naming itself. Connecting to <code>www</code> directly shows it
+    immediately.
+  </p>
+  <p>
+    The finding was withdrawn. The check was rewritten to connect to each
+    hostname and compare that hostname against the certificate
+    <em>it</em> presents. It now passes, correctly, and the rewritten version is
+    the one published above. The comment explaining why is left in the source.
+  </p>
+  <p>
+    This is what the acceptance test on the <a href="/audit">product page</a> is
+    for. A finding that does not reproduce is withdrawn; if more than three are
+    withdrawn the audit is free. Publishing the one that was caught is cheaper
+    than the alternative, which is a customer finding it instead and reasonably
+    concluding the other thirteen are guesses too.
+  </p>
+
+  <h2>What this audit could not see</h2>
+  <p>
+    Stated because the value of the report depends on its edges being known:
+  </p>
+  <ul>
+    <li>
+      Anything behind a login, any application logic, any database, any
+      authenticated page. All 52 checks are outside-only. A clean report says
+      nothing about them.
+    </li>
+    <li>
+      Anything a browser does. No JavaScript was executed. A page that assembles
+      itself client-side would be largely invisible to this, and a real Core Web
+      Vitals measurement is a different instrument.
+    </li>
+    <li>
+      Whether the DKIM selectors found are the only ones. Selectors are
+      arbitrary strings; conventional names are probed, one was found, and
+      absence would have been reported as not established rather than as a
+      failure.
+    </li>
+    <li>
+      Colour contrast, focus order, keyboard traps, and every other
+      accessibility question that needs a rendered page. The six accessibility
+      checks here are a defect list from static HTML and are not a conformance
+      statement of any kind.
+    </li>
+  </ul>
+
+  <h2>What this demonstrates, and what it does not</h2>
+  <p>
+    It demonstrates the method on a real subject, with the evidence published
+    and the tooling public. It is not a client reference. Toledo Technologies
+    LLC is the subject and the auditor, which is exactly why the interesting
+    part of this page is the high finding and the withdrawal rather than the
+    thirty-eight passes.
+  </p>
+  <p>
+    One thing this page does not publish, on purpose. The evidence files are
+    complete — every hostname, header and record is in them, because all of it
+    is already public and withholding it would make the reproducibility claim a
+    lie. What is not written up here is the <em>conclusion</em>: which specific
+    entries on a list like that one deserve action, and why. That goes to the
+    owner in writing and not onto a public page. It applies to us here exactly
+    as it would to a customer — a report is written for the person who can fix
+    it, not for whoever reads it next.
+  </p>
+  <p>
+    The other runnable samples are at <a href="/proofs">/proofs</a>, and they
+    use invented fixture data. This page does not — it is a real run against a
+    real domain. The audit product itself, with its price, boundary and
+    acceptance test, is at <a href="/audit">/audit</a>.
+  </p>
+  <p>
+    Toledo Technologies LLC is the contracting supplier, and it is AI-operated:
+    correspondence, the audit itself and the written report are run by AI, with
+    the company accountable for delivery. This run and this page were produced
+    the same way. How that works is set out on the
+    <a href="/about">about page</a>.
+  </p>
+</InsertLayout>

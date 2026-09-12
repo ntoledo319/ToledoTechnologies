@@ -1,0 +1,182 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+
+/*
+ * Redirect target for the two-file reconciliation Stripe Payment Link:
+ *   after_completion[redirect][url] =
+ *     https://toledotechnologies.com/order/reconciliation/?session={CHECKOUT_SESSION_ID}
+ *
+ * Static build, so the reference is filled in client-side from the query
+ * string, matched against the Stripe session-id shape and written with
+ * textContent. If it is absent or malformed the page still reads correctly and
+ * tells the buyer to use the receipt number instead.
+ */
+
+const EMAIL_ATTACH_MB = 15;
+
+const INTAKE_TEMPLATE = `FILE A: orders-export.csv
+FILE B: warehouse-shipped.xlsx
+KEY A: order_id
+KEY B: OrderRef
+COMPARE: qty = Quantity
+COMPARE: total = LineTotal
+COMPARE: ship_date = ShippedOn
+NORMALIZE: total = number:2
+NORMALIZE: ship_date = date
+NORMALIZE: qty = number:0`;
+---
+
+<InsertLayout
+  title="Send your two files"
+  description="What to send Toledo Technologies after buying a two-file reconciliation."
+  noindex={true}
+  heading="Send your two files"
+  subheading="Nothing starts until this email arrives. It takes about two minutes."
+>
+  <h2>This page is not your receipt</h2>
+  <p>
+    Landing here means your browser finished the checkout. It does not by itself
+    confirm that the payment settled — a redirect can happen for several
+    reasons, and we would rather say that than let this page imply something it
+    cannot verify. Your emailed receipt from the payment processor is the
+    authoritative record.
+  </p>
+
+  <h2>Your reference</h2>
+  <p class="tt-ref">
+    <span id="tt-session-reference"
+      >Use the receipt number from your emailed receipt.</span
+    >
+  </p>
+
+  <h2>Send one email</h2>
+  <p>
+    To <a href="mailto:dev@toledotechnologies.com?subject=Reconciliation"
+      >dev@toledotechnologies.com</a
+    >, subject <strong>Reconciliation</strong>, containing three things.
+  </p>
+  <ol>
+    <li>
+      <strong>Your two files</strong> — attached, or a download link that does not
+      require a sign-in. Anything over about {EMAIL_ATTACH_MB} MB should go as a link,
+      because a mail server between you and us will reject a larger attachment.
+    </li>
+    <li><strong>The reference above</strong>, or your receipt number.</li>
+    <li>
+      <strong>This instruction block</strong>, with your values filled in.
+    </li>
+  </ol>
+
+  <pre class="tt-block">{INTAKE_TEMPLATE}</pre>
+
+  <p>
+    The meaning of each line, the normalization options, the size limits and the
+    refund condition are all on the
+    <a href="/file-reconciliation/">reconciliation page</a>. That page is the
+    agreement, and the version in force is the one that was published when you
+    paid.
+  </p>
+
+  <h2>What happens next</h2>
+  <ol>
+    <li>
+      We verify the payment directly against the processor and check that the
+      amount and currency match.
+    </li>
+    <li>
+      We check your files against the published limits — format, size, row
+      count, and whether the key columns you named exist and line up. If any of
+      those fail, you get that in writing and a full refund, before any work is
+      done.
+    </li>
+    <li>
+      If they pass, you get a written confirmation that repeats the key, the
+      column pairs and the normalization rules we read from your instruction
+      block. Correct it there if we read you wrong.
+    </li>
+    <li>
+      Within two business days of your complete email, the ZIP arrives: the
+      workbook, the script that regenerates it, the README and the notes.
+    </li>
+  </ol>
+
+  <h2>If you change your mind</h2>
+  <p>
+    Before the result is delivered you can cancel for any reason and get the
+    full amount back. Say so in a reply and quote your reference. You do not
+    need to explain, and you do not need to have sent the files.
+  </p>
+
+  <h2>Who is doing this</h2>
+  <p>
+    Toledo Technologies LLC is the supplier and is responsible for the result.
+    The work is carried out by AI agents rather than employees, and everything
+    happens in writing — there are no calls. This is said on the
+    <a href="/file-reconciliation/">reconciliation page</a> too, before you bought;
+    it is repeated here so that nothing about how this is delivered arrives as a surprise.
+    If it is a surprise, ask for the refund.
+  </p>
+
+  <h2>If something looks wrong</h2>
+  <p>
+    If the amount or the currency does not match what the reconciliation page
+    said, tell us before sending your files. If you believe you were charged
+    despite ending up somewhere unexpected, tell us immediately — we will check
+    it against the processor's own record and tell you what we find, including
+    when the answer is that we were wrong. Send us whatever you are looking at;
+    it helps. You can also reach us through the
+    <a href="/contact/">contact page</a>.
+  </p>
+</InsertLayout>
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById('tt-session-reference');
+    if (!el) return;
+    var raw = new URLSearchParams(window.location.search).get('session');
+    if (raw && /^cs_(live|test)_[A-Za-z0-9]{8,120}$/.test(raw)) {
+      el.textContent = raw;
+      el.setAttribute('data-verified-shape', 'true');
+    }
+  })();
+</script>
+
+<style>
+  ul,
+  ol {
+    font-family: var(--gf-font-novel);
+    margin: 0 0 1.6em 0;
+    padding-left: 1.5rem;
+  }
+  ul {
+    list-style: disc;
+  }
+  ol {
+    list-style: decimal;
+  }
+  li {
+    margin-bottom: 0.65em;
+    line-height: 1.7;
+  }
+  li::marker {
+    color: var(--gf-accent);
+  }
+
+  .tt-ref span {
+    font-family: var(--gf-font-mono, ui-monospace, 'JetBrains Mono', monospace);
+    font-size: clamp(14px, 1.1vw, 16px);
+    word-break: break-all;
+  }
+
+  .tt-block {
+    font-family: var(--gf-font-mono, ui-monospace, 'JetBrains Mono', monospace);
+    font-size: clamp(13px, 1.05vw, 15px);
+    line-height: 1.65;
+    background: rgba(0, 0, 0, 0.035);
+    border-left: 2px solid var(--gf-accent);
+    padding: 1.1rem 1.25rem;
+    margin: 0 0 1.8em;
+    overflow-x: auto;
+    white-space: pre;
+  }
+</style>
