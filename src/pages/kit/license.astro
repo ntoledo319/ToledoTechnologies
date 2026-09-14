@@ -1,0 +1,54 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import { KIT_VERSION } from '../../config/kit';
+import licenceText from '../../data/kit-license.txt?raw';
+import '../../styles/kit.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Migration Acceptance Kit', url: '/kit/' },
+  { name: 'Licence', url: '/kit/license/' }
+]);
+---
+
+<InsertLayout
+  title="Migration Acceptance Kit licence"
+  description="The full commercial licence for the Toledo Migration Acceptance Kit, published before purchase: what the buyer may do, what they may not, the refund policy, the warranty and the liability limit."
+  jsonLd={jsonLd}
+  heading="Migration Acceptance Kit licence"
+  subheading="Published in full, before purchase, so nobody has to ask for it."
+>
+  <p class="kit-kicker">Licence version 1.0 &middot; kit release {KIT_VERSION}</p>
+
+  <p>
+    This is the licence a buyer of the
+    <a href="/kit/">Migration Acceptance Kit</a> receives. It is a commercial
+    licence: not MIT, not Apache, not open source. It is published here in full
+    so your legal team can read it without contacting anyone and without
+    creating an account.
+  </p>
+  <p>
+    The short version, which the text below says at greater length: you may run
+    it, read all the source, change it, copy it anywhere inside your
+    organisation and keep it forever; you may not redistribute or resell the kit
+    itself. The reports it produces are yours outright with no strings. Refunds
+    are 30 days, no reason required.
+  </p>
+  <p class="kit-note">
+    Section 10 says plainly that this was drafted by Toledo in plain English and
+    has not been reviewed by an attorney. If your counsel needs different
+    wording, a clause struck, or an entity name on an order form, email
+    <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>.
+    Reasonable requests are normal and are not a problem.
+  </p>
+
+  <h2>Full text</h2>
+  <div class="kit-licence-text">{licenceText}</div>
+
+  <div class="kit-links">
+    <a href="/kit/">Back to the kit &rarr;</a>
+    <a href="/kit/acceptance-checklist/">Read the acceptance checklist (free) &rarr;</a>
+    <a href="/terms">Site terms &rarr;</a>
+  </div>
+</InsertLayout>

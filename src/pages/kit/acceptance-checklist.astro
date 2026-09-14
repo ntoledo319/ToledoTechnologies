@@ -1,0 +1,225 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import '../../styles/kit.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Migration Acceptance Kit', url: '/kit/' },
+  { name: 'Acceptance checklist', url: '/kit/acceptance-checklist/' }
+]);
+---
+
+<InsertLayout
+  title="Data migration acceptance checklist"
+  description="Twelve steps for accepting a data migration: nominate and prove the key, decide what 'the same' means field by field, declare exclusions before you migrate, account for every row on both sides, and publish the limits with the number. Free and complete."
+  jsonLd={jsonLd}
+  heading="Data migration acceptance checklist"
+  subheading="Twelve steps. The first five happen before anyone migrates anything."
+>
+  <p class="kit-kicker">Free &middot; complete &middot; nothing held back</p>
+
+  <p>
+    This is the procedure from the
+    <a href="/kit/">Migration Acceptance Kit</a>, published in full. It is
+    useful with no software at all — most of it is decisions, not tooling. If
+    it is useful to you, the kit automates step 7 and makes step 10 possible;
+    if it is not, you have lost nothing reading it.
+  </p>
+  <p>
+    It is written for the person who has to <em>sign</em> the migration off,
+    which is often not the person who ran it.
+  </p>
+
+  <h2>Before the migration</h2>
+
+  <h3>1. Name the source of truth, and freeze it</h3>
+  <p>
+    Write down the exact export that is authoritative: which system, which
+    query or export job, which timestamp, which file. Take its SHA-256 and
+    record it alongside.
+  </p>
+  <div class="kit-command">shasum -a 256 export-2026-09-11.csv</div>
+  <p>
+    If the source system is still accepting writes while you migrate, you are
+    not reconciling against a fixed thing, and every count you produce will be
+    arguable. Either freeze it, or record the cutover moment and accept that
+    rows created after it are a separate, smaller reconciliation.
+  </p>
+
+  <h3>2. Nominate the key, and prove it is actually a key</h3>
+  <p>
+    Which column, or combination of columns, identifies a row in the source and
+    survives into the target?
+  </p>
+  <p>
+    Then check that it is unique <em>before</em> you rely on it. The cheapest
+    version of this check is to compare the source against itself and count the
+    duplicates. A non-zero duplicate count means your key is not a key, and
+    everything downstream is built on it.
+  </p>
+
+  <h3>3. Decide what "the same" means, field by field</h3>
+  <p>
+    This is the step people skip, and it is the step that causes the argument at
+    the end. For every field you care about, write the rule down:
+  </p>
+  <ul>
+    <li>Is <code>&nbsp;&nbsp;Ada Lovelace&nbsp;</code> the same as <code>Ada Lovelace</code>? (whitespace)</li>
+    <li>Is <code>ADA@EXAMPLE.COM</code> the same as <code>ada@example.com</code>? (case)</li>
+    <li>Is <code>120.50</code> the same as <code>12050</code>? (major versus minor units)</li>
+    <li>Is <code>01/04/2024</code> the same as <code>2024-04-01</code>? Say <em>which order</em>. This one has a right answer per source system and no universal default.</li>
+    <li>Is a blank the same as zero? Almost never.</li>
+    <li>Is <code>Y</code> the same as <code>true</code>? Usually — but write it down.</li>
+  </ul>
+  <p>
+    Whatever you use to compare, these rules should live in a file rather than
+    in someone's head, and the result should carry a reference to the rules that
+    produced it. A number without its rules cannot be checked later.
+  </p>
+
+  <h3>4. Decide, in advance, which rows you are NOT migrating</h3>
+  <p>
+    Every migration drops rows: test accounts, soft-deleted records, rows
+    outside the agreed date range, rows from a region that is not in scope.
+  </p>
+  <p>
+    Dropping rows is fine. Dropping rows you did not declare is not — at
+    sign-off it is indistinguishable from a bug, and nobody can tell the
+    difference months later.
+  </p>
+  <p>
+    So write the exclusions as numbered rules, and produce a list: one row per
+    excluded key, with the rule that excluded it.
+  </p>
+  <div class="kit-command">customer_id,reason
+C-1005,closed before cutover - excluded by agreed rule R3
+C-1006,merged into C-1001 in legacy system - excluded by agreed rule R7</div>
+  <p>
+    An exclusion with no stated reason is a silent drop wearing a badge. It
+    should be rejected by whatever you use, including by you.
+  </p>
+
+  <h3>5. Agree the pass condition before you can be tempted</h3>
+  <p>
+    State what result you will accept while you still have no idea what the
+    result will be. For example:
+  </p>
+  <p class="kit-note">
+    The migration is accepted when every source row is matched or declared
+    excluded, and every target row is attributed to exactly one source row,
+    with no exceptions.
+  </p>
+  <p>
+    If you are going to tolerate something, name it now and say why — for
+    instance that a last-login timestamp cannot be verified because the legacy
+    system did not record it before 2019, and the new system cannot invent it.
+  </p>
+  <p>
+    Deciding this afterwards, with a deadline overhead, is how "we'll fix the
+    1,400 missing rows later" gets into a sign-off.
+  </p>
+
+  <h2>During and after</h2>
+
+  <h3>6. Export both sides the same way</h3>
+  <p>
+    Same delimiter, same encoding, same quoting, same null convention. Where you
+    cannot, declare the difference rather than fixing it by hand. A hand-fixed
+    file cannot be regenerated, and an export you cannot regenerate is not
+    evidence.
+  </p>
+
+  <h3>7. Account for every row on both sides</h3>
+  <p>
+    Not a row count. Every source row should land in exactly one category, and
+    so should every target row, and the category totals should equal the raw row
+    counts read from each file. At minimum, distinguish:
+  </p>
+  <ul>
+    <li><strong>matched</strong> — present and equal under your declared rules</li>
+    <li><strong>changed</strong> — present, but something differs</li>
+    <li><strong>unverified</strong> — present, but a field you cannot check either way</li>
+    <li><strong>missing</strong> — gone, and not declared</li>
+    <li><strong>excluded</strong> — declared, with a reason</li>
+    <li><strong>excluded but present</strong> — you said you would drop it; it is there</li>
+    <li><strong>duplicated</strong> — on either side</li>
+    <li><strong>orphan</strong> — in the target, in no source. Something invented this</li>
+  </ul>
+  <p>
+    The last three are the ones that matter most and the ones almost nobody
+    checks. A row count is blind to all of them, and it is blind in the most
+    flattering direction: an orphan and a missing row cancel out perfectly.
+  </p>
+
+  <h3>8. Work the findings in this order</h3>
+  <ol>
+    <li><strong>Orphans.</strong> Rows in the target that are in no source. Usually a partially applied re-run, a test fixture that shipped, or a join that fanned out. Always worth understanding before anything else.</li>
+    <li><strong>Excluded but present.</strong> Either the exclusion did not apply, or the rule is wrong.</li>
+    <li><strong>Missing.</strong> The classic. Rows that went nowhere and were not declared.</li>
+    <li><strong>Duplicates and ambiguity.</strong> Your key is not behaving as a key on one side. Resolve this before trusting any other count.</li>
+    <li><strong>Changed.</strong> Some will be intended transformations you forgot to write down. Fix the written rule, then re-run.</li>
+    <li><strong>Unverified.</strong> Fields you cannot confirm either way. These do not become matched by wishing. Get the data, or accept them explicitly and in writing.</li>
+  </ol>
+
+  <h3>9. Re-run until it matches the pass condition</h3>
+  <p>
+    Each iteration changes either the data or the rules. Changing the rules is
+    legitimate — you are encoding something you had not written down — but it is
+    a change to the agreement, so it belongs in the record with a reason.
+  </p>
+
+  <h3>10. Keep something anyone can re-run</h3>
+  <p>
+    Keep the report, the rules, and the SHA-256 of both input files. Together
+    they should let someone re-derive the identical result offline, months
+    later, with no access to either system.
+  </p>
+  <p>
+    This is the difference between evidence and an assertion. If your result
+    cannot be reproduced without the original systems, then switching off the
+    old system destroys your ability to defend the migration.
+  </p>
+
+  <h3>11. Write the sign-off, including what you did not check</h3>
+  <p>
+    Say what was checked, what was not checked, and what was tolerated. The
+    limits are the most valuable part of the memo: they are what protects you
+    when someone later finds a problem in a field nobody compared.
+  </p>
+  <p>
+    A sign-off that implies everything was verified, when eleven of forty
+    columns were, is the document that causes the real argument.
+  </p>
+
+  <h3>12. Leave it running, or leave it runnable</h3>
+  <p>
+    If both systems keep running in parallel, schedule the same check. Divergence
+    then shows up as a failing job rather than as a customer complaint.
+  </p>
+  <p>
+    If the old system is being switched off, archive the export files together
+    with whatever produced the report. The ability to re-derive the number is
+    the thing you are actually keeping.
+  </p>
+
+  <h2>The short version</h2>
+  <p>
+    Agree the key, the field rules and the exclusions <em>before</em> you
+    migrate. Account for every row on both sides. Publish the limits with the
+    number. Keep something anyone can re-run.
+  </p>
+
+  <h2>If you want the tool</h2>
+  <p>
+    The <a href="/kit/">Migration Acceptance Kit</a> makes step 7 one command
+    and step 10 a byte-stable report with a content hash, and ships the
+    sign-off memo for step 11. It is one standard-library Python file with 74
+    tests, a perpetual licence and full source, at US$240 for a single
+    organisation or US$600 for consultancy use on client work.
+  </p>
+  <p>
+    Everything above stays here, free, regardless. It is the part that is worth
+    having whether or not you buy anything.
+  </p>
+</InsertLayout>

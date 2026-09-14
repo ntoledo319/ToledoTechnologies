@@ -1,0 +1,167 @@
+TOLEDO MIGRATION ACCEPTANCE KIT — LICENCE
+Version 1.0, for Kit release 1.0.0
+Toledo Technologies LLC (a Connecticut limited liability company), "Toledo"
+
+This is a commercial licence. It is not MIT, not Apache, and not open source.
+Everything Toledo is granting and everything Toledo is not granting is written
+below in plain words.
+
+
+1. WHAT YOU BOUGHT
+
+You bought a perpetual, worldwide, non-exclusive licence to one of:
+
+  (a) SINGLE-ORGANISATION LICENCE
+      The licensee is one legal entity and its wholly owned subsidiaries.
+      You may use the Kit for an unlimited number of that organisation's own
+      migrations, forever, on any number of machines used by that
+      organisation's staff and contractors while working for it.
+
+  (b) CONSULTANCY LICENCE
+      Everything in (a), plus the right to use the Kit while performing paid
+      work for your own clients, to run it against client data, and to give
+      your clients the reports, findings files and sign-off memos it produces.
+      Your clients receive those outputs, not the Kit.
+
+Which one you hold is the one you paid for. The Stripe receipt is the record.
+
+
+2. WHAT YOU MAY DO
+
+  - Run the Kit, for any purpose, including commercial purposes.
+  - Read all of the source. There is no obfuscated, compiled or hidden part.
+  - Modify the source, including forking it internally and maintaining your
+    own version indefinitely.
+  - Copy it onto your own infrastructure: laptops, servers, CI runners,
+    private package registries, internal Git hosting, air-gapped networks.
+  - Keep using it forever, including this exact version, with no renewal,
+    no licence key, no check-in, and no expiry.
+  - Keep the outputs. Reports, findings files and sign-off memos produced by
+    the Kit are yours outright, with no attribution required and no licence
+    condition attached to them.
+  - Quote or excerpt the documentation internally, and paste the acceptance
+    procedure into your own runbooks, contracts and sign-off documents.
+
+
+3. WHAT YOU MAY NOT DO
+
+  - Redistribute, resell, sublicense, publish or give away the Kit itself, or
+    a modified version of it, to anyone outside your licensed organisation.
+  - Publish the source publicly, including to a public repository, a public
+    package index, a public model-training corpus, or a public file share.
+  - Offer the Kit, or a derivative of it, as a product, a hosted service or a
+    subscription that others use directly.
+  - Remove the copyright notice or this licence file from copies you keep.
+
+Under the Consultancy Licence, a client receives the Kit's *outputs*. If a
+client wants the Kit itself, they need their own licence. Toledo would rather
+say that plainly now than discover it during an audit later.
+
+
+4. REFUNDS
+
+Digital goods are hard to un-deliver, so the policy is simple and it is not
+conditional on proving anything:
+
+  Within 30 days of purchase, if the Kit is not useful to you, email
+  dev@toledotechnologies.com with your Stripe receipt reference and ask for a
+  refund. You will get one. You do not have to give a reason, send evidence,
+  or answer questions about it.
+
+After a refund, the licence ends and you should delete your copies. Toledo has
+no technical means of enforcing that and is not going to pretend otherwise;
+this clause relies on you being honest, as most people are.
+
+
+5. WARRANTY — READ THIS ONE
+
+The Kit is provided "as is". Toledo warrants exactly one thing, which is a
+statement of fact rather than a promise about your data:
+
+  The test suite included in this archive passes on the source included in
+  this archive, on CPython 3.12, with no third-party packages and no network
+  access. You can verify that yourself in under a minute, before you rely on
+  anything, by running: python3 -m unittest test_reconcile -v
+
+  The code targets CPython 3.9 and later and uses no syntax introduced after
+  3.9, but 3.12 is the version it was actually run on, and Toledo warrants
+  only what it actually ran. If the suite fails on any CPython from 3.9
+  onward, that is a defect: report it and it will be fixed.
+
+Toledo makes NO other warranty. In particular Toledo does not warrant that the
+Kit is fit for your migration, that it will find every defect in your data,
+that its output is correct for data shapes it has not seen, or that a clean
+report means your migration is correct. It means the specific things you
+declared in your spec were checked and reconciled, and nothing more.
+
+The Kit checks what you tell it to check. If you do not compare a column, the
+Kit says nothing about that column, and a clean report is not evidence about
+it. The report states which fields were compared, so that this limit travels
+with the result.
+
+THE KIT IS NOT AN AUDIT, AN ATTESTATION, A CERTIFICATION, OR PROFESSIONAL
+ADVICE OF ANY KIND. It does not make Toledo your auditor, your consultant or
+your advisor. Toledo is not a party to your migration and has no visibility
+into it.
+
+
+6. LIABILITY
+
+To the maximum extent permitted by law, Toledo's total liability arising out
+of or relating to the Kit is limited to the amount you actually paid for it.
+Toledo is not liable for indirect, incidental, special, consequential or
+punitive damages, or for lost profits, lost data or business interruption,
+even if advised that they were possible.
+
+Some jurisdictions do not allow certain exclusions of warranty or limitations
+of liability. Where that is so, the exclusions and limitations above apply to
+the greatest extent those jurisdictions permit, and the rest of this licence
+stays in force.
+
+Nothing in this licence limits liability that cannot lawfully be limited,
+including liability for fraud or fraudulent misrepresentation.
+
+
+7. HOW IT WAS BUILT
+
+Toledo Technologies is an AI-operated software practice. The code,
+documentation and tests in this Kit were written and checked by AI agents
+operating for the company. Toledo Technologies LLC is the supplier and is
+accountable for what it sells. This is stated here, in the licence, rather
+than in small print, because a buyer is entitled to know it before deciding.
+
+The Kit is Toledo's own work. It depends on nothing beyond the Python standard
+library, vendors no third-party code, and contains no code taken from any
+other project. No part of it is a repackaging of public open-source software
+sold as though it were proprietary.
+
+
+8. THIRD-PARTY RIGHTS AND YOUR DATA
+
+The Kit runs entirely on your machine. It makes no network connections, sends
+no telemetry, and transmits nothing to Toledo. Toledo never sees your data and
+has no way to. If you find a network call in the source, that is a defect;
+report it and it will be fixed.
+
+
+9. GOVERNING LAW
+
+This licence is governed by the laws of the State of Connecticut, United
+States, without regard to its conflict-of-laws rules. That choice does not
+deprive a consumer of protections that are mandatory in their own country of
+residence.
+
+
+10. PLAIN STATEMENT ABOUT THIS DOCUMENT
+
+This licence was drafted in plain English by Toledo and has not been reviewed
+by an attorney. It is written to be read and honoured, not to be clever. If
+your legal team needs different wording, a clause struck, or an entity name
+corrected on an order form, email dev@toledotechnologies.com and say what you
+need — reasonable requests are normal and are not a problem.
+
+If any part of this licence is held unenforceable, the rest continues to
+apply.
+
+Copyright (c) 2026 Toledo Technologies LLC. All rights reserved except as
+granted above.

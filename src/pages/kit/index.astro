@@ -1,0 +1,452 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import {
+  KIT_ARCHIVE_PUBLISHED,
+  KIT_DOWNLOAD_PATH,
+  KIT_OFFERS,
+  KIT_RELEASE,
+  KIT_TEST_COUNT,
+  KIT_VERSION,
+  KIT_CHECKOUT_OPEN,
+  KIT_ON_SALE
+} from '../../config/kit';
+import '../../styles/kit.css';
+
+const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
+
+// The Product node is true whatever state the release is in. The `offers` node
+// is not: an Offer tells a search engine this can be bought at that price right
+// now. Until there is a working payment path and a downloadable archive, there
+// is no offer, so none is published. `PreOrder` would be the wrong word too —
+// nothing can be ordered in advance either.
+const productSchema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Toledo Migration Acceptance Kit',
+  sku: `toledo-migration-acceptance-kit-${KIT_VERSION}`,
+  softwareVersion: KIT_VERSION,
+  description:
+    'A standard-library Python tool and written acceptance procedure that account for every row on both sides of a data migration and refuse to report a number they cannot reconcile.',
+  brand: { '@type': 'Organization', name: 'Toledo Technologies' },
+  url: `${siteUrl}/kit/`
+};
+
+if (KIT_ON_SALE) {
+  productSchema.offers = KIT_OFFERS.map((offer) => ({
+    '@type': 'Offer',
+    name: offer.name,
+    price: offer.price.toFixed(2),
+    priceCurrency: offer.currency,
+    availability: 'https://schema.org/InStock',
+    url: `${siteUrl}/kit/`,
+    seller: { '@type': 'Organization', name: 'Toledo Technologies' }
+  }));
+}
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Migration Acceptance Kit', url: '/kit/' }
+  ]),
+  productSchema
+];
+
+const sourceBuckets = [
+  ['matched', 'present in the target, every compared field equal after the normalisation you declared'],
+  ['changed', 'present in the target, at least one compared field differs'],
+  ['unverified', 'present, but a compared field was blank where blankness means "not knowable"'],
+  ['missing', 'no target row, and no declared rejection'],
+  ['rejected', 'declared in your rejects file, with a stated reason'],
+  ['rejected_but_present', 'you said you would drop it. It is in the target anyway'],
+  ['duplicate_source', 'the key occurs more than once in the source, so no occurrence is authoritative'],
+  ['ambiguous_target', 'the target holds several rows for this key, so there is nothing single to compare'],
+  ['blank_key', 'the key columns are empty']
+];
+
+const targetBuckets = [
+  ['accounted', 'attributed to exactly one source row'],
+  ['orphan', 'present in the target, absent from the source — something invented this data'],
+  ['duplicate_target', 'the key occurs more than once in the target'],
+  ['ambiguous_source', 'the source holds several rows for this key, so this row cannot be attributed'],
+  ['blank_key', 'the key columns are empty']
+];
+---
+
+<InsertLayout
+  title="Migration Acceptance Kit"
+  description="A standard-library Python tool and written acceptance procedure that account for every row on both sides of a data migration, and refuse to report a number they cannot reconcile. US$240 single-organisation, US$600 consultancy. Perpetual licence, full source, 74 tests."
+  jsonLd={jsonLd}
+  heading="Migration Acceptance Kit"
+  subheading="Prove a data migration is complete, or refuse to sign it off."
+>
+  <p class="kit-kicker">Downloadable product &middot; version {KIT_VERSION}</p>
+
+  {!KIT_ON_SALE && (
+    <p class="kit-note">
+      <strong>You cannot buy this yet, and there is nothing here to download
+      yet.</strong> The tool, the tests, the documentation and the licence are
+      finished — everything described below exists and the licence is published
+      in full. What does not exist yet is the card-payment link and the
+      published archive file. Rather than show you a button that does nothing,
+      this page says so here, at the top, before you read any further. The
+      <a href="/kit/acceptance-checklist/">acceptance checklist</a> is free,
+      complete and useful today regardless.
+    </p>
+  )}
+
+  <p>
+    You moved data from one system to another. Someone now has to say it
+    worked, and put their name on it.
+  </p>
+  <p>
+    The usual evidence is a row count and a few spot checks. Row counts hide the
+    two failures that actually hurt: rows that silently vanished, and rows that
+    silently appeared. Spot checks find neither, because you spot-check the rows
+    you thought of.
+  </p>
+  <p>
+    This kit is one Python file and a written procedure. The file puts
+    <strong>every</strong> source row and <strong>every</strong> target row into
+    exactly one bucket, then asserts that the bucket totals equal the raw row
+    counts read from each file. If they do not, it writes nothing and exits 2.
+  </p>
+  <p class="kit-note">
+    That refusal is the point. A number nobody can account for is worse than no
+    number, because it is the one that ends up in the sign-off.
+  </p>
+
+  <h2>The whole product, in one command</h2>
+  <div class="kit-command">python3 reconcile.py \
+  --spec specs/customers.json \
+  --source export-source.csv \
+  --target export-target.csv \
+  --rejects agreed-exclusions.csv \
+  --out reports/2026-09-11 --strict</div>
+  <p>
+    It writes three files. <code>report.json</code> is byte-stable: its content
+    hash covers everything except the timestamp, so re-running next quarter on
+    the same inputs produces the same hash, and anyone can re-derive it offline.
+    <code>report.html</code> is self-contained — no scripts, no external fonts,
+    no network requests, enforced by test — so it can be attached to a ticket.
+    <code>findings.csv</code> is the fix list.
+  </p>
+  <p>
+    Exit codes are <code>0</code> reported, <code>1</code> reported but not
+    clean under <code>--strict</code>, <code>2</code> refused. Put
+    <code>--strict</code> in CI and a migration that stops reconciling fails the
+    build instead of surfacing as a support ticket in March.
+  </p>
+
+  <h2>Every row lands in exactly one bucket</h2>
+  <p>Source side:</p>
+  <div class="kit-table-wrap">
+    <table class="kit-table">
+      <thead>
+        <tr><th scope="col">Bucket</th><th scope="col">Meaning</th></tr>
+      </thead>
+      <tbody>
+        {sourceBuckets.map(([name, meaning]) => (
+          <tr><td>{name}</td><td>{meaning}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>Target side:</p>
+  <div class="kit-table-wrap">
+    <table class="kit-table">
+      <thead>
+        <tr><th scope="col">Bucket</th><th scope="col">Meaning</th></tr>
+      </thead>
+      <tbody>
+        {targetBuckets.map(([name, meaning]) => (
+          <tr><td>{name}</td><td>{meaning}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <code>orphan</code>, <code>rejected_but_present</code> and the two
+    <code>ambiguous</code> buckets are the reason this exists. They are the
+    failures a row count cannot see, and most reconciliation work never looks
+    for them at all.
+  </p>
+
+  <h2>Three decisions it makes differently</h2>
+  <p>
+    <strong>Blank is not zero, and blank is not a match.</strong> A missing
+    balance and a balance of 0.00 are different facts. Declare
+    <code>blank_policy: unknown</code> on a field the old system never captured
+    and the row lands in <code>unverified</code> rather than quietly counting as
+    matched. You get a smaller verified number and a true one.
+  </p>
+  <p>
+    <strong>Date order is declared, never guessed.</strong> 01/04/2024 is 1
+    April in London and 4 January in Chicago. This tool will not pick for you.
+    You write <code>date:dmy</code> or <code>date:mdy</code>, and
+    <code>date:iso</code> refuses ambiguous slashed input outright rather than
+    choosing a hemisphere on your behalf.
+  </p>
+  <p>
+    <strong>Unparseable is not the same as wrong.</strong> An
+    <code>n/a</code> in a numeric column is reported as
+    <code>&lt;unparseable: n/a&gt;</code>, not coerced to 0 and not silently
+    counted as a mismatch. You see what the data actually said.
+  </p>
+
+  <h2>What is in the archive</h2>
+  <ul>
+    <li><code>reconcile.py</code> — the tool. One file, standard library only, no dependencies, no network calls, no telemetry, no licence key. Targets CPython 3.9+ and verified on 3.12</li>
+    <li><code>test_reconcile.py</code> — {KIT_TEST_COUNT} tests covering the normalisers, spec validation, file reading, every bucket, blank policy, report stability, HTML self-containment and CLI exit codes</li>
+    <li><code>docs/ACCEPTANCE-PROCEDURE.md</code> — the twelve-step procedure the tool is evidence for. Five of the twelve steps happen before anyone migrates anything, and they are the ones that decide whether sign-off is possible at all</li>
+    <li><code>docs/SPEC-REFERENCE.md</code> — every spec field, every normaliser, every exit code</li>
+    <li><code>templates/sign-off.md</code> — the acceptance memo to fill in and circulate, including the section for what was <em>not</em> checked</li>
+    <li><code>specs/</code> and <code>examples/</code> — a worked spec and three fixture files that between them exercise every bucket the tool can produce. There is a test that fails if they stop doing so</li>
+    <li><code>LICENSE.txt</code>, <code>README.md</code>, <code>CHANGELOG.md</code></li>
+  </ul>
+  <p>
+    {KIT_RELEASE.files.length} files, {(KIT_RELEASE.archive_bytes / 1024).toFixed(0)}&nbsp;KB
+    compressed. No build step, no installer, no package manager. Unzip it and
+    run it.
+  </p>
+
+  <h2>What you can check before you pay</h2>
+  <p>
+    Rather than ask you to trust a description, three things are public:
+  </p>
+  <ul>
+    <li>
+      The <a href="/kit/acceptance-checklist/">acceptance checklist</a> — the
+      full procedure from the kit, free and complete, with nothing held back.
+      It is useful on its own with no software at all. If it is not useful to
+      you, the kit will not be either, and you have lost nothing finding out.
+    </li>
+    <li>
+      The <a href="/kit/license/">licence</a> in full, before purchase, so your
+      legal team can read it without talking to anyone.
+    </li>
+    <li>
+      The archive's SHA-256, published below, so you can confirm that what you
+      decrypt is what was advertised.
+    </li>
+  </ul>
+  <p>
+    The kit is also the only warranty in the licence: the test suite passes on
+    the source in the archive, on CPython 3.12, with no third-party packages
+    and no network access. That takes about a tenth of a second to verify
+    yourself, before you rely on anything. The code targets 3.9 and later and
+    uses no newer syntax, but 3.12 is what it was actually run on, and the
+    licence warrants only what was actually run.
+  </p>
+
+  <h2>Price</h2>
+  <div class="kit-offers">
+    {KIT_OFFERS.map((offer) => (
+      <div class="kit-offer">
+        <h3>{offer.name}</h3>
+        <p class="kit-price">US${offer.price}</p>
+        <p class="kit-offer-who">{offer.who}</p>
+        <ul>
+          {offer.grants.map((grant) => <li>{grant}</li>)}
+        </ul>
+        {KIT_ON_SALE ? (
+          <a class="kit-buy" href={offer.paymentLink} rel="nofollow">
+            Buy — US${offer.price}
+          </a>
+        ) : (
+          <p class="kit-offer-who">Not on sale yet — see below.</p>
+        )}
+      </div>
+    ))}
+  </div>
+  <p>
+    These are the prices it will be sold at. One payment, no subscription, no
+    renewal, no seat counting and no expiry. Prices are in US dollars and
+    exclude any tax applicable in your jurisdiction. Buyers of {KIT_VERSION}
+    get 1.x maintenance releases at no additional cost.
+  </p>
+
+  {!KIT_ON_SALE && (
+    <p class="kit-note">
+      <strong>Why you cannot buy it yet.</strong>
+      {!KIT_CHECKOUT_OPEN && (
+        <span> The card-payment link does not exist. Creating a live payment
+        offer is a decision for the company's owner, not something an agent
+        does on its own, so it waits for him.</span>
+      )}
+      {!KIT_ARCHIVE_PUBLISHED && (
+        <span> The encrypted archive has not been published to this site
+        yet.</span>
+      )}
+      {' '}There is nothing to join, nothing to sign up for, and no list —
+      Toledo is not collecting anything from you on this page. If you want it,
+      say so at
+      <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
+      and you will get a plain answer from a person or an agent acting for the
+      company. To be clear about what that answer can and cannot be: it will
+      not contain a payment link or an archive key, because neither exists
+      yet. Promising you one would be the easy thing to write here and it
+      would not be true.
+    </p>
+  )}
+
+  <h2>How delivery {KIT_ON_SALE ? 'works' : 'will work'}, stated plainly</h2>
+  <p>
+    The archive {KIT_ARCHIVE_PUBLISHED ? 'is' : 'will be'} published on this
+    site, encrypted. Paying reveals the key. There is no account to create, no
+    login, no download portal and nothing that can expire out from under you.
+  </p>
+  <ol>
+    <li>Pay. Stripe shows the release key on its confirmation page immediately after payment.</li>
+    <li>
+      Download the encrypted archive
+      {KIT_ARCHIVE_PUBLISHED ? (
+        <span>
+          {' '}(<a href={KIT_DOWNLOAD_PATH} download data-astro-reload>
+            {KIT_RELEASE.encrypted_archive}
+          </a>) — it is public, and safe to be: it is AES-256 ciphertext.
+        </span>
+      ) : (
+        <span>
+          {' '}— it will be published at <code>{KIT_DOWNLOAD_PATH}</code>, public
+          and safe to be, because it is AES-256 ciphertext. It is not there yet,
+          so there is no link to it here.
+        </span>
+      )}
+    </li>
+    <li>Run one <code>openssl</code> command to decrypt it. The exact command for macOS, Linux and Windows is on the <a href="/kit/delivered/">delivery page</a>, which is public so you can read it before deciding.</li>
+    <li>Check the SHA-256 matches the one published below, unzip, and run the tests.</li>
+  </ol>
+  <p>
+    <strong>The key is the same for every buyer of this release, and it is not
+    DRM.</strong> Anyone who has it can share it. That is a deliberate
+    trade: no licence server, no phone-home, no account, nothing to break in
+    three years. The lock is an honest door, not a vault, and pretending
+    otherwise would be the first dishonest thing on this page.
+  </p>
+  <p>
+    Archive SHA-256 (of the decrypted ZIP, published so you can verify it):
+  </p>
+  <code class="kit-hash">{KIT_RELEASE.archive_sha256}</code>
+  <p>
+    Cipher: {KIT_RELEASE.cipher}.
+  </p>
+  {!KIT_ARCHIVE_PUBLISHED && (
+    <p>
+      That hash is the hash of the archive built from the finished kit source.
+      The build is deterministic and does not depend on the encryption key, so
+      it is the hash the published archive will have. If it ever turns out not
+      to be, the version gets bumped rather than the number quietly changed.
+    </p>
+  )}
+
+  <h2>What this is not</h2>
+  <ul>
+    <li>
+      <strong>Not a database tool.</strong> It reads delimited text files with a
+      header row — CSV, TSV, pipe-delimited, any single-character delimiter.
+      Not databases, not Excel, not JSON, not XML, not Parquet. You export to
+      CSV first, and that export is itself a step this tool cannot check for
+      you.
+    </li>
+    <li>
+      <strong>Not a reshaping checker.</strong> One source file against one
+      target file. Joins, fan-out and fan-in — one source row legitimately
+      becoming three target rows — are not modelled. If your migration reshapes
+      the data, this checks a projection of it, not the reshaping.
+    </li>
+    <li>
+      <strong>Not unbounded.</strong> It reads both files into memory.
+      Comfortable to a few million rows on an ordinary laptop; beyond that you
+      split by key range and run it per slice.
+    </li>
+    <li>
+      <strong>Not an audit, an attestation or a certification.</strong> It is
+      evidence you generate yourself and anyone can re-generate. It does not
+      make Toledo your auditor and creates no professional opinion about your
+      migration.
+    </li>
+    <li>
+      <strong>Not a substitute for deciding what matters.</strong> It compares
+      what you declare. If you do not list a column, the report says nothing
+      about that column — and says so, by naming the fields that were compared,
+      so the limit travels with the number.
+    </li>
+    <li>
+      <strong>Not a hosted service and not supported software.</strong> There
+      is no SLA. Reproducible defects get fixed and buyers get the fixed
+      version; that is the extent of the commitment, and it is written in the
+      licence rather than implied here.
+    </li>
+    <li>
+      <strong>Not proven in the market.</strong> It has no buyers, no reviews
+      and no case studies, because it has never been sold. There is no social
+      proof on this page because there is none to show, and inventing some
+      would make every other claim here worthless.
+    </li>
+  </ul>
+
+  <h2>Things you might use instead</h2>
+  <p>
+    Worth knowing before you spend anything, because a buyer who did not need
+    this is worse for us than one who never arrived:
+  </p>
+  <ul>
+    <li>
+      <strong>datacompy</strong> (Apache-2.0) does dataframe comparison in
+      Python. If you already live in pandas or Spark and want a column-level
+      diff, it is free and it is good at that.
+    </li>
+    <li>
+      <strong>csvdiff</strong> (BSD) and <strong>daff</strong> (MIT) produce
+      diffs between tables. Both are free.
+    </li>
+    <li>
+      Your database can do a <code>FULL OUTER JOIN</code> and tell you a great
+      deal, for nothing, if both sides live somewhere you can query.
+    </li>
+  </ul>
+  <p>
+    What those do not give you is the part this is actually for: a bucketing
+    that refuses to lose a row, a hard reconciliation assertion that fails
+    rather than publishing an unaccountable number, an explicit
+    <em>unknown</em> that never becomes a match, a byte-stable report anyone can
+    re-derive offline, and the written procedure and sign-off memo that turn the
+    output into something a person can put their name on. If you only need a
+    diff, use a diff.
+  </p>
+
+  <h2>Refunds</h2>
+  <p>
+    Within 30 days, email
+    <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
+    with your Stripe receipt reference and ask. You get a refund. You do not
+    have to give a reason, send evidence, or answer questions about it. This is
+    in <a href="/kit/license/">the licence</a>, not just on this page.
+  </p>
+
+  <h2>Who built it</h2>
+  <p>
+    Toledo Technologies LLC is an AI-operated software practice: the code,
+    documentation and tests here were written and checked by AI agents operating
+    for the company, and the company is the supplier and is accountable for what
+    it sells. This is stated in section 7 of the licence rather than in small
+    print, because a buyer is entitled to know it before deciding.
+  </p>
+  <p>
+    The kit is Toledo's own work. It depends on nothing beyond the Python
+    standard library, vendors no third-party code, and is not a repackaging of
+    public open-source software sold as though it were proprietary.
+  </p>
+  <p>
+    The same discipline applied to paid work is on the
+    <a href="/engagements/">fixed-scope engagements page</a>, and two runnable
+    samples with full source and stated limits are on the
+    <a href="/proofs/">working samples page</a>.
+  </p>
+
+  <div class="kit-links">
+    <a href="/kit/acceptance-checklist/">Read the acceptance checklist (free) &rarr;</a>
+    <a href="/kit/license/">Read the licence in full &rarr;</a>
+  </div>
+</InsertLayout>

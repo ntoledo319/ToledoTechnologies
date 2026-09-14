@@ -1,0 +1,171 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import {
+  KIT_ARCHIVE_PUBLISHED,
+  KIT_DOWNLOAD_PATH,
+  KIT_ON_SALE,
+  KIT_RELEASE,
+  KIT_TEST_COUNT,
+  KIT_VERSION
+} from '../../config/kit';
+import '../../styles/kit.css';
+
+const enc = KIT_RELEASE.encrypted_archive;
+const zip = KIT_RELEASE.archive;
+const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
+---
+
+<InsertLayout
+  title="Unpacking your Migration Acceptance Kit"
+  description="How to decrypt, verify and run the Toledo Migration Acceptance Kit after purchase."
+  noindex={true}
+  heading="Unpacking your kit"
+  subheading="Four commands. Nothing to install, no account, no login."
+>
+  <p class="kit-kicker">Release {KIT_VERSION}</p>
+
+  {!KIT_ON_SALE && (
+    <p class="kit-note">
+      <strong>Nobody has bought this yet, because it is not on sale yet.</strong>
+      This page is published early and on purpose, so anyone weighing the kit up
+      can see exactly what delivery involves before deciding. Everything below
+      is what the process will be; the download link appears here the moment the
+      archive is actually published. See the
+      <a href="/kit/">product page</a> for where the release currently stands.
+    </p>
+  )}
+
+  <p>
+    You should have a release key — Stripe showed it on the confirmation page
+    immediately after payment. Keep it somewhere you will still have it in two
+    years; it is the only thing standing between you and this archive, and
+    there is no account to log in to and recover it from.
+  </p>
+  <p>
+    If you do not have it, skip to <a href="#lost">lost your key</a> at the
+    bottom. It is a two-minute fix and it is not a problem.
+  </p>
+
+  <h2>1. Download the encrypted archive</h2>
+  {KIT_ARCHIVE_PUBLISHED ? (
+    <p>
+      <a href={KIT_DOWNLOAD_PATH} download data-astro-reload><strong>{enc}</strong></a>
+    </p>
+  ) : (
+    <p>
+      It will be published at <code>{KIT_DOWNLOAD_PATH}</code>. It is not there
+      yet, so there is no link here — a link to a file that does not exist is a
+      404 pretending to be a delivery.
+    </p>
+  )}
+  <p>
+    This file is public and safe to be. It is AES-256 ciphertext, so the only
+    thing that makes it useful is your key.
+  </p>
+
+  <h2>2. Decrypt it</h2>
+  <p>
+    macOS and Linux, in the folder where you downloaded it. <code>openssl</code>
+    is already installed on both.
+  </p>
+  <div class="kit-command">openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 600000 \
+  -in {enc} \
+  -out {zip}</div>
+  <p>
+    It prompts for the password rather than taking it as an argument, which is
+    deliberate: your key does not end up in your shell history or in the process
+    list. Paste the release key at the prompt.
+  </p>
+  <p>
+    <strong>Windows:</strong> the same command, run in Git Bash (installed with
+    Git for Windows, which includes <code>openssl</code>) or in WSL. Plain
+    PowerShell does not ship <code>openssl</code>.
+  </p>
+
+  <h2>3. Check you got what was advertised</h2>
+  <div class="kit-command">shasum -a 256 {zip}          # macOS
+sha256sum {zip}              # Linux
+Get-FileHash {zip} -Algorithm SHA256   # PowerShell</div>
+  <p>It should print, exactly:</p>
+  <code class="kit-hash">{KIT_RELEASE.archive_sha256}</code>
+  <p>
+    That hash is also published on the
+    <a href="/kit/">public product page</a>, where it was before you paid. If
+    the two do not match, do not use the archive — email
+    <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
+    and say so, because it would mean something is wrong on our side.
+  </p>
+
+  <h2>4. Unzip and run the tests first</h2>
+  <div class="kit-command">unzip {zip}
+cd {root}
+python3 -m unittest test_reconcile -v</div>
+  <p>
+    {KIT_TEST_COUNT} tests, about a tenth of a second, no network and no
+    third-party packages. That they pass is the only warranty in the licence, so
+    it is worth confirming before you rely on anything.
+  </p>
+
+  <h2>5. See it work</h2>
+  <div class="kit-command">python3 reconcile.py \
+  --spec specs/customers.json \
+  --source examples/source-customers.csv \
+  --target examples/target-customers.csv \
+  --rejects examples/rejects-customers.csv \
+  --out out</div>
+  <p>
+    Open <code>out/report.html</code>. The shipped example is built so that
+    every bucket the tool can produce has at least one row in it — including the
+    awkward ones: an orphan, a row declared excluded that migrated anyway, and
+    duplicate keys on both sides. There is a test that fails if that stops being
+    true.
+  </p>
+  <p>
+    Then read <code>docs/ACCEPTANCE-PROCEDURE.md</code>. The tool is step 7 of
+    twelve; the steps that decide whether a migration can be signed off at all
+    happen before anyone migrates anything.
+  </p>
+
+  <h2>If decryption fails</h2>
+  <ul>
+    <li>
+      <code>bad decrypt</code> or <code>bad magic number</code> almost always
+      means the key is wrong — usually a trailing space or a missing character
+      from a copy-paste. Retype it rather than re-pasting.
+    </li>
+    <li>
+      Check the whole download arrived: if the <code>.enc</code> file is much
+      smaller than about {Math.round(KIT_RELEASE.archive_bytes / 1024)}&nbsp;KB,
+      the download was truncated. Fetch it again.
+    </li>
+    <li>
+      Very old <code>openssl</code> builds (1.0.x) do not support
+      <code>-pbkdf2</code>. <code>openssl version</code> will tell you. Any
+      current macOS, Linux or Git for Windows install is fine.
+    </li>
+  </ul>
+
+  <h2 id="lost">Lost your key</h2>
+  <p>
+    Email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
+    with your Stripe receipt reference and you will be sent the release key
+    again. There is no charge and no limit on this; a key you cannot find is not
+    a reason to lose access to something you bought.
+  </p>
+
+  <h2>Refunds, and what happens next</h2>
+  <p>
+    Within 30 days, email the same address with your receipt reference and ask
+    for a refund. You get one. No reason required, no evidence, no questions.
+    This is section 4 of <a href="/kit/license/">the licence</a>.
+  </p>
+  <p>
+    Buyers of {KIT_VERSION} get 1.x maintenance releases at no additional cost.
+    There is no mailing list and nothing to subscribe to — email with your
+    receipt reference and you will be sent the current release.
+  </p>
+  <p>
+    A reproducible defect gets fixed. Send the spec, the smallest input that
+    reproduces it, and what you expected.
+  </p>
+</InsertLayout>

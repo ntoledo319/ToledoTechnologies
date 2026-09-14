@@ -1,0 +1,25 @@
+{
+  "archive": "toledo-migration-acceptance-kit-1.0.0.zip",
+  "archive_bytes": 31917,
+  "archive_sha256": "7dcfe441454ac91e991d11c52b78cf30841db943a3a9e63f040e9f319c9a6a2e",
+  "cipher": "AES-256-CBC, PBKDF2-HMAC-SHA512, 600000 iterations, random salt",
+  "decrypt_command": "openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 600000 -in toledo-migration-acceptance-kit-1.0.0.zip.enc -out toledo-migration-acceptance-kit-1.0.0.zip",
+  "encrypted_archive": "toledo-migration-acceptance-kit-1.0.0.zip.enc",
+  "files": [
+    "README.md",
+    "LICENSE.txt",
+    "CHANGELOG.md",
+    "reconcile.py",
+    "test_reconcile.py",
+    "docs/ACCEPTANCE-PROCEDURE.md",
+    "docs/SPEC-REFERENCE.md",
+    "specs/customers.json",
+    "examples/source-customers.csv",
+    "examples/target-customers.csv",
+    "examples/rejects-customers.csv",
+    "templates/sign-off.md"
+  ],
+  "product": "Toledo Migration Acceptance Kit",
+  "published": false,
+  "version": "1.0.0"
+}

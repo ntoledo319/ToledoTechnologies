@@ -1,0 +1,4 @@
+# Only the encrypted release archive (*.zip.enc) belongs in this directory.
+# Anything in public/ is copied verbatim into the build and served, including
+# this file, so keep it free of internal notes.
+*.zip
