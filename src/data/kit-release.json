@@ -20,6 +20,6 @@
     "templates/sign-off.md"
   ],
   "product": "Toledo Migration Acceptance Kit",
-  "published": false,
+  "published": true,
   "version": "1.0.0"
 }

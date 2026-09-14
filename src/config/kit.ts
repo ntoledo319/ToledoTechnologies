@@ -64,7 +64,7 @@ export const KIT_OFFERS: KitOffer[] = [
       'full source, modifiable, no licence key and no expiry',
       'the reports it produces are yours outright'
     ],
-    paymentLink: ''
+    paymentLink: 'https://buy.stripe.com/14A6oH3jU9tm5xh9Va87K0o'
   },
   {
     id: 'consultancy',
@@ -78,7 +78,7 @@ export const KIT_OFFERS: KitOffer[] = [
       'hand the reports, findings and sign-off memos to your clients',
       'clients receive the outputs; the kit itself stays with you'
     ],
-    paymentLink: ''
+    paymentLink: 'https://buy.stripe.com/3cIbJ1cUuaxq7Fp2sI87K0p'
   }
 ];
 
