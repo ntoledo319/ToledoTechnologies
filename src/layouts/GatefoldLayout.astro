@@ -91,7 +91,17 @@ const fullTitle =
     }
   </head>
   <body class="text-novel-body min-h-screen" style="background: #0a0908;">
+    <noscript>
+      <style>
+        /* The sleeve is a fixed full-viewport overlay that only script can
+           remove. Without script, drop it and show Side A directly. */
+        #cover {
+          display: none !important;
+        }
+      </style>
+    </noscript>
     <a
+      id="skip-link"
       href="#main-content"
       class="focus:bg-paper-900 focus:rounded-engine-inner sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:text-sm focus:text-white"
     >
@@ -179,10 +189,10 @@ const fullTitle =
             <span>Remote Software Studio</span>
           </p>
 
-          <h1 class="cover-title">
+          <p class="cover-title">
             We build, <em>fix</em>,<br />and ship code—<br />slowly enough<br
             />to do it right.
-          </h1>
+          </p>
 
           <p class="cover-subtitle">
             A high-fidelity record of working software. Side A is the studio.
@@ -425,9 +435,26 @@ const fullTitle =
           '.cover-panel.right'
         ) as HTMLElement | null;
 
+        // While the sleeve is closed the page behind it is a modal backdrop:
+        // hide it from assistive tech and keep Tab out of it. This is applied
+        // from script, never in the served HTML, so a visitor without script
+        // still gets a fully usable page (see the <noscript> block above).
+        const stage = document.getElementById('gatefold-content');
+        const sealStage = () => {
+          if (!stage) return;
+          stage.setAttribute('aria-hidden', 'true');
+          stage.setAttribute('inert', '');
+        };
+        const freeStage = () => {
+          if (!stage) return;
+          stage.removeAttribute('aria-hidden');
+          stage.removeAttribute('inert');
+        };
+
         const openCover = () => {
           if (isOpen) return;
           isOpen = true;
+          freeStage();
           cover.classList.remove('dragging');
           if (coverLeft) coverLeft.style.transform = '';
           if (coverRight) coverRight.style.transform = '';
@@ -457,7 +484,16 @@ const fullTitle =
           }
         } catch {}
 
+        if (isOpen) {
+          freeStage();
+        } else {
+          sealStage();
+        }
+
         btn.addEventListener('click', openCover);
+        document.getElementById('skip-link')?.addEventListener('click', () => {
+          openCover();
+        });
         btn.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
