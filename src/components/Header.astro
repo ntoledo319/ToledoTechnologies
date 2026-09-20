@@ -3,6 +3,11 @@ const currentPath = Astro.url.pathname;
 
 const navLinks = [
   { href: '/services', label: 'Services' },
+  // The one nav entry that leads to something with a published price you
+  // can pay for now. /engagements carries the fixed-scope prices and links
+  // on to /buy/file-conversion; the footer's "Buy Directly" column carries
+  // the rest, including /kit/, which nothing else on the site links to.
+  { href: '/engagements', label: 'Buy' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/case-studies', label: 'Field Notes' },
   { href: '/blog', label: 'Blog' },
