@@ -65,7 +65,13 @@
   position: relative;
   flex: 1;
   height: 100%;
-  background: var(--gf-paper-100);
+  /* Every glyph on the sleeve is white or near-white, and the only thing that
+     ever made that legible was the dark hero photograph painting over this
+     ground. Until it decodes — or if it never does — a paper-100 ground renders
+     the eyebrow, both track lists, every route label and the spine rails as
+     white on cream. The parent .cover and the <body> both use --gf-void; so
+     does the photograph. This is the ground the design already assumes. */
+  background: var(--gf-void);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transition:
