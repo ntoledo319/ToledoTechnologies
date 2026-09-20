@@ -3,12 +3,18 @@ import InsertLayout from '../layouts/InsertLayout.astro';
 import { breadcrumbSchema, faqSchema } from '../utils/jsonld';
 
 /*
- * Paste the Stripe Payment Link URL here once it exists (it does not yet).
- * Until then the page says so plainly and routes buyers to email instead of
- * showing a button that goes nowhere. Typed as `string` on purpose so the
- * empty-string branch stays reachable for the type checker.
+ * WITHDRAWN 2026-09-14. This product offered Excel workbooks in and out; the
+ * tooling behind it reads and writes delimited and structured text only, so
+ * the offer was pulled rather than sold and part-delivered. The Stripe
+ * Payment Link was deactivated on the same day.
+ *
+ * Leave this empty. Do not paste a Payment Link here again unless the
+ * delivery path can genuinely read and write the formats this page names —
+ * see the withdrawal notice rendered below, which is what buyers now see.
+ * Typed as `string` on purpose so the empty-string branch stays reachable
+ * for the type checker.
  */
-const PAYMENT_LINK: string = 'https://buy.stripe.com/14A9AT07I7le8Jt2sI87K0f';
+const PAYMENT_LINK: string = '';
 
 const PRICE_USD = 450;
 const AGREEMENT_VERSION = '2026-09-11';
@@ -78,16 +84,18 @@ const offerSchema = {
   name: 'Two-file reconciliation',
   serviceType: 'Data reconciliation',
   description:
-    'A fixed-scope comparison of two data files. You send two CSV, TSV or XLSX files and the key column that identifies a row. You get back a workbook showing matched, differing, only-in-A and only-in-B rows with counts that reconcile, and a script that re-runs it.',
+    'Withdrawn and not for sale. This fixed-scope comparison of two data files offered Excel workbooks in and out; the tooling behind it reads and writes delimited and structured text only, so the offer was pulled. Nothing on this page can be bought or invoiced.',
   provider: { '@id': 'https://toledotechnologies.com/#organization' },
   areaServed: { '@type': 'Place', name: 'Worldwide' },
   termsOfService: 'https://toledotechnologies.com/file-reconciliation/',
   offers: {
     '@type': 'Offer',
-    price: String(PRICE_USD),
-    priceCurrency: 'USD',
+    // No price is published because nothing here is for sale. Discontinued is
+    // the machine-readable half of the withdrawal notice on the page itself;
+    // without it an aggregator keeps advertising a US$450 offer that does not
+    // exist.
     url: 'https://toledotechnologies.com/file-reconciliation/',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/Discontinued',
     category: 'Fixed-scope professional service'
   }
 };
@@ -103,12 +111,24 @@ const jsonLd = [
 ---
 
 <InsertLayout
-  title={`Two-file reconciliation — US$${PRICE_USD}`}
-  description="Send two CSV, TSV or Excel files and the column that identifies a row. Get back a workbook of matched, differing and unmatched rows with counts that reconcile, plus a script that re-runs it. Fixed price, fixed scope, no call."
+  title="Two-file reconciliation — withdrawn"
+  description="Withdrawn and not for sale. This product offered Excel workbooks in and out; the tooling behind it reads and writes delimited and structured text only. The terms it was published under are kept below for anyone who read them."
   jsonLd={jsonLd}
   heading="Two-file reconciliation"
-  subheading={`US$${PRICE_USD}. You send two files and a key. You get back exactly where they disagree.`}
+  subheading="Withdrawn. This is not for sale and cannot be invoiced."
 >
+  <p class="tt-withdrawn">
+    <strong>This product has been withdrawn and is not for sale.</strong> It
+    offered Excel workbooks in and out; the tooling behind it reads and writes
+    delimited text only, so the offer was pulled rather than sold and
+    part-delivered. Nothing on this page can be bought or invoiced. If you need
+    two delimited files (CSV or TSV) compared with every row accounted for, the
+    <a href="/kit/">Migration Acceptance Kit</a> does exactly that.
+  </p>
+  <p class="tt-withdrawn-note">
+    Everything below is the specification this was published under, kept
+    unedited so anyone who read it can still check what it said.
+  </p>
   <p>
     Two files are supposed to say the same thing. The export and the report. The
     invoice list and the bank line items. Last month's inventory and this
@@ -116,10 +136,10 @@ const jsonLd = [
     lookups that nobody can check afterwards.
   </p>
   <p>
-    This is one bounded piece of work with a published price. Everything it
-    covers and everything it refuses is on this page. There is no call, no
-    quote, and no proposal — comparing two files is fully specified by the two
-    files and the key, so there is nothing for a conversation to discover.
+    This was one bounded piece of work with a published price. Everything it
+    covered and everything it refused is on this page. It is no longer offered,
+    for the reason stated at the top: the formats it named were not formats the
+    delivery path could actually read or write.
   </p>
 
   <p class="tt-buy">
@@ -130,13 +150,13 @@ const jsonLd = [
         </a>
       ) : (
         <span>
-          <strong>Checkout is not open for this yet.</strong> The card checkout
-          is being set up. Until it is live, email{' '}
-          <a href="mailto:dev@toledotechnologies.com">
-            dev@toledotechnologies.com
-          </a>{' '}
-          with the subject <em>Reconciliation</em> and you will get an invoice
-          for US${PRICE_USD} under exactly the terms written below.
+          <strong>This product has been withdrawn and is not for sale.</strong>{' '}
+          It offered Excel workbooks in and out; the tooling behind it reads and
+          writes delimited text only, so the offer was pulled rather than sold
+          and part-delivered. Nothing on this page can be bought or invoiced. If
+          you need two delimited files (CSV or TSV) compared with every row
+          accounted for, the <a href="/kit/">Migration Acceptance Kit</a> does
+          exactly that.
         </span>
       )
     }
@@ -527,12 +547,10 @@ const jsonLd = [
         </a>
       ) : (
         <span>
-          Card checkout is not open yet. Email{' '}
-          <a href="mailto:dev@toledotechnologies.com">
-            dev@toledotechnologies.com
-          </a>{' '}
-          with the subject <em>Reconciliation</em> to be invoiced under these
-          terms.
+          <strong>This product has been withdrawn and is not for sale.</strong>{' '}
+          Nothing on this page can be bought or invoiced. For two delimited
+          files (CSV or TSV) compared with every row accounted for, see the{' '}
+          <a href="/kit/">Migration Acceptance Kit</a>.
         </span>
       )
     }
@@ -581,6 +599,20 @@ const jsonLd = [
     overflow-x: auto;
     white-space: pre;
     tab-size: 2;
+  }
+
+  .tt-withdrawn {
+    margin: 0 0 1rem;
+    padding: 1.1rem 1.25rem;
+    border: 2px solid var(--gf-accent);
+    font-family: var(--gf-font-novel);
+    line-height: 1.7;
+  }
+  .tt-withdrawn-note {
+    margin: 0 0 2.2em;
+    font-family: var(--gf-font-novel);
+    font-size: 0.92rem;
+    opacity: 0.75;
   }
 
   .tt-buy {
