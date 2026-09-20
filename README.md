@@ -74,6 +74,16 @@ builds with zero configuration.
 Rollback: repoint the `current` symlink to a previous release on the VPS (the
 newest 5 are retained), or revert the commit and push.
 
+The deploy replaces the whole tree, so anything absent from `dist/` stops
+existing the moment the symlink swaps — a build from a branch that never had a
+page would delete it from the live site without a single error. The
+**revenue-page guard** step in `deploy.yml` runs before the upload and fails the
+job if any of `buy/file-conversion`, `buy/gtfs-feed-check`, `kit`,
+`engagements`, `listing`, `order/complete`, `order/reconciliation`, `proofs` or
+`file-reconciliation` is missing from `dist/`, or if `catalog.json` or
+`llms.txt` did not build. Adding or renaming a purchase path means updating that
+list in the same commit.
+
 ## Post-Launch SEO Checklist
 
 After deploying to production:
@@ -124,26 +134,14 @@ tldr: 'One-sentence summary'
 ---
 ```
 
-### Codebase references
+### Codebase references — retired
 
-Add capability references to `src/content/codebases/`. This collection is not a
-storefront; pricing, inventory, checkout, license-availability, and support-sale
-fields are intentionally absent from the schema.
-
-```yaml
----
-title: 'Product Name'
-tagline: 'Short tagline'
-description: 'Full description'
-status: 'reference' # or "active" or "archived"
-category: 'Security'
-tags: ['tag1', 'tag2']
-features: ['Feature 1', 'Feature 2']
-included: ['Item 1', 'Item 2']
-targetAudience: ['Audience 1', 'Audience 2']
-order: 1
----
-```
+There is no `src/content/codebases/` collection. The capability archive, its
+routes and its schema were deleted; `src/content/` now holds `blog` and
+`case-studies` only. Do not re-add the collection to document a product —
+anything buyable belongs on a page under `src/pages/buy/`, `src/pages/kit/` or
+`src/pages/engagements.astro`, where the price and the refund condition are
+published together.
 
 ### Proof and field notes
 
@@ -179,12 +177,24 @@ routing; `source`, `product`, `service`, and `context` travel as hidden metadata
 
 ## Truth contracts
 
-- `/codebases/` is a reference archive, not a sale or licensing surface.
 - `/case-studies/` contains labeled research and samples, not implied clients.
 - `/portfolio/` separates reference builds, research notes, and sample outputs.
 - `/checkout-success/` is retained only as a no-index retired-route notice.
 - Contact links may pass `service` and `subject`; `/contact/` preserves both in
   lead metadata and makes the routing context visible to the visitor.
+- `/file-reconciliation/` is withdrawn, not sold. The page renders a withdrawal
+  notice, its `PAYMENT_LINK` constant is deliberately the empty string, and its
+  JSON-LD publishes `availability: Discontinued` with no price so aggregators
+  stop advertising the offer. Do not paste a Payment Link back in unless the
+  delivery path can genuinely read and write the formats the page names.
+- The capability list in `src/data/listing.ts` is republished verbatim by third
+  parties, so it names only what the tooling does. Delimited and structured text
+  only — Excel workbooks are neither read nor written, and that wording must
+  stay in step with `/engagements/` and `public/llms.txt`.
+- `/policies/` states the refund terms per rail in its own words. It no longer
+  defers to "the signed agreement", which does not exist for a one-click card
+  purchase. `/terms/` names Connecticut law and Fairfield County venue, and
+  `/privacy/` discloses the Cloudflare Web Analytics beacon the site loads.
 - The source-contract tests in `src/test/truth-contract.test.ts` protect these
   boundaries from copy drift.
 

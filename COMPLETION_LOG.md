@@ -37,3 +37,35 @@ Verification completed after the final edits:
   responses, console errors, overflow, real anchors, intake field counts,
   email-only required fields, acknowledgement states, legal/retirement routes,
   disclosure controls, and minimum touch targets. No form was submitted.
+
+## 2026-09-20 — Documentation caught up with the deployed storefront
+
+Append-only: nothing above this line was edited.
+
+The storefront truth and reachability work shipped to `main` as `585a357` and
+the live site serves it, but this repository's own docs still described the
+world before it. Corrected in place, because each statement was false rather
+than merely old:
+
+- `README.md` — the "Codebase references" section told an author to add files to
+  `src/content/codebases/`. That collection, its routes and its schema were
+  deleted; `src/content/` holds `blog` and `case-studies` only. The section now
+  says so and points at `src/pages/buy/`, `src/pages/kit/` and
+  `src/pages/engagements.astro` instead.
+- `README.md` — the truth-contract list opened with "`/codebases/` is a
+  reference archive", a claim about a route that no longer exists. Replaced with
+  the contracts that are now load-bearing: the withdrawn `/file-reconciliation/`
+  SKU, the capability wording in `src/data/listing.ts`, and the per-rail refund
+  terms on `/policies/`.
+- `README.md` — the Deployment section described the CI pipeline without the
+  revenue-page guard that now runs before the upload. Documented, including the
+  fact that adding or renaming a purchase path means updating the guard's list
+  in the same commit.
+- `AGENTS.md` — listed `src/content/codebases/` as a live content collection.
+  Corrected.
+
+`CHANGELOG.md` carries a new dated `[2026-09-20]` section for the shipped work.
+The existing `[Unreleased]` block was left exactly as written.
+
+No page, price, route, asset or workflow was changed in this pass. Nothing was
+built, deployed or pushed to a provider — documentation only.
