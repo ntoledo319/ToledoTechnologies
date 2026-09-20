@@ -179,7 +179,10 @@ routing; `source`, `product`, `service`, and `context` travel as hidden metadata
 
 - `/case-studies/` contains labeled research and samples, not implied clients.
 - `/portfolio/` separates reference builds, research notes, and sample outputs.
-- `/checkout-success/` is retained only as a no-index retired-route notice.
+- There is no `/checkout-success/` route. Post-checkout pages live under
+  `src/pages/order/` — `/order/complete/`, `/order/cancelled/` and
+  `/order/reconciliation/` — all `noindex`, and all named in the deploy
+  guard's list so a build cannot drop one.
 - Contact links may pass `service` and `subject`; `/contact/` preserves both in
   lead metadata and makes the routing context visible to the visitor.
 - `/file-reconciliation/` is withdrawn, not sold. The page renders a withdrawal

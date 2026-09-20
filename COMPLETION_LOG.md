@@ -61,6 +61,10 @@ than merely old:
   revenue-page guard that now runs before the upload. Documented, including the
   fact that adding or renaming a purchase path means updating the guard's list
   in the same commit.
+- `README.md` — the same list claimed `/checkout-success/` was "retained only as
+  a no-index retired-route notice". That route does not exist; the post-checkout
+  pages are `/order/complete/`, `/order/cancelled/` and
+  `/order/reconciliation/`, all `noindex` and all named in the deploy guard.
 - `AGENTS.md` — listed `src/content/codebases/` as a live content collection.
   Corrected.
 
