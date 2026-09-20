@@ -55,6 +55,37 @@ jobs:
           # Build stamp so the verify step can prove the NEW build is live.
           printf '%s\n' "$GITHUB_SHA" > dist/version.txt
 
+      # The deploy replaces the whole tree: anything absent from dist/ stops
+      # existing the moment the symlink swaps. A build from a branch that never
+      # had these pages would therefore delete every purchase path on the site
+      # without a single error. Fail the deploy instead.
+      - name: Revenue-page guard (a deploy must never drop a purchase path)
+        run: |
+          set -euo pipefail
+          missing=0
+          for p in \
+            buy/file-conversion \
+            buy/gtfs-feed-check \
+            kit \
+            engagements \
+            listing \
+            order/complete \
+            order/reconciliation \
+            proofs \
+            file-reconciliation
+          do
+            if [ ! -f "dist/$p/index.html" ]; then
+              echo "MISSING revenue page: /$p/"
+              missing=1
+            fi
+          done
+          test -f dist/catalog.json || { echo "MISSING dist/catalog.json"; missing=1; }
+          test -f dist/llms.txt     || { echo "MISSING dist/llms.txt";     missing=1; }
+          if [ "$missing" -ne 0 ]; then
+            echo "Refusing to deploy: this build would remove live pages."
+            exit 1
+          fi
+
       - name: Deploy to VPS (atomic release over SSH)
         env:
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
