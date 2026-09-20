@@ -1,4 +1,5 @@
 ---
+import '../styles/kit.css';
 import InsertLayout from '../layouts/InsertLayout.astro';
 import { breadcrumbSchema } from '../utils/jsonld';
 
@@ -10,11 +11,41 @@ const jsonLd = breadcrumbSchema([
 
 <InsertLayout
   title="Fixed-scope engagements"
-  description="Three bounded pieces of work with published prices, defined acceptance tests, and payment after you verify the result."
+  description="Three bounded pieces of work with published prices and written acceptance tests. Integration triage and the evaluation harness are paid after you verify the result; file conversion is a fixed US$850 product you can buy by card."
   jsonLd={jsonLd}
   heading="Fixed-scope engagements"
-  subheading="Published prices. Defined acceptance. You pay after it passes."
+  subheading="Published prices and a written acceptance test. Two of the three you pay only after that test passes — the third you can buy by card right now."
 >
+  <nav class="offer-index" aria-label="The three engagements and their prices">
+    <p class="offer-index-kicker">Three engagements &middot; published prices</p>
+    <ol>
+      <li>
+        <a href="#file-conversion"
+          ><span class="offer-index-name">File conversion</span><span
+            class="offer-index-price">US$850</span
+          ></a
+        >
+        <span class="offer-index-terms">Buy by card &mdash; no call, no quote</span>
+      </li>
+      <li>
+        <a href="#integration-triage"
+          ><span class="offer-index-name">Integration triage</span><span
+            class="offer-index-price">US$1,200</span
+          ></a
+        >
+        <span class="offer-index-terms">Paid on acceptance &mdash; refunded if we cannot reproduce it</span>
+      </li>
+      <li>
+        <a href="#evaluation-harness"
+          ><span class="offer-index-name">Test or evaluation harness</span><span
+            class="offer-index-price">US$2,200</span
+          ></a
+        >
+        <span class="offer-index-terms">Paid on acceptance</span>
+      </li>
+    </ol>
+  </nav>
+
   <p>
     Most technical work is quoted after a discovery call, a scoping document and
     a proposal. That is three weeks before anyone writes a line of code, and it
@@ -27,7 +58,7 @@ const jsonLd = breadcrumbSchema([
     — so you can decide in one reply instead of three meetings.
   </p>
 
-  <h2>1. File conversion — US$850</h2>
+  <h2 id="file-conversion">1. File conversion — US$850</h2>
   <p>
     You have an export from a system you are leaving, or a file in a shape
     nothing else will read. You need it in a schema something else accepts,
@@ -55,7 +86,7 @@ const jsonLd = breadcrumbSchema([
     50,000 rows. Larger or multi-format work is quoted separately.
   </p>
 
-  <h2>2. Integration triage — US$1,200, refunded if we cannot reproduce it</h2>
+  <h2 id="integration-triage">2. Integration triage — US$1,200, refunded if we cannot reproduce it</h2>
   <p>
     Something that used to work is failing intermittently, silently, or only in
     production. Before anyone should be paid to fix it, someone has to prove
@@ -73,7 +104,7 @@ const jsonLd = breadcrumbSchema([
     We would rather return the fee than hand you a confident guess.
   </p>
 
-  <h2>3. Reproducible test or evaluation harness — US$2,200</h2>
+  <h2 id="evaluation-harness">3. Reproducible test or evaluation harness — US$2,200</h2>
   <p>
     You have a system whose output quality you assert but cannot re-verify on
     demand — a model, a classifier, a matching or extraction step. You need a

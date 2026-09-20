@@ -1,6 +1,7 @@
+.novel-container .kit-kicker,
 .kit-kicker {
   margin: 0 0 1rem;
-  font: 600 0.75rem/1.6 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 600 0.75rem/1.6 var(--gf-font-mono, 'JetBrains Mono', monospace);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -10,13 +11,13 @@
   margin: 1.5rem 0;
   padding: 1.1rem;
   border: 1px solid rgb(0 0 0 / 20%);
-  font: 0.82rem/1.9 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 0.82rem/1.9 var(--gf-font-mono, 'JetBrains Mono', monospace);
   white-space: pre;
 }
 .kit-hash {
   display: block;
   overflow-wrap: anywhere;
-  font: 0.75rem/1.8 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 0.75rem/1.8 var(--gf-font-mono, 'JetBrains Mono', monospace);
 }
 .kit-table-wrap {
   max-width: 100%;
@@ -37,13 +38,13 @@
 }
 .kit-table thead th {
   border-bottom-width: 2px;
-  font: 600 0.72rem/1.7 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 600 0.72rem/1.7 var(--gf-font-mono, 'JetBrains Mono', monospace);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .kit-table td:first-child {
   white-space: nowrap;
-  font: 0.85rem/1.7 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 0.85rem/1.7 var(--gf-font-mono, 'JetBrains Mono', monospace);
 }
 .kit-offers {
   display: grid;
@@ -67,7 +68,7 @@
 }
 .kit-price {
   margin: 0 0 0.25rem;
-  font: 700 1.9rem/1.2 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 700 1.9rem/1.2 var(--gf-font-mono, 'JetBrains Mono', monospace);
 }
 .kit-offer-who {
   margin: 0 0 1rem;
@@ -88,7 +89,7 @@
   min-height: 48px;
   padding: 0.65rem 1.4rem;
   border: 1px solid currentColor;
-  font: 600 0.82rem/1.5 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 600 0.82rem/1.5 var(--gf-font-mono, 'JetBrains Mono', monospace);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
@@ -118,6 +119,89 @@
   overflow-x: auto;
   padding: 1.5rem;
   border: 1px solid rgb(0 0 0 / 18%);
-  font: 0.78rem/1.75 var(--font-mono, 'JetBrains Mono', monospace);
+  font: 0.78rem/1.75 var(--gf-font-mono, 'JetBrains Mono', monospace);
   white-space: pre-wrap;
+}
+
+/* =========================================================
+   OFFER INDEX — the price list, at the top, in the first screen.
+   Borrows the Side A tracklist idiom from the home page: name left,
+   price right, hairline rules between, no box. It is the one piece of
+   the record sleeve that belongs on a page whose job is to sell.
+   ========================================================= */
+.offer-index {
+  margin: 0 0 2.5rem;
+}
+.novel-container .offer-index-kicker,
+.offer-index-kicker {
+  margin: 0 0 0.4rem;
+  font: 600 0.68rem/1.6 var(--gf-font-mono, 'JetBrains Mono', monospace);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gf-ink-500, #6b625c);
+}
+.offer-index ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(0 0 0 / 14%);
+}
+.offer-index li {
+  border-bottom: 1px solid rgb(0 0 0 / 14%);
+  padding: 0;
+}
+.offer-index li > a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 48px;
+  padding: 0.75rem 0 0.15rem;
+  color: var(--gf-ink-900, #1b1613);
+  text-decoration: none;
+}
+.offer-index li > a:hover .offer-index-name {
+  color: var(--gf-accent-deep, #8a4a24);
+}
+.offer-index-name {
+  font-family: var(--gf-font-display, 'Outfit', system-ui, sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.offer-index-price {
+  flex: none;
+  font: 700 clamp(1rem, 2.2vw, 1.25rem) / 1.2
+    var(--gf-font-mono, 'JetBrains Mono', monospace);
+  color: var(--gf-accent-deep, #8a4a24);
+  white-space: nowrap;
+}
+.offer-index-terms {
+  display: block;
+  padding-bottom: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--gf-ink-500, #6b625c);
+}
+
+/* The purchase control is the primary action on a purchase page. It has to
+   outrank the "Get a Quote" pill in the header, not whisper underneath it. */
+.novel-container a.kit-buy,
+a.kit-buy {
+  background: var(--gf-ink-900, #1b1613);
+  border-color: var(--gf-ink-900, #1b1613);
+  color: var(--gf-paper-50, #fbf8f4);
+  text-decoration: none;
+}
+.novel-container a.kit-buy:hover,
+a.kit-buy:hover {
+  background: var(--gf-accent-deep, #8a4a24);
+  border-color: var(--gf-accent-deep, #8a4a24);
+  color: var(--gf-paper-50, #fbf8f4);
+}
+.novel-container a.kit-buy:focus-visible,
+a.kit-buy:focus-visible {
+  outline: 3px solid var(--gf-accent-deep, #8a4a24);
+  outline-offset: 4px;
 }

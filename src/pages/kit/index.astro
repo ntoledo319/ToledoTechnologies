@@ -82,6 +82,25 @@ const targetBuckets = [
 >
   <p class="kit-kicker">Downloadable product &middot; version {KIT_VERSION}</p>
 
+  {KIT_ON_SALE && (
+    <nav class="offer-index" aria-label="Licences and prices">
+      <p class="offer-index-kicker">
+        Perpetual licence &middot; full source &middot; {KIT_TEST_COUNT} tests
+      </p>
+      <ol>
+        {KIT_OFFERS.map((offer) => (
+          <li>
+            <a href="#price">
+              <span class="offer-index-name">{offer.name}</span>
+              <span class="offer-index-price">US${offer.price}</span>
+            </a>
+            <span class="offer-index-terms">{offer.who}</span>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
   {!KIT_ON_SALE && (
     <p class="kit-note">
       <strong>You cannot buy this yet, and there is nothing here to download
@@ -239,7 +258,7 @@ const targetBuckets = [
     licence warrants only what was actually run.
   </p>
 
-  <h2>Price</h2>
+  <h2 id="price">Price</h2>
   <div class="kit-offers">
     {KIT_OFFERS.map((offer) => (
       <div class="kit-offer">
