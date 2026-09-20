@@ -44,6 +44,29 @@ The payment rule is not the same for all three: file conversion is bought up
 front, the other two are paid on acceptance.
 Details: https://toledotechnologies.com/engagements/
 
+## Products bought with a card, no email first
+
+- Migration Acceptance Kit — US$240 single-organisation licence, US$600
+  consultancy licence, at https://toledotechnologies.com/kit/
+  One Python file and a written procedure that puts every source row and every
+  target row into exactly one bucket, then asserts the bucket totals equal the
+  raw row counts read from each file. Full source, modifiable, no licence key
+  and no expiry. Delimited text input. Delivery is immediate and automatic: the
+  encrypted archive is published on the site and paying reveals the release key
+  on the checkout confirmation page — no account, no login, no download portal.
+  Refunded within 30 days on request, no reason needed.
+
+- GTFS feed check — US$99, at
+  https://toledotechnologies.com/buy/gtfs-feed-check/
+  One public GTFS Schedule feed URL, entered at checkout. One written report by
+  email within 24 hours, covering every check run over every file the GTFS
+  specification defines in that feed, each finding stated as what is literally
+  true of the published bytes, with the affected rows listed and a command to
+  reproduce the number. Not a fix, not a validator certification, and not an
+  opinion about the schedule or the service. Excludes GTFS-Realtime and any
+  file that cannot be downloaded without a login. Full refund within two
+  business days if the URL cannot be fetched or is not a GTFS zip.
+
 ## Bad fit, stated plainly
 - Call-heavy work. Delivery is written and asynchronous; no standups, no live
   debugging sessions.
@@ -54,8 +77,9 @@ Details: https://toledotechnologies.com/engagements/
 
 ## What is actually worked with
 Python, JavaScript, TypeScript, Node, SQL, shell. Astro for static sites.
-CSV, TSV, fixed-width, JSON, XML, Excel output; schema mapping; reconciliation
-against a source of truth; deduplication with a stated policy.
+CSV, TSV, fixed-width, JSON, XML — delimited and structured text only, not
+Excel workbooks; schema mapping; reconciliation against a source of truth;
+deduplication with a stated policy.
 REST and webhook integration, request signing, retry and idempotency behaviour,
 failure queues, API debugging against real traffic.
 Automated test suites, reproducible evaluation harnesses, failure-path testing.

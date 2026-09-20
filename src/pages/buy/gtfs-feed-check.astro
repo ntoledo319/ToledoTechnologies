@@ -1,0 +1,95 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+// One definition of the buy button for every purchase page: 48px target,
+// visible focus ring, same treatment as /kit/ and /buy/file-conversion/.
+import '../../styles/kit.css';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Fixed-scope engagements', url: '/engagements' },
+  { name: 'GTFS feed check', url: '/buy/gtfs-feed-check' }
+]);
+
+/*
+ * Stripe Payment Link for the US$99 GTFS feed check. Recorded active and in
+ * livemode on 2026-09-15 in the operation evidence directory
+ * (evidence/feed-report-link.json). It carries one custom field, feed_url.
+ *
+ * The body copy below is the scope text hashed into that link's metadata and
+ * shown at checkout (code/feed-report/scope.txt). If one changes, change both
+ * in the same commit, or the page and the checkout stop agreeing.
+ */
+const PAY = 'https://buy.stripe.com/7sY7sL2fQdJC0cX2sI87K0q';
+---
+
+<InsertLayout
+  title="Buy: GTFS feed check — US$99"
+  description="One public GTFS Schedule feed, one written report by email within 24 hours. Every check named, every finding stated as what is literally true of the published bytes, with a command to reproduce each number."
+  jsonLd={jsonLd}
+  heading="GTFS feed check"
+  subheading="US$99. One feed, one report, by email within 24 hours."
+>
+  <p>
+    This is a bounded product, not an open-ended engagement. The scope below is
+    the whole of it. Paying is your acceptance of exactly this, which is why it
+    is written out in full rather than summarised.
+  </p>
+
+  <p>
+    <a href={PAY} rel="noopener" class="kit-buy">Buy this — US$99</a>
+  </p>
+
+  <h2>What you give us</h2>
+  <p>
+    The public URL of one GTFS Schedule feed (a <code>.zip</code>), entered on
+    the checkout page. Your card receipt email is where the report goes.
+  </p>
+
+  <h2>What you get back</h2>
+  <p>
+    By email within 24 hours: a written report of every check we run, over every
+    file the GTFS specification defines in that feed — expiry and service dates,
+    duplicate identifiers, dangling references between files, coordinates,
+    headers, row widths, encoding, dates, leading zeros, scientific notation,
+    whitespace.
+  </p>
+  <p>
+    Each finding is stated as what is literally true of the published bytes,
+    with the affected rows listed and a one-line command you can paste to
+    reproduce the number yourself. If a check finds nothing, the report says so,
+    for that check, by name. Files the specification does not define are named
+    as not examined.
+  </p>
+
+  <h2>What it is not</h2>
+  <p>
+    It is not a fix, not a GTFS validator certification, not an opinion about
+    your schedule or your service, and not a review of anything except the file
+    at that URL at the moment we fetch it. It does not include GTFS-Realtime,
+    fares beyond the schedule files, or any file we cannot download without a
+    login. We will not contact you again unless you reply.
+  </p>
+
+  <h2>If it does not fit</h2>
+  <p>
+    If the URL cannot be fetched or is not a GTFS zip, you get an email saying
+    exactly that, and <strong>a full refund within two business days</strong>.
+  </p>
+
+  <h2>Who you are buying from</h2>
+  <p>
+    Toledo Technologies LLC is a US company, and it is AI-operated: the report
+    is produced by software and read by nobody before it reaches you, with the
+    company accountable for delivery. Invoiced and collected in USD. Work is
+    asynchronous and delivered in writing — there are no calls. If that is not
+    how you want to work, this is the wrong supplier and you should not buy.
+  </p>
+  <p>
+    Other fixed-price work is listed at <a href="/engagements">/engagements</a>.
+  </p>
+
+  <p>
+    <a href={PAY} rel="noopener" class="kit-buy">Buy this — US$99</a>
+  </p>
+</InsertLayout>

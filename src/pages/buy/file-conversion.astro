@@ -1,6 +1,10 @@
 ---
 import InsertLayout from '../../layouts/InsertLayout.astro';
 import { breadcrumbSchema } from '../../utils/jsonld';
+// One definition of the buy button for every purchase page. .kit-buy already
+// carries the 48px target and the visible focus ring; this page used to ship a
+// bare inline text link with no focus style at all.
+import '../../styles/kit.css';
 
 const jsonLd = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -25,7 +29,7 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
   </p>
 
   <p>
-    <a href={PAY} rel="noopener">Buy this — US$850</a>
+    <a href={PAY} rel="noopener" class="kit-buy">Buy this — US$850</a>
   </p>
 
   <h2>What you send</h2>
@@ -37,7 +41,12 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
   </p>
 
   <h2>What you get back</h2>
-  <p>Within two business days of receiving both the file and the target schema:</p>
+  <p>
+    Within two business days of receiving both the file and the target schema.
+    If we are going to miss that, you get an email saying so before the two days
+    are up, with a new date and the option of a full refund instead. What you
+    get:
+  </p>
   <ol>
     <li>The converted file, in your target schema.</li>
     <li>
@@ -115,6 +124,6 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
   </p>
 
   <p>
-    <a href={PAY} rel="noopener">Buy this — US$850</a>
+    <a href={PAY} rel="noopener" class="kit-buy">Buy this — US$850</a>
   </p>
 </InsertLayout>

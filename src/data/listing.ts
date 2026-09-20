@@ -248,7 +248,11 @@ export const capabilities = {
     'fixed-width',
     'JSON',
     'XML',
-    'Excel output',
+    // Delimited and structured text only. Excel workbooks are neither read
+    // nor written — the delivery path has no xlsx reader or writer at all.
+    // This list is written for third parties to republish verbatim, so a
+    // capability that does not exist must never appear in it.
+    'delimited and structured text only — not Excel workbooks',
     'schema mapping',
     'reconciliation against a source of truth',
     'deduplication with a stated policy'
