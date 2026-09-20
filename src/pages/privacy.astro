@@ -7,7 +7,7 @@ const jsonLd = breadcrumbSchema([
   { name: 'Privacy Policy', url: '/privacy' }
 ]);
 
-const lastUpdated = 'July 14, 2026';
+const lastUpdated = 'September 19, 2026';
 ---
 
 <InsertLayout
@@ -19,9 +19,10 @@ const lastUpdated = 'July 14, 2026';
 >
   <h2>Overview</h2>
   <p>
-    Toledo Technologies ("we," "us," or "our") respects your privacy. This
+    Toledo Technologies LLC ("we," "us," or "our") respects your privacy. This
     policy explains how we collect, use, and protect information when you use
-    our website at toledotechnologies.com.
+    toledotechnologies.com, any subdomain of toledotechnologies.com, and any
+    other site or checkout operated by Toledo Technologies LLC.
   </p>
 
   <h2>Information We Collect</h2>
@@ -36,10 +37,17 @@ const lastUpdated = 'July 14, 2026';
 
   <h3>Automatic Information</h3>
   <p>
-    This site does not currently load a client-side analytics or advertising
-    tracker. Like any web host, the server and security layer may process
-    ordinary request data such as IP address, browser, requested path, and
-    timestamp for delivery, reliability, and abuse prevention.
+    This site loads Cloudflare Web Analytics, a measurement script served from
+    static.cloudflareinsights.com. It records page views and basic technical
+    detail — the page address, the referring page, browser and device type, and
+    country. Cloudflare states that it does this without cookies and without
+    fingerprinting visitors. We use it only to see which pages are read; it is
+    not an advertising tracker and we run no ad network on this site.
+  </p>
+  <p>
+    Like any web host, the server and security layer may also process ordinary
+    request data such as IP address, browser, requested path, and timestamp for
+    delivery, reliability, and abuse prevention.
   </p>
 
   <h2>How We Use Information</h2>
@@ -62,6 +70,23 @@ const lastUpdated = 'July 14, 2026';
     <li>When required by law or to protect our rights</li>
     <li>With your consent</li>
   </ul>
+
+  <h2>Payments</h2>
+  <p>
+    We do not collect or store your card number. Card payments are processed by
+    Stripe, Inc. Depending on which product you buy, a purchase may instead be
+    processed by Gumroad, PayPal, Polar, or the Microsoft Store. That processor
+    collects your payment details directly, under its own privacy policy, and
+    passes us only what we need in order to fulfil and account for the order:
+    your email address, the item, the amount, the currency, the country used for
+    tax, and the brand and last four digits of the card.
+  </p>
+  <p>
+    We use that order record only to deliver your purchase, handle refunds and
+    chargebacks, and meet our tax and accounting obligations, and we keep it for
+    as long as those obligations require — generally up to seven years. We do
+    not sell it and we do not use it for advertising.
+  </p>
 
   <h2>Contact Form</h2>
   <p>
@@ -98,7 +123,8 @@ const lastUpdated = 'July 14, 2026';
 
   <h2>Cookies</h2>
   <p>
-    We do not use advertising cookies. The gatefold homepage uses browser
+    We do not use advertising cookies, and the analytics described above sets
+    none. The gatefold homepage uses browser
     session storage to remember that you opened the sleeve during the current
     tab session; that value is not used to identify you or build a profile.
   </p>
