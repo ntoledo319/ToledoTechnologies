@@ -14,6 +14,16 @@
   font: 0.82rem/1.9 var(--gf-font-mono, 'JetBrains Mono', monospace);
   white-space: pre;
 }
+/* Long commands scroll sideways; the block is focusable so a keyboard user
+   can scroll it too (WCAG 2.1.1), and the ring shows where focus is. */
+.kit-command:focus-visible {
+  outline: 3px solid var(--gf-accent-deep, #8a4a24);
+  outline-offset: 2px;
+}
+.kit-buy-terms {
+  margin-top: -0.4rem;
+  font-size: 0.92em;
+}
 .kit-hash {
   display: block;
   overflow-wrap: anywhere;

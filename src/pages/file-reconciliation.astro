@@ -1,6 +1,6 @@
 ---
 import InsertLayout from '../layouts/InsertLayout.astro';
-import { breadcrumbSchema, faqSchema } from '../utils/jsonld';
+import { breadcrumbSchema } from '../utils/jsonld';
 
 /*
  * WITHDRAWN 2026-09-14. This product offered Excel workbooks in and out; the
@@ -45,39 +45,6 @@ rows_in_B = compared_matched
           + not_one_to_one_B
           + excluded_rows_B`;
 
-const faqs = [
-  {
-    question: 'What exactly do I send?',
-    answer:
-      'Two files (CSV, TSV or XLSX), the name of the column that identifies a row in each file, and the list of columns you want compared. Nothing else, and no call.'
-  },
-  {
-    question: 'What do I get back?',
-    answer:
-      'A workbook with eight sheets — summary, matched, differs, only in A, only in B, not one-to-one A, not one-to-one B, excluded rows — plus a self-contained Python script that regenerates it from the same two files, a README with the exact rule applied to each column, and a note listing every judgement call made.'
-  },
-  {
-    question: 'How long does it take?',
-    answer:
-      'Two business days (Monday to Friday, US Eastern) from the email that contains both files and a complete instruction block.'
-  },
-  {
-    question: 'When is it refunded?',
-    answer:
-      'In full if a key column you named is missing, if a file cannot be parsed or is the wrong format, if a file is over the size limits, or if fewer than 10 percent of keys line up one-to-one. Also in full, for any reason at all, at any point before the result is delivered.'
-  },
-  {
-    question: 'Will you tell me which file is correct?',
-    answer:
-      'No. The report shows where the two files disagree. Deciding which side is right requires knowing your business, and that is not part of this fixed scope.'
-  },
-  {
-    question: 'What happens to rows whose key is duplicated?',
-    answer:
-      'They are listed and counted, never dropped and never guessed at. A key is compared only when it appears exactly once in each file. Any row whose key fails that test — whether it repeats in its own file or in the other one — goes to the not-one-to-one sheet for its side, with the reason on the row.'
-  }
-];
-
 const offerSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -105,8 +72,12 @@ const jsonLd = [
     { name: 'Home', url: '/' },
     { name: 'Two-file reconciliation', url: '/file-reconciliation/' }
   ]),
-  offerSchema,
-  faqSchema(faqs)
+  // No FAQPage node. Its answers (XLSX in, an eight-sheet workbook out, a
+  // two-day turnaround, refund terms) described an offer that no longer
+  // exists, and FAQ markup is lifted into search results without the
+  // withdrawal notice beside it. The published specification below the
+  // notice is the record of what was offered.
+  offerSchema
 ];
 ---
 

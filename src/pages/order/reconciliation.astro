@@ -33,6 +33,18 @@ NORMALIZE: qty = number:0`;
   heading="Send your two files"
   subheading="Nothing starts until this email arrives. It takes about two minutes."
 >
+  <p class="tt-withdrawn" role="note">
+    <strong>This product was withdrawn on 14 September 2026 and is no longer
+    sold.</strong> It promised Excel workbooks, and the tooling behind it reads
+    and writes delimited text only. If a checkout took your payment anyway, do
+    not send files. Email
+    <a href="mailto:dev@toledotechnologies.com?subject=Reconciliation%20refund"
+      >dev@toledotechnologies.com</a
+    > with the reference below and ask for your money back. The terms below
+    already give a full refund, for any reason, before anything is delivered.
+    The rest of this page is kept as it was published.
+  </p>
+
   <h2>This page is not your receipt</h2>
   <p>
     Landing here means your browser finished the checkout. It does not by itself
@@ -160,6 +172,12 @@ NORMALIZE: qty = number:0`;
   }
   li::marker {
     color: var(--gf-accent);
+  }
+
+  .tt-withdrawn {
+    border-left: 3px solid var(--gf-accent-deep);
+    padding: 0.9rem 1.1rem;
+    background: rgba(0, 0, 0, 0.035);
   }
 
   .tt-ref span {
