@@ -51,7 +51,10 @@ const jsonLd = breadcrumbSchema([
   </p>
 
   <p style="margin-top: 2rem; font-size: 0.85em; opacity: 0.65;">
-    Note: this audit fetches the target's <code>/robots.txt</code> from your browser. We don't log it. If you need
+    Note: the address you enter is sent to <code>r.jina.ai</code>, a
+    third-party reader service, which fetches the target's
+    <code>/robots.txt</code> on your behalf; if that fails, your browser asks
+    the site directly. Nothing is sent to Toledo Technologies. If you need
     audit-grade, tamper-evident logging of these checks at scale, that is a
     scoped engagement — describe the workflow and we define the guardrails,
     retention, and acceptance tests.
@@ -73,6 +76,9 @@ const jsonLd = breadcrumbSchema([
   }
   .input-row input {
     flex: 1;
+    /* Without this the input keeps its intrinsic width and pushes the button
+       39px past a 375px screen. */
+    min-width: 0;
     padding: 0.7rem 1rem;
     font-size: 1.05em;
     background: rgba(0, 0, 0, 0.2);
@@ -140,6 +146,17 @@ const jsonLd = breadcrumbSchema([
     blocksAll: boolean;
     flags: { level: 'ok' | 'warn' | 'bad'; msg: string }[];
   };
+
+  // Everything below that reaches innerHTML came from a third party's
+  // robots.txt. Escape it, or a hostile file runs script on this origin.
+  function esc(value: string): string {
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   function normalizeOrigin(input: string): string | null {
     try {
@@ -268,9 +285,9 @@ const jsonLd = breadcrumbSchema([
     const flags = computeFlags({ ...parsed, fetched, httpStatus: status });
 
     let html = '<table>';
-    html += `<tr><th>Target</th><td><code>${robotsUrl}</code></td></tr>`;
+    html += `<tr><th>Target</th><td><code>${esc(robotsUrl)}</code></td></tr>`;
     html += `<tr><th>HTTP status</th><td>${status || '—'}</td></tr>`;
-    html += `<tr><th>User-agents covered</th><td>${parsed.userAgents.length ? parsed.userAgents.map((u) => `<code>${u}</code>`).join(', ') : '—'}</td></tr>`;
+    html += `<tr><th>User-agents covered</th><td>${parsed.userAgents.length ? parsed.userAgents.map((u) => `<code>${esc(u)}</code>`).join(', ') : '—'}</td></tr>`;
     html += `<tr><th>Rule groups</th><td>${parsed.rules.length}</td></tr>`;
     html += `<tr><th>Sitemap declarations</th><td>${parsed.sitemaps.length}</td></tr>`;
     html += `<tr><th>Blocks all crawlers</th><td>${parsed.blocksAll ? '<span class="flag-warn">Yes</span>' : 'No'}</td></tr>`;
@@ -279,28 +296,39 @@ const jsonLd = breadcrumbSchema([
     if (flags.length > 0) {
       html += '<h3 style="margin-top:1.4rem">Compliance read</h3><ul>';
       for (const f of flags) {
-        html += `<li><span class="flag-${f.level}">●</span> ${f.msg}</li>`;
+        html += `<li><span class="flag-${f.level}">●</span> ${esc(f.msg)}</li>`;
       }
       html += '</ul>';
     }
 
     if (parsed.sitemaps.length > 0) {
       html += '<h3 style="margin-top:1.4rem">Sitemaps</h3><ul>';
-      for (const s of parsed.sitemaps) html += `<li><code>${s}</code></li>`;
+      for (const s of parsed.sitemaps) html += `<li><code>${esc(s)}</code></li>`;
       html += '</ul>';
     }
 
     if (text) {
       html += '<h3 style="margin-top:1.4rem">Raw robots.txt</h3>';
-      html += `<pre>${text.replace(/</g, '&lt;')}</pre>`;
+      html += `<pre>${esc(text)}</pre>`;
     }
 
     resultEl.innerHTML = html;
     btn.disabled = false;
   }
 
-  document.getElementById('auditBtn')?.addEventListener('click', audit);
-  document.getElementById('urlInput')?.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Enter') audit();
-  });
+  // The ClientRouter runs this module once, then swaps the page body on
+  // in-site navigation; re-bind whenever a page containing the tool loads.
+  function bindRobotsAudit(): void {
+    const btn = document.getElementById('auditBtn');
+    const input = document.getElementById('urlInput');
+    if (!btn || !input || btn.dataset.bound === 'true') return;
+    btn.dataset.bound = 'true';
+    btn.addEventListener('click', audit);
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') audit();
+    });
+  }
+
+  bindRobotsAudit();
+  document.addEventListener('astro:page-load', bindRobotsAudit);
 </script>
