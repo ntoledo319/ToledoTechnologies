@@ -245,9 +245,18 @@ const jsonLd = breadcrumbSchema([
     }
   }
 
-  ['learners', 'seatCost', 'years', 'growth', 'buildCost'].forEach((id) => {
-    document.getElementById(id)?.addEventListener('input', recompute);
-  });
+  // The ClientRouter runs this module once, then swaps the page body on
+  // in-site navigation; re-bind whenever a page containing the form loads.
+  function bindCostModel(): void {
+    const first = document.getElementById('learners');
+    if (!first || first.dataset.bound === 'true') return;
+    first.dataset.bound = 'true';
+    ['learners', 'seatCost', 'years', 'growth', 'buildCost'].forEach((id) => {
+      document.getElementById(id)?.addEventListener('input', recompute);
+    });
+    recompute();
+  }
 
-  recompute();
+  bindCostModel();
+  document.addEventListener('astro:page-load', bindCostModel);
 </script>

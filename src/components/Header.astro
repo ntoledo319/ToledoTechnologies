@@ -129,23 +129,31 @@ function isActive(href: string): boolean {
 </header>
 
 <script>
-  const menuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const openIcon = document.getElementById('menu-icon-open');
-  const closeIcon = document.getElementById('menu-icon-close');
-
+  // The layouts use Astro's ClientRouter, which swaps the page body on
+  // navigation but runs this module only once. Listeners bound to the first
+  // page's button would be left on a detached node, so after one in-site
+  // navigation the mobile menu stopped opening. Both listeners are delegated
+  // from `document` and look the current elements up at event time.
   const setMenuOpen = (isOpen: boolean) => {
-    mobileMenu?.classList.toggle('hidden', !isOpen);
+    const menuButton = document.getElementById('mobile-menu-button');
+    document.getElementById('mobile-menu')?.classList.toggle('hidden', !isOpen);
     menuButton?.setAttribute('aria-expanded', String(isOpen));
-    openIcon?.classList.toggle('hidden', isOpen);
-    closeIcon?.classList.toggle('hidden', !isOpen);
+    document.getElementById('menu-icon-open')?.classList.toggle('hidden', isOpen);
+    document
+      .getElementById('menu-icon-close')
+      ?.classList.toggle('hidden', !isOpen);
   };
 
-  menuButton?.addEventListener('click', () => {
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const menuButton = target.closest('#mobile-menu-button');
+    if (!menuButton) return;
     setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true');
   });
 
   document.addEventListener('keydown', (event) => {
+    const menuButton = document.getElementById('mobile-menu-button');
     if (
       event.key === 'Escape' &&
       menuButton?.getAttribute('aria-expanded') === 'true'

@@ -215,13 +215,11 @@ const jsonLd = breadcrumbSchema([
 </style>
 
 <script>
-  const input = document.getElementById('urlInput') as HTMLInputElement | null;
-  const button = document.getElementById(
-    'auditBtn'
-  ) as HTMLButtonElement | null;
-  const status = document.getElementById('status');
-
+  // Looked up at call time: the ClientRouter swaps the page body on in-site
+  // navigation but runs this module once, so cached elements go stale.
   function openPageSpeed(): void {
+    const input = document.getElementById('urlInput') as HTMLInputElement | null;
+    const status = document.getElementById('status');
     if (!input || !status) return;
 
     try {
@@ -240,8 +238,17 @@ const jsonLd = breadcrumbSchema([
     }
   }
 
-  button?.addEventListener('click', openPageSpeed);
-  input?.addEventListener('keydown', (event: KeyboardEvent) => {
-    if (event.key === 'Enter') openPageSpeed();
-  });
+  function bindSpeedTest(): void {
+    const input = document.getElementById('urlInput');
+    const button = document.getElementById('auditBtn');
+    if (!input || !button || button.dataset.bound === 'true') return;
+    button.dataset.bound = 'true';
+    button.addEventListener('click', openPageSpeed);
+    input.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Enter') openPageSpeed();
+    });
+  }
+
+  bindSpeedTest();
+  document.addEventListener('astro:page-load', bindSpeedTest);
 </script>
