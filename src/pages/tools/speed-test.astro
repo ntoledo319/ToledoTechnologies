@@ -218,7 +218,9 @@ const jsonLd = breadcrumbSchema([
   // Looked up at call time: the ClientRouter swaps the page body on in-site
   // navigation but runs this module once, so cached elements go stale.
   function openPageSpeed(): void {
-    const input = document.getElementById('urlInput') as HTMLInputElement | null;
+    const input = document.getElementById(
+      'urlInput'
+    ) as HTMLInputElement | null;
     const status = document.getElementById('status');
     if (!input || !status) return;
 

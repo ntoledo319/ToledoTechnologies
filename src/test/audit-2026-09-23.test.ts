@@ -58,7 +58,13 @@ describe('2026-09-23 audit regressions', () => {
   it('escapes third-party robots.txt content before it reaches innerHTML', () => {
     const source = read('src/pages/tools/robots-audit.astro');
     expect(source).toContain('function esc(');
-    for (const expr of ['esc(u)', 'esc(s)', 'esc(f.msg)', 'esc(text)', 'esc(robotsUrl)']) {
+    for (const expr of [
+      'esc(u)',
+      'esc(s)',
+      'esc(f.msg)',
+      'esc(text)',
+      'esc(robotsUrl)'
+    ]) {
       expect(source, expr).toContain(expr);
     }
     expect(source).not.toMatch(/<code>\$\{u\}<\/code>/);
@@ -75,7 +81,7 @@ describe('2026-09-23 audit regressions', () => {
 
   it('tells a buyer who lands on the withdrawn product return page not to send files', () => {
     const page = read('src/pages/order/reconciliation.astro');
-    expect(page).toMatch(/withdrawn on 14 September 2026/);
+    expect(page).toMatch(/withdrawn\s+on\s+14\s+September\s+2026/);
     expect(page).toMatch(/do\s+not send files/);
     const product = read('src/pages/file-reconciliation.astro');
     expect(product).not.toContain('faqSchema(');
@@ -89,7 +95,7 @@ describe('2026-09-23 audit regressions', () => {
     ]) {
       const source = read(path);
       expect(source, path).toContain('kit-buy-terms');
-      expect(source, path).toMatch(/excluding any tax applicable/);
+      expect(source, path).toMatch(/excluding\s+any\s+tax\s+applicable/);
       expect(source, path).toContain('href="/terms/"');
       expect(source, path).toContain('href="/policies/"');
     }
