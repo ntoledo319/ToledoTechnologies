@@ -39,7 +39,7 @@ const jsonLd = breadcrumbSchema([
     query or export job, which timestamp, which file. Take its SHA-256 and
     record it alongside.
   </p>
-  <div class="kit-command">shasum -a 256 export-2026-09-11.csv</div>
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">shasum -a 256 export-2026-09-11.csv</div>
   <p>
     If the source system is still accepting writes while you migrate, you are
     not reconciling against a fixed thing, and every count you produce will be
@@ -92,7 +92,7 @@ const jsonLd = breadcrumbSchema([
     So write the exclusions as numbered rules, and produce a list: one row per
     excluded key, with the rule that excluded it.
   </p>
-  <div class="kit-command">customer_id,reason
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">customer_id,reason
 C-1005,closed before cutover - excluded by agreed rule R3
 C-1006,merged into C-1001 in legacy system - excluded by agreed rule R7</div>
   <p>

@@ -68,7 +68,7 @@ const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
     macOS and Linux, in the folder where you downloaded it. <code>openssl</code>
     is already installed on both.
   </p>
-  <div class="kit-command">openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 600000 \
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 600000 \
   -in {enc} \
   -out {zip}</div>
   <p>
@@ -83,7 +83,7 @@ const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
   </p>
 
   <h2>3. Check you got what was advertised</h2>
-  <div class="kit-command">shasum -a 256 {zip}          # macOS
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">shasum -a 256 {zip}          # macOS
 sha256sum {zip}              # Linux
 Get-FileHash {zip} -Algorithm SHA256   # PowerShell</div>
   <p>It should print, exactly:</p>
@@ -97,7 +97,7 @@ Get-FileHash {zip} -Algorithm SHA256   # PowerShell</div>
   </p>
 
   <h2>4. Unzip and run the tests first</h2>
-  <div class="kit-command">unzip {zip}
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">unzip {zip}
 cd {root}
 python3 -m unittest test_reconcile -v</div>
   <p>
@@ -107,7 +107,7 @@ python3 -m unittest test_reconcile -v</div>
   </p>
 
   <h2>5. See it work</h2>
-  <div class="kit-command">python3 reconcile.py \
+  <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">python3 reconcile.py \
   --spec specs/customers.json \
   --source examples/source-customers.csv \
   --target examples/target-customers.csv \

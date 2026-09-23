@@ -57,23 +57,23 @@ const relatedPosts = allPosts
   <header class="mb-12 border-b border-black/5 pb-8">
     <div class="mb-6 flex flex-wrap items-center gap-4">
       <time
-        class="text-sm opacity-40"
+        class="text-sm opacity-75"
         datetime={post.data.publishedDate.toISOString()}
       >
         {formatDate(post.data.publishedDate)}
       </time>
       <span class="opacity-20">•</span>
-      <span class="text-sm opacity-40">{post.data.author}</span>
+      <span class="text-sm opacity-75">{post.data.author}</span>
     </div>
 
-    <p class="mb-8 text-xl leading-relaxed opacity-60 sm:text-2xl">
+    <p class="mb-8 text-xl leading-relaxed opacity-75 sm:text-2xl">
       {post.data.description}
     </p>
 
     {
       post.data.tldr && (
-        <p class="mb-8 max-w-2xl text-base opacity-50">
-          <span class="text-warm-500 mr-2 text-xs font-bold tracking-widest uppercase">
+        <p class="mb-8 max-w-2xl text-base">
+          <span class="text-brand-700 mr-2 text-xs font-bold tracking-widest uppercase">
             TL;DR
           </span>
           {post.data.tldr}
@@ -86,7 +86,7 @@ const relatedPosts = allPosts
         post.data.tags.map((tag) => (
           <a
             href={`/blog/tag/${tag}`}
-            class="hover:text-warm-500 text-xs opacity-40 transition-colors hover:opacity-80"
+            class="hover:text-warm-600 text-xs transition-colors"
           >
             {tag}
           </a>
@@ -103,7 +103,7 @@ const relatedPosts = allPosts
     relatedPosts.length > 0 && (
       <section class="mt-20 border-t border-black/5 pt-12">
         <h2
-          class="mb-8 text-xl font-bold tracking-widest uppercase opacity-40"
+          class="mb-8 text-xl font-bold tracking-widest uppercase opacity-75"
           style="font-family: var(--font-lyric);"
         >
           Related Posts
@@ -120,7 +120,7 @@ const relatedPosts = allPosts
               >
                 {related.data.title}
               </h3>
-              <p class="text-sm leading-relaxed opacity-40 transition-opacity group-hover:opacity-60">
+              <p class="text-sm leading-relaxed opacity-75 transition-opacity group-hover:opacity-100">
                 {related.data.description}
               </p>
             </a>
@@ -134,7 +134,7 @@ const relatedPosts = allPosts
     <h2 class="mb-3 text-2xl font-bold" style="font-family: var(--font-lyric);">
       Need this kind of work done?
     </h2>
-    <p class="mb-6 opacity-50">
+    <p class="mb-6 opacity-75">
       We write about what we actually do. If this resonated, let's talk.
     </p>
     <a href="/contact" class="btn-primary">Get a Quote</a>

@@ -99,7 +99,7 @@ const flagshipProjects = [
   <section class="border-b border-black/5">
     <div class="container-wide section-padding">
       <div class="max-w-3xl">
-        <span class="mb-4 inline-block text-sm font-medium opacity-40">
+        <span class="mb-4 inline-block text-sm font-medium opacity-75">
           Nonprofit Initiative
         </span>
         <Breadcrumbs
@@ -196,7 +196,7 @@ const flagshipProjects = [
               </div>
               <p class="text-surface-600 mb-6">{project.description}</p>
 
-              <h4 class="text-surface-800 mb-3 text-sm font-semibold tracking-widest uppercase opacity-60">
+              <h4 class="text-surface-800 mb-3 text-sm font-semibold tracking-widest uppercase opacity-75">
                 What It Does
               </h4>
               <ul class="mb-6 space-y-2">
@@ -210,12 +210,12 @@ const flagshipProjects = [
 
               {project.notFeatures.length > 0 && (
                 <>
-                  <h4 class="text-surface-800 mb-3 text-sm font-semibold tracking-widest uppercase opacity-60">
+                  <h4 class="text-surface-800 mb-3 text-sm font-semibold tracking-widest uppercase opacity-75">
                     What It's Not
                   </h4>
                   <ul class="mb-6 space-y-2">
                     {project.notFeatures.map((notFeature) => (
-                      <li class="text-surface-400 flex items-start gap-2 text-sm">
+                      <li class="text-surface-600 flex items-start gap-2 text-sm">
                         <span class="mt-0.5 text-red-400">✗</span>
                         <span>{notFeature}</span>
                       </li>
@@ -224,7 +224,7 @@ const flagshipProjects = [
                 </>
               )}
 
-              <span class="text-xs opacity-40">{project.status}</span>
+              <span class="text-xs opacity-75">{project.status}</span>
             </div>
           ))
         }

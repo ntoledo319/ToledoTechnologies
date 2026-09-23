@@ -68,11 +68,9 @@ function formatDate(date: Date): string {
         >
           {displayTag}
         </h1>
-        <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
+        <p class="max-w-2xl text-xl leading-relaxed opacity-75 sm:text-2xl">
           {posts.length}
-          {posts.length === 1 ? 'article' : 'articles'} tagged with <span
-            class="opacity-30">"{tag}"</span
-          >
+          {posts.length === 1 ? 'article' : 'articles'} tagged with <span>"{tag}"</span>
         </p>
       </div>
     </div>
@@ -91,7 +89,7 @@ function formatDate(date: Date): string {
           >
             <div class="mb-3 flex items-center gap-4">
               <time
-                class="text-sm opacity-30"
+                class="text-sm opacity-75"
                 datetime={post.data.publishedDate.toISOString()}
               >
                 {formatDate(post.data.publishedDate)}
@@ -105,7 +103,7 @@ function formatDate(date: Date): string {
             <h2 class="group-hover:text-warm-400 mb-3 text-xl leading-tight font-bold transition-colors">
               {post.data.title}
             </h2>
-            <p class="max-w-2xl text-base leading-relaxed opacity-50 transition-opacity group-hover:opacity-70">
+            <p class="max-w-2xl text-base leading-relaxed opacity-75 transition-opacity group-hover:opacity-100">
               {post.data.description}
             </p>
             <div class="mt-4 flex flex-wrap gap-3">
@@ -113,7 +111,7 @@ function formatDate(date: Date): string {
                 <span
                   class:list={[
                     'text-xs',
-                    t === tag ? 'text-warm-400' : 'opacity-20'
+                    t === tag ? 'text-warm-600' : 'opacity-75'
                   ]}
                 >
                   {t}
@@ -130,7 +128,7 @@ function formatDate(date: Date): string {
     <div class="container-wide section-padding-sm">
       <div class="max-w-4xl">
         <h2 class="mb-4 text-3xl font-bold">Explore more topics</h2>
-        <p class="mb-8 text-lg opacity-50">
+        <p class="mb-8 text-lg opacity-75">
           Browse all posts or check out our services.
         </p>
         <div class="flex flex-wrap gap-4">

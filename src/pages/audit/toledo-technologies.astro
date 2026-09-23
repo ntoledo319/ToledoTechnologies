@@ -1,6 +1,9 @@
 ---
 import InsertLayout from '../../layouts/InsertLayout.astro';
 import { breadcrumbSchema } from '../../utils/jsonld';
+// .proof-command: long commands scroll inside the block instead of pushing the
+// page 400px wider than a phone screen.
+import '../../styles/proofs.css';
 
 const jsonLd = breadcrumbSchema([
   { name: 'Home', url: '/' },
@@ -107,14 +110,22 @@ const RUN = {
     </li>
   </ul>
   <p>Run it against us yourself:</p>
-  <pre><code>python3 public_surface_check.py toledotechnologies.com \
+  <pre
+    class="proof-command"
+    tabindex="0"
+    role="region"
+    aria-label="Code sample"><code>python3 public_surface_check.py toledotechnologies.com \
     --max-pages 30 --today 2026-09-11</code></pre>
   <p>
     Or re-derive this exact report from the captured bytes, with the network
     unplugged. Download the script, the report, the evidence and the run
     parameters into one directory, then:
   </p>
-  <pre><code>mkdir evidence
+  <pre
+    class="proof-command"
+    tabindex="0"
+    role="region"
+    aria-label="Code sample"><code>mkdir evidence
 cp toledo-technologies-evidence.json evidence/evidence.json
 cp toledo-technologies-run.json      evidence/run.json
 
@@ -136,7 +147,11 @@ diff replay.md toledo-technologies-report.md</code></pre>
     <code>mail.dmarc_policy</code>. The record exists and has existed for a
     while. It is set to monitor only.
   </p>
-  <pre><code>v=DMARC1; p=none; rua=mailto:hello@toledotechnologies.com;pct=100; aspf=r; adkim=r</code></pre>
+  <pre
+    class="proof-command"
+    tabindex="0"
+    role="region"
+    aria-label="Code sample"><code>v=DMARC1; p=none; rua=mailto:hello@toledotechnologies.com;pct=100; aspf=r; adkim=r</code></pre>
   <p>
     <code>p=none</code> instructs receiving mail providers to do nothing when a
     message claiming to be from this domain fails authentication. Not quarantine

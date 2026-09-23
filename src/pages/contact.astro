@@ -60,7 +60,7 @@ const whatToInclude = [
         >
           Write <span class="text-brand-400 italic">Nicholas</span>
         </h1>
-        <p class="max-w-2xl text-xl leading-relaxed opacity-50 sm:text-2xl">
+        <p class="max-w-2xl text-xl leading-relaxed opacity-75 sm:text-2xl">
           Toledo Technologies is founder-led. Tell Nicholas what you need; the
           reply will ask the useful questions or give you a concrete routing
           plan.
@@ -117,7 +117,7 @@ const whatToInclude = [
 
           <p
             id="inquiry-context"
-            class="hidden border-l-2 border-current pl-4 font-mono text-xs tracking-wide uppercase opacity-55"
+            class="hidden border-l-2 border-current pl-4 font-mono text-xs tracking-wide uppercase opacity-75"
             role="status"
           >
           </p>
@@ -126,7 +126,7 @@ const whatToInclude = [
             <div>
               <label
                 for="name"
-                class="mb-3 block text-sm font-medium opacity-60"
+                class="mb-3 block text-sm font-medium opacity-75"
               >
                 Name
               </label>
@@ -141,7 +141,7 @@ const whatToInclude = [
             <div>
               <label
                 for="email"
-                class="mb-3 block text-sm font-medium opacity-60"
+                class="mb-3 block text-sm font-medium opacity-75"
               >
                 Email *
               </label>
@@ -159,7 +159,7 @@ const whatToInclude = [
           <div>
             <label
               for="topic"
-              class="mb-3 block text-sm font-medium opacity-60"
+              class="mb-3 block text-sm font-medium opacity-75"
             >
               What do you need help with?
             </label>
@@ -179,7 +179,7 @@ const whatToInclude = [
           <div>
             <label
               for="budget"
-              class="mb-3 block text-sm font-medium opacity-60"
+              class="mb-3 block text-sm font-medium opacity-75"
             >
               Budget Range
             </label>
@@ -199,7 +199,7 @@ const whatToInclude = [
           <div>
             <label
               for="message"
-              class="mb-3 block text-sm font-medium opacity-60"
+              class="mb-3 block text-sm font-medium opacity-75"
             >
               Tell us more
             </label>
@@ -221,7 +221,7 @@ const whatToInclude = [
             </button>
           </div>
 
-          <p class="text-sm leading-relaxed opacity-45">
+          <p class="text-sm leading-relaxed opacity-75">
             This form posts to Toledo's lead intake service at eolkits.com. The
             submission is stored in the operating lead database and sends an
             owner notification email. Read the <a href="/privacy"
@@ -229,7 +229,7 @@ const whatToInclude = [
             >, or skip the form and email
             <a
               href="mailto:hello@toledotechnologies.com"
-              class="text-warm-400 hover:underline"
+              class="underline"
             >
               hello@toledotechnologies.com
             </a>
@@ -249,17 +249,17 @@ const whatToInclude = [
       <aside class="space-y-12" aria-label="Contact information">
         <div>
           <h2 class="mb-4 text-xl font-bold">Prefer Email Directly?</h2>
-          <p class="mb-4 text-sm opacity-50">
+          <p class="mb-4 text-sm opacity-75">
             Skip the form and email us directly. Same response time.
           </p>
           <div class="mb-6">
             <p
-              class="mb-1 text-xs font-bold tracking-widest uppercase opacity-30"
+              class="mb-1 text-xs font-bold tracking-widest uppercase opacity-75"
             >
               Support Hours
             </p>
-            <p class="text-sm opacity-60">Mon–Fri, 10:00 AM–5:30 PM ET</p>
-            <p class="mt-1 text-xs opacity-55">
+            <p class="text-sm opacity-75">Mon–Fri, 10:00 AM–5:30 PM ET</p>
+            <p class="mt-1 text-xs opacity-75">
               Replies are sent during support hours.
             </p>
           </div>
@@ -286,7 +286,7 @@ const whatToInclude = [
 
         <div class="border-t border-black/5 pt-12">
           <h2 class="mb-4 text-xl font-bold">What to Include</h2>
-          <p class="mb-4 text-sm opacity-50">
+          <p class="mb-4 text-sm opacity-75">
             The more context you provide upfront, the faster we can give you a
             useful response:
           </p>
@@ -295,7 +295,7 @@ const whatToInclude = [
               whatToInclude.map((item) => (
                 <li class="flex items-start gap-3 text-sm">
                   <span class="text-brand-400 mt-0.5 shrink-0">→</span>
-                  <span class="opacity-60">{item}</span>
+                  <span class="opacity-75">{item}</span>
                 </li>
               ))
             }
@@ -304,7 +304,7 @@ const whatToInclude = [
 
         <div class="border-t border-black/5 pt-12">
           <h2 class="mb-3 text-xl font-bold">Check Our Work</h2>
-          <p class="mb-4 text-sm opacity-40">
+          <p class="mb-4 text-sm opacity-75">
             See our public projects and contributions on GitHub.
           </p>
           <a

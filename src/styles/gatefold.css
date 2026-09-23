@@ -31,8 +31,16 @@
   --gf-ink-700: oklch(0.3 0.022 45);
   --gf-ink-500: oklch(0.45 0.02 45);
   --gf-ink-300: oklch(0.62 0.018 45);
+  /* Light end of the ink scale. care/discovery/partner referenced these for
+     table rules and form panels before they existed, so those borders and
+     tints silently rendered as nothing. */
+  --gf-ink-200: oklch(0.8 0.012 45);
+  --gf-ink-100: oklch(0.9 0.01 45);
+  --gf-ink-50: oklch(0.96 0.008 45);
 
-  --gf-accent: oklch(0.58 0.14 42);
+  /* L 0.56, not 0.58: at 0.58 the accent measured 4.34:1 on paper-50, just
+     under WCAG AA for the small uppercase labels that use it. Same hue. */
+  --gf-accent: oklch(0.56 0.14 42);
   --gf-accent-deep: oklch(0.45 0.14 38);
   --gf-accent-soft: oklch(0.78 0.08 50);
 
@@ -1780,6 +1788,21 @@
   color: var(--gf-ink-900);
   text-decoration-color: var(--gf-accent);
 }
+/* The prose link colour above out-ranks the button utilities, which turned
+   every .btn-primary inside an article into accent-on-charcoal (2.5:1) and
+   dimmed .btn-ghost below AA. Buttons keep their own colours. */
+.novel-container a.btn-primary,
+.novel-container a.btn-primary:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.novel-container a.btn-ghost {
+  color: var(--gf-ink-900);
+  text-decoration: none;
+}
+.novel-container a.btn-ghost:hover {
+  color: var(--gf-accent-deep);
+}
 .novel-container blockquote {
   border-left: 2px solid var(--gf-accent);
   padding-left: 1.5rem;
@@ -2013,7 +2036,7 @@ main h1 {
 }
 .archive-track-number {
   font-size: 0.76rem;
-  opacity: 0.45;
+  opacity: 0.75;
 }
 .archive-track-copy {
   display: grid;
@@ -2034,7 +2057,7 @@ main h1 {
   font-size: 0.65rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.75;
 }
 .archive-track-cue,
 .archive-track-arrow {
@@ -2206,7 +2229,7 @@ main h1 {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .proof-ledger-cta {
