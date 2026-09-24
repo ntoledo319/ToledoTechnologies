@@ -7,6 +7,8 @@ import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
 import Analytics from '../components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
+import PolicyNavigationGuard from '../components/PolicyNavigationGuard.astro';
+import noscriptStylesheet from '../styles/gatefold-noscript.css?url';
 
 export interface Props {
   title: string;
@@ -69,6 +71,8 @@ const fullTitle =
 
     <ClientRouter />
 
+    <PolicyNavigationGuard />
+
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     {
@@ -92,13 +96,7 @@ const fullTitle =
   </head>
   <body class="text-novel-body min-h-screen" style="background: #0a0908;">
     <noscript>
-      <style>
-        /* The sleeve is a fixed full-viewport overlay that only script can
-           remove. Without script, drop it and show Side A directly. */
-        #cover {
-          display: none !important;
-        }
-      </style>
+      <link rel="stylesheet" href={noscriptStylesheet} />
     </noscript>
     <a
       id="skip-link"

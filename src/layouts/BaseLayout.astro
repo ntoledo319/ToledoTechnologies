@@ -8,6 +8,7 @@ import SEOHead from '../components/SEOHead.astro';
 import Analytics from '../components/Analytics.astro';
 import { professionalServiceSchema } from '../utils/jsonld';
 import { ClientRouter } from 'astro:transitions';
+import PolicyNavigationGuard from '../components/PolicyNavigationGuard.astro';
 
 export interface Props {
   title: string;
@@ -79,6 +80,8 @@ const fullTitle =
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <ClientRouter />
+
+    <PolicyNavigationGuard />
 
     <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />

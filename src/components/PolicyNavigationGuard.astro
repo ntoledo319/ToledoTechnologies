@@ -1,0 +1,39 @@
+---
+/*
+ * Keeps ClientRouter navigation inside one Content Security Policy.
+ *
+ * A <meta> policy can only ever be added to a document, never replaced: after
+ * a client-side navigation the first page's policy is still enforced alongside
+ * the new one. Every page shares one policy except /tools/robots-audit/,
+ * which may fetch any https:// robots.txt. Entering it client-side would leave
+ * the narrower policy in force and its fetches would be refused. So when the
+ * next page's policy differs from the one this document loaded with, the
+ * navigation is cancelled and ClientRouter falls back to a full page load.
+ */
+---
+
+<script>
+  import type { TransitionBeforePreparationEvent } from 'astro:transitions/client';
+
+  const policyOf = (doc: Document) =>
+    doc
+      .querySelector('meta[http-equiv="content-security-policy" i]')
+      ?.getAttribute('content') ?? '';
+
+  const loadedWith = policyOf(document);
+
+  document.addEventListener('astro:before-preparation', (event) => {
+    const preparation = event as TransitionBeforePreparationEvent;
+    const load = preparation.loader;
+    preparation.loader = async () => {
+      await load();
+      if (
+        !preparation.defaultPrevented &&
+        policyOf(preparation.newDocument) !== loadedWith
+      ) {
+        // ClientRouter answers a cancelled preparation with a full load.
+        preparation.preventDefault();
+      }
+    };
+  });
+</script>

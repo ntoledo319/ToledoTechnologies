@@ -1,0 +1,7 @@
+/* Loaded only inside <noscript> on the gatefold home page. The sleeve is a
+   fixed full-viewport overlay that only script can remove. Without script,
+   drop it and show Side A directly. A file rather than an inline <style> so
+   the page's Content Security Policy needs no hash for it. */
+#cover {
+  display: none !important;
+}

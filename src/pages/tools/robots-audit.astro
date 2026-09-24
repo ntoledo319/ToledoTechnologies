@@ -7,6 +7,12 @@ const jsonLd = breadcrumbSchema([
   { name: 'Tools', url: '/tools' },
   { name: 'robots.txt Auditor', url: '/tools/robots-audit' }
 ]);
+
+// The only page whose policy is wider than the site's: the auditor reads the
+// robots.txt through r.jina.ai and, if that request fails, straight from the
+// site the visitor typed, which can be any https:// origin.
+// PolicyNavigationGuard gives this page a full load so the wider policy holds.
+Astro.csp?.insertDirective('connect-src https://r.jina.ai https:');
 ---
 
 <InsertLayout

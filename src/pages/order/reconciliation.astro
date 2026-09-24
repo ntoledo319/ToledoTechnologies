@@ -141,16 +141,22 @@ NORMALIZE: qty = number:0`;
   </p>
 </InsertLayout>
 
-<script is:inline>
-  (function () {
-    var el = document.getElementById('tt-session-reference');
+<script>
+  // A bundled module (not is:inline) so it ships as a file under the site's
+  // script-src 'self' instead of needing its own hash in every page's policy.
+  // It runs once per document, so it also re-runs on ClientRouter page loads.
+  function showSessionReference(): void {
+    const el = document.getElementById('tt-session-reference');
     if (!el) return;
-    var raw = new URLSearchParams(window.location.search).get('session');
+    const raw = new URLSearchParams(window.location.search).get('session');
     if (raw && /^cs_(live|test)_[A-Za-z0-9]{8,120}$/.test(raw)) {
       el.textContent = raw;
       el.setAttribute('data-verified-shape', 'true');
     }
-  })();
+  }
+
+  showSessionReference();
+  document.addEventListener('astro:page-load', showSessionReference);
 </script>
 
 <style>
