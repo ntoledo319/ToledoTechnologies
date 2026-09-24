@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Static website for toledotechnologies.com built with Astro v5, Tailwind CSS v4, and TypeScript. Deployed on the G.R.A.C.E. VPS: push to `main` triggers `.github/workflows/deploy.yml`, which builds `dist/` and ships an atomic release to the VPS (see README “Deployment”).
+Static website for toledotechnologies.com built with Astro v7, Tailwind CSS v4, and TypeScript (Node 22.12+). Deployed on the G.R.A.C.E. VPS: push to `main` triggers `.github/workflows/deploy.yml`, which builds `dist/` and ships an atomic release to the VPS (see README “Deployment”).
 
 ## Development
 
@@ -14,7 +14,7 @@ npm run build   # Production build
 
 ## Content Collections
 
-- Blog posts: `src/content/blog/` (Markdown with frontmatter)
+- Blog posts: `src/content/blog/` (Markdown with frontmatter; schemas and `glob()` loaders in `src/content.config.ts`)
 - Codebases: `src/content/codebases/` (YAML frontmatter)
 - Case studies: `src/content/case-studies/` (YAML frontmatter)
 

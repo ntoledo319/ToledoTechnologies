@@ -19,7 +19,7 @@ const jsonLd = [
   itemListSchema(
     notes.map((note) => ({
       name: note.data.title,
-      url: `/case-studies/${note.slug}/`,
+      url: `/case-studies/${note.id}/`,
       description: note.data.description
     })),
     'Independent Research Notes'
@@ -106,7 +106,7 @@ const evidenceRules = [
         {
           notes.map((note, index) => (
             <li>
-              <a href={`/case-studies/${note.slug}/`} class="archive-track">
+              <a href={`/case-studies/${note.id}/`} class="archive-track">
                 <span class="archive-track-number">
                   {String(index + 1).padStart(2, '0')}
                 </span>

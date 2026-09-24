@@ -20,7 +20,7 @@ const jsonLd = [
   itemListSchema(
     sortedStudies.map((s) => ({
       name: s.data.title,
-      url: `/case-studies/${s.slug}`,
+      url: `/case-studies/${s.id}`,
       description: s.data.description
     })),
     'Toledo Technologies Proof and Field Notes'
@@ -70,7 +70,7 @@ const jsonLd = [
       {
         sortedStudies.map((study, index) => (
           <a
-            href={`/case-studies/${study.slug}`}
+            href={`/case-studies/${study.id}`}
             class:list={[
               'group hover:text-brand-400 block py-12 transition-all duration-300',
               index === 0 && 'pt-0'

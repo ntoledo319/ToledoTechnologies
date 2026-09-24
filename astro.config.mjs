@@ -12,6 +12,10 @@ export default defineConfig({
   site: 'https://toledotechnologies.com',
   output: 'static',
   trailingSlash: 'always',
+  // Astro 7 switched the default to JSX-style whitespace ('jsx'), which drops
+  // the space between adjacent inline elements (`<a>..</a> <em>..</em>`).
+  // Keep the HTML-aware compression every page was written against.
+  compressHTML: true,
   vite: {
     plugins: [tailwindcss()]
   },

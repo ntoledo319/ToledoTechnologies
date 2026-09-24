@@ -83,7 +83,7 @@ function formatDate(date: Date): string {
       {
         posts.map((post, index) => (
           <a
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.id}`}
             class:list={[
               'group hover:text-warm-400 block py-10 transition-all duration-300',
               index === 0 && 'pt-0'
