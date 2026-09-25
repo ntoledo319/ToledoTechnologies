@@ -63,7 +63,13 @@ export default defineConfig({
       // Same for scripts: keep every processed <script> an external module.
       // Inline module scripts also make the ClientRouter inject a
       // data:-URL <script>, which script-src must never allow.
-      assetsInlineLimit: (file) => (file.endsWith('.js') ? false : undefined)
+      assetsInlineLimit: (file) => (file.endsWith('.js') ? false : undefined),
+      // Vite 8 minifies CSS with Lightning CSS by default, which dropped
+      // `backdrop-filter` from the sleeve's Unfold button (declared before its
+      // -webkit- twin) and `-webkit-backdrop-filter` from Tailwind's
+      // backdrop-blur (the sticky header, Safari < 18). esbuild keeps every
+      // declaration as written, which is what the site shipped under Vite 6.
+      cssMinify: 'esbuild'
     }
   },
   // cspMetaFirst hoists the policy to the top of <head> and fails the build
