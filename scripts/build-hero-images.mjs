@@ -32,8 +32,18 @@ const JPEG = { quality: 82, mozjpeg: true };
 // out at ~2400px (768 CSS px x 3 DPR); the midnight art is full-bleed desktop,
 // so it goes to the master's native 3000px for 4K/Retina.
 const MASTERS = [
-  { name: 'hero-crt', file: 'hero-crt.jpg', widths: [768, 1200, 1600, 2400], jpegWidth: 1200 },
-  { name: 'hero-midnight', file: 'hero-midnight.jpg', widths: [1366, 1920, 2560, 3000], jpegWidth: 1920 },
+  {
+    name: 'hero-crt',
+    file: 'hero-crt.jpg',
+    widths: [768, 1200, 1600, 2400],
+    jpegWidth: 1200
+  },
+  {
+    name: 'hero-midnight',
+    file: 'hero-midnight.jpg',
+    widths: [1366, 1920, 2560, 3000],
+    jpegWidth: 1920
+  }
 ];
 
 await mkdir(OUT, { recursive: true });
@@ -43,8 +53,14 @@ for (const m of MASTERS) {
   const input = join(SRC, m.file);
   for (const w of m.widths) {
     const base = sharp(input).resize({ width: w, withoutEnlargement: true });
-    await base.clone().avif(AVIF).toFile(join(OUT, `${m.name}-${w}.avif`));
-    await base.clone().webp(WEBP).toFile(join(OUT, `${m.name}-${w}.webp`));
+    await base
+      .clone()
+      .avif(AVIF)
+      .toFile(join(OUT, `${m.name}-${w}.avif`));
+    await base
+      .clone()
+      .webp(WEBP)
+      .toFile(join(OUT, `${m.name}-${w}.webp`));
     count += 2;
   }
   // One JPEG per master as the universal <img> fallback for the rare browser

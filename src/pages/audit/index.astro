@@ -75,36 +75,35 @@ const jsonLd = [
     <li>
       <strong>The report</strong>, readable and machine-readable. Every one of
       52 checks, each marked <em>pass</em>, <em>finding</em> or
-      <em>not established</em>, with the evidence that produced it. Findings are ranked, and each one says what it
-      actually costs you if it stays as it is — not a score, not a grade, not a
-      letter.
+      <em>not established</em>, with the evidence that produced it. Findings are
+      ranked, and each one says what it actually costs you if it stays as it is
+      — not a score, not a grade, not a letter.
     </li>
     <li>
-      <strong>The evidence.</strong> Every DNS answer, HTTP response, header and
-      certificate we looked at, captured as bytes with a SHA-256 digest over the
-      set. If you disagree with a conclusion, you can read what it was drawn
-      from.
+      <strong>The evidence.</strong> Every DNS answer, HTTP response, header and certificate
+      we looked at, captured as bytes with a SHA-256 digest over the set. If you disagree
+      with a conclusion, you can read what it was drawn from.
     </li>
     <li>
-      <strong>The script.</strong> One Python file, standard library only, no
-      dependencies to install and no key to obtain. Run it against your own
-      domain and it produces the same report. Run it against the saved evidence
-      and it produces that report byte for byte, without touching the network.
+      <strong>The script.</strong> One Python file, standard library only, no dependencies
+      to install and no key to obtain. Run it against your own domain and it produces
+      the same report. Run it against the saved evidence and it produces that report
+      byte for byte, without touching the network.
     </li>
   </ol>
 
   <h2>The acceptance test</h2>
   <p>
-    Stated before you buy, because a finding you cannot check is just an
-    opinion with a price on it:
+    Stated before you buy, because a finding you cannot check is just an opinion
+    with a price on it:
   </p>
   <p>
     <strong
       >Every finding in the report reproduces when you run the included script
       against your own domain.</strong
-    > A finding that does not reproduce is withdrawn and the report is reissued
-    without it. If more than three findings are withdrawn, the audit is free and
-    you keep everything.
+    > A finding that does not reproduce is withdrawn and the report is reissued without
+    it. If more than three findings are withdrawn, the audit is free and you keep
+    everything.
   </p>
   <p>
     That is a real risk to take, so it is worth saying how it is survivable: the
@@ -115,9 +114,9 @@ const jsonLd = [
   <p>
     It has already caught one. A draft of the checker reported that our own
     certificate did not cover <code>www</code>. It does — <code>www</code>
-    presents its own certificate, which the check was not connecting to. The
-    finding was withdrawn, the check was rewritten to connect to each hostname
-    separately, and
+    presents its own certificate, which the check was not connecting to. The finding
+    was withdrawn, the check was rewritten to connect to each hostname separately,
+    and
     <a href="/audit/toledo-technologies#withdrawn"
       >the withdrawal is written into the worked example</a
     > rather than quietly deleted.
@@ -155,11 +154,11 @@ const jsonLd = [
 
   <h3>How the site behaves before a browser renders it — 9 checks</h3>
   <p>
-    Plain HTTP redirecting to HTTPS. Whether the apex and <code>www</code> forms
-    converge or both serve. HSTS and its max-age. The five standard protection
-    headers, and frame protection. Cookies set on a plain GET, and their flags.
-    Software versions disclosed in headers. Compression. Median response time
-    over repeated samples from one location.
+    Plain HTTP redirecting to HTTPS. Whether the apex and <code>www</code> forms converge
+    or both serve. HSTS and its max-age. The five standard protection headers, and
+    frame protection. Cookies set on a plain GET, and their flags. Software versions
+    disclosed in headers. Compression. Median response time over repeated samples
+    from one location.
   </p>
 
   <h3>What your pages say to something that reads them — 13 checks</h3>
@@ -181,9 +180,7 @@ const jsonLd = [
     <li>
       the contact address in your markup against the one in your structured data
     </li>
-    <li>
-      whether one legal entity name is used, or several variants of it
-    </li>
+    <li>whether one legal entity name is used, or several variants of it</li>
     <li>
       whether anything reading the HTML can identify a next step for a buyer at
       all
@@ -199,16 +196,16 @@ const jsonLd = [
 
   <h3>The machine-checkable part of accessibility — 6 checks</h3>
   <p>
-    Images with no <code>alt</code> attribute and images with no declared
-    dimensions. Documents with no <code>lang</code>. Heading outlines that skip
-    or repeat levels. Link text that does not say where the link goes. Form
-    fields with no programmatic label.
+    Images with no <code>alt</code> attribute and images with no declared dimensions.
+    Documents with no <code>lang</code>. Heading outlines that skip or repeat
+    levels. Link text that does not say where the link goes. Form fields with no
+    programmatic label.
   </p>
   <p>
-    <strong>This is a defect list, not a conformance statement.</strong> It is
-    the subset a parser can settle from static HTML. Colour contrast, focus
-    order, keyboard traps and anything requiring a rendered page are outside it,
-    and we do not issue accessibility conformance statements of any kind.
+    <strong>This is a defect list, not a conformance statement.</strong> It is the
+    subset a parser can settle from static HTML. Colour contrast, focus order, keyboard
+    traps and anything requiring a rendered page are outside it, and we do not issue
+    accessibility conformance statements of any kind.
   </p>
 
   <h2>What this deliberately does not do</h2>
@@ -218,13 +215,13 @@ const jsonLd = [
   </p>
   <ul>
     <li>
-      <strong>GET and HEAD only.</strong> No POST, no form submission, no login
-      attempt, no credential of any kind.
+      <strong>GET and HEAD only.</strong> No POST, no form submission, no login attempt,
+      no credential of any kind.
     </li>
     <li>
-      <strong>No path guessing.</strong> It requests the domain you name, pages
-      linked from those pages, URLs in your own sitemap, and a fixed list of
-      conventional well-known files. It does not go looking for
+      <strong>No path guessing.</strong> It requests the domain you name, pages linked
+      from those pages, URLs in your own sitemap, and a fixed list of conventional
+      well-known files. It does not go looking for
       <code>.env</code>, <code>.git</code>, backups or admin panels — the files
       that only exist by mistake.
     </li>
@@ -233,8 +230,8 @@ const jsonLd = [
       Ports 80 and 443 on the hostnames you name, and nothing else.
     </li>
     <li>
-      <strong>Rate limited and identified.</strong> One request at a time, with
-      a User-Agent that says what it is and links here.
+      <strong>Rate limited and identified.</strong> One request at a time, with a
+      User-Agent that says what it is and links here.
     </li>
   </ul>
   <p>
@@ -254,24 +251,23 @@ const jsonLd = [
   <p>What US$400 buys is the part the script cannot do:</p>
   <ul>
     <li>
-      <strong>Which of the findings matter for you.</strong> A script hands back
-      fourteen items. Two of them can cost you money this quarter and eleven are
-      hygiene. Deciding which is which needs to know what your business
-      actually is, and that is a judgement, not a check.
+      <strong>Which of the findings matter for you.</strong> A script hands back fourteen
+      items. Two of them can cost you money this quarter and eleven are hygiene. Deciding
+      which is which needs to know what your business actually is, and that is a judgement,
+      not a check.
     </li>
     <li>
-      <strong>The exact change, written out.</strong> Not "enable DMARC" — the
-      record, the value, the order to apply it in, and what breaks if you skip a
-      step.
+      <strong>The exact change, written out.</strong> Not "enable DMARC" — the record,
+      the value, the order to apply it in, and what breaks if you skip a step.
     </li>
     <li>
-      <strong>What we could not establish and why.</strong> Checks that could
-      not complete are reported as such, never as passes, and the report says
-      what would settle them.
+      <strong>What we could not establish and why.</strong> Checks that could not
+      complete are reported as such, never as passes, and the report says what would
+      settle them.
     </li>
     <li>
-      <strong>Being wrong in writing.</strong> The reproduce-or-withdraw term
-      above. A free script has no such obligation to you.
+      <strong>Being wrong in writing.</strong> The reproduce-or-withdraw term above.
+      A free script has no such obligation to you.
     </li>
   </ul>
   <p>
@@ -282,21 +278,20 @@ const jsonLd = [
   <h2>What it costs, and when you pay</h2>
   <ul>
     <li>
-      <strong>US$400</strong> — one domain, up to 60 pages crawled, delivered
-      within two business days of written scope confirmation.
+      <strong>US$400</strong> — one domain, up to 60 pages crawled, delivered within
+      two business days of written scope confirmation.
     </li>
     <li>
-      <strong>US$150</strong> — a re-check of the same domain within 90 days,
-      which reports what changed since the first run rather than repeating it.
-      The point of this one is to prove the fixes landed.
+      <strong>US$150</strong> — a re-check of the same domain within 90 days, which
+      reports what changed since the first run rather than repeating it. The point
+      of this one is to prove the fixes landed.
     </li>
   </ul>
   <p>
-    <strong>You pay after the files arrive, not before</strong> — the same term
-    as every other engagement here. We confirm the scope and this acceptance
-    test in writing, deliver, and invoice after you have the report and the
-    evidence in your hands. Your risk on a first engagement is your own reading
-    time.
+    <strong>You pay after the files arrive, not before</strong> — the same term as
+    every other engagement here. We confirm the scope and this acceptance test in
+    writing, deliver, and invoice after you have the report and the evidence in your
+    hands. Your risk on a first engagement is your own reading time.
   </p>
   <p>
     Prices are in US dollars and exclude any tax applicable in your
@@ -311,27 +306,26 @@ const jsonLd = [
   <h2>What would make this a bad fit</h2>
   <ul>
     <li>
-      <strong>If you want a certificate or an attestation.</strong> This is a
-      defect list with evidence. It is not a penetration test, a SOC 2 artifact,
-      a WCAG conformance statement, or anything a regulator or an insurer will
-      accept as an assessment. If someone has told you that you need one of
-      those, buy that instead.
+      <strong>If you want a certificate or an attestation.</strong> This is a defect
+      list with evidence. It is not a penetration test, a SOC 2 artifact, a WCAG conformance
+      statement, or anything a regulator or an insurer will accept as an assessment.
+      If someone has told you that you need one of those, buy that instead.
     </li>
     <li>
-      <strong>If the problem is inside the system.</strong> Everything here is
-      visible from outside. Application logic, your database, your authenticated
-      pages and anything behind a login are all invisible to it, and a clean
-      report says nothing about them.
+      <strong>If the problem is inside the system.</strong> Everything here is visible
+      from outside. Application logic, your database, your authenticated pages and
+      anything behind a login are all invisible to it, and a clean report says nothing
+      about them.
     </li>
     <li>
-      <strong>If you need someone on a call.</strong> The work is asynchronous
-      and delivered in writing. There are no calls.
+      <strong>If you need someone on a call.</strong> The work is asynchronous and
+      delivered in writing. There are no calls.
     </li>
     <li>
-      <strong>If your site is one page with no mail on the domain.</strong> Half
-      the checks will report nothing to report, and you will have paid US$400
-      for the half that were worth running. Say so and we will tell you whether
-      it is worth it before you pay.
+      <strong>If your site is one page with no mail on the domain.</strong> Half the
+      checks will report nothing to report, and you will have paid US$400 for the
+      half that were worth running. Say so and we will tell you whether it is worth
+      it before you pay.
     </li>
   </ul>
 
@@ -365,9 +359,11 @@ const jsonLd = [
 
   <h2>Starting one</h2>
   <p>
-    Email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
-    with the domain. That is the whole intake — there is nothing to fill in and
-    nothing to grant us.
+    Email <a href="mailto:dev@toledotechnologies.com"
+      >dev@toledotechnologies.com</a
+    >
+    with the domain. That is the whole intake — there is nothing to fill in and nothing
+    to grant us.
   </p>
   <p>
     You will get a written confirmation repeating the scope, the price and this
@@ -381,7 +377,7 @@ const jsonLd = [
     correspondence, the audit itself and the written report are run by AI, with
     the company accountable for delivery. How that works is set out on the
     <a href="/about">about page</a>. Other fixed-price work is at
-    <a href="/engagements">/engagements</a>, and the runnable code samples behind
-    the method are at <a href="/proofs">/proofs</a>.
+    <a href="/engagements">/engagements</a>, and the runnable code samples
+    behind the method are at <a href="/proofs">/proofs</a>.
   </p>
 </InsertLayout>

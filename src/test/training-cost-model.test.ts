@@ -65,8 +65,7 @@ describe('training cost model', () => {
     expect(result.seatCost).toBe(1_000_000_000);
     expect(result.buildCost).toBe(1_000_000_000);
     expect(result.annualSubscriptionCosts).toEqual([
-      2_000_000_000,
-      12_000_000_000
+      2_000_000_000, 12_000_000_000
     ]);
   });
 

@@ -30,27 +30,11 @@ function clamp(value: number, min: number, max: number): number {
 export function calculateTrainingCostModel(
   inputs: TrainingCostInputs
 ): TrainingCostResult {
-  const learners = clamp(
-    Math.round(finiteOr(inputs.learners, 1)),
-    1,
-    100_000
-  );
-  const seatCost = clamp(
-    finiteOr(inputs.seatCost, 0),
-    0,
-    MAX_MONEY_INPUT
-  );
+  const learners = clamp(Math.round(finiteOr(inputs.learners, 1)), 1, 100_000);
+  const seatCost = clamp(finiteOr(inputs.seatCost, 0), 0, MAX_MONEY_INPUT);
   const years = clamp(Math.round(finiteOr(inputs.years, 1)), 1, 10);
-  const growthPercent = clamp(
-    finiteOr(inputs.growthPercent, 0),
-    -100,
-    500
-  );
-  const buildCost = clamp(
-    finiteOr(inputs.buildCost, 0),
-    0,
-    MAX_MONEY_INPUT
-  );
+  const growthPercent = clamp(finiteOr(inputs.growthPercent, 0), -100, 500);
+  const buildCost = clamp(finiteOr(inputs.buildCost, 0), 0, MAX_MONEY_INPUT);
 
   let learnersThisYear = learners;
   const annualSubscriptionCosts: number[] = [];

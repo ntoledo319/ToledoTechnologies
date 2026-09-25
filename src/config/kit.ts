@@ -82,7 +82,9 @@ export const KIT_OFFERS: KitOffer[] = [
   }
 ];
 
-export const KIT_CHECKOUT_OPEN = KIT_OFFERS.every((o) => o.paymentLink.length > 0);
+export const KIT_CHECKOUT_OPEN = KIT_OFFERS.every(
+  (o) => o.paymentLink.length > 0
+);
 
 /** Nothing can be bought and nothing can be downloaded. */
 export const KIT_ON_SALE = KIT_CHECKOUT_OPEN && KIT_ARCHIVE_PUBLISHED;

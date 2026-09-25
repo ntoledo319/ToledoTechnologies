@@ -76,9 +76,10 @@ const jsonLd = breadcrumbSchema([
   <h2>What the order simulation establishes</h2>
   <p>
     A durable SQLite record suppresses duplicate paid events and prevents
-    concurrent workers from claiming the same order at the same time. Only a result classified as
-    definitely not sent receives an automatic retry, with a limit and backoff.
-    An unknown outcome is held until a simulated status check resolves it.
+    concurrent workers from claiming the same order at the same time. Only a
+    result classified as definitely not sent receives an automatic retry, with a
+    limit and backoff. An unknown outcome is held until a simulated status check
+    resolves it.
   </p>
   <p class="proof-limit">
     Local duplicate suppression does not prove provider idempotency or

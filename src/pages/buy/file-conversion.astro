@@ -56,10 +56,10 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
   <ol>
     <li>The converted file, in your target schema.</li>
     <li>
-      <strong>Complete source-row accounting.</strong> Every input row either
-      appears in the output or appears in a reject list with the specific reason
-      it was rejected. The counts reconcile. If they do not reconcile, the run
-      fails rather than producing a number that cannot be accounted for.
+      <strong>Complete source-row accounting.</strong> Every input row either appears
+      in the output or appears in a reject list with the specific reason it was rejected.
+      The counts reconcile. If they do not reconcile, the run fails rather than producing
+      a number that cannot be accounted for.
     </li>
     <li>
       A written duplicate policy: which records were treated as duplicates, on
@@ -67,17 +67,19 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
       decision, never silently merged.
     </li>
     <li>
-      One reproducible command that regenerates the whole output from your source
-      file, so you can re-run it yourself after we are done.
+      One reproducible command that regenerates the whole output from your
+      source file, so you can re-run it yourself after we are done.
     </li>
-    <li>Acceptance tests you specify, which you run yourself to verify the result.</li>
+    <li>
+      Acceptance tests you specify, which you run yourself to verify the result.
+    </li>
   </ol>
 
   <p>
-    Identifiers are preserved literally. Leading zeros are kept. Values that look
-    numeric but are not — account codes, SKUs, postcodes — are left as text.
-    Monetary values and quantities are never inferred where your source does not
-    state them, and currencies are never summed across.
+    Identifiers are preserved literally. Leading zeros are kept. Values that
+    look numeric but are not — account codes, SKUs, postcodes — are left as
+    text. Monetary values and quantities are never inferred where your source
+    does not state them, and currencies are never summed across.
   </p>
 
   <h2>What is out of scope</h2>
@@ -100,10 +102,10 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
 
   <h2>If it does not fit</h2>
   <p>
-    If we cannot read your file, or the conversion turns out to fall outside this
-    scope, <strong>you are refunded in full</strong> and we tell you why. We
-    would rather return the money than deliver something that does not do what
-    this page says.
+    If we cannot read your file, or the conversion turns out to fall outside
+    this scope, <strong>you are refunded in full</strong> and we tell you why. We
+    would rather return the money than deliver something that does not do what this
+    page says.
   </p>
 
   <h2>After you pay</h2>
@@ -124,8 +126,8 @@ const PAY = 'https://buy.stripe.com/28E14n1bM0WQ8Jtgjy87K0e';
   </p>
   <p>
     The method behind this is public and runnable at
-    <a href="/proofs">/proofs</a> — those samples use invented fixture data and
-    demonstrate method, not client history. Other fixed-price work is listed at
+    <a href="/proofs">/proofs</a> — those samples use invented fixture data and demonstrate
+    method, not client history. Other fixed-price work is listed at
     <a href="/engagements">/engagements</a>.
   </p>
 

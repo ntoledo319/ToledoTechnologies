@@ -3,3 +3,9 @@ dist
 .astro
 .vercel
 public
+
+# Kit pages hold whitespace-significant <pre> command examples; Prettier reflows
+# them and changes what buyers see (verified 2026-09-25). Format by hand.
+src/pages/kit/index.astro
+src/pages/kit/delivered.astro
+src/pages/kit/acceptance-checklist.astro

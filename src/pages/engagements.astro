@@ -17,7 +17,9 @@ const jsonLd = breadcrumbSchema([
   subheading="Published prices and a written acceptance test. Two of the three you pay only after that test passes — the third you can buy by card right now."
 >
   <nav class="offer-index" aria-label="The three engagements and their prices">
-    <p class="offer-index-kicker">Three engagements &middot; published prices</p>
+    <p class="offer-index-kicker">
+      Three engagements &middot; published prices
+    </p>
     <ol>
       <li>
         <a href="#file-conversion"
@@ -25,7 +27,9 @@ const jsonLd = breadcrumbSchema([
             class="offer-index-price">US$850</span
           ></a
         >
-        <span class="offer-index-terms">Buy by card &mdash; no call, no quote</span>
+        <span class="offer-index-terms"
+          >Buy by card &mdash; no call, no quote</span
+        >
       </li>
       <li>
         <a href="#integration-triage"
@@ -33,7 +37,9 @@ const jsonLd = breadcrumbSchema([
             class="offer-index-price">US$1,200</span
           ></a
         >
-        <span class="offer-index-terms">Paid on acceptance &mdash; refunded if we cannot reproduce it</span>
+        <span class="offer-index-terms"
+          >Paid on acceptance &mdash; refunded if we cannot reproduce it</span
+        >
       </li>
       <li>
         <a href="#evaluation-harness"
@@ -61,8 +67,8 @@ const jsonLd = breadcrumbSchema([
   <h2 id="file-conversion">1. File conversion — US$850</h2>
   <p>
     You have an export from a system you are leaving, or a file in a shape
-    nothing else will read. You need it in a schema something else accepts,
-    and you need to trust it.
+    nothing else will read. You need it in a schema something else accepts, and
+    you need to trust it.
   </p>
   <p>
     <strong>This one you can buy directly</strong>, without emailing first — the
@@ -82,11 +88,13 @@ const jsonLd = breadcrumbSchema([
     <li>tests you specify and can run yourself</li>
   </ul>
   <p>
-    <strong>Bounded at:</strong> one source format, one target format, up to
-    50,000 rows. Larger or multi-format work is quoted separately.
+    <strong>Bounded at:</strong> one source format, one target format, up to 50,000
+    rows. Larger or multi-format work is quoted separately.
   </p>
 
-  <h2 id="integration-triage">2. Integration triage — US$1,200, refunded if we cannot reproduce it</h2>
+  <h2 id="integration-triage">
+    2. Integration triage — US$1,200, refunded if we cannot reproduce it
+  </h2>
   <p>
     Something that used to work is failing intermittently, silently, or only in
     production. Before anyone should be paid to fix it, someone has to prove
@@ -94,17 +102,27 @@ const jsonLd = breadcrumbSchema([
   </p>
   <p><strong>What you get:</strong></p>
   <ul>
-    <li>a reproduction of the failure, or a written statement that it could not be reproduced and what that rules out</li>
-    <li>root cause with the evidence that establishes it — logs, request bytes, timing, whatever actually demonstrates it</li>
+    <li>
+      a reproduction of the failure, or a written statement that it could not be
+      reproduced and what that rules out
+    </li>
+    <li>
+      root cause with the evidence that establishes it — logs, request bytes,
+      timing, whatever actually demonstrates it
+    </li>
     <li>a fix plan with acceptance criteria you can check</li>
     <li>a written risk note on what else the same cause is likely affecting</li>
   </ul>
   <p>
-    <strong>If we cannot reproduce the failure, this is refunded in full.</strong>
+    <strong
+      >If we cannot reproduce the failure, this is refunded in full.</strong
+    >
     We would rather return the fee than hand you a confident guess.
   </p>
 
-  <h2 id="evaluation-harness">3. Reproducible test or evaluation harness — US$2,200</h2>
+  <h2 id="evaluation-harness">
+    3. Reproducible test or evaluation harness — US$2,200
+  </h2>
   <p>
     You have a system whose output quality you assert but cannot re-verify on
     demand — a model, a classifier, a matching or extraction step. You need a
@@ -113,10 +131,23 @@ const jsonLd = breadcrumbSchema([
   </p>
   <p><strong>What you get:</strong></p>
   <ul>
-    <li>a scoring harness that runs against saved outputs, so a published result can be re-derived offline without re-running the system that produced it</li>
-    <li>results that are byte-stable: identical inputs give identical output, every time</li>
-    <li>explicit accounting for the awkward cases — abstentions, unparseable output, missing and duplicate records — reported separately rather than collapsed into one number</li>
-    <li>a self-contained viewer, and documentation for your team to add cases without us</li>
+    <li>
+      a scoring harness that runs against saved outputs, so a published result
+      can be re-derived offline without re-running the system that produced it
+    </li>
+    <li>
+      results that are byte-stable: identical inputs give identical output,
+      every time
+    </li>
+    <li>
+      explicit accounting for the awkward cases — abstentions, unparseable
+      output, missing and duplicate records — reported separately rather than
+      collapsed into one number
+    </li>
+    <li>
+      a self-contained viewer, and documentation for your team to add cases
+      without us
+    </li>
   </ul>
 
   <h2>How payment works</h2>
@@ -137,29 +168,26 @@ const jsonLd = breadcrumbSchema([
   </p>
 
   <h2>What we actually work with</h2>
-  <p>
-    So you can rule us in or out without a conversation:
-  </p>
+  <p>So you can rule us in or out without a conversation:</p>
   <ul>
     <li>
       <strong>Languages and runtimes:</strong> Python, JavaScript and TypeScript,
       Node, SQL, shell. Astro for static sites.
     </li>
     <li>
-      <strong>Data work:</strong> CSV, TSV, fixed-width, JSON and XML in or out;
-      schema mapping and conversion; reconciliation against a source of truth;
-      deduplication with a stated policy. Delimited and structured text only:
-      Excel workbooks are not read or written — export the sheet you need as
-      CSV.
+      <strong>Data work:</strong> CSV, TSV, fixed-width, JSON and XML in or out; schema
+      mapping and conversion; reconciliation against a source of truth; deduplication
+      with a stated policy. Delimited and structured text only: Excel workbooks are
+      not read or written — export the sheet you need as CSV.
     </li>
     <li>
-      <strong>Integration work:</strong> REST and webhook integrations, request
-      signing, retry and idempotency behaviour, error handling and failure
-      queues, API debugging against real traffic.
+      <strong>Integration work:</strong> REST and webhook integrations, request signing,
+      retry and idempotency behaviour, error handling and failure queues, API debugging
+      against real traffic.
     </li>
     <li>
-      <strong>Testing:</strong> automated test suites, reproducible evaluation
-      harnesses, adversarial and failure-path testing.
+      <strong>Testing:</strong> automated test suites, reproducible evaluation harnesses,
+      adversarial and failure-path testing.
     </li>
   </ul>
   <p>
@@ -174,14 +202,14 @@ const jsonLd = breadcrumbSchema([
   </p>
   <ul>
     <li>
-      <strong>If you need someone on calls</strong> — standups, live debugging
-      sessions, stakeholder meetings — this is not that. The work is
-      asynchronous and delivered in writing.
+      <strong>If you need someone on calls</strong> — standups, live debugging sessions,
+      stakeholder meetings — this is not that. The work is asynchronous and delivered
+      in writing.
     </li>
     <li>
-      <strong>If you need regulatory certification</strong> — accessibility
-      conformance statements, security attestations, clinical or financial
-      sign-off — we do not issue those.
+      <strong>If you need regulatory certification</strong> — accessibility conformance
+      statements, security attestations, clinical or financial sign-off — we do not
+      issue those.
     </li>
     <li>
       <strong>If the problem is not yet defined</strong>, a fixed price is the
@@ -189,18 +217,17 @@ const jsonLd = breadcrumbSchema([
       you a number.
     </li>
     <li>
-      <strong>If you need a specific platform we have no track record in</strong>,
-      we will tell you rather than learn on your budget.
+      <strong>If you need a specific platform we have no track record in</strong
+      >, we will tell you rather than learn on your budget.
     </li>
   </ul>
 
   <h2>Evidence, not adjectives</h2>
   <p>
     Rather than describe how carefully we work, the
-    <a href="/proofs">working samples</a> are published with full source, their
-    test records, and their stated limits. They are built on invented data and
-    are demonstrations of method rather than client references — the pages say
-    so themselves.
+    <a href="/proofs">working samples</a> are published with full source, their test
+    records, and their stated limits. They are built on invented data and are demonstrations
+    of method rather than client references — the pages say so themselves.
   </p>
   <p>
     Toledo Technologies LLC is the contracting supplier. How we operate is set
@@ -208,10 +235,12 @@ const jsonLd = breadcrumbSchema([
   </p>
   <h2>Starting one</h2>
   <p>
-    Email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>
-    with the shape of the task. Useful things to include, if you have them: the
-    source format, what the output needs to be, and how you would know it worked.
-    Redacted samples are fine and often faster than a description.
+    Email <a href="mailto:dev@toledotechnologies.com"
+      >dev@toledotechnologies.com</a
+    >
+    with the shape of the task. Useful things to include, if you have them: the source
+    format, what the output needs to be, and how you would know it worked. Redacted
+    samples are fine and often faster than a description.
   </p>
   <p>
     You will get a written answer with a scope, a price and the acceptance test
