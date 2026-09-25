@@ -160,19 +160,16 @@ https://r.jina.ai https:` (its proxy and the direct fallback to the site
      `src/test/csp.test.ts` (14 tests) recomputes every hash from `dist/`
      and fails if any page other than the robots tool has a different
      policy.
-   - **Oracle result on one static file.** `_verify/csp-check.mjs` passes
-     all 67 Astro pages. It flags `proofs/purchasing/archive.html` twice:
-     "object-src 'none' missing" and "form-action does not allow
-     https://eolkits.com". That file is the proof's own output. Its SHA-256
-     is published in `manifest.json` and `verification.json` and inside the
-     proof ZIP, and `/proofs/` is a revenue page, so it ships byte for byte.
-     Its policy is `default-src 'none'; script-src 'unsafe-inline';
-style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none';
-form-action 'none'`, which is stricter on both counts. `object-src`
-     falls back to `default-src 'none'` (CSP3 fallback list). The page has
-     no `<form>`, and the oracle tests the site-wide set of form targets
-     against every page. Making the oracle literally green would mean
-     re-issuing the proof with new checksums: **owner decision**, not done.
+   - **Oracle result.** `_verify/csp-check.mjs` passes all 68 pages. An
+     earlier version of that check wrongly failed the proof's own output,
+     `proofs/purchasing/archive.html` (it required an explicit `object-src`
+     and a site-wide form target on every page). That file ships byte for
+     byte because its SHA-256 is published in `manifest.json`,
+     `verification.json` and the proof ZIP; its own policy
+     (`default-src 'none'` … `form-action 'none'`) is stricter than required.
+     The check was corrected on 2026-09-25 to apply the CSP3
+     `default-src` fallback and to judge each page by its own forms and
+     scripts. No owner decision is needed.
 3. **CI (#35).** `actions/checkout` and `actions/setup-node` (v4 in
    `ci.yml`, v6 in `deploy.yml`) are pinned to the commit each tag points at
    today (`gh api …/git/ref/tags/<tag>`, all lightweight tags → commits),
@@ -181,6 +178,21 @@ read`; `deploy.yml` already had it. No runner, trigger, secret, step or
    deploy logic changed; the revenue-page guard is untouched. Actions is
    billing-locked, so this was checked by parsing and by
    `_verify/workflow-check.mjs`, not by a run.
+
+4. **Follow-ups from verification (2026-09-25).**
+   - **CI format gate.** `ci.yml` runs `npm run format -- --check`, which
+     failed on 25 files before this audit. 22 are now formatted. Every
+     changed page was rebuilt and compared with the previous build in
+     Chromium at 1280px and 375px: rendered text is identical on all of
+     them, and screenshots are identical except the home page, which
+     differs between two builds of the same commit (animation).
+     Formatting the three kit pages changed a `<pre>` command example that
+     buyers see, so those three are listed in `.prettierignore` with that
+     reason and were left as they were. `npx prettier --check .` passes.
+   - **Stable ordering.** Two case studies share `publishedDate`
+     2026-05-21, so their order depended on collection load order. The
+     case-study, portfolio and blog lists now break ties by id, which keeps
+     the order that clean builds and the live site already show.
 
 ## Tests run
 
@@ -210,7 +222,7 @@ read`; `deploy.yml` already had it. No runner, trigger, secret, step or
 | Head and link content per page                                                                               | title, meta, canonical, JSON-LD, every link, form action and image `src`: identical on 68 pages                                                                                                                                    |
 | ClientRouter + mobile menu, 375px, normal and reduced motion                                                 | menu opens by click and Enter, Escape closes and returns focus: on first load, after 4 swaps and after a back-button swap. 72 checks, 3 consecutive runs green                                                                     |
 | CSP at runtime (`securitypolicyviolation` listener)                                                          | 0 on load of all 67 pages; 0 across a 15-page desktop swap chain, the three tools (robots proxied + direct fallback, speed test, ROI) and 4 lead forms reached by swap and posted to a mocked `eolkits.com` that 303s back         |
-| `_verify/csp-check.mjs`                                                                                      | 67 Astro pages pass; 2 findings on the static proof `proofs/purchasing/archive.html` (Round 2, item 2)                                                                                                                             |
+| `_verify/csp-check.mjs`                                                                                      | all 68 pages pass (after the 2026-09-25 correction to the check; see Round 2, item 2)                                                                                                                                              |
 | `_verify/workflow-check.mjs`                                                                                 | WORKFLOW CHECK PASSED (2 workflows, 4 pinned actions)                                                                                                                                                                              |
 
 **Untested boundaries:** no real or test payment (no Stripe access; Payment
