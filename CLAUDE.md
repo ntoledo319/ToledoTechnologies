@@ -15,8 +15,11 @@ npm run build   # Production build
 ## Content Collections
 
 - Blog posts: `src/content/blog/` (Markdown with frontmatter; schemas and `glob()` loaders in `src/content.config.ts`)
-- Codebases: `src/content/codebases/` (YAML frontmatter)
 - Case studies: `src/content/case-studies/` (YAML frontmatter)
+
+There is no `codebases` collection — it was deleted along with its routes and
+schema. Buyable work lives on pages under `src/pages/buy/`, `src/pages/kit/` and
+`src/pages/engagements.astro`, never in a content collection.
 
 ---
 
