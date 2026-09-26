@@ -100,4 +100,24 @@ describe('2026-09-23 audit regressions', () => {
       expect(source, path).toContain('href="/policies/"');
     }
   });
+
+  it('publishes the approved inquiry retention on the hub privacy page', () => {
+    // Owner decision 2026-09-25: the lead service deletes inquiry records 730
+    // days after submission (spam included). /privacy is also the policy the
+    // web., sitelift., apps., mobile. and ai. subdomains link to, so the
+    // statement has to cover inquiries from any Toledo site.
+    const page = read('src/pages/privacy.astro').replace(/\s+/g, ' ');
+    expect(page).toContain("const lastUpdated = 'September 26, 2026';");
+    for (const phrase of [
+      'Inquiry records you submit through this site, or through an inquiry form on any other Toledo Technologies site, are deleted automatically 24 months after submission.',
+      'Submissions flagged as spam are deleted on the same schedule.',
+      'The notification email the lead service sends us is not covered by that automatic deletion.',
+      'If you become a client, what the engagement needs is kept under your agreement.',
+      'You can ask us to delete your inquiry sooner at any time.'
+    ]) {
+      expect(page, phrase).toContain(phrase);
+    }
+    expect(page).not.toMatch(/not deleted on a fixed schedule/i);
+    expect(page).not.toMatch(/as long as (is )?reasonably needed/i);
+  });
 });
