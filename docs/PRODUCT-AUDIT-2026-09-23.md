@@ -60,6 +60,10 @@ Policy (#23); CI actions are pinned to commit SHAs (#35). The upgrade was
 checked page by page against a build of `origin/main`, and one CSS
 regression it introduced was fixed. Details in "Round 2 fixes" below.
 
+**Round 3 (2026-09-26, 1 fix commit):** `/privacy` publishes the
+owner-approved inquiry retention, 24 months (#12). Details in "Round 3 fixes"
+below.
+
 ## Applicability and findings register
 
 Basis: **L** = legal requirement (verified source), **P** = platform/contract,
@@ -78,7 +82,7 @@ Basis: **L** = legal requirement (verified source), **P** = platform/contract,
 | 9   | Privacy notice vs actual network traffic                  | Live capture 2026-09-23: only `static.cloudflareinsights.com`, `cloudflareinsights.com`, `fonts.googleapis.com`, `fonts.gstatic.com`; no cookies, no local/session storage on load | APPLIES                   | E (accuracy)                                | Medium | FIXED                    | Cloudflare already disclosed (prior NEW-2 merged); Google Fonts now disclosed                                                                                                                                                            |
 | 10  | Cookie / consent banner                                   | No cookies, no ads, no replay, no cross-site tracking observed                                                                                                                     | NOT APPLICABLE            | —                                           | —      | OK                       | Not added (prompt §1.E)                                                                                                                                                                                                                  |
 | 11  | Contact-form data flow                                    | 4 forms POST to `eolkits.com/api/v1/lead`: honeypot, per-IP/day/global rate limits, body limit, escaped notification email (`Rupture/.../app.py:780-990`, read-only)               | APPLIES                   | E                                           | —      | OK                       | Notice on the form matches the handler. Not submitted (live endpoint)                                                                                                                                                                    |
-| 12  | Lead retention                                            | Handler never purges leads; `/privacy` states no retention for inquiries                                                                                                           | APPLIES                   | E (privacy notice accuracy)                 | Medium | OPEN                     | **OWNER DECISION:** a retention period to publish and enforce. Not invented                                                                                                                                                              |
+| 12  | Lead retention                                            | Handler never purged leads; `/privacy` said nothing about how long inquiries are kept                                                                                              | APPLIES                   | E (privacy notice accuracy)                 | Medium | FIXED                    | Owner decision 2026-09-25: 24 months. `/privacy` states it for any Toledo site; test pins it (Round 3). Purge is `EOLKITS_LEAD_RETENTION_DAYS=730` in the lead service (default 0 = off): set it before this page deploys                |
 | 13  | Access / deletion requests                                | `/privacy` offers access/correction/deletion by email to `hello@`; deletion is manual in the lead DB; no evidence anyone reads `hello@`                                            | APPLIES                   | E                                           | Medium | BLOCKED                  | Depends on OD-06 (which mailbox is monitored)                                                                                                                                                                                            |
 | 14  | CT Data Privacy Act                                       | CT business. Applies at ≥35,000 consumers/yr (excl. payment-only data), or any sensitive data, or any sale. No sale, no sensitive data found                                       | UNKNOWN                   | L                                           | Low    | OPEN                     | Missing fact: prior-year count of consumers whose data was processed (Cloudflare Analytics / lead DB). If ever in scope, universal opt-out signals (GPC) must be honoured                                                                |
 | 15  | Other state laws (CCPA etc.), GDPR                        | US$0 lifetime revenue, no sale/share; EU targeting not evident beyond worldwide availability and B2B offers                                                                        | UNKNOWN                   | L                                           | Low    | OPEN                     | Owner to confirm whether EU consumers are intended buyers; if yes, EU digital-content withdrawal rules need review                                                                                                                       |
@@ -194,6 +198,41 @@ read`; `deploy.yml` already had it. No runner, trigger, secret, step or
      case-study, portfolio and blog lists now break ties by id, which keeps
      the order that clean builds and the live site already show.
 
+## Round 3 fixes (2026-09-26)
+
+Commit: `c582698`, plus this file.
+
+1. **Inquiry retention (#12).** Owner decision 2026-09-25: the lead service
+   deletes inquiry records 24 months (730 days) after submission, spam-flagged
+   ones included. `/privacy` said nothing about how long inquiries are kept.
+   It now has "How Long Inquiries Are Kept" under "Contact Form", in the
+   approved wording: inquiry records sent through this site or an inquiry form
+   on any other Toledo Technologies site are deleted automatically 24 months
+   after submission; spam on the same schedule; a client's engagement material
+   is kept under their agreement; earlier deletion on request. "Last updated"
+   is now September 26, 2026.
+   - **Why "any Toledo site".** `/privacy` is the hub policy. The web.,
+     sitelift., apps., mobile. and ai. forms all post to the same
+     `https://eolkits.com/api/v1/lead` endpoint (checked by grep in their
+     audit worktrees), so one statement covers them.
+   - **One fact added.** The purge removes the lead-database row; it does not
+     delete the owner-notification email already in the mailbox. The page
+     says so in one sentence rather than implying every copy goes.
+   - **Nothing contradicted it.** No page said inquiries are kept
+     indefinitely, "not on a fixed schedule" or "as long as reasonably
+     needed". The seven-year line under "Payments" is for order records and
+     stands. Form notices link to `/privacy` and did not need to change.
+   - **Deploy order.** The purge is `purge_expired_leads()`, the last step of
+     the lead service's retention sweep, driven by
+     `EOLKITS_LEAD_RETENTION_DAYS`. Its default is 0, which is off. The page is
+     only true once production runs with 730, so set that before or with the
+     push of this page.
+   - **Guard.** A new test in `src/test/audit-2026-09-23.test.ts` pins the
+     wording and the date and fails on "not deleted on a fixed schedule" or
+     "reasonably needed".
+   - No revenue page, form, stylesheet or script changed; the CSP is
+     untouched.
+
 ## Tests run
 
 | Command / check                                                                                              | Result                                                                                                                                                                                                                             |
@@ -224,6 +263,11 @@ read`; `deploy.yml` already had it. No runner, trigger, secret, step or
 | CSP at runtime (`securitypolicyviolation` listener)                                                          | 0 on load of all 67 pages; 0 across a 15-page desktop swap chain, the three tools (robots proxied + direct fallback, speed test, ROI) and 4 lead forms reached by swap and posted to a mocked `eolkits.com` that 303s back         |
 | `_verify/csp-check.mjs`                                                                                      | all 68 pages pass (after the 2026-09-25 correction to the check; see Round 2, item 2)                                                                                                                                              |
 | `_verify/workflow-check.mjs`                                                                                 | WORKFLOW CHECK PASSED (2 workflows, 4 pinned actions)                                                                                                                                                                              |
+| **Round 3 (2026-09-26)**                                                                                     |                                                                                                                                                                                                                                    |
+| `npm run build` / `npm test` / `npm run lint` / `npm run typecheck`                                          | pass: 67 pages; 55 tests (54 + 1 retention guard); lint clean; `astro check` 0 errors                                                                                                                                              |
+| Build of `origin/main` vs branch, same tree except `/privacy`                                                | `diff -rq` over all of `dist/`: only `privacy/index.html` differs, by the date and the new paragraph                                                                                                                               |
+| `_verify/csp-check.mjs`                                                                                      | CSP CHECK PASSED, 68 pages                                                                                                                                                                                                         |
+| `npx prettier --check .`                                                                                     | pass                                                                                                                                                                                                                               |
 
 **Untested boundaries:** no real or test payment (no Stripe access; Payment
 Link state and the kit key reveal unverified); no live form submission; no
@@ -244,8 +288,10 @@ remain blocked on the owner and are not fixable in code:
    mail forwarded from `hello@`. Needed: a working mailbox, one reader, one
    cadence.
 2. ~~OD-01 — Payment Link state~~ closed 2026-09-25: the link renders "The link is no longer active."
-3. **Lead retention period** (#12) — a number to publish on `/privacy` and a
-   purge to match.
+3. ~~Lead retention period (#12)~~ decided 2026-09-25 (24 months) and
+   published on `/privacy` in Round 3. Ship order: set
+   `EOLKITS_LEAD_RETENTION_DAYS=730` on the lead service before or with the
+   push of this page, or the page overstates what happens.
 4. **CT sales tax** (#17) — registration status and whether Stripe collects.
 5. ~~VPS `/tools/` route~~ fixed and live 2026-09-25 (owner-approved Caddy reload).
 6. ~~NEW-3 — state of formation~~ closed 2026-09-25: Connecticut (CT registry account 3356038).
@@ -304,7 +350,9 @@ repos/<owner>/<repo>/git/ref/tags/<tag>` returns.
   `package-lock.json`. Round 2, newest first: the CI pins (`e40df92`) revert
   on their own; the CSP (`8300550`) reverts on its own and leaves Astro 7;
   the upgrade needs `6e78b38` and `f1f2106` reverted after the CSP commit
-  (the policy uses Astro 7's `security.csp`), then `npm ci`.
+  (the policy uses Astro 7's `security.csp`), then `npm ci`. Round 3
+  (`c582698`, `/privacy` retention and its test) reverts on its own; revert
+  it too if the lead-service purge is ever switched off.
 - **Visual change to expect:** muted metadata is darker (≈75% ink instead of
   20–55%), the accent orange is 2% darker in lightness, care/discovery/partner
   panels now show the borders and tint they always referenced. Round 2
