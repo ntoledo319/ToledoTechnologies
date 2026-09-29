@@ -20,7 +20,7 @@ const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
   description="How to decrypt, verify and run the Toledo Migration Acceptance Kit after purchase."
   noindex={true}
   heading="Unpacking your kit"
-  subheading="Four commands. Nothing to install, no account, no login."
+  subheading="Requires Python and OpenSSL. No kit account or login."
 >
   <p class="kit-kicker">Release {KIT_VERSION}</p>
 
@@ -37,13 +37,14 @@ const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
 
   <p>
     You should have a release key — Stripe showed it on the confirmation page
-    immediately after payment. Keep it somewhere you will still have it in two
+    immediately after payment. The release key is shown there; do not rely on
+    the payment-receipt email to contain it. Keep it somewhere you will still have it in two
     years; it is the only thing standing between you and this archive, and
     there is no account to log in to and recover it from.
   </p>
   <p>
     If you do not have it, skip to <a href="#lost">lost your key</a> at the
-    bottom. It is a two-minute fix and it is not a problem.
+    bottom. Recovery uses your Stripe receipt reference.
   </p>
 
   <h2>1. Download the encrypted archive</h2>
@@ -65,8 +66,9 @@ const root = `toledo-migration-acceptance-kit-${KIT_VERSION}`;
 
   <h2>2. Decrypt it</h2>
   <p>
-    macOS and Linux, in the folder where you downloaded it. <code>openssl</code>
-    is already installed on both.
+    On macOS or Linux, use a terminal in the folder where you downloaded the
+    archive. Run <code>openssl enc -help</code> first and check that your installed
+    build supports <code>-pbkdf2</code> and <code>-iter</code>.
   </p>
   <div class="kit-command" tabindex="0" role="region" aria-label="Command to copy">openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 600000 \
   -in {enc} \
@@ -139,9 +141,10 @@ python3 -m unittest test_reconcile -v</div>
       the download was truncated. Fetch it again.
     </li>
     <li>
-      Very old <code>openssl</code> builds (1.0.x) do not support
-      <code>-pbkdf2</code>. <code>openssl version</code> will tell you. Any
-      current macOS, Linux or Git for Windows install is fine.
+      If <code>-pbkdf2</code> or <code>-iter</code> is not recognized, check
+      <code>openssl version</code> and <code>openssl enc -help</code>. Use a build
+      that supports both options before retrying; the operating-system name
+      alone does not establish compatibility.
     </li>
   </ul>
 
