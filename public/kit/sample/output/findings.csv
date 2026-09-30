@@ -1,0 +1,7 @@
+side,bucket,key,line,detail
+source,ambiguous_target,106,7,target holds 2 rows for this key; no single row can be compared against
+source,changed,103,4,balance: source=3000 target=3200
+source,missing,102,3,no target row and no declared rejection
+source,rejected_but_present,104,5,declared rejected (Excluded by the fictional review decision) but present in target
+source,unverified,105,6,balance: source=<unknown> target=<unknown>
+target,duplicate_target,106,6,key appears 2 times in target

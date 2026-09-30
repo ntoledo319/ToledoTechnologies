@@ -1,0 +1,113 @@
+{
+  "envelope": {
+    "generated_utc": "2026-09-30T06:51:00+00:00",
+    "note": "generated_utc is excluded from results_content_hash so identical inputs produce an identical hash",
+    "report_version": 1,
+    "tool": "toledo-reconcile",
+    "tool_version": "1.0.0"
+  },
+  "results": {
+    "compared_fields": [
+      {
+        "blank_policy": "unknown",
+        "label": "balance",
+        "normalise_source": [
+          "money_minor:2"
+        ],
+        "normalise_target": [
+          "number:0"
+        ],
+        "source": "balance",
+        "target": "balance_cents"
+      }
+    ],
+    "findings": [
+      {
+        "bucket": "ambiguous_target",
+        "detail": "target holds 2 rows for this key; no single row can be compared against",
+        "key": "106",
+        "line": 7,
+        "side": "source"
+      },
+      {
+        "bucket": "changed",
+        "detail": "balance: source=3000 target=3200",
+        "key": "103",
+        "line": 4,
+        "side": "source"
+      },
+      {
+        "bucket": "missing",
+        "detail": "no target row and no declared rejection",
+        "key": "102",
+        "line": 3,
+        "side": "source"
+      },
+      {
+        "bucket": "rejected_but_present",
+        "detail": "declared rejected (Excluded by the fictional review decision) but present in target",
+        "key": "104",
+        "line": 5,
+        "side": "source"
+      },
+      {
+        "bucket": "unverified",
+        "detail": "balance: source=<unknown> target=<unknown>",
+        "key": "105",
+        "line": 6,
+        "side": "source"
+      },
+      {
+        "bucket": "duplicate_target",
+        "detail": "key appears 2 times in target",
+        "key": "106",
+        "line": 6,
+        "side": "target"
+      }
+    ],
+    "inputs": {
+      "rejects": {
+        "file": "rejects.csv",
+        "rows_read": 1,
+        "sha256": "f1d3b02ed3be3633109ec89cd1e09bf7131b91ddc7a532b27438e55f57de55da"
+      },
+      "source": {
+        "file": "source.csv",
+        "rows_read": 6,
+        "sha256": "d55aa851daae6f93d68595b45801ddb1b4aa687fbc46987b612c5d38842c3611"
+      },
+      "target": {
+        "file": "target.csv",
+        "rows_read": 6,
+        "sha256": "3db364741d91d0d4436c3ee1e4d1d402057f9906a286f02586f165b316c9a36c"
+      }
+    },
+    "migration": "Fictional cutover: six rows on both sides",
+    "reconciliation": {
+      "source_balances": true,
+      "source_bucketed_total": 6,
+      "target_balances": true,
+      "target_bucketed_total": 6
+    },
+    "source_accounting": {
+      "ambiguous_target": 1,
+      "blank_key": 0,
+      "changed": 1,
+      "duplicate_source": 0,
+      "matched": 1,
+      "missing": 1,
+      "rejected": 0,
+      "rejected_but_present": 1,
+      "unverified": 1
+    },
+    "spec_sha256": "a3498f4c78e9c18256932a1aa77811bf71982d71d83438770db2ce7b02820244",
+    "target_accounting": {
+      "accounted": 4,
+      "ambiguous_source": 0,
+      "blank_key": 0,
+      "duplicate_target": 2,
+      "orphan": 0
+    }
+  },
+  "results_content_hash": "d6e0d47a686e6ad49102aa0338286a66162844dd26ed756c1f44b6542e9c145f"
+}
