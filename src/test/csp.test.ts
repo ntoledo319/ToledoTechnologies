@@ -172,9 +172,31 @@ describe.skipIf(!existsSync(join(dist, 'index.html')))(
       expect(problems).toEqual([]);
     });
 
-    it('shares one policy site-wide; only the robots.txt tool widens connect-src', () => {
+    it('shares one policy across app pages; the offline sample has no scripts or network access', () => {
+      const sample = 'kit/sample/output/report.html';
+      const [samplePolicy] = findPolicies(
+        readFileSync(join(dist, sample), 'utf8')
+      );
+      const offline = parsePolicy(samplePolicy.content);
+      expect(offline.get('default-src')).toEqual(["'none'"]);
+      expect(offline.get('script-src')).toEqual(["'none'"]);
+      expect(offline.get('form-action')).toEqual(["'none'"]);
+      expect(offline.get('style-src')).toHaveLength(1);
+      expect(offline.get('style-src')?.[0]).toMatch(
+        /^'sha256-[A-Za-z0-9+/=]+'$/
+      );
+      expect([...offline.keys()].sort()).toEqual([
+        'base-uri',
+        'default-src',
+        'form-action',
+        'object-src',
+        'script-src',
+        'style-src'
+      ]);
       const byPolicy = new Map<string, string[]>();
       for (const file of astroPages) {
+        // This generated, offline report is validated above and by checkPage.
+        if (rel(file) === sample) continue;
         const [policy] = findPolicies(readFileSync(file, 'utf8'));
         byPolicy.set(policy.content, [
           ...(byPolicy.get(policy.content) ?? []),

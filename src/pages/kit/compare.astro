@@ -1,0 +1,239 @@
+---
+import InsertLayout from '../../layouts/InsertLayout.astro';
+import { breadcrumbSchema } from '../../utils/jsonld';
+import { KIT_OFFERS, KIT_ON_SALE } from '../../config/kit';
+import '../../styles/kit.css';
+
+const canonical = 'https://toledotechnologies.com/kit/compare/';
+const title = 'Data migration acceptance: in-house, Toledo Kit or QuerySurge?';
+const description =
+  'Choose a migration acceptance approach: your own procedure, the US$240/US$600 Toledo file-comparison kit, or QuerySurge enterprise validation. Scope, evidence and limits.';
+const trackedPurchase = (paymentLink: string) => {
+  const url = new URL(paymentLink);
+  url.searchParams.set('utm_source', 'owned_search');
+  url.searchParams.set('utm_medium', 'comparison');
+  url.searchParams.set('utm_campaign', 'prod-migration');
+  url.searchParams.set('utm_content', 'kit-compare');
+  return url.toString();
+};
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Migration Acceptance Kit', url: '/kit/' },
+    { name: 'Choose an acceptance approach', url: '/kit/compare/' }
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    mainEntityOfPage: canonical,
+    datePublished: '2026-10-01',
+    dateModified: '2026-10-01',
+    author: {
+      '@type': 'Organization',
+      name: 'Toledo Technologies',
+      url: 'https://toledotechnologies.com/'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Toledo Technologies',
+      url: 'https://toledotechnologies.com/'
+    }
+  }
+];
+---
+
+<InsertLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+  ogType="article"
+  publishedTime="2026-10-01"
+  modifiedTime="2026-10-01"
+  heading="Who will account for the rows?"
+  subheading="Choosing between an in-house acceptance procedure, the Toledo Migration Acceptance Kit and QuerySurge."
+>
+  <p class="kit-kicker">
+    Migration acceptance · comparison · reviewed 1 October 2026
+  </p>
+  <p>
+    You have an exported-data migration approaching sign-off. Start with the
+    inputs you can actually inspect, the evidence the approver needs, and who
+    will maintain the checks after this run.
+  </p>
+  <p class="kit-note">
+    <strong>The Toledo kit’s ceiling:</strong> one source file against one target
+    file, delimited text only, with both read into memory. No database, Excel, JSON,
+    XML or Parquet input. It supplies evidence for your review; it is not an audit
+    or attestation.
+  </p>
+
+  <h2>When each approach fits</h2>
+  <h3>Keep an in-house procedure when you already own the checks</h3>
+  <p>
+    If your team has tested queries or scripts, documented mappings and an
+    accountable reviewer, build on them. You control the inputs, transformations
+    and acceptance rules. You also own the tests, maintenance, exception record
+    and proof that every row was accounted for.
+  </p>
+  <p>
+    Start with the <a href="/kit/acceptance-checklist/"
+      >free acceptance checklist</a
+    >. Agree keys, field mappings, exclusions and unresolved scope before
+    writing a sign-off. Buying a tool does not make those decisions for you.
+  </p>
+
+  <h3>Use the Toledo kit for a bounded pair of exports</h3>
+  <p>
+    The kit supplies a standard-library Python comparison tool, a written
+    procedure and a sign-off template. It accounts for source and target rows
+    separately and writes JSON, printable HTML and a findings CSV. You declare
+    the mapping, normalization and blank-value policy, then investigate the
+    findings.
+  </p>
+  <p>
+    It fits when you can produce delimited-text exports that fit in memory and
+    want inspectable local reports. It does not establish that the exports
+    include all the original data, model one-to-many transformations or check
+    every business rule. You still decide whether to accept the migration.
+  </p>
+  <p>
+    <a href="/kit/sample/">Inspect the complete fictional acceptance packet</a> before
+    choosing. Its input files, actual generated report and findings show what the
+    kit produces and what remains a human decision.
+  </p>
+
+  <h3>Evaluate QuerySurge for broader enterprise validation</h3>
+  <p>
+    QuerySurge describes automated source-to-target validation, repeatable
+    migration test suites and API-driven execution. Its integrations cover
+    broader data sources than this kit’s file pair. That makes it a candidate
+    when the requirement is connected systems and repeated validation across
+    migration waves. Confirm your sources and operating requirements in an
+    evaluation. <a
+      href="https://www.querysurge.com/solutions/data-migration-testing"
+      >Source: QuerySurge’s data migration testing page</a
+    >.
+  </p>
+  <p>
+    Its <a href="https://www.querysurge.com/compare-trial-options"
+      >official trial comparison</a
+    > offers hosted cloud, downloadable and guided proof-of-concept paths. Those are
+    different evaluation arrangements; check the current conditions against your environment.
+  </p>
+
+  <h2>Two rows can still hide a failed migration</h2>
+  <p>
+    <strong
+      >Synthetic illustration, not customer data or generated tool output.</strong
+    > Each file below has two records and a total balance of 30.00. Row counts and
+    totals agree; record identities do not.
+  </p>
+  <div
+    class="kit-table-wrap"
+    tabindex="0"
+    role="region"
+    aria-label="Fictional source and target rows; scroll horizontally if needed"
+  >
+    <table class="kit-table">
+      <caption
+        >Two fictional records per file; balances in the same units</caption
+      >
+      <thead
+        ><tr
+          ><th scope="col">Source key</th><th scope="col">Balance</th><th
+            scope="col">Target key</th
+          ><th scope="col">Balance</th></tr
+        ></thead
+      >
+      <tbody
+        ><tr><td>101</td><td>10.00</td><td>101</td><td>10.00</td></tr><tr
+          ><td>102</td><td>20.00</td><td>103</td><td>20.00</td></tr
+        ></tbody
+      >
+    </table>
+  </div>
+  <p>
+    With the key compared as written and no declared rejection, source 102 is
+    missing and target 103 is an orphan. Ask who owns the discrepancy, whether
+    it is an agreed exception, and what evidence is needed before sign-off. Any
+    approach you choose must answer those questions.
+  </p>
+
+  <h2>Compare the purchasing arrangements, too</h2>
+  <p>
+    These products cover different scopes. A licence price alone does not
+    compare implementation effort, validation coverage or total cost.
+  </p>
+  <p>
+    As checked on <time datetime="2026-10-01">1 October 2026</time>,
+    QuerySurge’s <a
+      href="https://www.querysurge.com/product-tour/licensing-pricing-options"
+      >published pricing</a
+    > lists a named Full User at US$12,642 perpetual, or US$6,006 per user for a 12-month
+    subscription with a two-user subscription minimum. It also lists packages, cloud
+    hourly options and enterprise quotes. Perpetual maintenance is listed at 18% annually,
+    with the first year included and subsequent annual increases. Check regional conditions
+    and current configuration costs with QuerySurge.
+  </p>
+  <p>
+    The Toledo kit has two perpetual licence choices, with full source and no
+    licence expiry. <a href="/kit/license/">Read the complete licence</a> and <a
+      href="/kit/#price">the product’s purchase and delivery details</a
+    >. Consultancy rights cover client work; clients receive the outputs, while
+    the kit stays with you.
+  </p>
+  <ul>
+    {
+      KIT_OFFERS.map((offer) => (
+        <li>
+          <strong>
+            {offer.name} — US${offer.price}, once.
+          </strong>{' '}
+          {offer.who}
+          {KIT_ON_SALE && (
+            <>
+              {' '}
+              <a href={trackedPurchase(offer.paymentLink)} data-astro-reload>
+                Buy the {offer.name.toLowerCase()}
+              </a>
+              .
+            </>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  {
+    !KIT_ON_SALE && (
+      <p>
+        Checkout is currently unavailable. You can still inspect the sample and
+        licence.
+      </p>
+    )
+  }
+  <p>
+    Delivery uses an encrypted archive and a release key shown on the Stripe
+    payment confirmation page. Do not rely on the receipt email to contain the
+    key. Python and OpenSSL are required. Read the <a href="/kit/delivered/"
+      >installation, delivery and receipt-recovery instructions</a
+    > before paying.
+  </p>
+
+  <h2>Take one decision to your reviewer</h2>
+  <p>
+    Identify the exact source and target, name the acceptance owner, and list
+    what will remain untested. If the bounded export comparison fits, <a
+      href="/kit/sample/">open the worked packet</a
+    > and judge the evidence yourself. If it does not, use your own procedure or evaluate
+    a platform against the requirements the kit cannot meet.
+  </p>
+  <p class="kit-buy-terms">
+    Written by Toledo Technologies, the kit’s vendor. QuerySurge facts above
+    come from its linked official pages, checked 1 October 2026; fit
+    recommendations are our assessment. This is not a hands-on benchmark or an
+    endorsement by QuerySurge.
+  </p>
+</InsertLayout>
