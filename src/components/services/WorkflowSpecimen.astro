@@ -1,0 +1,64 @@
+---
+export interface Props {
+  compact?: boolean;
+  anchorId?: string;
+}
+
+const { compact = false, anchorId } = Astro.props;
+---
+
+<figure
+  class:list={['workflow-specimen', { 'workflow-specimen--compact': compact }]}
+  id={anchorId}
+>
+  <figcaption>
+    <span>Synthetic specimen · TT-WF-004</span>
+    <strong>Inquiry handoff test record</strong>
+    <small>Invented data. Demonstrates method, not a client result.</small>
+  </figcaption>
+  <ol>
+    <li>
+      <span class="specimen-step">Input</span>
+      <div>
+        <strong>Valid website inquiry</strong>
+        <code>submission_id: 6f8…91a</code>
+        <p>Name, reply address, source, and stated problem pass validation.</p>
+      </div>
+      <span class="specimen-state specimen-state--pass">accepted</span>
+    </li>
+    <li>
+      <span class="specimen-step">Result</span>
+      <div>
+        <strong>Durable intake record</strong>
+        <code>reference: TT-2026-0042</code>
+        <p>The receipt is shown only after the record is committed.</p>
+      </div>
+      <span class="specimen-state specimen-state--pass">recorded</span>
+    </li>
+    <li>
+      <span class="specimen-step">Retry</span>
+      <div>
+        <strong>Same submission, same payload</strong>
+        <code>duplicate: true</code>
+        <p>The retry returns the original reference without a second record.</p>
+      </div>
+      <span class="specimen-state">safe</span>
+    </li>
+    <li>
+      <span class="specimen-step">Failure</span>
+      <div>
+        <strong>Missing required reply address</strong>
+        <code>status: 422 · field: email</code>
+        <p>The record is rejected and the exact field can be corrected.</p>
+      </div>
+      <span class="specimen-state specimen-state--fail">rejected</span>
+    </li>
+  </ol>
+  <p class="specimen-foot">
+    <span
+      >Illustrative values; the rehearsal page publishes actual synthetic
+      fixture evidence.</span
+    >
+    <a href="/workflow-proof/">Inspect the rehearsal</a>
+  </p>
+</figure>

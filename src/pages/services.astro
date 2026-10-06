@@ -1,325 +1,215 @@
 ---
-import InsertLayout from '../layouts/InsertLayout.astro';
-import { breadcrumbSchema, serviceSchema } from '../utils/jsonld';
-
-const services = [
-  {
-    name: 'ToledoWeb',
-    description: 'Custom websites, editorial design, and bespoke builds.'
-  },
-  {
-    name: 'SiteLift',
-    description: 'Productized migrations off WordPress, Squarespace, and Wix.'
-  },
-  {
-    name: 'Toledo Apps',
-    description: 'Custom software, web apps, and enterprise SaaS.'
-  },
-  { name: 'Toledo Mobile', description: 'Native iOS and Android apps.' },
-  { name: 'Toledo AI', description: 'AI agents and workflow automation.' }
-];
-
-const jsonLd = [
-  breadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Services', url: '/services' }
-  ]),
-  serviceSchema(services)
-];
+import CommercialLayout from '../layouts/CommercialLayout.astro';
 ---
 
-<InsertLayout
+<CommercialLayout
   title="Services"
-  description="The Catalog of Toledo Technologies. Five sides of the studio: Custom Websites, WordPress Exits, Web Apps & SaaS, Native Mobile, and AI Agents."
-  jsonLd={jsonLd}
-  heading="Five sides of the catalog. One studio behind all of them."
-  subheading="The work splits five ways. Each side has its own microsite — its own identity, its own pricing, its own discovery product, and its own front door. Choose the track you need. If you aren't sure where you belong, start with Discovery."
+  description="Route a broken handoff, new workflow, ongoing verification, website project, or larger custom software need to the right Toledo service."
 >
-  <h2
-    class="eyebrow"
-    style="margin-bottom: 24px; font-weight: 400; line-height: 1.4;"
-  >
-    <span class="num">A2</span><span class="bar"></span><span>The Catalog</span>
-  </h2>
-
-  <div
-    id="catalog"
-    class="catalog-grid"
-    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-bottom: 64px;"
-  >
-    <div
-      class="catalog-card"
-      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
-    >
-      <h3>ToledoWeb — Custom websites</h3>
-      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
-        Websites that don't look like everyone else's.
-      </p>
-      <ul
-        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
+  <header class="page-intro">
+    <div class="commercial-shell page-intro__grid">
+      <div>
+        <h1 class="commercial-title">
+          Start with the problem the business can observe.
+        </h1><p>
+          The smallest responsible scope comes first. Workflow units cover one
+          supported handoff. Existing fixed products, websites, custom software,
+          and discovery remain available when the problem is wider.
+        </p>
+      </div><div
+        class="sleeve-mark"
+        aria-label="Toledo Technologies service catalog sleeve"
       >
-        <li><strong>Range:</strong> $5,500 – $250,000+</li>
-        <li>
-          <strong>Discovery:</strong>
-          <a href="/discovery#website-audit">Website Migration Audit ($1,500)</a
+        <div class="sleeve-mark__label">
+          <span>TT—SERVICES</span><span>Written delivery</span>
+        </div><strong>Route by failure, not by fashion.</strong><p>
+          One problem. A named result. Evidence before adjectives.
+        </p>
+      </div>
+    </div>
+  </header>
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="offer-ledger">
+        <article class="offer-row">
+          <div>
+            <h2>A handoff is broken</h2><p class="offer-price">$1,500</p>
+          </div><p>One reproducible failure in one supported workflow.</p><div>
+            <p>
+              Choose Workflow Repair when the expected and actual result can be
+              shown.
+            </p><a href="/workflows/">Read Repair scope</a>
+          </div>
+        </article>
+        <article class="offer-row">
+          <div>
+            <h2>A workflow is missing</h2><p class="offer-price">$3,000</p>
+          </div><p>One deterministic event-to-result path.</p><div>
+            <p>
+              Choose Workflow Setup when the trigger, destination, and
+              acceptance result are known.
+            </p><a href="/workflows/">Read Setup scope</a>
+          </div>
+        </article>
+        <article class="offer-row">
+          <div>
+            <h2>An accepted path needs checks</h2><p class="offer-price">
+              $500/month
+            </p>
+          </div><p>One registered workflow with safe, authorized checks.</p><div
           >
-        </li>
-        <li><strong>Best for:</strong> Founders, design-led brands</li>
-      </ul>
-      <a
-        href="https://web.toledotechnologies.com"
-        style="margin-top: auto; font-weight: bold;"
-        >→ web.toledotechnologies.com</a
-      >
+            <p>
+              Workflow Care is narrow. Broader application and website Care
+              plans remain separate.
+            </p><a href="/workflows/care/">Read the Care register</a>
+          </div>
+        </article>
+        <article class="offer-row">
+          <div>
+            <h2>The cause is unknown</h2><p class="offer-price">$1,200</p>
+          </div><p>
+            Integration Triage diagnoses the boundary and recommends the next
+            action.
+          </p><div>
+            <p>
+              This existing engagement does not promise a repair and has no
+              automatic Repair credit.
+            </p><a href="/engagements/">See bounded engagements</a>
+          </div>
+        </article>
+        <article class="offer-row">
+          <div>
+            <h2>A business needs its own tool</h2><p class="offer-price">
+              From $5,500
+            </p>
+          </div><p>
+            Bounded internal tools, dashboards, reviewed document processing,
+            quote preparation, or staff knowledge assistants.
+          </p><div>
+            <p>
+              Custom work uses the same one-project slot and is quoted
+              separately from Setup and Care.
+            </p><a href="/custom-tools/">Check custom-tool fit</a>
+          </div>
+        </article>
+        <article class="offer-row">
+          <div>
+            <h2>The website itself needs work</h2><p class="offer-price">
+              Separate practice
+            </p>
+          </div><p>
+            Editorial websites, measured migrations, retain-or-repair decisions,
+            performance work, and broader care.
+          </p><div>
+            <p>
+              The six Toledo practices keep their own visual and commercial
+              identity.
+            </p><a href="https://web.toledotechnologies.com">Visit Toledo Web</a
+            > · <a href="https://sitelift.toledotechnologies.com"
+              >Visit SiteLift</a
+            >
+          </div>
+        </article>
+      </div>
     </div>
-
-    <div
-      class="catalog-card"
-      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
-    >
-      <h3>SiteLift — WordPress exits</h3>
-      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
-        WordPress is the monthly drag. SiteLift is the clean exit.
-      </p>
-      <ul
-        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
-      >
-        <li><strong>Range:</strong> $3,500 – $65,000+</li>
-        <li>
-          <strong>Discovery:</strong>
-          <a href="/discovery#sitelift-fit-check">SiteLift Fit Check ($750)</a>
-        </li>
-        <li>
-          <strong>Best for:</strong> Businesses bleeding money on WP maintenance
-        </li>
-      </ul>
-      <a
-        href="https://sitelift.toledotechnologies.com"
-        style="margin-top: auto; font-weight: bold;"
-        >→ sitelift.toledotechnologies.com</a
-      >
+  </section>
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Existing fixed products stay intact.</h2><p
+          class="commercial-section__intro"
+        >
+          File conversion remains $850 with its existing scope and refund
+          condition. The evaluation harness remains $2,200 with its existing
+          acceptance rule. The $1,200 Integration Triage remains diagnosis
+          rather than a promised fix. Nothing on this page changes those
+          purchase terms.
+        </p>
+      </div><div class="commercial-actions">
+        <a class="commercial-action" href="/engagements/"
+          >Review existing engagements</a
+        ><a class="commercial-action commercial-action--text" href="/discovery/"
+          >Review discovery products</a
+        >
+      </div>
     </div>
-
-    <div
-      class="catalog-card"
-      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
-    >
-      <h3>Toledo Apps — Web apps + SaaS</h3>
-      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
-        Custom apps, forged around your business.
-      </p>
-      <ul
-        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
-      >
-        <li><strong>Range:</strong> $15,000 – $750,000+</li>
-        <li>
-          <strong>Discovery:</strong>
-          <a href="/discovery#web-app-discovery"
-            >Delphi App Discovery ($3,500–$5,000)</a
+  </section>
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Specialist practices and owned products.</h2><p
+          class="commercial-section__intro"
+        >
+          A workflow brief is the front door, not a reason to erase the work
+          already available elsewhere in the Toledo catalog.
+        </p>
+      </div><div class="boundary-list">
+        <div>
+          <h3>Editorial websites and migrations</h3><p>
+            Toledo Web projects retain the existing $5,500–$250,000+ range.
+            SiteLift WordPress-exit migrations retain the existing
+            $3,500–$65,000+ range, including retain-or-repair as a valid
+            outcome.
+          </p><a href="https://web.toledotechnologies.com">Visit Toledo Web</a>
+          · <a href="https://sitelift.toledotechnologies.com">Visit SiteLift</a>
+        </div>
+        <div>
+          <h3>Custom applications</h3><p>
+            Toledo Apps retains the existing $15,000–$750,000+ range for larger
+            internal tools, portals, and custom software. A smaller workflow or
+            bounded tool is considered first when it can solve the problem.
+          </p><a href="https://apps.toledotechnologies.com">Visit Toledo Apps</a
           >
-        </li>
-        <li>
-          <strong>Best for:</strong> Operations leaders, ops-heavy businesses
-        </li>
-      </ul>
-      <a
-        href="https://apps.toledotechnologies.com"
-        style="margin-top: auto; font-weight: bold;"
-        >→ apps.toledotechnologies.com</a
-      >
-    </div>
-
-    <div
-      class="catalog-card"
-      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
-    >
-      <h3>Toledo Mobile — Native + cross-platform</h3>
-      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
-        Native app discovery for serious product teams.
-      </p>
-      <ul
-        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
-      >
-        <li>
-          <strong>Range:</strong> Native $50,000+ · cross-platform $65,000+
-        </li>
-        <li>
-          <strong>Discovery:</strong>
-          <a href="https://mobile.toledotechnologies.com/#discovery"
-            >Delphi Mobile Discovery ($5,000–$7,500)</a
-          >
-        </li>
-        <li><strong>Best for:</strong> Product owners, consumer brands</li>
-      </ul>
-      <a
-        href="https://mobile.toledotechnologies.com/#discovery"
-        style="margin-top: auto; font-weight: bold;"
-        >→ mobile.toledotechnologies.com</a
-      >
-    </div>
-
-    <div
-      class="catalog-card"
-      style="border: 1px solid var(--gf-ink-200); padding: 24px; display: flex; flex-direction: column;"
-    >
-      <h3>Toledo AI — Agents + automation</h3>
-      <p style="font-style: italic; font-size: 14px; margin-top: -8px;">
-        Governed automation, agent systems, and production AI.
-      </p>
-      <ul
-        style="list-style: none; padding: 0; font-size: 15px; margin: 16px 0;"
-      >
-        <li><strong>Range:</strong> $10,000 – $300,000+</li>
-        <li>
-          <strong>Discovery:</strong>
-          <a href="https://ai.toledotechnologies.com/#start"
+        </div>
+        <div>
+          <h3>AI workflow and agent design</h3><p>
+            Task-level automation with explicit rules, model-assisted steps,
+            permissions, and recorded outcomes. The broader AI practice retains
+            its existing $10,000–$300,000+ range.
+          </p><a href="https://ai.toledotechnologies.com/#start"
             >AI Automation Blueprint ($3,500–$10,000)</a
           >
-        </li>
-        <li>
-          <strong>Best for:</strong> Businesses that need autonomous systems with
-          governance
-        </li>
-      </ul>
-      <a
-        href="https://ai.toledotechnologies.com/#start"
-        style="margin-top: auto; font-weight: bold;"
-        >→ ai.toledotechnologies.com</a
-      >
+        </div>
+        <div>
+          <h3>Native mobile</h3><p>
+            Discovery for work that genuinely requires device permissions,
+            offline behavior, or native platform constraints. Existing project
+            floors remain $50,000+ native and $65,000+ cross-platform.
+          </p><a href="https://mobile.toledotechnologies.com/#discovery"
+            >Delphi Mobile Discovery ($5,000–$7,500)</a
+          >
+        </div>
+        <div>
+          <h3>Tessera compliance evidence</h3><p>
+            Toledo-operated software, separate from custom engagements: <span
+              >PCI DSS 6.4.3 remediation pack ($299 once)</span
+            >, a <span>PCI DSS 5.4.1 email-authentication pack ($99 once)</span
+            >, and a one-target PCI DSS 11.6.1 evidence ledger ($99/month). It
+            reports evidence and limits; it does not determine PCI DSS
+            compliance.
+          </p><a
+            href="https://qi.toledotechnologies.com/pci-4-compliance-scanner"
+            >Inspect Tessera evidence</a
+          >
+        </div>
+        <div>
+          <h3>Free served-HTML inventory</h3><p>
+            The Free MIT served-HTML inventory Action lists scripts in returned
+            HTML. It does not execute JavaScript and does not certify
+            compliance.
+          </p><a href="https://github.com/ntoledo319/pci-payment-page-check"
+            >Read the source</a
+          > · <a
+            href="https://github.com/marketplace/actions/pci-payment-page-script-check"
+            >GitHub Marketplace Action</a
+          >
+        </div>
+      </div>
+      <p class="commercial-section__intro">
+        Half of the discovery fee credits toward the kickoff Project Retainer if
+        you proceed within 30 days. The credit is capped at that Project
+        Retainer; unused credit lapses and does not roll forward.
+      </p>
     </div>
-  </div>
-
-  <hr />
-
-  <h2>What sits across the catalog</h2>
-  <p>
-    Three things don't belong to a single microsite because they cut across all
-    five.
-  </p>
-
-  <h3>Buy directly — <em>no call, no quote</em></h3>
-  <p>
-    Three things are priced, scoped in full on their own page, and bought with a
-    card. <strong>File conversion, US$850</strong> — one data file into the schema
-    you need, every source row accounted for.
-    <strong
-      >Migration Acceptance Kit, US$240 single-organisation / US$600 consultancy</strong
-    > — the reconciliation tool itself, source included, perpetual licence. <strong
-      >GTFS feed check, US$99</strong
-    > — one transit feed, one written report by email within 24 hours. Larger bounded
-    work is published at fixed prices on the engagements page.
-  </p>
-  <p>
-    <a href="/buy/file-conversion">→ File conversion — US$850</a><br />
-    <a href="/kit/">→ Migration Acceptance Kit — US$240 / US$600</a><br />
-    <a href="/buy/gtfs-feed-check">→ GTFS feed check — US$99</a><br />
-    <a href="/engagements">→ Fixed-scope engagements — US$850 to US$2,200</a>
-  </p>
-
-  <h3>Care plans — <em>one maintenance ladder</em></h3>
-  <p>
-    Whatever we ship, we can maintain. Hearth Care starts at $750/mo for static
-    sites and Olympian Care starts at $10,000/mo for fractional engineering on
-    production systems. Pure-development Hearth / Aegis / Olympian buckets are
-    available for an already-defined monthly queue.
-  </p>
-  <p><a href="/care">→ See the full ladder</a></p>
-
-  <h3>Discovery products — <em>six paid front doors</em></h3>
-  <p>
-    Two are productized fixed-price — SiteLift Fit Check ($750) and Website
-    Migration Audit ($1,500). Four are quote-based within published bands — Web
-    App Discovery, AI Automation Blueprint, Mobile App Discovery, and SaaS /
-    Product Strategy. The hub sorts you onto the right one.
-  </p>
-  <p><a href="/discovery">→ See all six discoveries</a></p>
-
-  <h3>Tessera — <em>compliance evidence, sold as inspectable artifacts</em></h3>
-  <p>
-    Tessera is Toledo-operated software, not a custom engagement. It starts with
-    a free bounded check of served payment-page HTML or published
-    email-authentication evidence. If the result exposes an actionable gap, the
-    current products are a PCI DSS 6.4.3 remediation pack ($299 once), a PCI DSS
-    5.4.1 email-authentication pack ($99 once), and a one-target PCI DSS 11.6.1
-    evidence ledger ($99/month). Synthetic deliverables are public before
-    checkout. The software reports evidence and limits; it does not determine
-    compliance or replace qualified review.
-  </p>
-  <p>
-    <a href="https://qi.toledotechnologies.com/pci-4-compliance-scanner"
-      >→ Run the free check and inspect the deliverables</a
-    >
-  </p>
-  <p>
-    <a
-      href="https://github.com/marketplace/actions/pci-payment-page-script-check"
-      >→ Add the free MIT payment-page check to GitHub Actions</a
-    ><br />
-    <a
-      href="https://qi.toledotechnologies.com/pci/pci-dss-6-4-3-script-inventory-template"
-      >→ Build the reviewer-owned script inventory</a
-    >
-  </p>
-  <p>
-    The Action reads served HTML; it does not execute JavaScript, inspect
-    runtime-injected scripts, or certify compliance.
-  </p>
-
-  <h3>Toledo Partner — <em>white-label for agencies</em></h3>
-  <p>
-    $125/hr floor, $150–$175/hr for complex work, partner retainers from
-    $2,500/mo. Agreements can include non-solicitation boundaries and written IP
-    assignment terms. Nicholas remains the traceable technical author even when
-    delivery is white-label.
-  </p>
-  <p><a href="/partner">→ Inquire as a partner</a></p>
-
-  <hr />
-
-  <h2>Other shelves on Side B</h2>
-
-  <p>
-    <strong>Proof &amp; Field Notes.</strong> Dated public research and sample deliverables,
-    each labeled so it cannot be mistaken for paid client work.<br /><a
-      href="/case-studies">→ Read the evidence</a
-    >
-  </p>
-  <p>
-    <strong>Nonprofit pricing.</strong> 501(c)(3) and mission-driven organizations
-    get hard-floor pricing on Arcadia through Laurel, plus reduced-rate Care plans.
-    The trade is a written case study and a 2-minute testimonial.<br /><a
-      href="/nonprofit">→ /nonprofit</a
-    >
-  </p>
-
-  <hr />
-
-  <h2>How a project starts</h2>
-
-  <p>
-    Start with the short inquiry. We reply with the likely service track,
-    published band, and the questions that still need answers. If a call would
-    resolve those questions faster, it is usually fifteen to thirty minutes.
-  </p>
-
-  <p>
-    Work that cannot be responsibly quoted from the inquiry moves into paid
-    discovery — that's where we map the actual scope and produce a fixed-price
-    quote. Discovery isn't a sales pitch dressed up; it's real work that
-    produces a document you can use whether or not you hire us. Half the
-    discovery fee credits toward the kickoff Project Retainer if you proceed
-    within thirty days. The credit is capped at that Project Retainer; unused
-    credit lapses and does not roll forward.
-  </p>
-
-  <p>
-    If you want to skip the call, every microsite has its own short inquiry
-    form. Replies are handled by email.
-  </p>
-
-  <p>
-    <a href="/contact?service=general&subject=Service%20routing"
-      >Write us a letter →</a
-    > · <a href="#catalog">Skip to a microsite →</a>
-  </p>
-</InsertLayout>
+  </section>
+</CommercialLayout>

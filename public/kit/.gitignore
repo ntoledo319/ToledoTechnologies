@@ -2,3 +2,4 @@
 # Anything in public/ is copied verbatim into the build and served, including
 # this file, so keep it free of internal notes.
 *.zip
+!sample/evaluation-packet.zip

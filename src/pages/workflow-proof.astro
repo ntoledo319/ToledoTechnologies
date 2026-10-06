@@ -1,0 +1,124 @@
+---
+import CommercialLayout from '../layouts/CommercialLayout.astro';
+import proof from '../data/workflowProof.json';
+---
+
+<CommercialLayout
+  title="Synthetic workflow proof"
+  description="A plainly labeled local-fixture proof showing durable intake, duplicate handling, malformed input rejection, and downstream recovery evidence."
+>
+  <header class="page-intro">
+    <div class="commercial-shell page-intro__grid">
+      <div>
+        <h1 class="commercial-title">
+          Synthetic proof, with its limits attached.
+        </h1>
+        <p>
+          This rehearsal uses invented data against the local intake fixture. It
+          is not a client result, availability claim, external-provider test, or
+          live production monitor.
+        </p>
+      </div>
+      <p class="page-intro__note">
+        Evidence class<br /><strong>Studio-owned synthetic demonstration</strong
+        ><br />
+        Schema {proof.schema} · {proof.runtime_claim.replaceAll('_', ' ')}<br />
+        Generated {new Date(proof.generated_at).toISOString()}
+      </p>
+    </div>
+  </header>
+
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="offer-ledger">
+        <div class="offer-row">
+          <h2>Durable intake</h2><p class="offer-price">
+            HTTP {proof.intake.success.status}
+          </p><p>
+            <code>{proof.intake.success.reference}</code> was returned only after
+            the synthetic record committed.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h2>Idempotent retry</h2><p class="offer-price">
+            HTTP {proof.intake.duplicate.status}
+          </p><p>
+            <code>duplicate: {String(proof.intake.duplicate.duplicate)}</code> and
+            <code
+              >same_reference: {
+                String(proof.intake.duplicate.same_reference)
+              }</code
+            >. The retry did not create a second record.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h2>Malformed input</h2><p class="offer-price">
+            HTTP {proof.intake.malformed.status}
+          </p><p>
+            The fixture returned <code>{proof.intake.malformed.error}</code> and did
+            not produce a success receipt.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h2>Notification retry</h2><p class="offer-price">
+            retry {proof.notification.injected_failure.retry_count}
+          </p><p>
+            <code>{proof.notification.injected_failure.code}</code> failed once. The
+            <code>{proof.notification.recovery.adapter}</code> fixture later delivered
+            <code>{proof.notification.recovery.sent_count}</code> queued notifications.
+            No external provider was called.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h2>Workflow incident recovery</h2><p class="offer-price">
+            {proof.workflow.status_sequence.join(' → ')}
+          </p><p>
+            A <code>{proof.workflow.check_adapter}</code> check opened an incident
+            when loopback HTTP was unavailable. A later HTTP commit matched the durable
+            database record and recovered that same incident. Evidence references:
+            <code>{proof.workflow.evidence_refs.join(', ')}</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>What this rehearsal proves—and what it does not.</h2>
+        <p class="commercial-section__intro">
+          The published values come from the regenerated local fixture artifact.
+          They demonstrate the intake and recovery mechanism with owned
+          synthetic data; they do not establish production availability or
+          third-party delivery.
+        </p>
+      </div>
+      <div class="boundary-list">
+        <div>
+          <h3>Exercised</h3><p>
+            Durable commit, an idempotent retry, malformed input rejection, one
+            injected notification failure with owned-file retry, and recovery of
+            one workflow-check incident through the loopback HTTP and durable
+            database path.
+          </p>
+        </div>
+        <div>
+          <h3>Limitations</h3><ul>
+            {proof.limitations.map((limitation) => <li>{limitation}</li>)}
+          </ul>
+        </div>
+      </div>
+      <p>
+        <a href="/proofs/workflow/synthetic-proof.json"
+          >Download the sanitized JSON evidence</a
+        >
+      </p>
+      <p>
+        <a href="/proofs/">See the existing proof archive</a> · <a
+          href="/case-studies/">Read provenance-labeled field notes</a
+        > · <a href="/portfolio/">Browse reference work and sample outputs</a>
+      </p>
+    </div>
+  </section>
+</CommercialLayout>

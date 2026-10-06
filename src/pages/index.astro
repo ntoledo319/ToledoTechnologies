@@ -1,51 +1,258 @@
 ---
-import GatefoldLayout from '../layouts/GatefoldLayout.astro';
+import CommercialLayout from '../layouts/CommercialLayout.astro';
+import WorkflowSpecimen from '../components/services/WorkflowSpecimen.astro';
+import BriefForm from '../components/services/BriefForm.astro';
+import { workflowOffers } from '../data/serviceOffers';
 import {
   organizationSchema,
   websiteSchema,
   professionalServiceSchema
 } from '../utils/jsonld';
-import LinerNotes from '../components/home/LinerNotes.astro';
-import HomeCTA from '../components/home/HomeCTA.astro';
-import SideAFooter from '../components/home/SideAFooter.astro';
-
-const jsonLd = [
-  organizationSchema(),
-  websiteSchema(),
-  professionalServiceSchema()
-];
 ---
 
-<GatefoldLayout
+<CommercialLayout
   title="Home"
-  description="Toledo Technologies builds, fixes, and ships the software that runs underneath your business. Senior-led development for editorial websites, custom apps, and governed AI. No agency theatre. Just code that lasts."
-  jsonLd={jsonLd}
+  description="Toledo Technologies repairs, builds, and checks the handoffs between websites and business tools. Fixed scope, inspectable tests, and written delivery."
+  jsonLd={[organizationSchema(), websiteSchema(), professionalServiceSchema()]}
+  pageClass="commercial-home"
 >
-  <article
-    id="insert-side-a"
-    class="insert active"
-    data-label="Side A — Liner Notes"
-  >
-    <LinerNotes />
-    <HomeCTA />
-    <SideAFooter />
-  </article>
-</GatefoldLayout>
+  <div class="commercial-shell">
+    <section class="commercial-hero" aria-labelledby="home-title">
+      <div class="commercial-hero__copy">
+        <h1 id="home-title">
+          The form was submitted. Did the work reach the right place?
+        </h1>
+        <p class="commercial-lede">
+          Toledo Technologies repairs and builds the handoffs between your
+          website and your business tools. Clear scope, inspectable tests, and
+          ongoing checks for workflows we support.
+        </p>
+        <div class="commercial-actions">
+          <a class="commercial-action" href="/brief/?source=home&service=unsure"
+            >Describe your workflow</a
+          >
+          <a class="commercial-action commercial-action--text" href="#specimen"
+            >Inspect an example</a
+          >
+        </div>
+        <p class="commercial-meta">
+          Work handled in writing · Local businesses and agency partners welcome
+        </p>
+      </div>
+      <WorkflowSpecimen compact />
+    </section>
+  </div>
 
-<style>
-  /* On the home page the .endsleeve at the bottom of the Side A insert
-     serves as the printed footer of the record. Hide the global site
-     <Footer /> here to avoid the duplication; the sticky Header stays
-     because it carries the cross-side navigation. */
-  :global(.paper-stage > footer) {
-    display: none;
-  }
-  :global(.paper-stage #main-content) {
-    padding-top: 32px;
-  }
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Three signs the handoff deserves a test.</h2><p
+          class="commercial-section__intro"
+        >
+          The website can look healthy while the operating path behind it is
+          fragile. Start with the observable failure, not a platform overhaul.
+        </p>
+      </div>
+      <ul class="symptom-list">
+        <li>
+          <strong>Someone has to check the inbox.</strong><p>
+            A submission exists, but nobody can prove its destination or
+            ownership.
+          </p>
+        </li>
+        <li>
+          <strong>Retries create duplicate work.</strong><p>
+            The same request can become two records, two alerts, or two customer
+            replies.
+          </p>
+        </li>
+        <li>
+          <strong>A tool changed quietly.</strong><p>
+            The form still says “sent” after a field, permission, or downstream
+            rule stopped matching.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-  .insert {
-    position: relative;
-    padding: 0;
-  }
-</style>
+  <section class="commercial-section" id="offers">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>One workflow. One accepted result.</h2><p
+          class="commercial-section__intro"
+        >
+          These offers cover a single supported handoff. Larger websites,
+          software, discovery, and existing fixed products remain available as
+          separate work.
+        </p>
+      </div>
+      <div class="offer-ledger">
+        {
+          workflowOffers.map((offer) => (
+            <article class="offer-row">
+              <div>
+                <>
+                  <h3>{offer.name}</h3>
+                  <p class="offer-price">{offer.price}</p>
+                </>
+              </div>
+              <p>{offer.summary}</p>
+              <div>
+                <>
+                  <p>{offer.delivered}</p>
+                  <p class="offer-boundary">Boundary: {offer.boundary}</p>
+                </>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="commercial-actions">
+        <a class="commercial-action commercial-action--text" href="/workflows/"
+          >Read the full workflow terms</a
+        ><a class="commercial-action commercial-action--text" href="/services/"
+          >Route a different problem</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Evidence includes the path that fails.</h2><p
+          class="commercial-section__intro"
+        >
+          A green happy-path screenshot is not acceptance. The record names the
+          input, committed result, duplicate behavior, and a rejected case.
+        </p>
+      </div>
+      <WorkflowSpecimen anchorId="specimen" />
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="audience-split">
+        <article>
+          <h3>For a business owner</h3><p>
+            Describe the result the business needs. We reply with fit, access
+            needs, scope, price, and an acceptance test before paid work starts.
+          </p><a href="/brief/?source=home-direct">Send a direct brief</a>
+        </article>
+        <article>
+          <h3>For an agency partner</h3><p>
+            Keep the client relationship while permissions, attribution,
+            reviewer roles, and delivery evidence remain explicit.
+          </p><a href="/partner/">Read the partner boundaries</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>The whole purchase happens in writing.</h2><p
+          class="commercial-section__intro"
+        >
+          Automation may assist implementation and routine correspondence.
+          Toledo Technologies LLC remains the accountable supplier.
+        </p>
+      </div>
+      <ol class="process-list">
+        <li>
+          <strong>Send a short brief.</strong><p>
+            Name the intended result, current failure, and systems involved.
+          </p>
+        </li>
+        <li>
+          <strong>Fit is confirmed.</strong><p>
+            Unsupported or unbounded work is declined or routed to the right
+            discovery.
+          </p>
+        </li>
+        <li>
+          <strong>Accept the scope.</strong><p>
+            You receive price, access needs, acceptance checks, and payment
+            terms before work starts.
+          </p>
+        </li>
+        <li>
+          <strong>Review the evidence.</strong><p>
+            Acceptance happens in the agreed nonproduction environment. After
+            verified production handoff, the accepted scope has a 14-day
+            correction window; a deliberately deferred handoff is recorded in
+            writing.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Sometimes the business needs its own tool.</h2><p
+          class="commercial-section__intro"
+        >
+          A bounded dashboard, reviewed document process, quote-preparation
+          tool, or staff knowledge assistant can be the right scope when
+          existing tools and a single workflow are not enough. Custom work is
+          separately quoted, uses the same one-project capacity, and keeps a
+          named human approver.
+        </p>
+      </div>
+      <div class="commercial-actions">
+        <a class="commercial-action" href="/custom-tools/"
+          >Explore custom business tools</a
+        ><a
+          class="commercial-action commercial-action--text"
+          href="/brief/?source=home-custom&service=custom"
+          >Describe the internal problem</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Useful boundaries before you write.</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary
+            >Does Workflow Repair include diagnosis of an unknown problem?</summary
+          ><p>
+            No. Repair requires one reproducible failure in a supported
+            workflow. When the cause or system boundary is unknown, the existing
+            $1,200 Integration Triage is a separate diagnostic engagement and
+            has no automatic credit toward Repair.
+          </p>
+        </details>
+        <details>
+          <summary>Does Care guarantee every real inquiry is delivered?</summary
+          ><p>
+            No. Care checks the registered workflow using read-only signals
+            where supported and authorized synthetic tests. It is not 24/7
+            response, an uptime SLA, or a guarantee that every real customer
+            submission is observed.
+          </p>
+        </details>
+        <details>
+          <summary>Can this include a dashboard or internal tool?</summary><p>
+            Sometimes, as separately scoped custom work. A bounded tool needs
+            one problem, one approver, a data boundary, and an acceptance test.
+            It is not included in Workflow Setup or Care.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="commercial-shell">
+    <BriefForm source="home" context="Homepage workflow inquiry" />
+  </div>
+</CommercialLayout>

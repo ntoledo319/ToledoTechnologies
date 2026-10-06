@@ -7,7 +7,7 @@ const jsonLd = breadcrumbSchema([
   { name: 'Privacy Policy', url: '/privacy' }
 ]);
 
-const lastUpdated = 'September 26, 2026';
+const lastUpdated = 'October 5, 2026';
 ---
 
 <InsertLayout
@@ -94,9 +94,11 @@ const lastUpdated = 'September 26, 2026';
     not sell it and we do not use it for advertising.
   </p>
 
-  <h2>Contact Form</h2>
+  <h2>Contact Forms and Workflow Briefs</h2>
+  <h3>Legacy Contact Forms</h3>
   <p>
-    Forms submit to Toledo Technologies' lead intake API at
+    Existing contact forms outside the new workflow brief submit to Toledo
+    Technologies' lead intake API at
     <code>https://eolkits.com/api/v1/lead</code>. The service stores the fields
     you submit in Toledo's operating lead database and sends the owner a
     notification email. This is durable lead capture; it is not FormSubmit and
@@ -111,15 +113,44 @@ const lastUpdated = 'September 26, 2026';
     > directly.
   </p>
 
+  <h3>Workflow Briefs</h3>
+  <p>
+    The brief at <a href="/brief/">/brief/</a> submits to a separate, same-origin
+    Toledo intake service. It stores the name, email address, problem description,
+    selected service, optional website and systems, and bounded source or page context
+    shown by the form. The service assigns a reference and records durable receipt
+    details. It queues a confirmation to the email address on the brief and an alert
+    to Toledo Technologies through our existing email provider. The saved reference
+    remains valid if either email is delayed or a delivery attempt fails; we do not
+    promise that every message will arrive or arrive at a particular time.
+  </p>
+  <p>
+    The workflow brief uses browser session storage only to retain the random
+    submission ID needed for a safe retry. It does not put your name, email,
+    problem description, website, or systems in session storage. A brief asks
+    for business workflow context; do not submit passwords, credentials, payment
+    details, or sensitive customer data.
+  </p>
+
   <h3>How Long Inquiries Are Kept</h3>
   <p>
-    Inquiry records you submit through this site, or through an inquiry form on
-    any other Toledo Technologies site, are deleted automatically 24 months
-    after submission. Submissions flagged as spam are deleted on the same
-    schedule. The notification email the lead service sends us is not covered by
-    that automatic deletion. If you become a client, what the engagement needs
-    is kept under your agreement. You can ask us to delete your inquiry sooner
-    at any time.
+    Legacy inquiries submitted to the eolkits lead service are deleted
+    automatically 24 months after submission. Submissions flagged as spam are
+    deleted on the same schedule. Notification email from that legacy service is
+    not covered by its automatic deletion.
+  </p>
+  <p>
+    For the separate workflow brief service, an operator-run retention process
+    minimizes the content of an unconverted inquiry and its queued notification
+    recipient after 90 days. Briefs linked to active projects are protected
+    while the engagement needs them. Stable receipt references, client reference
+    hashes, audit metadata, and applicable accounting records may remain for
+    integrity, security, and legal or accounting obligations. Backup copies
+    expire under the deployment's documented backup policy rather than being
+    removed immediately. This is data minimization, not a promise of complete
+    automatic erasure. You can ask us to delete an inquiry sooner; records that
+    must be retained for an active agreement, security, or legal and accounting
+    duties remain subject to those requirements.
   </p>
 
   <h2>Data Security</h2>
@@ -144,6 +175,11 @@ const lastUpdated = 'September 26, 2026';
     none. The gatefold homepage uses browser session storage to remember that
     you opened the sleeve during the current tab session; that value is not used
     to identify you or build a profile.
+  </p>
+  <p>
+    The workflow brief separately uses session storage for its random retry ID
+    as described above. That ID contains no form answers and expires with the
+    browser session.
   </p>
 
   <h2>Third-Party Links</h2>

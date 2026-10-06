@@ -1,12 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 // Regression guards for the defects fixed in the 2026-09-23 product audit
 // (docs/PRODUCT-AUDIT-2026-09-23.md). Source-level, like truth-contract.test.ts.
 
 const root = process.cwd();
 const read = (path: string) => readFileSync(join(root, path), 'utf8');
+const sha256 = (path: string) =>
+  createHash('sha256').update(readFileSync(join(root, path))).digest('hex');
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(join(root, dir))) {
@@ -101,23 +104,59 @@ describe('2026-09-23 audit regressions', () => {
     }
   });
 
-  it('publishes the approved inquiry retention on the hub privacy page', () => {
-    // Owner decision 2026-09-25: the lead service deletes inquiry records 730
-    // days after submission (spam included). /privacy is also the policy the
-    // web., sitelift., apps., mobile. and ai. subdomains link to, so the
-    // statement has to cover inquiries from any Toledo site.
+  it('distinguishes legacy and workflow-brief retention on the hub privacy page', () => {
+    // The legacy eolkits forms retain their approved 24-month automatic rule.
+    // The new same-origin workflow brief has a separate, operator-run 90-day
+    // minimization policy with explicit retained-record and backup boundaries.
     const page = read('src/pages/privacy.astro').replace(/\s+/g, ' ');
-    expect(page).toContain("const lastUpdated = 'September 26, 2026';");
+    expect(page).toContain("const lastUpdated = 'October 5, 2026';");
     for (const phrase of [
-      'Inquiry records you submit through this site, or through an inquiry form on any other Toledo Technologies site, are deleted automatically 24 months after submission.',
+      'Legacy inquiries submitted to the eolkits lead service are deleted automatically 24 months after submission.',
       'Submissions flagged as spam are deleted on the same schedule.',
-      'The notification email the lead service sends us is not covered by that automatic deletion.',
-      'If you become a client, what the engagement needs is kept under your agreement.',
-      'You can ask us to delete your inquiry sooner at any time.'
+      'For the separate workflow brief service, an operator-run retention process minimizes the content of an unconverted inquiry and its queued notification recipient after 90 days.',
+      'Briefs linked to active projects are protected while the engagement needs them.',
+      'Stable receipt references, client reference hashes, audit metadata, and applicable accounting records may remain',
+      "Backup copies expire under the deployment's documented backup policy rather than being removed immediately."
     ]) {
       expect(page, phrase).toContain(phrase);
     }
-    expect(page).not.toMatch(/not deleted on a fixed schedule/i);
-    expect(page).not.toMatch(/as long as (is )?reasonably needed/i);
+    expect(page).toContain(
+      'The workflow brief uses browser session storage only to retain the random submission ID needed for a safe retry.'
+    );
+    expect(page).toContain(
+      'It queues a confirmation to the email address on the brief and an alert to Toledo Technologies through our existing email provider.'
+    );
+    expect(page).toContain(
+      'The saved reference remains valid if either email is delayed or a delivery attempt fails'
+    );
+    expect(page).toContain(
+      'we do not promise that every message will arrive or arrive at a particular time.'
+    );
+  });
+
+  it('preserves the reviewed public kit comparison and sample from production', () => {
+    const restoredPages = {
+      'src/pages/kit/compare.astro':
+        '58742621f8ab18d0ce71bc49f5068066d7bf74d5dbe361b6cd62ab6bafe84f5a',
+      'src/pages/kit/sample.astro':
+        'c7d9cfdb773755087e55392ef77902b98c1b1b9091e315d46528bc32931373a8',
+      'public/kit/sample/output/report.html':
+        '477e46422d9a715ae98dce675fdcc51759520dd10d9117514d7066c9c9abb00e',
+      'public/kit/sample/evaluation-packet.zip':
+        '5fb0b0597da9ea837bcdb61bdbac79d06dce3ad0a5abef6b65cfc8f4c4f7559c'
+    };
+    for (const [path, expected] of Object.entries(restoredPages)) {
+      expect(sha256(path), path).toBe(expected);
+    }
+
+    const manifest = JSON.parse(read('public/kit/sample/manifest.json')) as Record<
+      string,
+      { sha256: string; bytes: number }
+    >;
+    for (const [path, evidence] of Object.entries(manifest)) {
+      const publicPath = `public/kit/sample/${path}`;
+      expect(statSync(join(root, publicPath)).size, publicPath).toBe(evidence.bytes);
+      expect(sha256(publicPath), publicPath).toBe(evidence.sha256);
+    }
   });
 });

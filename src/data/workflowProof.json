@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-10-05T22:24:29+00:00",
+  "intake": {
+    "duplicate": {
+      "duplicate": true,
+      "same_reference": true,
+      "status": 200
+    },
+    "malformed": {
+      "error": "validation",
+      "status": 422
+    },
+    "success": {
+      "ok": true,
+      "reference": "TT-A5105FE06B54",
+      "status": 201
+    }
+  },
+  "limitations": [
+    "No customer data.",
+    "No external provider call.",
+    "No production runtime or delivery claim."
+  ],
+  "notification": {
+    "injected_failure": {
+      "code": "synthetic_downstream_unavailable",
+      "retry_count": 1
+    },
+    "recovery": {
+      "adapter": "owned-file",
+      "sent_count": 2
+    }
+  },
+  "runtime_claim": "local_fixture_only",
+  "schema": 1,
+  "synthetic": true,
+  "workflow": {
+    "check_adapter": "owned_intake_e2e",
+    "evidence_refs": [
+      "loopback HTTP unavailable",
+      "loopback HTTP commit matched"
+    ],
+    "incident_opened": true,
+    "same_incident_recovered": true,
+    "status_sequence": [
+      "failed",
+      "passed"
+    ]
+  }
+}

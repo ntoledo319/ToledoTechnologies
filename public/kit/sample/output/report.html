@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta http-equiv="content-security-policy" content="default-src 'none'; script-src 'none'; style-src 'sha256-2qqimdYiLevkNrOXLIv/E/IyyDuw55DBDjFlpcgzrS4='; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reconciliation report — Fictional cutover: six rows on both sides</title>
+<style>
+ :root{color-scheme:light dark}
+ body{font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0;padding:2rem 1.25rem;
+      max-width:60rem;margin-inline:auto;background:#fdfdfb;color:#161616}
+ @media(prefers-color-scheme:dark){body{background:#101010;color:#e9e9e6}}
+ h1{font-size:1.35rem;margin:0 0 .25rem}
+ h2{font-size:1rem;margin:2rem 0 .5rem;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
+ table{border-collapse:collapse;width:100%;font-size:.86rem}
+ th,td{text-align:left;padding:.4rem .6rem;border-bottom:1px solid rgba(128,128,128,.28);vertical-align:top}
+ thead th{border-bottom-width:2px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;opacity:.65}
+ tfoot th,tfoot td{border-top:2px solid rgba(128,128,128,.5);border-bottom:none;font-weight:700}
+ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+ dl{display:grid;grid-template-columns:max-content 1fr;gap:.2rem 1rem;font-size:.84rem;margin:.5rem 0 0}
+ dt{opacity:.65} dd{margin:0;overflow-wrap:anywhere}
+ .ok{padding:.6rem .8rem;border:1px solid rgba(128,128,128,.4)}
+ footer{margin-top:2.5rem;font-size:.76rem;opacity:.65;border-top:1px solid rgba(128,128,128,.3);padding-top:.8rem}
+ code{font-size:.92em;overflow-wrap:anywhere}
+</style></head><body>
+<h1>Reconciliation report</h1>
+<p>Fictional cutover: six rows on both sides</p>
+<dl>
+<dt>results_content_hash</dt><dd><code>d6e0d47a686e6ad49102aa0338286a66162844dd26ed756c1f44b6542e9c145f</code></dd>
+<dt>spec_sha256</dt><dd><code>a3498f4c78e9c18256932a1aa77811bf71982d71d83438770db2ce7b02820244</code></dd>
+<dt>source</dt><dd>source.csv &middot; <code>d55aa851daae6f93d68595b45801ddb1b4aa687fbc46987b612c5d38842c3611</code></dd>
+<dt>target</dt><dd>target.csv &middot; <code>3db364741d91d0d4436c3ee1e4d1d402057f9906a286f02586f165b316c9a36c</code></dd>
+<dt>generated (UTC)</dt><dd>2026-09-30T06:51:00+00:00</dd>
+<dt>tool</dt><dd>toledo-reconcile 1.0.0</dd>
+</dl>
+<h2>Source accounting</h2><table><thead><tr><th>Bucket</th><th>Rows</th><th>Meaning</th></tr></thead><tbody><tr><th scope="row">matched</th><td class="n">1</td><td>present in target, every compared field equal after declared normalisation</td></tr><tr><th scope="row">changed</th><td class="n">1</td><td>present in target, at least one compared field differs</td></tr><tr><th scope="row">unverified</th><td class="n">1</td><td>present in target, but a compared field was blank under blank_policy=unknown</td></tr><tr><th scope="row">missing</th><td class="n">1</td><td>no target row and no declared rejection</td></tr><tr><th scope="row">rejected</th><td class="n">0</td><td>declared in the rejects file with a stated reason</td></tr><tr><th scope="row">rejected_but_present</th><td class="n">1</td><td>declared rejected, yet a target row exists</td></tr><tr><th scope="row">duplicate_source</th><td class="n">0</td><td>key occurs more than once in source</td></tr><tr><th scope="row">ambiguous_target</th><td class="n">1</td><td>target holds more than one row for this key; nothing to compare against</td></tr><tr><th scope="row">blank_key</th><td class="n">0</td><td>key columns are empty</td></tr></tbody><tfoot><tr><th scope="row">total</th><td class="n">6</td><td>rows read from file: 6</td></tr></tfoot></table>
+<h2>Target accounting</h2><table><thead><tr><th>Bucket</th><th>Rows</th><th>Meaning</th></tr></thead><tbody><tr><th scope="row">accounted</th><td class="n">4</td><td>matched to exactly one source row</td></tr><tr><th scope="row">orphan</th><td class="n">0</td><td>present in target, absent from source</td></tr><tr><th scope="row">duplicate_target</th><td class="n">2</td><td>key occurs more than once in target</td></tr><tr><th scope="row">ambiguous_source</th><td class="n">0</td><td>source holds more than one row for this key; cannot be attributed</td></tr><tr><th scope="row">blank_key</th><td class="n">0</td><td>key columns are empty</td></tr></tbody><tfoot><tr><th scope="row">total</th><td class="n">6</td><td>rows read from file: 6</td></tr></tfoot></table>
+<h2>Findings (6)</h2><table><thead><tr><th>Side</th><th>Bucket</th><th>Key</th><th>Line</th><th>Detail</th></tr></thead><tbody><tr><td>source</td><td>ambiguous_target</td><td><code>106</code></td><td class="n">7</td><td>target holds 2 rows for this key; no single row can be compared against</td></tr><tr><td>source</td><td>changed</td><td><code>103</code></td><td class="n">4</td><td>balance: source=3000 target=3200</td></tr><tr><td>source</td><td>missing</td><td><code>102</code></td><td class="n">3</td><td>no target row and no declared rejection</td></tr><tr><td>source</td><td>rejected_but_present</td><td><code>104</code></td><td class="n">5</td><td>declared rejected (Excluded by the fictional review decision) but present in target</td></tr><tr><td>source</td><td>unverified</td><td><code>105</code></td><td class="n">6</td><td>balance: source=&lt;unknown&gt; target=&lt;unknown&gt;</td></tr><tr><td>target</td><td>duplicate_target</td><td><code>106</code></td><td class="n">6</td><td>key appears 2 times in target</td></tr></tbody></table>
+<footer>Every source row and every target row appears in exactly one bucket above, and the bucket
+totals equal the raw row counts read from each file. The tool refuses to emit a report when that
+does not hold. This report states what was compared; it does not certify anything that was not
+compared. Toledo Technologies LLC &mdash; Migration Acceptance Kit.</footer>
+</body></html>

@@ -1,0 +1,36 @@
+---
+import CommercialLayout from '../../layouts/CommercialLayout.astro';
+import BriefForm from '../../components/services/BriefForm.astro';
+---
+
+<CommercialLayout
+  title="Written project brief"
+  description="Send Toledo Technologies a short written brief about a workflow, custom tool, website, migration, or mobile need."
+>
+  <header class="page-intro brief-intro">
+    <div class="commercial-shell">
+      <h1 class="commercial-title">Tell us what should work.</h1><p>
+        Describe the task or the problem. We’ll confirm fit, scope, and price in
+        writing.
+      </p>
+    </div>
+  </header>
+  <div class="commercial-shell">
+    <BriefForm heading="Your brief" compact />
+  </div>
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>What happens after the receipt.</h2><p
+          class="commercial-section__intro"
+        >
+          Submitting this form does not reserve capacity or start paid work.
+          Toledo reviews the described result and system boundary. The written
+          reply either declines the fit, asks for bounded missing information,
+          recommends a separate discovery or Triage, or proposes scope, price,
+          access needs, payment terms, and acceptance checks.
+        </p>
+      </div>
+    </div>
+  </section>
+</CommercialLayout>

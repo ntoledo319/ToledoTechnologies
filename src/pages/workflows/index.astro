@@ -1,0 +1,158 @@
+---
+import CommercialLayout from '../../layouts/CommercialLayout.astro';
+import WorkflowSpecimen from '../../components/services/WorkflowSpecimen.astro';
+import BriefForm from '../../components/services/BriefForm.astro';
+import { workflowOffers } from '../../data/serviceOffers';
+---
+
+<CommercialLayout
+  title="Workflow repair and setup"
+  description="Fixed-scope repair, setup, and care for supported website-to-business workflows, with written acceptance tests and evidence."
+>
+  <header class="page-intro">
+    <div class="commercial-shell page-intro__grid">
+      <div>
+        <h1 class="commercial-title">
+          A working handoff has a named result.
+        </h1><p>
+          One workflow begins with one defined event and ends with one result
+          the business can verify. Repair corrects a reproducible failure. Setup
+          builds the path. Care checks an accepted path after delivery.
+        </p><div class="commercial-actions">
+          <a
+            class="commercial-action"
+            href="/brief/?source=workflows&service=unsure"
+            >Describe the workflow</a
+          ><a
+            class="commercial-action commercial-action--text"
+            href="#acceptance">See acceptance evidence</a>
+        </div>
+      </div>
+      <p class="page-intro__note">
+        Initial operating limit<br /><strong
+          >1 active project · 3 Care workflows</strong
+        ><br />Actual availability is confirmed in writing.
+      </p>
+    </div>
+  </header>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="offer-ledger">
+        {
+          workflowOffers.map((offer) => (
+            <article class="offer-row">
+              <>
+                <div>
+                  <>
+                    <h2>{offer.name}</h2>
+                    <p class="offer-price">{offer.price}</p>
+                  </>
+                </div>
+                <p>
+                  <strong>Good fit:</strong> {offer.fit}
+                </p>
+                <div>
+                  <p class="offer-boundary">{offer.boundary}</p>
+                  {offer.slug === 'care' && (
+                    <a href="/workflows/care/">Read the Care register</a>
+                  )}
+                </div>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section commercial-section--ink" id="acceptance">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>The acceptance record is part of the deliverable.</h2><p
+          class="commercial-section__intro"
+        >
+          The exact checks change with the workflow. These four states show the
+          minimum shape: accepted input, committed result, safe retry, and
+          rejected input.
+        </p>
+      </div>
+      <WorkflowSpecimen />
+    </div>
+  </section>
+
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>What the fixed scope needs.</h2><p
+          class="commercial-section__intro"
+        >
+          Fit is confirmed before any payment. A request moves to Triage or
+          separate custom scope when these facts cannot be bounded safely.
+        </p>
+      </div>
+      <div class="boundary-list">
+        <div>
+          <h3>One trigger</h3><p>
+            A named form, webhook, file, approval, or scheduled event. Multiple
+            entry points are separate scope unless the written proposal says
+            otherwise.
+          </p>
+        </div>
+        <div>
+          <h3>One successful result</h3><p>
+            A specific record, notification, document, or state change that can
+            be observed without guessing.
+          </p>
+        </div>
+        <div>
+          <h3>Client-supplied access</h3><p>
+            You supply authorized accounts, platform subscriptions, permissions,
+            and third-party charges. Public intake never asks for credentials.
+          </p>
+        </div>
+        <div>
+          <h3>Supported systems</h3><p>
+            Web forms, REST APIs, webhooks, email routing, structured text, and
+            business tools with testable interfaces. Fit depends on safe access
+            and test support.
+          </p>
+        </div>
+        <div>
+          <h3>Explicit exclusions</h3><p>
+            No CRM replacement, speculative product build, business-running
+            agent, regulated autonomous decision, or open-ended “connect
+            anything” promise.
+          </p>
+        </div>
+        <div>
+          <h3>Production handoff</h3><p>
+            Repair and Setup are 50% after agreed scope and 50% after
+            nonproduction acceptance. Production handoff is explicit, followed
+            by a 14-day correction window for the accepted scope.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Unknown cause is a different job.</h2><p
+          class="commercial-section__intro"
+        >
+          The existing $1,200 Integration Triage produces a diagnosis and
+          recommended next step. It does not promise a repair, does not silently
+          bundle Repair, and carries no automatic credit. Existing file
+          conversion ($850) and evaluation harness ($2,200) also retain their
+          own purchase and acceptance terms.
+        </p>
+      </div><a class="commercial-action" href="/engagements/"
+        >See existing bounded engagements</a>
+    </div>
+  </section>
+  <div class="commercial-shell">
+    <BriefForm source="workflows" context="Workflow offer page" />
+  </div>
+</CommercialLayout>

@@ -1,341 +1,201 @@
 ---
-import InsertLayout from '../layouts/InsertLayout.astro';
+import CommercialLayout from '../layouts/CommercialLayout.astro';
+import BriefForm from '../components/services/BriefForm.astro';
 ---
 
-<InsertLayout
-  title="Toledo Partner"
-  description="White-label engineering for agencies, studios, and consultancies, with contractual non-solicitation boundaries and written IP terms."
-  heading="Direct senior capacity, with provenance intact."
-  subheading="Toledo Partner is Nicholas Toledo's white-label engineering engagement for agencies, studios, and consultancies. The disclosure model follows your agreement, but authorship, credentials, and delivery history are never fabricated."
+<CommercialLayout
+  title="Agency workflow partner"
+  description="Bounded workflow delivery for agencies with explicit client authorization, access separation, attribution, review, and capacity."
 >
-  <p class="eyebrow" style="margin-bottom: 24px;">
-    <span class="num">B8</span><span class="bar"></span><span
-      >Toledo Partner</span
-    >
-  </p>
-
-  <section>
-    <h2>How this works</h2>
-    <p>
-      You win the work. You lead the design or the strategy. We sit behind your
-      team — sometimes in your Slack as Nicholas, sometimes in a private
-      delivery channel — and ship the engineering you'd otherwise hire for. Work
-      happens in your repos, infrastructure, and accounts. Commits remain
-      traceable to their actual author unless an agreed system account is used;
-      the engagement never invents a person or credential.
-    </p>
-    <p>
-      The contract has three things in it: a standard NDA; assignment of the
-      completed deliverables defined in the proposal after final payment; and a
-      non-solicitation clause that prohibits us from soliciting your client
-      during the engagement and for two years after. Toledo retains general
-      methods, reusable components, and internal tools unless the agreement says
-      otherwise. These are terms offered for future work, not a claim about a
-      long history of partner engagements.
-    </p>
-    <p>
-      Pricing is hourly or retainer, your choice. Hourly is simpler for one-off
-      projects; retainers make sense once we know your team's cadence and your
-      pipeline.
-    </p>
-  </section>
-
-  <hr />
-
-  <section id="rate-card">
-    <h2>Rate card</h2>
-    <div
-      class="data-table-scroll"
-      role="region"
-      aria-label="Partner rate card; scroll horizontally on a small screen"
-      tabindex="0"
-    >
-      <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
-        <thead>
-          <tr
-            style="border-bottom: 2px solid var(--gf-ink-200); text-align: left;"
+  <header class="page-intro">
+    <div class="commercial-shell page-intro__grid">
+      <div>
+        <h1 class="commercial-title">
+          Your client relationship stays yours. The evidence stays honest.
+        </h1><p>
+          Agency partners can use the same Repair, Setup, and Care units with
+          client permission, separate access, named reviewers, and a written
+          delivery record. A consolidated relationship does not create an
+          unlimited retainer.
+        </p><div class="commercial-actions">
+          <a
+            class="commercial-action"
+            href="/brief/?source=partner&context=Agency%20partner%20workflow&service=unsure"
+            >Send an agency brief</a
+          ><a
+            class="commercial-action commercial-action--text"
+            href="#partner-path">See the handoff</a
           >
-            <th style="padding: 12px;">Tier</th>
-            <th style="padding: 12px;">Rate</th>
-            <th style="padding: 12px;">Best for</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"
-              ><strong>White-label development</strong></td
-            >
-            <td style="padding: 12px;">$125/hr</td>
-            <td style="padding: 12px;">Committed bulk engineering capacity</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"
-              ><strong>Complex / architecture subcontract</strong></td
-            >
-            <td style="padding: 12px;">$150–$175/hr</td>
-            <td style="padding: 12px;"
-              >Auth, data, AI, and complex architecture</td
-            >
-          </tr>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Technical audit</strong></td>
-            <td style="padding: 12px;">$2,500/project</td>
-            <td style="padding: 12px;"
-              >Pre-acquisition or pre-launch codebase review</td
-            >
-          </tr>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Emergency overflow</strong></td>
-            <td style="padding: 12px;">$300/hr</td>
-            <td style="padding: 12px;">Deadline rescue; four-hour minimum</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Retainer options for partners</h3>
-    <div
-      class="data-table-scroll"
-      role="region"
-      aria-label="Partner retainers; scroll horizontally on a small screen"
-      tabindex="0"
-    >
-      <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
-        <thead>
-          <tr
-            style="border-bottom: 2px solid var(--gf-ink-200); text-align: left;"
-          >
-            <th style="padding: 12px;">Plan</th>
-            <th style="padding: 12px;">Monthly</th>
-            <th style="padding: 12px;">Hours</th>
-            <th style="padding: 12px;">Effective rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Partner Lite</strong></td>
-            <td style="padding: 12px;">$2,500/mo</td>
-            <td style="padding: 12px;">20 hrs</td>
-            <td style="padding: 12px;">$125/hr</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Partner Standard</strong></td>
-            <td style="padding: 12px;">$5,000/mo</td>
-            <td style="padding: 12px;">40 hrs</td>
-            <td style="padding: 12px;">$125/hr</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--gf-ink-100);">
-            <td style="padding: 12px;"><strong>Partner Plus</strong></td>
-            <td style="padding: 12px;">$10,000/mo</td>
-            <td style="padding: 12px;">80 hrs</td>
-            <td style="padding: 12px;">$125/hr</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <hr />
-
-  <section>
-    <h2>What we do well as a partner</h2>
-    <ul>
-      <li>
-        <strong>Next.js / React frontend</strong> — including art-directed work, scroll
-        choreography, complex state, accessibility
-      </li>
-      <li>
-        <strong>Backend / APIs</strong> — Node, Python, Go, REST and GraphQL, Postgres,
-        queueing, background jobs
-      </li>
-      <li>
-        <strong>AI integration</strong> — RAG systems, agent infrastructure, governance,
-        deterministic replay, cost controls
-      </li>
-      <li>
-        <strong>DevOps / CI/CD</strong> — Vercel, Cloudflare, AWS, GitHub Actions
-      </li>
-      <li>
-        <strong>Code rescues</strong> — taking over abandoned codebases, modernizing
-        legacy work
-      </li>
-      <li>
-        <strong>Discovery support</strong> — joining scoped calls as the named technical
-        contributor
-      </li>
-    </ul>
-  </section>
-
-  <hr />
-
-  <section>
-    <h2>The non-solicitation, in plain English</h2>
-    <p>
-      The standard term we offer covers the engagement and <strong
-        >two years after the last invoice</strong
-      >. The signed agreement controls the exact boundary. Under that term, we
-      will not:
-    </p>
-    <ul>
-      <li>Solicit your client directly through any channel</li>
-      <li>
-        Reference your client by name in our portfolio without your written
-        approval
-      </li>
-      <li>Solicit your employees or contractors</li>
-    </ul>
-  </section>
-
-  <hr />
-
-  <section id="inquire">
-    <h2>Inquire as a Partner</h2>
-    <form
-      action="https://eolkits.com/api/v1/lead"
-      method="POST"
-      class="intake-form"
-      style="display: grid; gap: 24px; max-width: 600px;"
-    >
-      <input type="hidden" name="_subject" value="New Partner Inquiry" />
-      <input
-        type="hidden"
-        name="source"
-        value="toledotechnologies.com/partner"
-      />
-      <input type="hidden" name="product" value="Toledo Partner" />
-      <input
-        type="hidden"
-        name="context"
-        value="White-label engineering inquiry"
-      />
-      <input
-        type="hidden"
-        name="_next"
-        value="https://toledotechnologies.com/partner?submitted=true"
-      />
-      <input type="hidden" name="_honey" style="display:none" />
-
-      <fieldset
-        style="border: 1px solid var(--gf-ink-200); padding: 24px; display: grid; gap: 16px;"
-      >
-        <legend style="padding: 0 8px; font-weight: bold;"
-          >About your agency</legend
-        >
-        <label style="display: grid; gap: 8px;"
-          >Agency / studio name <input
-            type="text"
-            name="agency_name"
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-        <label style="display: grid; gap: 8px;"
-          >Website <input
-            type="url"
-            name="agency_website"
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-      </fieldset>
-
-      <fieldset
-        style="border: 1px solid var(--gf-ink-200); padding: 24px; display: grid; gap: 16px;"
-      >
-        <legend style="padding: 0 8px; font-weight: bold;"
-          >About the work</legend
-        >
-        <label style="display: grid; gap: 8px;">
-          What capacity gap or project should we understand?
-          <textarea
-            name="notes"
-            rows="4"
-            placeholder="Describe the work, expected cadence or hours, stack, and disclosure requirements."
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          ></textarea>
-        </label>
-      </fieldset>
-
-      <fieldset
-        style="border: 1px solid var(--gf-ink-200); padding: 24px; display: grid; gap: 16px;"
-      >
-        <legend style="padding: 0 8px; font-weight: bold;">Contact</legend>
-        <label style="display: grid; gap: 8px;"
-          >Name <input
-            type="text"
-            name="name"
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-        <label style="display: grid; gap: 8px;"
-          >Email * <input
-            type="email"
-            name="email"
-            required
-            style="padding: 8px; border: 1px solid var(--gf-ink-300);"
-          /></label
-        >
-      </fieldset>
-
-      <button
-        type="submit"
-        style="padding: 16px; background: var(--gf-ink-900); color: white; border: none; cursor: pointer; font-weight: bold;"
-        >Submit partner inquiry</button
-      >
-      <p style="font-size: 14px; color: var(--gf-ink-500);">
-        This form posts to Toledo's lead intake service at eolkits.com. Read the
-        <a href="/privacy">privacy details</a> and <a href="/terms">terms</a>.
-      </p>
-    </form>
-    <div
-      id="submission-success"
-      role="status"
-      tabindex="-1"
-      hidden
-      style="margin-top: 32px; padding: 24px; border: 1px solid var(--gf-ink-900); background: var(--gf-paper-50);"
-    >
-      <p style="margin: 0;">
-        <strong>Inquiry received.</strong> Any reply will come from
-        <code>hello@toledotechnologies.com</code>.
+        </div>
+      </div><p class="page-intro__note">
+        Initial workflow capacity<br /><strong
+          >No more than 3 registered Care workflows globally</strong
+        ><br />One active delivery project across direct and partner work.
       </p>
     </div>
-  </section>
+  </header>
 
-  <hr />
-
-  <section
-    class="cta-banner"
-    style="background: var(--gf-ink-900); color: white; padding: 48px; text-align: center;"
-  >
-    <p
-      class="meta"
-      style="text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; margin-bottom: 16px;"
-    >
-      B8 / Outro
-    </p>
-    <h2 style="font-size: 32px; margin-bottom: 16px;">
-      You own the relationship. Nicholas remains accountable for the engineering
-      execution. The agreement keeps provenance and boundaries explicit.
-    </h2>
-    <div style="display: flex; gap: 16px; justify-content: center;">
-      <a
-        href="#inquire"
-        style="display: inline-block; padding: 12px 24px; border: 1px solid white; color: white; text-decoration: none; font-weight: bold;"
-        >Inquire as a partner</a
-      >
-      <a
-        href="#rate-card"
-        style="display: inline-block; padding: 12px 24px; border: 1px solid rgba(255,255,255,0.3); color: white; text-decoration: none; font-weight: bold;"
-        >See the rate card</a
-      >
+  <section class="commercial-section commercial-section--ink" id="partner-path">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>The agency handoff has four named owners.</h2><p
+          class="commercial-section__intro"
+        >
+          The agreement decides what the end client sees, who authorizes access,
+          and who approves customer-facing material.
+        </p>
+      </div><ol class="process-list">
+        <li>
+          <strong>Agency brief</strong><p>
+            One workflow, expected result, systems, client context, and
+            disclosure requirements.
+          </p>
+        </li>
+        <li>
+          <strong>Client authorization</strong><p>
+            The actual account owner approves access and permitted test data
+            before credentials move.
+          </p>
+        </li>
+        <li>
+          <strong>Acceptance review</strong><p>
+            The agency or named client reviewer checks the agreed evidence in
+            the nonproduction environment.
+          </p>
+        </li>
+        <li>
+          <strong>Delivery record</strong><p>
+            Scope, authorship, test result, production handoff, and correction
+            window remain traceable.
+          </p>
+        </li>
+      </ol>
     </div>
   </section>
-</InsertLayout>
 
-<script>
-  if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
-    const success = document.querySelector<HTMLElement>('#submission-success');
-    if (success) {
-      success.hidden = false;
-      success.focus();
-    }
-  }
-</script>
+  <section class="commercial-section">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Boundaries that survive the deadline.</h2><p
+          class="commercial-section__intro"
+        >
+          Partner delivery can be quiet without inventing people, credentials,
+          or work history.
+        </p>
+      </div><div class="boundary-list">
+        <div>
+          <h3>Access separation</h3><p>
+            Each client’s accounts, credentials, test records, and evidence stay
+            scoped to that client. Shared agency access is used only when the
+            client has authorized it.
+          </p>
+        </div>
+        <div>
+          <h3>Attribution and disclosure</h3><p>
+            The disclosure model follows the agreement. Commits and delivery
+            history remain attributable to their actual author or an agreed
+            system account.
+          </p>
+        </div>
+        <div>
+          <h3>Relationship protection</h3><p>
+            The standard offered terms include confidentiality, defined
+            deliverable assignment after final payment, and client
+            non-solicitation during the engagement and for two years after the
+            last invoice. The signed agreement controls the exact boundary.
+          </p>
+        </div>
+        <div>
+          <h3>Written communication</h3><p>
+            Requests are consolidated in writing. Automated drafting may assist
+            routine correspondence, but it is never represented as a human
+            message when that distinction matters.
+          </p>
+        </div>
+        <div>
+          <h3>Review before delivery</h3><p>
+            The agency can be the named reviewer for customer-facing material
+            when the agreement says so. That review step becomes part of
+            acceptance.
+          </p>
+        </div>
+        <div>
+          <h3>No implied calls</h3><p>
+            The workflow offer does not include client calls, standups, or live
+            account management. If a separately scoped engagement needs named
+            meeting participation, it is stated in writing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commercial-section commercial-section--ink">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>The same published units apply.</h2><p
+          class="commercial-section__intro"
+        >
+          Workflow Repair is $1,500, Setup is $3,000, and Care is $500 per
+          registered workflow per month. Larger subcontracting, audits, and
+          retainers preserve the existing partner rate card terms until
+          separately revised in an agreement.
+        </p>
+      </div><div class="commercial-actions">
+        <a class="commercial-action" href="/workflows/">Read workflow scope</a
+        ><a class="commercial-action commercial-action--text" href="/services/"
+          >See all service routes</a
+        >
+      </div>
+    </div>
+  </section>
+  <section class="commercial-section" id="rate-card">
+    <div class="commercial-shell">
+      <div class="commercial-section__head">
+        <h2>Existing partner rate card.</h2><p
+          class="commercial-section__intro"
+        >
+          These larger subcontracting options remain available beside the fixed
+          workflow units. The written proposal controls the actual scope.
+        </p>
+      </div><div class="offer-ledger">
+        <div class="offer-row">
+          <h3>White-label development</h3><p class="offer-price">$125/hr</p><p>
+            Committed bulk engineering capacity after fit and access review.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h3>Complex architecture</h3><p class="offer-price">$150–$175/hr</p><p
+          >
+            Auth, data, governed automation, and complex system boundaries.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h3>Technical audit</h3><p class="offer-price">$2,500/project</p><p>
+            Bounded pre-acquisition or pre-launch codebase review.
+          </p>
+        </div>
+        <div class="offer-row">
+          <h3>Emergency overflow</h3><p class="offer-price">$300/hr</p><p>
+            Separately accepted deadline rescue with a four-hour minimum.
+          </p>
+        </div>
+      </div>
+      <div class="commercial-section__head" style="margin-top: 3rem;">
+        <h3>Partner retainers</h3><p class="commercial-section__intro">
+          Partner Lite remains $2,500/month for 20 hours, Partner Standard
+          remains $5,000/month for 40 hours, and Partner Plus remains
+          $10,000/month for 80 hours. These are capacity retainers, not open
+          workflow monitoring or unlimited work.
+        </p>
+      </div>
+    </div>
+  </section>
+  <div class="commercial-shell">
+    <BriefForm
+      source="partner"
+      context="Agency partner workflow inquiry"
+      heading="Send the agency brief"
+    />
+  </div>
+</CommercialLayout>

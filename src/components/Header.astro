@@ -2,17 +2,11 @@
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '/services', label: 'Services' },
-  // The one nav entry that leads to something with a published price you
-  // can pay for now. /engagements carries the fixed-scope prices and links
-  // on to /buy/file-conversion; the footer's "Buy Directly" column carries
-  // the rest, including /kit/, which nothing else on the site links to.
-  { href: '/engagements', label: 'Buy' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/case-studies', label: 'Field Notes' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/nonprofit', label: 'Nonprofit' },
-  { href: '/about', label: 'About' }
+  { href: '/workflows/', label: 'Workflows' },
+  { href: '/services/', label: 'All services' },
+  { href: '/proofs/', label: 'Evidence' },
+  { href: '/partner/', label: 'For agencies' },
+  { href: '/about/', label: 'Studio' }
 ];
 
 function isActive(href: string): boolean {
@@ -29,7 +23,7 @@ function isActive(href: string): boolean {
       <!-- Logo -->
       <a
         href="/"
-        class="group flex items-center gap-2"
+        class="group bg-surface-900 flex items-center gap-2 px-2 py-1.5"
         aria-label="Toledo Technologies Home"
       >
         <img
@@ -37,7 +31,7 @@ function isActive(href: string): boolean {
           alt="Toledo Technologies"
           width="800"
           height="216"
-          class="h-7 w-auto sm:h-8"
+          class="h-6 w-auto sm:h-7"
           decoding="async"
         />
       </a>
@@ -63,8 +57,8 @@ function isActive(href: string): boolean {
 
       <!-- CTA + Mobile Menu -->
       <div class="flex items-center gap-3">
-        <a href="/contact" class="btn-primary hidden sm:inline-flex">
-          Get a Quote
+        <a href="/brief/" class="btn-primary hidden sm:inline-flex">
+          Describe your workflow
         </a>
 
         <!-- Mobile Menu Button -->
@@ -119,8 +113,8 @@ function isActive(href: string): boolean {
           ))
         }
         <div class="px-3 pt-3">
-          <a href="/contact" class="btn-primary w-full justify-center">
-            Write Nicholas
+          <a href="/brief/" class="btn-primary w-full justify-center">
+            Describe your workflow
           </a>
         </div>
       </div>

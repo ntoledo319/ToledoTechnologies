@@ -115,8 +115,7 @@ describe('public truth contracts', () => {
   it.each([
     ['src/pages/contact.astro', 5],
     ['src/pages/discovery.astro', 5],
-    ['src/pages/care.astro', 5],
-    ['src/pages/partner.astro', 5]
+    ['src/pages/care.astro', 5]
   ])('%s exposes only %i meaningful first-step fields', (path, expected) => {
     expect(visibleLeadControls(path)).toHaveLength(expected);
   });
@@ -124,8 +123,7 @@ describe('public truth contracts', () => {
   it.each([
     'src/pages/contact.astro',
     'src/pages/discovery.astro',
-    'src/pages/care.astro',
-    'src/pages/partner.astro'
+    'src/pages/care.astro'
   ])('%s requires email and no other visible control', (path) => {
     const required = visibleLeadControls(path).filter((control) =>
       /\srequired(?:\s|\/>|>)/i.test(control)
@@ -138,13 +136,23 @@ describe('public truth contracts', () => {
   it.each([
     'src/pages/contact.astro',
     'src/pages/discovery.astro',
-    'src/pages/care.astro',
-    'src/pages/partner.astro'
+    'src/pages/care.astro'
   ])('%s exposes an accessible success-query state', (path) => {
     const source = read(path);
     expect(source).toContain('submitted');
     expect(source).toContain('id="submission-success"');
     expect(source).toContain('role="status"');
+  });
+
+  it('routes partner inquiries through the durable services brief', () => {
+    const partner = read('src/pages/partner.astro');
+    const form = read('src/components/services/BriefForm.astro');
+    expect(partner).toContain('<BriefForm');
+    expect(partner).toContain('source="partner"');
+    expect(form).toContain('action="/api/services/brief"');
+    expect(form).toContain('name="submission_id"');
+    expect(form).toContain('data-brief-status');
+    expect(form).toContain('role="status"');
   });
 
   it('uses the canonical care and bucket names everywhere they are summarized', () => {

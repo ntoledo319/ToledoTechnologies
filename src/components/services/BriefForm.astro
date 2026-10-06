@@ -1,0 +1,344 @@
+---
+import { briefServices, type BriefService } from '../../data/serviceOffers';
+
+export interface Props {
+  service?: BriefService;
+  source?: string;
+  context?: string;
+  heading?: string;
+  compact?: boolean;
+}
+
+const {
+  service = 'unsure',
+  source = Astro.url.pathname,
+  context = '',
+  heading = 'Describe the handoff',
+  compact = false
+} = Astro.props;
+---
+
+<section
+  class:list={['brief-panel', { 'brief-panel--compact': compact }]}
+  aria-labelledby="brief-heading"
+>
+  <div class="brief-panel__intro">
+    <h2 id="brief-heading">{heading}</h2>
+    <p>
+      {
+        compact
+          ? 'Use plain language. A few sentences are enough.'
+          : 'Tell us what should happen and what happens now.'
+      }
+      Do not send passwords, customer records, or live credentials.
+    </p>
+    {
+      !compact && (
+        <p class="brief-panel__capacity">
+          Initial capacity: one active project and three registered Care
+          workflows. Availability is confirmed in writing; submitting this form
+          does not reserve a slot.
+        </p>
+      )
+    }
+  </div>
+
+  <form
+    class="service-brief"
+    action="/api/services/brief"
+    method="POST"
+    data-service-brief
+  >
+    <input type="hidden" name="submission_id" value="" data-submission-id />
+    <input
+      type="hidden"
+      name="source"
+      value={source.slice(0, 80)}
+      data-routing-source
+    />
+    <input
+      type="hidden"
+      name="context"
+      value={context.slice(0, 200)}
+      data-routing-context
+    />
+    <div class="brief-honeypot" aria-hidden="true">
+      <label for="brief-company">Company website confirmation</label>
+      <input
+        id="brief-company"
+        name="company"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
+    <fieldset class="brief-fields" data-brief-fields disabled>
+      <div class="brief-grid">
+        <label>
+          <span>Name</span>
+          <input
+            name="name"
+            type="text"
+            required
+            maxlength="100"
+            autocomplete="name"
+          />
+          <small data-field-error="name"></small>
+        </label>
+        <label>
+          <span>Work email</span>
+          <input
+            name="email"
+            type="email"
+            required
+            maxlength="254"
+            autocomplete="email"
+          />
+          <small data-field-error="email"></small>
+        </label>
+      </div>
+
+      <label>
+        <span>Website <em>optional</em></span>
+        <input
+          name="website"
+          type="url"
+          maxlength="500"
+          inputmode="url"
+          autocomplete="url"
+          placeholder="https://"
+        />
+        <small data-field-error="website"></small>
+      </label>
+
+      <label>
+        <span>Closest service</span>
+        <select name="service" required data-routing-service>
+          {
+            briefServices.map(([value, label]) => (
+              <option value={value} selected={value === service}>
+                {label}
+              </option>
+            ))
+          }
+        </select>
+        <small data-field-error="service"></small>
+      </label>
+
+      <label>
+        <span>What should happen, and what happens now?</span>
+        <textarea
+          name="problem"
+          required
+          maxlength="1200"
+          rows="7"
+          placeholder="Example: When the website form is accepted, the request should appear in… Instead, we see…"
+        ></textarea>
+        <small class="field-help">1,200 characters maximum.</small>
+        <small data-field-error="problem"></small>
+      </label>
+
+      <label>
+        <span>Systems involved <em>optional</em></span>
+        <input
+          name="systems"
+          type="text"
+          maxlength="400"
+          placeholder="Website platform, form tool, inbox, CRM, spreadsheet…"
+        />
+        <small data-field-error="systems"></small>
+      </label>
+
+      <div class="brief-submit">
+        <button type="submit" data-submit-label>Send the written brief</button>
+        <p>
+          Stored by Toledo’s intake service. Read the <a href="/privacy/"
+            >privacy details</a
+          > and <a href="/terms/">terms</a>.
+        </p>
+      </div>
+
+      <div
+        class="brief-status"
+        role="status"
+        aria-live="polite"
+        tabindex="-1"
+        hidden
+        data-brief-status
+      >
+      </div>
+    </fieldset>
+  </form>
+  <noscript>
+    <div class="brief-status brief-status--error">
+      <strong
+        >The secure brief form needs JavaScript to create a retry-safe
+        submission ID.</strong
+      >
+      <span
+        >Email the same details to <a href="mailto:dev@toledotechnologies.com"
+          >dev@toledotechnologies.com</a
+        >. Do not include passwords, credentials, or customer records.</span
+      >
+    </div>
+  </noscript>
+</section>
+
+<script>
+  import {
+    createUuidV4,
+    isUuidV4,
+    resolveBriefRouting
+  } from '../../utils/brief';
+
+  const prepareBriefForm = (form: HTMLFormElement) => {
+    if (form.dataset.ready === 'true') return;
+    form.dataset.ready = 'true';
+    const idInput = form.querySelector<HTMLInputElement>(
+      '[data-submission-id]'
+    );
+    const sourceInput = form.querySelector<HTMLInputElement>(
+      '[data-routing-source]'
+    );
+    const contextInput = form.querySelector<HTMLInputElement>(
+      '[data-routing-context]'
+    );
+    const serviceInput = form.querySelector<HTMLSelectElement>(
+      '[data-routing-service]'
+    );
+    const fields = form.querySelector<HTMLFieldSetElement>(
+      '[data-brief-fields]'
+    );
+    const status = form.querySelector<HTMLElement>('[data-brief-status]');
+    const storageKey = `tt:service-brief:${window.location.pathname}`;
+    const routing = resolveBriefRouting(window.location.search, {
+      service: (serviceInput?.value || 'unsure') as Parameters<
+        typeof resolveBriefRouting
+      >[1]['service'],
+      source: sourceInput?.value || window.location.pathname,
+      context: contextInput?.value || ''
+    });
+    if (sourceInput) sourceInput.value = routing.source;
+    if (contextInput) contextInput.value = routing.context;
+    if (serviceInput) serviceInput.value = routing.service;
+
+    try {
+      const retainedId = window.sessionStorage.getItem(storageKey);
+      const submissionId =
+        retainedId && isUuidV4(retainedId)
+          ? retainedId
+          : createUuidV4(window.crypto);
+      if (idInput) idInput.value = submissionId;
+      window.sessionStorage.setItem(storageKey, submissionId);
+      if (fields) fields.disabled = false;
+    } catch {
+      if (status) {
+        status.className = 'brief-status brief-status--error';
+        status.innerHTML =
+          '<strong>The secure form cannot start in this browser.</strong><span>Email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a> without passwords or customer records.</span>';
+        status.hidden = false;
+      }
+      return;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const button = form.querySelector<HTMLButtonElement>(
+        'button[type="submit"]'
+      );
+      form
+        .querySelectorAll<HTMLElement>('[data-field-error]')
+        .forEach((node) => {
+          node.textContent = '';
+        });
+      if (status) status.hidden = true;
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Recording the brief…';
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const payload = await response.json().catch(() => null);
+
+        if (
+          response.ok &&
+          payload?.ok === true &&
+          typeof payload.reference === 'string'
+        ) {
+          if (status) {
+            status.className = 'brief-status brief-status--success';
+            status.innerHTML = `<strong>${payload.duplicate ? 'Brief already recorded.' : 'Brief recorded.'}</strong><span>Reference <code>${payload.reference.replace(/[<>&"']/g, '')}</code>. Keep this number with any reply.</span>`;
+            status.hidden = false;
+            status.focus();
+          }
+          form
+            .querySelectorAll<
+              HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+            >('input:not([type="hidden"]), textarea, select')
+            .forEach((control) => {
+              control.disabled = true;
+            });
+          if (button) button.textContent = 'Brief recorded';
+          window.sessionStorage.removeItem(storageKey);
+          return;
+        }
+
+        if (payload?.fields && typeof payload.fields === 'object') {
+          Object.entries(payload.fields as Record<string, string>).forEach(
+            ([field, message]) => {
+              const node = form.querySelector<HTMLElement>(
+                `[data-field-error="${CSS.escape(field)}"]`
+              );
+              if (node) node.textContent = String(message);
+            }
+          );
+        }
+
+        if (status) {
+          status.className = 'brief-status brief-status--error';
+          const explicitError =
+            typeof payload?.error === 'string'
+              ? payload.error.replace(/[<>&"']/g, '')
+              : '';
+          status.innerHTML = response.ok || response.status >= 500
+            ? '<strong>We could not confirm the receipt.</strong><span>Your entries and submission ID are still here. Retrying is safe.</span>'
+            : `<strong>The brief was not accepted.</strong><span>${explicitError || 'Check the marked fields or try again. Your entries are still here.'}</span>`;
+          status.hidden = false;
+          status.focus();
+        }
+      } catch {
+        if (status) {
+          status.className = 'brief-status brief-status--error';
+          status.innerHTML =
+            '<strong>We cannot confirm whether the brief was recorded.</strong><span>Your entries and submission ID are still here. Wait a moment and retry safely, or email <a href="mailto:dev@toledotechnologies.com">dev@toledotechnologies.com</a>.</span>';
+          status.hidden = false;
+          status.focus();
+        }
+      } finally {
+        if (button && button.textContent !== 'Brief recorded') {
+          button.disabled = false;
+          button.textContent = 'Retry the written brief';
+        }
+      }
+    });
+  };
+
+  const prepareBriefForms = () =>
+    document
+      .querySelectorAll<HTMLFormElement>('[data-service-brief]')
+      .forEach(prepareBriefForm);
+
+  prepareBriefForms();
+  document.addEventListener('astro:page-load', prepareBriefForms);
+</script>

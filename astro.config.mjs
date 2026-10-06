@@ -1,9 +1,78 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { request as httpRequest } from 'node:http';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { cspMetaFirst } from './scripts/csp.mjs';
+
+function createServicesPreviewHandler() {
+  /**
+   * @param {import('node:http').IncomingMessage} request
+   * @param {import('node:http').ServerResponse} response
+   * @param {() => void} next
+   */
+  return function servicesPreviewHandler(request, response, next) {
+    const incoming = new URL(request.url || '/', 'http://localhost');
+    if (incoming.pathname !== '/api/services/brief') return next();
+
+    const target = new URL(
+      process.env.SERVICES_API_ORIGIN || 'http://127.0.0.1:8765'
+    );
+    const upstream = httpRequest(
+      {
+        protocol: target.protocol,
+        hostname: target.hostname,
+        port: target.port,
+        method: request.method,
+        path: `/api/services/brief${incoming.search}`,
+        headers: { ...request.headers, host: target.host }
+      },
+      (upstreamResponse) => {
+        response.writeHead(
+          upstreamResponse.statusCode || 502,
+          upstreamResponse.headers
+        );
+        upstreamResponse.pipe(response);
+      }
+    );
+
+    upstream.setTimeout(10_000, () =>
+      upstream.destroy(new Error('services preview timeout'))
+    );
+    upstream.on('error', () => {
+      if (response.headersSent) {
+        response.destroy();
+        return;
+      }
+      response.writeHead(502, {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'no-store'
+      });
+      response.end(JSON.stringify({ ok: false, error: 'unavailable' }));
+    });
+    request.pipe(upstream);
+  };
+}
+
+/** @returns {import('astro').AstroIntegration} */
+function servicesPreviewIntegration() {
+  return {
+    name: 'toledo:services-preview-proxy',
+    hooks: {
+      'astro:server:setup': ({ server }) => {
+        const install = () => {
+          server.middlewares.stack.unshift({
+            route: '',
+            handle: createServicesPreviewHandler()
+          });
+        };
+        if (server.httpServer?.listening) install();
+        else server.httpServer?.once('listening', install);
+      }
+    }
+  };
+}
 
 // https://astro.build/config
 // Pure static build for Grace hosting (served by Caddy). The former
@@ -12,7 +81,10 @@ import { cspMetaFirst } from './scripts/csp.mjs';
 export default defineConfig({
   site: 'https://toledotechnologies.com',
   output: 'static',
-  trailingSlash: 'always',
+  // The production static site keeps directory URLs. Development must leave
+  // the fixed slashless API contract untouched so the preview proxy can
+  // intercept it before Astro tries to resolve a page route.
+  trailingSlash: process.env.NODE_ENV === 'development' ? 'ignore' : 'always',
   // Astro 7 switched the default to JSX-style whitespace ('jsx'), which drops
   // the space between adjacent inline elements (`<a>..</a> <em>..</em>`).
   // Keep the HTML-aware compression every page was written against.
@@ -58,6 +130,10 @@ export default defineConfig({
     inlineStylesheets: 'never'
   },
   vite: {
+    // This pre-routing middleware is required because Astro's static
+    // trailing-slash handler otherwise turns the contract's slashless POST
+    // endpoint into a site 404 before Vite's ordinary proxy can see it.
+    // Production Caddy must proxy the same exact path before release.
     plugins: [tailwindcss()],
     build: {
       // Same for scripts: keep every processed <script> an external module.
@@ -74,5 +150,5 @@ export default defineConfig({
   },
   // cspMetaFirst hoists the policy to the top of <head> and fails the build
   // if any shipped page's inline code or third-party loads drift from it.
-  integrations: [sitemap(), cspMetaFirst()]
+  integrations: [servicesPreviewIntegration(), sitemap(), cspMetaFirst()]
 });
