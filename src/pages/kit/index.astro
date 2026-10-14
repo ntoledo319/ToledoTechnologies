@@ -14,6 +14,7 @@ import {
 import '../../styles/kit.css';
 
 const siteUrl = import.meta.env.SITE || 'https://toledotechnologies.com';
+const sampleReportImage = new URL('/kit/images/sample-report.png', siteUrl).href;
 
 // The Product node is true whatever state the release is in. The `offers` node
 // is not: an Offer tells a search engine this can be bought at that price right
@@ -28,7 +29,8 @@ const productSchema: Record<string, unknown> = {
   softwareVersion: KIT_VERSION,
   description:
     'A standard-library Python tool and written acceptance procedure that account for every row on both sides of a data migration and refuse to report a number they cannot reconcile.',
-  brand: { '@type': 'Organization', name: 'Toledo Technologies' },
+  brand: { '@type': 'Brand', name: 'Toledo Technologies' },
+  image: sampleReportImage,
   url: `${siteUrl}/kit/`
 };
 
@@ -136,6 +138,23 @@ const targetBuckets = [
   </p>
 
   <p class="kit-note"><a href="/kit/sample/">Inspect a complete fictional acceptance packet</a>: six rows on each side, five source rows needing a decision. See the actual report, findings and input files before buying.</p>
+
+  <figure class="kit-report-preview">
+    <a href="/kit/sample/output/report.html" aria-label="Open the complete synthetic sample report">
+      <img
+        src={sampleReportImage}
+        alt="Synthetic reconciliation report showing six source rows, six target rows and six findings from the fictional cutover."
+        width="1200"
+        height="1488"
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+    <figcaption>
+      Synthetic sample — fictional data, not a client result. This is a screenshot
+      of the kit’s <a href="/kit/sample/output/report.html">complete sample report</a>.
+    </figcaption>
+  </figure>
 
   <p><a href="/kit/compare/">Choose an acceptance approach: in-house, this kit or QuerySurge</a>. Compare the inputs, responsibilities and limits before choosing a tool.</p>
 
@@ -474,3 +493,22 @@ const targetBuckets = [
     <a href="/kit/license/">Read the licence in full &rarr;</a>
   </div>
 </InsertLayout>
+
+<style>
+  .kit-report-preview {
+    margin: 2rem 0;
+  }
+
+  .kit-report-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgb(0 0 0 / 20%);
+  }
+
+  .kit-report-preview figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+</style>

@@ -22,7 +22,12 @@ const META_RE =
 // the downloadable proof ZIP; its SHA-256 is published in manifest.json, so it
 // is never rewritten here. Its policy is `default-src 'none'` with inline
 // script and style (it is a single self-contained offline file).
-export const STATIC_POLICY_FILES = new Set(['proofs/purchasing/archive.html']);
+// The kit sample is likewise generated offline output, with no scripts and an
+// exact inline-style hash. Preserve that stricter policy and its published bytes.
+export const STATIC_POLICY_FILES = new Set([
+  'proofs/purchasing/archive.html',
+  'kit/sample/output/report.html'
+]);
 
 // Directives a <meta> policy ignores (and Chrome logs a warning for).
 const META_IGNORED = ['frame-ancestors', 'report-uri', 'report-to', 'sandbox'];

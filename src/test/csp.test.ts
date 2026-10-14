@@ -153,6 +153,20 @@ describe('source rules that keep the policy hash-free across ClientRouter swaps'
       manifest.files['preview/index.html'].sha256
     );
   });
+
+  it('keeps the kit sample offline with its exact style hash and no scripts', () => {
+    const report = read('public/kit/sample/output/report.html');
+    const [policy] = findPolicies(report);
+    const directives = parsePolicy(policy.content);
+    const styles = [...report.matchAll(/<style>([\s\S]*?)<\/style>/g)];
+    expect(styles).toHaveLength(1);
+    expect(directives.get('default-src')).toEqual(["'none'"]);
+    expect(directives.get('script-src')).toEqual(["'none'"]);
+    expect(directives.get('style-src')).toEqual([`'${sha256(styles[0][1])}'`]);
+    expect(report).not.toMatch(/<script\b/i);
+    expect(checkPage(report)).toEqual([]);
+    expect(checkPage(report.replace('body{font:', 'body{color:red;font:'))).not.toEqual([]);
+  });
 });
 
 describe.skipIf(!existsSync(join(dist, 'index.html')))(
