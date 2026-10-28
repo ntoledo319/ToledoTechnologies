@@ -64,7 +64,7 @@ These patterns are BANNED in this project:
 
 - This project believes: Directness is the product. Clean code, blunt communication, no wondering what's happening. The basics of being human shouldn't be paywalled.
 - This project is for: People who've been burned by dev shops that delivered excuses instead of code. Skeptical of promises, evaluate by what ships.
-- This project should feel like: A well-maintained CLI tool. A mechanic's shop that's clean but not pretty. The senior dev whose code never breaks.
+- This project should feel like: A well-maintained CLI tool. A mechanic's shop that's clean but not pretty. An accountable owner who explains the evidence, limitations, and use of AI assistance.
 - This project should NEVER feel like: A SaaS landing page fishing for signups. An agency that leads with "our process." A startup saying "empower" without knowing what it does.
 - Must-word: DIRECT
 - Never-word: POLISHED
@@ -74,3 +74,7 @@ These patterns are BANNED in this project:
 Before any task is complete, run the Specificity Test:
 "Could this element exist in any other project without modification?"
 If yes -> rewrite.
+
+## Public claims — owner correction, October 27, 2026
+
+Toledo Technologies is Nicholas Toledo's solo operation, using substantial AI assistance for development, testing and correspondence. Do not describe a senior engineering team, independent senior coding expertise, verified paying clients, or client outcomes without evidence. Public reference builds and illustrative samples are not client projects. Do not promise personal human implementation or review unless the scope names that work and it actually occurs. Preserve this distinction in visible copy, metadata and crawl summaries.

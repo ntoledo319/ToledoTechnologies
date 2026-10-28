@@ -1,6 +1,7 @@
 # Toledo Technologies
 
-Toledo Technologies LLC is a remote software practice. It publishes fixed
+Toledo Technologies LLC is Nicholas Toledo’s solo, remote software practice.
+Development, testing and correspondence use substantial AI assistance. It publishes fixed
 prices for bounded work instead of quoting after a discovery call.
 
 Delivery is AI-operated and disclosed before an engagement starts, not after.

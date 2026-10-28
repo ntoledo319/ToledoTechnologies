@@ -2,7 +2,7 @@
 
 ## Core Narrative
 
-Toledo Technologies is a high-fidelity record of working software. The studio operates with "grave intention," rejecting agency theatre and assembly-line development in favor of a physical, senior-only technical practice.
+Toledo Technologies is a high-fidelity record of working software. The studio operates with "grave intention," rejecting agency theatre and assembly-line development in favor of a physical, solo software practice using substantial AI assistance.
 
 ## Design Principles
 
@@ -41,9 +41,9 @@ Toledo Technologies is a high-fidelity record of working software. The studio op
 
 **NOT doing:** Generic benefit lists, 3-column icon grids, or "marketing-speak."
 
-### 4. Directness (Senior-Only)
+### 4. Directness (One Accountable Owner)
 
-**The principle:** Communication is blunt, senior-led, and devoid of theatre.
+**The principle:** Communication is direct, with AI assistance disclosed and responsibility assigned to Nicholas Toledo.
 
 **In practice:**
 
@@ -75,7 +75,7 @@ We differentiate by being the **Anti-Agency**. We care about the work enough to 
 
 ## Constraints and Trade-offs
 
-We choose **Depth over Speed**. We are NOT optimizing for users who want to skim in five seconds. We are targeting decision-makers who will read the whole liner before deciding to hire a senior team.
+We choose **Depth over Speed**. We are NOT optimizing for users who want to skim in five seconds. We are targeting decision-makers who will read the whole liner before deciding to assess a solo practice and its disclosed AI-assisted delivery model.
 
 ## Taste Evolution
 
@@ -83,3 +83,7 @@ We choose **Depth over Speed**. We are NOT optimizing for users who want to skim
 - **Soft Pattern Confirmed:** Physical analogies (Vinyl, Liner Notes) are the strongest differentiating factor for this project's UI and copy.
 - **New Anti-Pattern:** Avoid "agency theatre" at all costs — no fluff, no jargon, no standard 3-column icon grids.
 - **Carry Forward:** When building forms, look for ways to make them feel like physical paper or typewriter output.
+
+## Public claims — owner correction, October 27, 2026
+
+Toledo Technologies is Nicholas Toledo's solo operation, using substantial AI assistance for development, testing and correspondence. Do not describe a senior engineering team, independent senior coding expertise, verified paying clients, or client outcomes without evidence. Public reference builds and illustrative samples are not client projects. Do not promise personal human implementation or review unless the scope names that work and it actually occurs. Preserve this distinction in visible copy, metadata and crawl summaries.

@@ -23,7 +23,7 @@ export function organizationSchema() {
     email: CONTACT_EMAIL,
     sameAs: [GITHUB_URL],
     description:
-      'Founder-led software practice for custom websites, applications, automation, performance work, and technical discovery.',
+      'Solo software practice using substantial AI assistance for custom websites, applications, automation, performance work, and technical discovery.',
     knowsAbout: [
       'Software Development',
       'Bug Fixes',
@@ -47,7 +47,7 @@ export function websiteSchema() {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'Founder-led software practice for custom builds, repairs, performance work, and paid discovery.',
+      'Solo software practice using substantial AI assistance for custom builds, repairs, performance work, and paid discovery.',
     publisher: {
       '@id': `${SITE_URL}/#organization`
     }

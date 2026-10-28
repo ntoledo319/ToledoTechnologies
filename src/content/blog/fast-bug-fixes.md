@@ -12,7 +12,7 @@ tldr: 'Reproduce first, isolate second, fix third. Never guess. Always verify.'
 
 When something breaks in production, the natural instinct is to jump in and start changing things. This almost always makes things worse.
 
-We've seen teams turn a 30-minute fix into a three-day nightmare because someone pushed a "quick fix" without understanding the root cause.
+For example, a rushed patch can turn a contained bug into a longer incident when the root cause remains unresolved. This is an illustrative risk, not a reported client outcome.
 
 ## Our Triage Process
 

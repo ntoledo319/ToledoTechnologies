@@ -229,3 +229,7 @@ by Astro's `security.csp` in `astro.config.mjs` (Caddy sends no CSP header).
 ## License
 
 Proprietary - Toledo Technologies
+
+## Public claims — owner correction, October 27, 2026
+
+Toledo Technologies is Nicholas Toledo's solo operation, using substantial AI assistance for development, testing and correspondence. Do not describe a senior engineering team, independent senior coding expertise, verified paying clients, or client outcomes without evidence. Public reference builds and illustrative samples are not client projects. Do not promise personal human implementation or review unless the scope names that work and it actually occurs. Preserve this distinction in visible copy, metadata and crawl summaries.
